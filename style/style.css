@@ -15,6 +15,17 @@
  .hero-gradient { background: linear-gradient(135deg, #ef1783 30%, #ffd501 60% , #85d2d0 100%); 
         }
 
+.uno-gradient { background: linear-gradient(135deg, #ef1783 20%, #85d2d0 50%); 
+        }
+
+        
+.dos-gradient { background: linear-gradient(135deg, #85d2d0 20%, #ffd501 50%); 
+        }
+
+        
+.tres-gradient { background: linear-gradient(135deg, #ffd501 20%, #ef1783 50%); 
+        }
+
 @keyframes float {
     0%, 100% { transform: translateY(0px); }
     50% { transform: translateY(-10px); }
