@@ -1,0 +1,50 @@
+<section class="py-16 bg-white text-pink-600 overflow-hidden">
+  <div class="container mx-auto px-4 text-center">
+
+    <h2 class="text-3xl lg:text-4xl font-black mb-4">
+      ÚNETE A NUESTRO <span class="text-mdYellow">DULCE</span> UNIVERSO
+    </h2>
+
+    <p class="text-lg mb-8 text-pink-600">
+      Recibirás novedades y ofertas super secretas que harán temblar a los villanos
+    </p>
+
+    <!-- FORMULARIO -->
+    <div class="max-w-md mx-auto flex flex-col sm:flex-row gap-3 mb-10">
+      <input
+        type="email"
+        id="newsletterEmail"
+        placeholder="Tu email aquí"
+        class="flex-1 px-5 py-4 rounded-lg text-gray-800 focus:outline-none focus:ring-4 focus:ring-pink-300"
+      />
+
+      <button
+        id="newsletterBtn"
+        class="bg-white text-pink-600 px-8 py-4 rounded-lg font-bold hover:bg-pink-100 transition transform hover:scale-105"
+      >
+        Suscribirse
+      </button>
+    </div>
+
+    <!-- IMAGEN FLOTANTE -->
+    <div class="w-full flex justify-center">
+      <div class="text-7xl float-animation" style="animation-delay: 0.5s;">
+        <img src="/img/14.png" class="w-40 md:w-52 lg:w-60 drop-shadow-xl" alt="cupcake">
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<script>
+  document.getElementById('newsletterBtn')?.addEventListener('click', () => {
+    const email = document.getElementById('newsletterEmail').value;
+
+    if (email && email.includes('@')) {
+      alert('¡Gracias por unirte a la rebelión dulce!');
+      document.getElementById('newsletterEmail').value = '';
+    } else {
+      alert('Por favor, introduce un email válido');
+    }
+  });
+</script>
