@@ -12,8 +12,11 @@
     font-size: 30px;
 }
 
- .hero-gradient { background: linear-gradient(135deg, #ef1783 30%, #ffd501 60% , #85d2d0 100%); 
-        }
+.hero-gradient{
+  background: linear-gradient(135deg, #ef1783 10%, #85d2d0 30%, #ffd501 60%, #ef1783 90%);
+  opacity:80%;
+}
+
 
 .uno-gradient { background: linear-gradient(135deg, #ef1783 20%, #85d2d0 50%); 
         }
@@ -203,3 +206,4 @@
                 display: none;
             }
         }
+
