@@ -1,0 +1,1646 @@
+<!doctype html>
+<html lang="es">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Maldita Dulzura - Repostería Artesanal</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Cherry+Swash:wght@400;700&amp;family=Bebas+Neue&amp;family=Source+Serif+Pro:wght@400;500;600&amp;family=Saira+Condensed:wght@400;500;600&amp;display=swap" rel="stylesheet">
+  <style>
+        body {
+            box-sizing: border-box;
+            font-family: 'Source Serif Pro', serif;
+            scroll-behavior: smooth;
+        }
+        
+        h1, .logo {
+            font-family: 'Cherry Swash', cursive;
+        }
+        
+        h2, h3, h4, .section-title {
+            font-family: 'Bebas Neue', sans-serif;
+        }
+        
+        /* Navegación fija */
+        .navbar {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 1000;
+            background: linear-gradient(135deg, #ef1783, #d01472);
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        
+        .navbar a {
+            transition: all 0.3s ease;
+        }
+        
+        .navbar a:hover {
+            background-color: rgba(255,255,255,0.2);
+        }
+        
+        /* Espaciado para el navbar fijo */
+        .content-wrapper {
+            padding-top: 80px;
+        }
+        
+        /* Secciones */
+        section {
+            min-height: 100vh;
+            padding: 4rem 1rem;
+        }
+        
+        .hero-section {
+            background: linear-gradient(135deg, #fdf2f8, #fce7f3, #f3e8ff);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .productos-section {
+            background: linear-gradient(135deg, #fff7ed, #ffedd5);
+        }
+        
+        .pedidos-section {
+            background: linear-gradient(135deg, #fdf2f8, #fce7f3, #f3e8ff);
+        }
+        
+        .contacto-section {
+            background: linear-gradient(135deg, #f0fdf4, #dcfce7);
+        }
+        
+        /* Estilos del formulario */
+        .form-section {
+            background: white;
+            border-radius: 1rem;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+        
+        .btn-primary {
+            background-color: #ef1783;
+            transition: all 0.3s ease;
+        }
+        
+        .btn-primary:hover {
+            background-color: #d01472;
+            transform: translateY(-2px);
+        }
+        
+        input:focus, select:focus, textarea:focus {
+            border-color: #ef1783;
+            box-shadow: 0 0 0 3px rgba(239, 23, 131, 0.2);
+            outline: none;
+        }
+        
+        .checkbox-custom {
+            display: inline-block;
+            position: relative;
+            padding-left: 30px;
+            cursor: pointer;
+        }
+        
+        .checkbox-custom input {
+            position: absolute;
+            opacity: 0;
+            cursor: pointer;
+        }
+        
+        .checkmark {
+            position: absolute;
+            top: 0;
+            left: 0;
+            height: 20px;
+            width: 20px;
+            background-color: #fff;
+            border: 2px solid #ef1783;
+            border-radius: 4px;
+        }
+        
+        .checkbox-custom:hover input ~ .checkmark {
+            background-color: #f9f9f9;
+        }
+        
+        .checkbox-custom input:checked ~ .checkmark {
+            background-color: #ef1783;
+        }
+        
+        .checkmark:after {
+            content: "";
+            position: absolute;
+            display: none;
+        }
+        
+        .checkbox-custom input:checked ~ .checkmark:after {
+            display: block;
+        }
+        
+        .checkbox-custom .checkmark:after {
+            left: 6px;
+            top: 2px;
+            width: 5px;
+            height: 10px;
+            border: solid white;
+            border-width: 0 2px 2px 0;
+            transform: rotate(45deg);
+        }
+        
+        .section-title {
+            color: #ef1783;
+        }
+        
+        .hidden {
+            display: none;
+        }
+        
+        .product-card {
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+        
+        .product-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+        
+        .product-card.selected {
+            border-color: #ef1783 !important;
+            background-color: #fdf2f8 !important;
+        }
+        
+        /* Tarjetas de productos en la galería */
+        .gallery-card {
+            background: white;
+            border-radius: 1rem;
+            overflow: hidden;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+        }
+        
+        .gallery-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 15px rgba(0,0,0,0.2);
+        }
+        
+        /* Menú móvil */
+        .mobile-menu {
+            display: none;
+        }
+        
+        .mobile-menu.active {
+            display: block;
+        }
+        
+        @media (max-width: 768px) {
+            .desktop-menu {
+                display: none;
+            }
+        }
+    </style>
+ </head>
+ <body class="bg-white min-h-screen">
+
+<div id="navbar"></div>
+     
+   </section><!-- Sección Pedidos (FORMULARIO) -->
+   <section id="pedidos" class="pedidos-section">
+    <div class="container mx-auto px-4 sm:px-6 lg:px-8 max-w-6xl">
+     <h2 class="text-4xl md:text-5xl font-bold text-center text-pink-600 mb-12">Realiza tu Pedido</h2>
+     <form id="orderForm" class="space-y-8 sm:space-y-10 lg:space-y-12"><!-- Información Personal -->
+      <div class="form-section bg-white p-6 sm:p-8 rounded-xl shadow-lg">
+       <h3 class="section-title text-xl sm:text-2xl lg:text-3xl font-semibold mb-4 sm:mb-6">Información Personal</h3>
+       <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
+        <div><label class="block text-sm font-medium text-gray-700 mb-2">Nombre completo *</label> <input type="text" id="nombre" required class="w-full px-3 py-2 border border-gray-300 rounded-md text-sm sm:text-base">
+        </div>
+        <div><label class="block text-sm font-medium text-gray-700 mb-2">Teléfono *</label> <input type="tel" id="telefono" required class="w-full px-3 py-2 border border-gray-300 rounded-md text-sm sm:text-base">
+        </div>
+        <div class="sm:col-span-2"><label class="block text-sm font-medium text-gray-700 mb-2">Email *</label> <input type="email" id="email" required class="w-full px-3 py-2 border border-gray-300 rounded-md text-sm sm:text-base">
+        </div>
+       </div>
+      </div><!-- Tipo de Producto -->
+      <div class="form-section bg-white p-6 sm:p-8 rounded-xl shadow-lg">
+       <h3 class="section-title text-xl sm:text-2xl lg:text-3xl font-semibold mb-4 sm:mb-6">Tipo de Producto</h3>
+       <div class="flex flex-col sm:flex-row flex-wrap gap-4 sm:gap-6 justify-center sm:justify-start"><label class="checkbox-custom"> <input type="radio" name="tipoProducto" value="tartas-cheesecakes" onchange="toggleProductOptions()"> <span class="checkmark"></span> Tartas y Cheesecakes </label> <label class="checkbox-custom"> <input type="radio" name="tipoProducto" value="cupcakes" onchange="toggleProductOptions()"> <span class="checkmark"></span> Cupcakes </label> <label class="checkbox-custom"> <input type="radio" name="tipoProducto" value="personalizado" onchange="toggleProductOptions()"> <span class="checkmark"></span> Pedido Personalizado </label>
+       </div>
+      </div><!-- Tartas y Cheesecakes -->
+      <div id="tartasSection" class="form-section conditional-field bg-white p-6 sm:p-8 rounded-xl shadow-lg hidden">
+       <div class="space-y-4 sm:space-y-6"><!-- Tartas -->
+        <div>
+         <h4 class="text-md sm:text-lg font-semibold text-pink-600 mb-3 border-b border-pink-200 pb-2">Tartas</h4>
+         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-4"><!-- Marcos No Me Tientes -->
+          <div class="product-card border-2 border-gray-200 rounded-lg p-4 hover:border-pink-300 transition-colors" onclick="selectProduct('marcos-no-me-tientes')">
+           <div class="flex justify-between items-start mb-3"><label class="checkbox-custom block cursor-pointer flex-1"> <input type="radio" name="tartaSeleccionada" value="marcos-no-me-tientes" onchange="calculatePrice()"> <span class="checkmark"></span> <span class="font-medium">Marcos No Me Tientes</span> </label> <button type="button" onclick="event.stopPropagation(); openProductModal('marcos-no-me-tientes')" class="text-pink-600 hover:text-pink-800 text-sm font-medium ml-2"> ℹ️ Info </button>
+           </div>
+           <p class="text-xs text-gray-600">Deliciosa tarta con capas de bizcocho y crema</p>
+          </div><!-- Muerte por Chocolate -->
+          <div class="product-card border-2 border-gray-200 rounded-lg p-4 hover:border-pink-300 transition-colors" onclick="selectProduct('muerte-por-chocolate')">
+           <div class="flex justify-between items-start mb-3"><label class="checkbox-custom block cursor-pointer flex-1"> <input type="radio" name="tartaSeleccionada" value="muerte-por-chocolate" onchange="calculatePrice()"> <span class="checkmark"></span> <span class="font-medium">Muerte por Chocolate</span> </label> <button type="button" onclick="event.stopPropagation(); openProductModal('muerte-por-chocolate')" class="text-pink-600 hover:text-pink-800 text-sm font-medium ml-2"> ℹ️ Info </button>
+           </div>
+           <p class="text-xs text-gray-600">Intensa tarta de chocolate para los amantes del cacao</p>
+          </div><!-- Unicornio Fantástico -->
+          <div class="product-card border-2 border-gray-200 rounded-lg p-4 hover:border-pink-300 transition-colors" onclick="selectProduct('unicornio-fantastico')">
+           <div class="flex justify-between items-start mb-3"><label class="checkbox-custom block cursor-pointer flex-1"> <input type="radio" name="tartaSeleccionada" value="unicornio-fantastico" onchange="calculatePrice()"> <span class="checkmark"></span> <span class="font-medium">Unicornio Fantástico</span> </label> <button type="button" onclick="event.stopPropagation(); openProductModal('unicornio-fantastico')" class="text-pink-600 hover:text-pink-800 text-sm font-medium ml-2"> ℹ️ Info </button>
+           </div>
+           <p class="text-xs text-gray-600">Tarta mágica con colores vibrantes y decoración especial</p>
+          </div><!-- Naranja que Cacao -->
+          <div class="product-card border-2 border-gray-200 rounded-lg p-4 hover:border-pink-300 transition-colors" onclick="selectProduct('naranja-que-cacao')">
+           <div class="flex justify-between items-start mb-3"><label class="checkbox-custom block cursor-pointer flex-1"> <input type="radio" name="tartaSeleccionada" value="naranja-que-cacao" onchange="calculatePrice()"> <span class="checkmark"></span> <span class="font-medium">Naranja que Cacao</span> </label> <button type="button" onclick="event.stopPropagation(); openProductModal('naranja-que-cacao')" class="text-pink-600 hover:text-pink-800 text-sm font-medium ml-2"> ℹ️ Info </button>
+           </div>
+           <p class="text-xs text-gray-600">Perfecta combinación de naranja fresca y chocolate</p>
+          </div><!-- Tía Misú -->
+          <div class="product-card border-2 border-gray-200 rounded-lg p-4 hover:border-pink-300 transition-colors" onclick="selectProduct('tia-misu')">
+           <div class="flex justify-between items-start mb-3"><label class="checkbox-custom block cursor-pointer flex-1"> <input type="radio" name="tartaSeleccionada" value="tia-misu" onchange="calculatePrice()"> <span class="checkmark"></span> <span class="font-medium">Tía Misú</span> </label> <button type="button" onclick="event.stopPropagation(); openProductModal('tia-misu')" class="text-pink-600 hover:text-pink-800 text-sm font-medium ml-2"> ℹ️ Info </button>
+           </div>
+           <p class="text-xs text-gray-600">Inspirada en el clásico tiramisú italiano</p>
+          </div><!-- Revolcón con Fresnata -->
+          <div class="product-card border-2 border-gray-200 rounded-lg p-4 hover:border-pink-300 transition-colors" onclick="selectProduct('revolcon-fresnata')">
+           <div class="flex justify-between items-start mb-3"><label class="checkbox-custom block cursor-pointer flex-1"> <input type="radio" name="tartaSeleccionada" value="revolcon-fresnata" onchange="calculatePrice()"> <span class="checkmark"></span> <span class="font-medium">Revolcón con Fresnata</span> </label> <button type="button" onclick="event.stopPropagation(); openProductModal('revolcon-fresnata')" class="text-pink-600 hover:text-pink-800 text-sm font-medium ml-2"> ℹ️ Info </button>
+           </div>
+           <p class="text-xs text-gray-600">Tarta fresca con nata y fresas naturales</p>
+          </div>
+         </div>
+        </div><!-- Cheesecakes -->
+        <div>
+         <h4 class="text-md sm:text-lg font-semibold text-pink-600 mb-3 border-b border-pink-200 pb-2">Cheesecakes</h4>
+         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-4"><!-- Que lo Bailes -->
+          <div class="product-card border-2 border-gray-200 rounded-lg p-4 hover:border-pink-300 transition-colors" onclick="selectProduct('que-lo-bailes')">
+           <div class="flex justify-between items-start mb-3"><label class="checkbox-custom block cursor-pointer flex-1"> <input type="radio" name="tartaSeleccionada" value="que-lo-bailes" onchange="calculatePrice()"> <span class="checkmark"></span> <span class="font-medium">Que lo Bailes</span> </label> <button type="button" onclick="event.stopPropagation(); openProductModal('que-lo-bailes')" class="text-pink-600 hover:text-pink-800 text-sm font-medium ml-2"> ℹ️ Info </button>
+           </div>
+           <p class="text-xs text-gray-600">Cheesecake con deliciosos frutos rojos</p>
+          </div><!-- Mangotero -->
+          <div class="product-card border-2 border-gray-200 rounded-lg p-4 hover:border-pink-300 transition-colors" onclick="selectProduct('mangotero')">
+           <div class="flex justify-between items-start mb-3"><label class="checkbox-custom block cursor-pointer flex-1"> <input type="radio" name="tartaSeleccionada" value="mangotero" onchange="calculatePrice()"> <span class="checkmark"></span> <span class="font-medium">Mangotero</span> </label> <button type="button" onclick="event.stopPropagation(); openProductModal('mangotero')" class="text-pink-600 hover:text-pink-800 text-sm font-medium ml-2"> ℹ️ Info </button>
+           </div>
+           <p class="text-xs text-gray-600">Cheesecake tropical con mango fresco</p>
+          </div><!-- Limón Ileso -->
+          <div class="product-card border-2 border-gray-200 rounded-lg p-4 hover:border-pink-300 transition-colors" onclick="selectProduct('limon-ileso')">
+           <div class="flex justify-between items-start mb-3"><label class="checkbox-custom block cursor-pointer flex-1"> <input type="radio" name="tartaSeleccionada" value="limon-ileso" onchange="calculatePrice()"> <span class="checkmark"></span> <span class="font-medium">Limón Ileso</span> </label> <button type="button" onclick="event.stopPropagation(); openProductModal('limon-ileso')" class="text-pink-600 hover:text-pink-800 text-sm font-medium ml-2"> ℹ️ Info </button>
+           </div>
+           <p class="text-xs text-gray-600">Cheesecake cítrico con limón natural</p>
+          </div><!-- Tradicional -->
+          <div class="product-card border-2 border-gray-200 rounded-lg p-4 hover:border-pink-300 transition-colors" onclick="selectProduct('tradicional')">
+           <div class="flex justify-between items-start mb-3"><label class="checkbox-custom block cursor-pointer flex-1"> <input type="radio" name="tartaSeleccionada" value="tradicional" onchange="calculatePrice()"> <span class="checkmark"></span> <span class="font-medium">Tradicional</span> </label> <button type="button" onclick="event.stopPropagation(); openProductModal('tradicional')" class="text-pink-600 hover:text-pink-800 text-sm font-medium ml-2"> ℹ️ Info </button>
+           </div>
+           <p class="text-xs text-gray-600">El clásico cheesecake de toda la vida</p>
+          </div><!-- Cacao Late -->
+          <div class="product-card border-2 border-gray-200 rounded-lg p-4 hover:border-pink-300 transition-colors" onclick="selectProduct('cacao-late')">
+           <div class="flex justify-between items-start mb-3"><label class="checkbox-custom block cursor-pointer flex-1"> <input type="radio" name="tartaSeleccionada" value="cacao-late" onchange="calculatePrice()"> <span class="checkmark"></span> <span class="font-medium">Cacao Late</span> </label> <button type="button" onclick="event.stopPropagation(); openProductModal('cacao-late')" class="text-pink-600 hover:text-pink-800 text-sm font-medium ml-2"> ℹ️ Info </button>
+           </div>
+           <p class="text-xs text-gray-600">Cheesecake intenso de chocolate y cacao</p>
+          </div><!-- Que Hore Oes? -->
+          <div class="product-card border-2 border-gray-200 rounded-lg p-4 hover:border-pink-300 transition-colors" onclick="selectProduct('que-hore-oes')">
+           <div class="flex justify-between items-start mb-3"><label class="checkbox-custom block cursor-pointer flex-1"> <input type="radio" name="tartaSeleccionada" value="que-hore-oes" onchange="calculatePrice()"> <span class="checkmark"></span> <span class="font-medium">Que Hore Oes?</span> </label> <button type="button" onclick="event.stopPropagation(); openProductModal('que-hore-oes')" class="text-pink-600 hover:text-pink-800 text-sm font-medium ml-2"> ℹ️ Info </button>
+           </div>
+           <p class="text-xs text-gray-600">Cheesecake con galletas Oreo crujientes</p>
+          </div>
+         </div>
+        </div><!-- Tamaño -->
+        <div><label class="block text-sm font-medium text-gray-700 mb-2">Tamaño</label> <select id="tamanoTarta" class="w-full px-3 py-2 border border-gray-300 rounded-md text-sm sm:text-base" onchange="calculatePrice()"> <option value="">Seleccionar tamaño</option> <option value="pequena">Pequeña (6-8 personas) - 25€ - 30€</option> <option value="mediana">Mediana (10-12 personas) - 35€ - 42€</option> <option value="grande">Grande (15-20 personas) - 45€ - 52€</option> <option value="xl">Extra Grande (25+ personas) - 55€ - 62€</option> </select>
+        </div>
+       </div>
+      </div><!-- Cupcakes -->
+      <div id="cupcakesSection" class="form-section conditional-field bg-white p-6 sm:p-8 rounded-xl shadow-lg hidden">
+       <div class="space-y-6"><!-- Cantidad -->
+        <div>
+         <h4 class="text-md sm:text-lg font-semibold text-pink-600 mb-3 border-b border-pink-200 pb-2">Cantidad</h4>
+         <div><select id="cantidadCupcakes" class="w-full px-3 py-2 border border-gray-300 rounded-md text-sm sm:text-base" onchange="updateFlavorOptions()"> <option value="">Seleccionar cantidad</option> <option value="6">6 cupcakes</option> <option value="12">12 cupcakes</option> <option value="24">24 cupcakes</option> <option value="otro">Otra cantidad</option> </select>
+          <div id="cantidadPersonalizada" class="mt-3 hidden"><label class="block text-sm font-medium text-gray-700 mb-2">¿Cuántos cupcakes?</label> <input type="number" id="cantidadOtra" min="1" max="100" placeholder="Ej: 15" class="w-full px-3 py-2 border border-gray-300 rounded-md text-sm sm:text-base" onchange="updateFlavorOptions()" oninput="updateFlavorOptions()">
+          </div>
+         </div>
+        </div><!-- Sabores -->
+        <div>
+         <h4 class="text-md sm:text-lg font-semibold text-pink-600 mb-3 border-b border-pink-200 pb-2">SABORES</h4>
+         <div><label class="block text-sm font-medium text-gray-700 mb-3"> <span id="flavorLabel">Sabores (selecciona la cantidad primero)</span> </label>
+          <div id="flavorsContainer" class="space-y-3"><!-- Los selectores de sabores se generarán dinámicamente -->
+          </div>
+         </div>
+        </div>
+       </div>
+      </div><!-- Pedido Personalizado -->
+      <div id="personalizadoSection" class="form-section conditional-field bg-white p-6 sm:p-8 rounded-xl shadow-lg hidden">
+       <h3 class="section-title text-xl sm:text-2xl lg:text-3xl font-semibold mb-4 sm:mb-6">Pedido Personalizado</h3>
+       <div class="space-y-4 sm:space-y-6"><!-- Formato -->
+        <div>
+         <h4 class="text-md sm:text-lg font-semibold text-pink-600 mb-3 border-b border-pink-200 pb-2">Formato</h4>
+         <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 sm:gap-3"><label class="checkbox-custom"> <input type="radio" name="formatoPersonalizado" value="tarta-redonda"> <span class="checkmark"></span> Tarta Redonda </label> <label class="checkbox-custom"> <input type="radio" name="formatoPersonalizado" value="tarta-cuadrada"> <span class="checkmark"></span> Tarta Cuadrada </label> <label class="checkbox-custom"> <input type="radio" name="formatoPersonalizado" value="tarta-rectangular"> <span class="checkmark"></span> Tarta Rectangular </label> <label class="checkbox-custom"> <input type="radio" name="formatoPersonalizado" value="cupcakes"> <span class="checkmark"></span> Cupcakes </label> <label class="checkbox-custom"> <input type="radio" name="formatoPersonalizado" value="cake-pops"> <span class="checkmark"></span> Cake Pops </label> <label class="checkbox-custom"> <input type="radio" name="formatoPersonalizado" value="galletas"> <span class="checkmark"></span> Galletas Decoradas </label>
+         </div>
+        </div><!-- Tamaño -->
+        <div>
+         <h4 class="text-md sm:text-lg font-semibold text-pink-600 mb-3 border-b border-pink-200 pb-2">Tamaño</h4>
+         <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 sm:gap-3"><label class="checkbox-custom"> <input type="radio" name="tamanoPersonalizado" value="pequeno"> <span class="checkmark"></span> Pequeño (6-8 personas) </label> <label class="checkbox-custom"> <input type="radio" name="tamanoPersonalizado" value="mediano"> <span class="checkmark"></span> Mediano (10-12 personas) </label> <label class="checkbox-custom"> <input type="radio" name="tamanoPersonalizado" value="grande"> <span class="checkmark"></span> Grande (15-20 personas) </label> <label class="checkbox-custom"> <input type="radio" name="tamanoPersonalizado" value="xl"> <span class="checkmark"></span> Extra Grande (25+ personas) </label> <label class="checkbox-custom"> <input type="radio" name="tamanoPersonalizado" value="personalizado"> <span class="checkmark"></span> Tamaño Personalizado </label>
+         </div>
+        </div><!-- Tipo de Bizcocho -->
+        <div>
+         <h4 class="text-md sm:text-lg font-semibold text-pink-600 mb-3 border-b border-pink-200 pb-2">Tipo de Bizcocho</h4>
+         <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 sm:gap-3"><label class="checkbox-custom"> <input type="radio" name="bizcochoPersonalizado" value="vainilla"> <span class="checkmark"></span> Vainilla </label> <label class="checkbox-custom"> <input type="radio" name="bizcochoPersonalizado" value="chocolate"> <span class="checkmark"></span> Chocolate </label> <label class="checkbox-custom"> <input type="radio" name="bizcochoPersonalizado" value="red-velvet"> <span class="checkmark"></span> Red Velvet </label> <label class="checkbox-custom"> <input type="radio" name="bizcochoPersonalizado" value="zanahoria"> <span class="checkmark"></span> Zanahoria </label> <label class="checkbox-custom"> <input type="radio" name="bizcochoPersonalizado" value="limon"> <span class="checkmark"></span> Limón </label> <label class="checkbox-custom"> <input type="radio" name="bizcochoPersonalizado" value="fresa"> <span class="checkmark"></span> Fresa </label>
+         </div>
+        </div><!-- Relleno -->
+        <div>
+         <h4 class="text-md sm:text-lg font-semibold text-pink-600 mb-3 border-b border-pink-200 pb-2">Relleno</h4>
+         <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 sm:gap-3"><label class="checkbox-custom"> <input type="radio" name="rellenoPersonalizado" value="crema-vainilla"> <span class="checkmark"></span> Crema de Vainilla </label> <label class="checkbox-custom"> <input type="radio" name="rellenoPersonalizado" value="crema-chocolate"> <span class="checkmark"></span> Crema de Chocolate </label> <label class="checkbox-custom"> <input type="radio" name="rellenoPersonalizado" value="dulce-leche"> <span class="checkmark"></span> Dulce de Leche </label> <label class="checkbox-custom"> <input type="radio" name="rellenoPersonalizado" value="mermelada-fresa"> <span class="checkmark"></span> Mermelada de Fresa </label> <label class="checkbox-custom"> <input type="radio" name="rellenoPersonalizado" value="nutella"> <span class="checkmark"></span> Nutella </label> <label class="checkbox-custom"> <input type="radio" name="rellenoPersonalizado" value="cream-cheese"> <span class="checkmark"></span> Cream Cheese </label>
+         </div>
+        </div><!-- Cobertura -->
+        <div>
+         <h4 class="text-md sm:text-lg font-semibold text-pink-600 mb-3 border-b border-pink-200 pb-2">Cobertura</h4>
+         <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 sm:gap-3"><label class="checkbox-custom"> <input type="radio" name="coberturaPersonalizada" value="buttercream"> <span class="checkmark"></span> Buttercream </label> <label class="checkbox-custom"> <input type="radio" name="coberturaPersonalizada" value="fondant"> <span class="checkmark"></span> Fondant </label> <label class="checkbox-custom"> <input type="radio" name="coberturaPersonalizada" value="ganache"> <span class="checkmark"></span> Ganache de Chocolate </label> <label class="checkbox-custom"> <input type="radio" name="coberturaPersonalizada" value="cream-cheese-frosting"> <span class="checkmark"></span> Cream Cheese Frosting </label> <label class="checkbox-custom"> <input type="radio" name="coberturaPersonalizada" value="merengue"> <span class="checkmark"></span> Merengue </label> <label class="checkbox-custom"> <input type="radio" name="coberturaPersonalizada" value="glaseado"> <span class="checkmark"></span> Glaseado </label>
+         </div>
+        </div><!-- Decoración -->
+        <div>
+         <h4 class="text-md sm:text-lg font-semibold text-pink-600 mb-3 border-b border-pink-200 pb-2">Decoración</h4>
+         <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 sm:gap-3"><label class="checkbox-custom"> <input type="checkbox" name="decoracionPersonalizada" value="flores-azucar"> <span class="checkmark"></span> Flores de Azúcar </label> <label class="checkbox-custom"> <input type="checkbox" name="decoracionPersonalizada" value="figuras-fondant"> <span class="checkmark"></span> Figuras de Fondant </label> <label class="checkbox-custom"> <input type="checkbox" name="decoracionPersonalizada" value="perlas-comestibles"> <span class="checkmark"></span> Perlas Comestibles </label> <label class="checkbox-custom"> <input type="checkbox" name="decoracionPersonalizada" value="purpurina-comestible"> <span class="checkmark"></span> Purpurina Comestible </label> <label class="checkbox-custom"> <input type="checkbox" name="decoracionPersonalizada" value="frutas-frescas"> <span class="checkmark"></span> Frutas Frescas </label> <label class="checkbox-custom"> <input type="checkbox" name="decoracionPersonalizada" value="chocolate-decorativo"> <span class="checkmark"></span> Chocolate Decorativo </label>
+         </div>
+        </div><!-- Descripción adicional -->
+        <div><label class="block text-sm font-medium text-gray-700 mb-2">Descripción adicional o detalles especiales</label> <textarea id="descripcionPersonalizada" rows="4" placeholder="Describe cualquier detalle especial, colores específicos, temática, etc." class="w-full px-3 py-2 border border-gray-300 rounded-md text-sm sm:text-base"></textarea>
+        </div><!-- Número de personas y presupuesto -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
+         <div><label class="block text-sm font-medium text-gray-700 mb-2">Número de personas aproximado</label> <input type="number" id="personasPersonalizado" min="1" placeholder="Ej: 15" class="w-full px-3 py-2 border border-gray-300 rounded-md text-sm sm:text-base" oninput="calculatePrice()">
+         </div>
+         <div><label class="block text-sm font-medium text-gray-700 mb-2">Presupuesto aproximado (opcional)</label> <input type="text" id="presupuestoPersonalizado" placeholder="Ej: 50-80€" class="w-full px-3 py-2 border border-gray-300 rounded-md text-sm sm:text-base">
+         </div>
+        </div>
+       </div>
+      </div><!-- Personalización -->
+      <div class="form-section bg-white p-6 sm:p-8 rounded-xl shadow-lg">
+       <h3 class="section-title text-xl sm:text-2xl lg:text-3xl font-semibold mb-4 sm:mb-6">Personalización</h3>
+       <div class="space-y-3 sm:space-y-4">
+        <div><label class="block text-sm font-medium text-gray-700 mb-2">Tema o ocasión</label> <select id="tema" class="w-full px-3 py-2 border border-gray-300 rounded-md text-sm sm:text-base"> <option value="">Seleccionar tema</option> <option value="cumpleanos">Cumpleaños</option> <option value="boda">Boda</option> <option value="bautizo">Bautizo</option> <option value="comunion">Primera Comunión</option> <option value="graduacion">Graduación</option> <option value="aniversario">Aniversario</option> <option value="baby-shower">Baby Shower</option> <option value="otro">Otro</option> </select>
+        </div>
+        <div><label class="block text-sm font-medium text-gray-700 mb-2">Texto para escribir</label> <input type="text" id="texto" placeholder="Ej: Feliz Cumpleaños María" class="w-full px-3 py-2 border border-gray-300 rounded-md text-sm sm:text-base" oninput="calculatePrice()">
+        </div>
+        <div><label class="block text-sm font-medium text-gray-700 mb-2">Detalles especiales o comentarios</label> <textarea id="comentarios" rows="3" placeholder="Describe cualquier detalle especial que quieras incluir..." class="w-full px-3 py-2 border border-gray-300 rounded-md text-sm sm:text-base"></textarea>
+        </div>
+       </div>
+      </div><!-- Datos de Entrega -->
+      <div class="form-section bg-white p-6 sm:p-8 rounded-xl shadow-lg">
+       <h3 class="section-title text-xl sm:text-2xl lg:text-3xl font-semibold mb-4 sm:mb-6">Datos de Entrega</h3>
+       <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-4">
+        <div><label class="block text-sm font-medium text-gray-700 mb-2">Fecha de entrega *</label> <input type="date" id="fechaEntrega" required class="w-full px-3 py-2 border border-gray-300 rounded-md text-sm sm:text-base">
+        </div>
+        <div><label class="block text-sm font-medium text-gray-700 mb-2">Hora preferida</label> <select id="horaEntrega" class="w-full px-3 py-2 border border-gray-300 rounded-md text-sm sm:text-base"> <option value="">Seleccionar hora</option> <option value="manana">Mañana (9:00 - 12:00)</option> <option value="tarde">Tarde (12:00 - 18:00)</option> <option value="noche">Noche (18:00 - 21:00)</option> </select>
+        </div>
+        <div class="sm:col-span-2 lg:col-span-1"><label class="block text-sm font-medium text-gray-700 mb-2">Tipo de entrega</label> <select id="tipoEntrega" class="w-full px-3 py-2 border border-gray-300 rounded-md text-sm sm:text-base" onchange="toggleDireccionSection(); calculatePrice()"> <option value="">Seleccionar tipo de entrega</option> <option value="recoger">Recoger en tienda</option> <option value="domicilio">Entrega a domicilio (+5€)</option> </select>
+        </div>
+       </div>
+       <div id="direccionSection" class="mt-3 sm:mt-4 hidden"><label class="block text-sm font-medium text-gray-700 mb-2">Dirección de entrega</label> <textarea id="direccion" rows="2" placeholder="Escribe la dirección completa..." class="w-full px-3 py-2 border border-gray-300 rounded-md text-sm sm:text-base"></textarea>
+       </div>
+      </div><!-- Calculadora de Precio -->
+      <div id="priceCalculator" class="form-section bg-linear-to-r from-pink-50 to-purple-50 p-6 sm:p-8 rounded-xl border-2 border-pink-200 shadow-lg hidden">
+       <h3 class="section-title text-xl sm:text-2xl lg:text-3xl font-semibold mb-4 sm:mb-6 text-center">Precio Estimado</h3>
+       <div class="text-center">
+        <div id="priceBreakdown" class="space-y-2 mb-4 text-left max-w-md mx-auto text-sm sm:text-base"><!-- El desglose se generará dinámicamente -->
+        </div>
+        <div class="text-xl sm:text-2xl font-bold text-pink-600 bg-white px-4 sm:px-6 py-2 sm:py-3 rounded-lg shadow-md inline-block">
+         Total: <span id="totalPrice">0€</span>
+        </div>
+        <p class="text-xs sm:text-sm text-gray-600 mt-2 px-2">*Precio estimado. El precio final puede variar según personalizaciones especiales.</p>
+       </div>
+      </div><!-- Botón de Envío -->
+      <div class="text-center pt-6 sm:pt-8"><button type="submit" class="btn-primary text-white px-8 sm:px-12 py-3 sm:py-4 rounded-xl font-semibold text-lg sm:text-xl shadow-xl w-full sm:w-auto transform transition-all duration-300 hover:scale-105"> Enviar Pedido </button>
+      </div>
+     </form><!-- Mensaje de éxito -->
+     <div id="successMessage" class="bg-white p-6 sm:p-8 rounded-xl shadow-lg mt-8 hidden">
+      <h3 class="text-xl sm:text-2xl font-bold mb-2">¡Pedido Enviado Correctamente!</h3>
+      <p class="text-base sm:text-lg">Hemos recibido tu pedido. Te contactaremos pronto para confirmar los detalles y el presupuesto.</p>
+     </div>
+    </div>
+   </section><!-- Sección Contacto -->
+   <section id="contacto" class="contacto-section">
+    <div class="container mx-auto px-4 text-center">
+     <h2 class="text-4xl md:text-5xl font-bold text-green-700 mb-12">Contacto</h2>
+     <div class="max-w-2xl mx-auto bg-white p-8 rounded-xl shadow-lg">
+      <div class="space-y-6">
+       <div>
+        <h3 class="text-2xl font-bold text-gray-800 mb-2">📍 Dirección</h3>
+        <p class="text-gray-600">Calle de la Dulzura, 123<br>
+         28001 Madrid, España</p>
+       </div>
+       <div>
+        <h3 class="text-2xl font-bold text-gray-800 mb-2">📞 Teléfono</h3>
+        <p class="text-gray-600">+34 123 456 789</p>
+       </div>
+       <div>
+        <h3 class="text-2xl font-bold text-gray-800 mb-2">📧 Email</h3>
+        <p class="text-gray-600">pedidos@malditadulzura.com</p>
+       </div>
+       <div>
+        <h3 class="text-2xl font-bold text-gray-800 mb-2">🕐 Horario</h3>
+        <p class="text-gray-600">Lunes a Viernes: 9:00 - 20:00<br>
+          Sábados: 10:00 - 14:00<br>
+          Domingos: Cerrado</p>
+       </div>
+       <div class="pt-6">
+        <h3 class="text-2xl font-bold text-gray-800 mb-4">Síguenos en Redes Sociales</h3>
+        <div class="flex justify-center space-x-6 text-3xl"><a href="#" class="hover:scale-110 transition-transform">📘</a> <a href="#" class="hover:scale-110 transition-transform">📷</a> <a href="#" class="hover:scale-110 transition-transform">🐦</a>
+        </div>
+       </div>
+      </div>
+     </div>
+    </div>
+   </section>
+  </div><!-- Modal de información del producto -->
+  <div id="productModal" class="fixed inset-0 bg-black bg-opacity-50 z-50 hidden items-center justify-center p-4">
+   <div class="bg-white rounded-xl max-w-2xl w-full max-h-[90vh] overflow-y-auto">
+    <div class="p-6"><!-- Header del modal -->
+     <div class="flex justify-between items-center mb-4">
+      <h3 id="modalTitle" class="text-xl font-bold text-pink-600"></h3><button onclick="closeProductModal()" class="text-gray-500 hover:text-gray-700 text-2xl font-bold"> × </button>
+     </div><!-- Contenido del modal -->
+     <div id="modalContent" class="space-y-4"><!-- El contenido se generará dinámicamente -->
+     </div><!-- Footer del modal -->
+     <div class="mt-6 pt-4 border-t border-gray-200 flex justify-end"><button onclick="closeProductModal()" class="bg-pink-600 hover:bg-pink-700 text-white px-6 py-2 rounded-lg font-medium"> Cerrar </button>
+     </div>
+    </div>
+   </div>
+  </div>
+  
+  <script>
+        // Menú móvil
+        document.getElementById('mobileMenuBtn').addEventListener('click', function() {
+            const mobileMenu = document.getElementById('mobileMenu');
+            mobileMenu.classList.toggle('active');
+        });
+
+        // Cerrar menú móvil al hacer clic en un enlace
+        document.querySelectorAll('#mobileMenu a').forEach(link => {
+            link.addEventListener('click', function() {
+                document.getElementById('mobileMenu').classList.remove('active');
+            });
+        });
+
+        // Smooth scroll para los enlaces de navegación
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    const navbarHeight = document.querySelector('.navbar').offsetHeight;
+                    const targetPosition = target.offsetTop - navbarHeight;
+                    window.scrollTo({
+                        top: targetPosition,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+
+        function toggleProductOptions() {
+            const tipoProducto = document.querySelector('input[name="tipoProducto"]:checked');
+            const tartasSection = document.getElementById('tartasSection');
+            const cupcakesSection = document.getElementById('cupcakesSection');
+            const personalizadoSection = document.getElementById('personalizadoSection');
+            
+            tartasSection.classList.add('hidden');
+            cupcakesSection.classList.add('hidden');
+            personalizadoSection.classList.add('hidden');
+            
+            if (tipoProducto) {
+                if (tipoProducto.value === 'tartas-cheesecakes') {
+                    tartasSection.classList.remove('hidden');
+                }
+                if (tipoProducto.value === 'cupcakes') {
+                    cupcakesSection.classList.remove('hidden');
+                }
+                if (tipoProducto.value === 'personalizado') {
+                    personalizadoSection.classList.remove('hidden');
+                }
+            }
+            
+            calculatePrice();
+        }
+
+        function calculatePrice() {
+            const tipoProducto = document.querySelector('input[name="tipoProducto"]:checked');
+            const priceCalculator = document.getElementById('priceCalculator');
+            const priceBreakdown = document.getElementById('priceBreakdown');
+            const totalPriceElement = document.getElementById('totalPrice');
+            
+            let total = 0;
+            let breakdown = [];
+            
+            if (!tipoProducto) {
+                priceCalculator.classList.add('hidden');
+                return;
+            }
+            
+            if (tipoProducto.value === 'tartas-cheesecakes') {
+                const tartaSeleccionada = document.querySelector('input[name="tartaSeleccionada"]:checked');
+                const tamano = document.getElementById('tamanoTarta').value;
+                
+                if (tartaSeleccionada && tamano) {
+                    const tartaKey = tartaSeleccionada.value;
+                    let precio = 0;
+                    
+                    const esCheesecake = ['que-lo-bailes', 'mangotero', 'limon-ileso', 'tradicional', 'cacao-late', 'que-hore-oes'].includes(tartaKey);
+                    
+                    if (esCheesecake && PRECIOS.cheesecakes[tartaKey]) {
+                        precio = PRECIOS.cheesecakes[tartaKey][tamano] || 0;
+                    } else if (PRECIOS.tartas[tartaKey]) {
+                        precio = PRECIOS.tartas[tartaKey][tamano] || 0;
+                    }
+                    
+                    if (precio > 0) {
+                        const nombreTarta = tartaSeleccionada.parentElement.textContent.trim();
+                        
+                        let tamanoInfo = '';
+                        let personasInfo = '';
+                        
+                        switch(tamano) {
+                            case 'pequena':
+                                tamanoInfo = 'Pequeña';
+                                personasInfo = '6-8 personas';
+                                break;
+                            case 'mediana':
+                                tamanoInfo = 'Mediana';
+                                personasInfo = '10-12 personas';
+                                break;
+                            case 'grande':
+                                tamanoInfo = 'Grande';
+                                personasInfo = '15-20 personas';
+                                break;
+                            case 'xl':
+                                tamanoInfo = 'Extra Grande';
+                                personasInfo = '25+ personas';
+                                break;
+                        }
+                        
+                        breakdown.push(`${nombreTarta}|${tamanoInfo}|${personasInfo}|${precio}€`);
+                        total += precio;
+                    }
+                }
+            }
+            
+            if (tipoProducto.value === 'cupcakes') {
+                const cantidadSelect = document.getElementById('cantidadCupcakes').value;
+                const cantidadOtra = document.getElementById('cantidadOtra').value;
+                const saboresSeleccionados = document.querySelectorAll('input[name="saboresCupcakes"]:checked');
+                
+                let cantidad = 0;
+                if (cantidadSelect === 'otro' && cantidadOtra) {
+                    cantidad = parseInt(cantidadOtra);
+                } else if (cantidadSelect && cantidadSelect !== 'otro') {
+                    cantidad = parseInt(cantidadSelect);
+                }
+                
+                if (cantidad > 0 && saboresSeleccionados.length > 0) {
+                    let precioPromedio = 0;
+                    let saboresTexto = [];
+                    
+                    saboresSeleccionados.forEach(sabor => {
+                        const precio = PRECIOS.cupcakes[sabor.value] || 3.5;
+                        precioPromedio += precio;
+                        const nombreSabor = sabor.parentElement.textContent.trim().split(' ')[0] + ' ' + sabor.parentElement.textContent.trim().split(' ')[1];
+                        saboresTexto.push(nombreSabor);
+                    });
+                    
+                    precioPromedio = precioPromedio / saboresSeleccionados.length;
+                    const subtotal = cantidad * precioPromedio;
+                    
+                    breakdown.push(`Cupcakes|${saboresTexto.join(', ')}|${cantidad} unidades|${subtotal.toFixed(2)}€`);
+                    total += subtotal;
+                }
+            }
+            
+            if (tipoProducto.value === 'personalizado') {
+                const personas = document.getElementById('personasPersonalizado').value;
+                if (personas) {
+                    const personasNum = parseInt(personas);
+                    let precioBase = 0;
+                    let tamanoEstimado = '';
+                    
+                    if (personasNum <= 8) {
+                        precioBase = 35;
+                        tamanoEstimado = 'Pequeño';
+                    } else if (personasNum <= 12) {
+                        precioBase = 45;
+                        tamanoEstimado = 'Mediano';
+                    } else if (personasNum <= 20) {
+                        precioBase = 55;
+                        tamanoEstimado = 'Grande';
+                    } else {
+                        precioBase = 65;
+                        tamanoEstimado = 'Extra Grande';
+                    }
+                    
+                    breakdown.push(`Pedido Personalizado|${tamanoEstimado}|${personas} personas|desde ${precioBase}€`);
+                    total += precioBase;
+                }
+            }
+            
+            const tipoEntrega = document.getElementById('tipoEntrega').value;
+            if (tipoEntrega === 'domicilio') {
+                breakdown.push(`Entrega a domicilio|||${PRECIOS.extras.entregaDomicilio}€`);
+                total += PRECIOS.extras.entregaDomicilio;
+            }
+            
+            const texto = document.getElementById('texto').value;
+            if (texto && texto.trim()) {
+                breakdown.push(`Texto personalizado|||${PRECIOS.extras.textoPersonalizado}€`);
+                total += PRECIOS.extras.textoPersonalizado;
+            }
+            
+            if (total > 0) {
+                priceBreakdown.innerHTML = breakdown.map(item => {
+                    const parts = item.split('|');
+                    if (parts.length === 4) {
+                        return `
+                            <div class="grid grid-cols-4 gap-2 py-2 border-b border-gray-200 text-xs sm:text-sm">
+                                <div class="font-medium">${parts[0]}</div>
+                                <div class="text-gray-600">${parts[1]}</div>
+                                <div class="text-gray-600">${parts[2]}</div>
+                                <div class="font-semibold text-right">${parts[3]}</div>
+                            </div>
+                        `;
+                    } else {
+                        return `
+                            <div class="grid grid-cols-4 gap-2 py-2 border-b border-gray-200 text-xs sm:text-sm">
+                                <div class="font-medium col-span-3">${parts[0]}</div>
+                                <div class="font-semibold text-right">${parts[3]}</div>
+                            </div>
+                        `;
+                    }
+                }).join('');
+                
+                const headers = `
+                    <div class="grid grid-cols-4 gap-2 py-2 border-b-2 border-pink-300 text-xs sm:text-sm font-bold text-pink-700">
+                        <div>Producto</div>
+                        <div>Tamaño</div>
+                        <div>Cantidad</div>
+                        <div class="text-right">Precio</div>
+                    </div>
+                `;
+                
+                priceBreakdown.innerHTML = headers + priceBreakdown.innerHTML;
+                totalPriceElement.textContent = `${total.toFixed(2)}€`;
+                priceCalculator.classList.remove('hidden');
+            } else {
+                priceCalculator.classList.add('hidden');
+            }
+        }
+
+        function updateFlavorOptions() {
+            const cantidadSelect = document.getElementById('cantidadCupcakes').value;
+            const cantidadPersonalizada = document.getElementById('cantidadPersonalizada');
+            const cantidadOtra = document.getElementById('cantidadOtra').value;
+            const flavorLabel = document.getElementById('flavorLabel');
+            const flavorsContainer = document.getElementById('flavorsContainer');
+            
+            if (cantidadSelect === 'otro') {
+                cantidadPersonalizada.classList.remove('hidden');
+            } else {
+                cantidadPersonalizada.classList.add('hidden');
+            }
+            
+            let cantidad;
+            if (cantidadSelect === 'otro' && cantidadOtra) {
+                cantidad = parseInt(cantidadOtra);
+            } else if (cantidadSelect && cantidadSelect !== 'otro') {
+                cantidad = parseInt(cantidadSelect);
+            }
+            
+            const flavorLimits = {
+                6: 1, 12: 2, 24: 4
+            };
+            
+            let maxFlavors = 0;
+            if (cantidad) {
+                if (flavorLimits[cantidad]) {
+                    maxFlavors = flavorLimits[cantidad];
+                } else {
+                    maxFlavors = Math.min(6, Math.ceil(cantidad / 6));
+                }
+            }
+            
+            if (maxFlavors > 0) {
+                flavorLabel.textContent = `Sabores (máximo ${maxFlavors} sabor${maxFlavors > 1 ? 'es' : ''})`;
+                
+                flavorsContainer.innerHTML = `
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                        <!-- Rojo Peligroso -->
+                        <div class="border-2 border-gray-200 rounded-lg p-3 hover:border-pink-300 transition-colors">
+                            <div class="flex justify-between items-start mb-2">
+                                <label class="checkbox-custom flavor-option block cursor-pointer flex-1">
+                                    <input type="checkbox" name="saboresCupcakes" value="rojo-peligroso" onchange="calculatePrice()">
+                                    <span class="checkmark"></span>
+                                    <span class="text-sm font-medium">Rojo Peligroso (3.50€)</span>
+                                </label>
+                                <button type="button" onclick="event.stopPropagation(); openProductModal('rojo-peligroso')" class="text-pink-600 hover:text-pink-800 text-sm font-medium ml-2">
+                                    ℹ️ Info
+                                </button>
+                            </div>
+                            <p class="text-xs text-gray-600">Red velvet con frosting de queso crema</p>
+                        </div>
+
+                        <!-- Zanah'oria -->
+                        <div class="border-2 border-gray-200 rounded-lg p-3 hover:border-pink-300 transition-colors">
+                            <div class="flex justify-between items-start mb-2">
+                                <label class="checkbox-custom flavor-option block cursor-pointer flex-1">
+                                    <input type="checkbox" name="saboresCupcakes" value="zanahoria" onchange="calculatePrice()">
+                                    <span class="checkmark"></span>
+                                    <span class="text-sm font-medium">Zanah'oria (3.50€)</span>
+                                </label>
+                                <button type="button" onclick="event.stopPropagation(); openProductModal('zanahoria')" class="text-pink-600 hover:text-pink-800 text-sm font-medium ml-2">
+                                    ℹ️ Info
+                                </button>
+                            </div>
+                            <p class="text-xs text-gray-600">Bizcocho de zanahoria con especias</p>
+                        </div>
+
+                        <!-- Pensamiento Cítrico -->
+                        <div class="border-2 border-gray-200 rounded-lg p-3 hover:border-pink-300 transition-colors">
+                            <div class="flex justify-between items-start mb-2">
+                                <label class="checkbox-custom flavor-option block cursor-pointer flex-1">
+                                    <input type="checkbox" name="saboresCupcakes" value="pensamiento-citrico" onchange="calculatePrice()">
+                                    <span class="checkmark"></span>
+                                    <span class="text-sm font-medium">Pensamiento Cítrico (3.80€)</span>
+                                </label>
+                                <button type="button" onclick="event.stopPropagation(); openProductModal('pensamiento-citrico')" class="text-pink-600 hover:text-pink-800 text-sm font-medium ml-2">
+                                    ℹ️ Info
+                                </button>
+                            </div>
+                            <p class="text-xs text-gray-600">Refrescante cupcake de limón y naranja</p>
+                        </div>
+
+                        <!-- Choco Bailes -->
+                        <div class="border-2 border-gray-200 rounded-lg p-3 hover:border-pink-300 transition-colors">
+                            <div class="flex justify-between items-start mb-2">
+                                <label class="checkbox-custom flavor-option block cursor-pointer flex-1">
+                                    <input type="checkbox" name="saboresCupcakes" value="choco-bailes" onchange="calculatePrice()">
+                                    <span class="checkmark"></span>
+                                    <span class="text-sm font-medium">Choco Bailes (3.50€)</span>
+                                </label>
+                                <button type="button" onclick="event.stopPropagation(); openProductModal('choco-bailes')" class="text-pink-600 hover:text-pink-800 text-sm font-medium ml-2">
+                                    ℹ️ Info
+                                </button>
+                            </div>
+                            <p class="text-xs text-gray-600">Intenso chocolate con buttercream</p>
+                        </div>
+
+                        <!-- Yogurt Salvaje -->
+                        <div class="border-2 border-gray-200 rounded-lg p-3 hover:border-pink-300 transition-colors">
+                            <div class="flex justify-between items-start mb-2">
+                                <label class="checkbox-custom flavor-option block cursor-pointer flex-1">
+                                    <input type="checkbox" name="saboresCupcakes" value="yogurt-salvaje" onchange="calculatePrice()">
+                                    <span class="checkmark"></span>
+                                    <span class="text-sm font-medium">Yogurt Salvaje (3.80€)</span>
+                                </label>
+                                <button type="button" onclick="event.stopPropagation(); openProductModal('yogurt-salvaje')" class="text-pink-600 hover:text-pink-800 text-sm font-medium ml-2">
+                                    ℹ️ Info
+                                </button>
+                            </div>
+                            <p class="text-xs text-gray-600">Bizcocho de yogurt con frutos del bosque</p>
+                        </div>
+
+                        <!-- Crimen Cuqui -->
+                        <div class="border-2 border-gray-200 rounded-lg p-3 hover:border-pink-300 transition-colors">
+                            <div class="flex justify-between items-start mb-2">
+                                <label class="checkbox-custom flavor-option block cursor-pointer flex-1">
+                                    <input type="checkbox" name="saboresCupcakes" value="crimen-cuqui" onchange="calculatePrice()">
+                                    <span class="checkmark"></span>
+                                    <span class="text-sm font-medium">Crimen Cuqui (4.00€)</span>
+                                </label>
+                                <button type="button" onclick="event.stopPropagation(); openProductModal('crimen-cuqui')" class="text-pink-600 hover:text-pink-800 text-sm font-medium ml-2">
+                                    ℹ️ Info
+                                </button>
+                            </div>
+                            <p class="text-xs text-gray-600">Vainilla premium con decoración especial</p>
+                        </div>
+                    </div>
+                `;
+                
+                const flavorCheckboxes = document.querySelectorAll('input[name="saboresCupcakes"]');
+                flavorCheckboxes.forEach(checkbox => {
+                    checkbox.addEventListener('change', function() {
+                        const checkedBoxes = document.querySelectorAll('input[name="saboresCupcakes"]:checked');
+                        if (checkedBoxes.length >= maxFlavors) {
+                            flavorCheckboxes.forEach(cb => {
+                                if (!cb.checked) {
+                                    cb.disabled = true;
+                                }
+                            });
+                        } else {
+                            flavorCheckboxes.forEach(cb => {
+                                cb.disabled = false;
+                            });
+                        }
+                    });
+                });
+            } else {
+                flavorLabel.textContent = 'Sabores (selecciona la cantidad primero)';
+                flavorsContainer.innerHTML = '';
+            }
+            
+            calculatePrice();
+        }
+
+        function toggleDireccionSection() {
+            const tipoEntrega = document.getElementById('tipoEntrega').value;
+            const direccionSection = document.getElementById('direccionSection');
+            if (tipoEntrega === 'domicilio') {
+                direccionSection.classList.remove('hidden');
+            } else {
+                direccionSection.classList.add('hidden');
+            }
+        }
+
+        function selectProduct(productValue) {
+            const radioButton = document.querySelector(`input[name="tartaSeleccionada"][value="${productValue}"]`);
+            if (radioButton) {
+                radioButton.checked = true;
+                calculatePrice();
+                
+                document.querySelectorAll('.product-card').forEach(card => {
+                    card.classList.remove('border-pink-500', 'bg-pink-50');
+                    card.classList.add('border-gray-200');
+                });
+                
+                const selectedCard = radioButton.closest('.product-card');
+                if (selectedCard) {
+                    selectedCard.classList.remove('border-gray-200');
+                    selectedCard.classList.add('border-pink-500', 'bg-pink-50');
+                }
+            }
+        }
+
+        const fechaInput = document.getElementById('fechaEntrega');
+        const tomorrow = new Date();
+        tomorrow.setDate(tomorrow.getDate() + 1);
+        fechaInput.min = tomorrow.toISOString().split('T')[0];
+
+        const PRODUCTOS_INFO = {
+            'marcos-no-me-tientes': {
+                nombre: 'Marcos No Me Tientes',
+                tipo: 'Tarta',
+                descripcion: 'Una deliciosa tarta con múltiples capas de bizcocho esponjoso y crema suave que te conquistará desde el primer bocado.',
+                ingredientes: [
+                    'Bizcocho de vainilla',
+                    'Crema pastelera',
+                    'Nata montada',
+                    'Fresas frescas',
+                    'Azúcar',
+                    'Huevos',
+                    'Harina de trigo',
+                    'Mantequilla'
+                ],
+                alergenos: ['Gluten', 'Huevos', 'Lácteos'],
+                conservacion: 'Conservar en refrigeración entre 2-4°C. Consumir preferentemente en 3-4 días.',
+                notas: 'Perfecta para celebraciones familiares. Se puede personalizar con diferentes frutas de temporada.'
+            },
+            'muerte-por-chocolate': {
+                nombre: 'Muerte por Chocolate',
+                tipo: 'Tarta',
+                descripcion: 'Una experiencia chocolatera intensa con capas de bizcocho de chocolate, ganache y cobertura de cacao puro.',
+                ingredientes: [
+                    'Bizcocho de chocolate',
+                    'Ganache de chocolate negro',
+                    'Cacao en polvo',
+                    'Chocolate negro 70%',
+                    'Nata para montar',
+                    'Azúcar moreno',
+                    'Huevos',
+                    'Harina de trigo',
+                    'Mantequilla'
+                ],
+                alergenos: ['Gluten', 'Huevos', 'Lácteos', 'Puede contener frutos secos'],
+                conservacion: 'Conservar en refrigeración entre 2-4°C. Consumir preferentemente en 4-5 días.',
+                notas: 'Ideal para los verdaderos amantes del chocolate. Intensidad de sabor garantizada.'
+            },
+            'unicornio-fantastico': {
+                nombre: 'Unicornio Fantástico',
+                tipo: 'Tarta',
+                descripcion: 'Una tarta mágica con colores vibrantes, decoración especial y sabores que transportan a un mundo de fantasía.',
+                ingredientes: [
+                    'Bizcocho arcoíris (varios colores)',
+                    'Buttercream de vainilla',
+                    'Colorantes alimentarios naturales',
+                    'Purpurina comestible',
+                    'Decoraciones de azúcar',
+                    'Esencia de vainilla',
+                    'Huevos',
+                    'Harina de trigo',
+                    'Mantequilla'
+                ],
+                alergenos: ['Gluten', 'Huevos', 'Lácteos'],
+                conservacion: 'Conservar en refrigeración entre 2-4°C. Consumir preferentemente en 3-4 días.',
+                notas: 'Perfecta para fiestas infantiles y celebraciones especiales. Los colores pueden variar según disponibilidad.'
+            },
+            'naranja-que-cacao': {
+                nombre: 'Naranja que Cacao',
+                tipo: 'Tarta',
+                descripcion: 'La perfecta armonía entre la frescura cítrica de la naranja y la intensidad del chocolate.',
+                ingredientes: [
+                    'Bizcocho de naranja',
+                    'Crema de chocolate',
+                    'Zumo de naranja natural',
+                    'Ralladura de naranja',
+                    'Chocolate negro',
+                    'Nata montada',
+                    'Huevos',
+                    'Harina de trigo',
+                    'Mantequilla'
+                ],
+                alergenos: ['Gluten', 'Huevos', 'Lácteos'],
+                conservacion: 'Conservar en refrigeración entre 2-4°C. Consumir preferentemente en 3-4 días.',
+                notas: 'Combinación única de sabores. Utilizamos naranjas de temporada para mayor frescura.'
+            },
+            'tia-misu': {
+                nombre: 'Tía Misú',
+                tipo: 'Tarta',
+                descripcion: 'Nuestra versión del clásico tiramisú italiano, con capas de bizcocho empapado en café y crema de mascarpone.',
+                ingredientes: [
+                    'Bizcocho de soletilla',
+                    'Café expreso',
+                    'Mascarpone',
+                    'Nata montada',
+                    'Cacao en polvo',
+                    'Azúcar',
+                    'Huevos',
+                    'Licor de café (opcional)'
+                ],
+                alergenos: ['Gluten', 'Huevos', 'Lácteos', 'Puede contener alcohol'],
+                conservacion: 'Conservar en refrigeración entre 2-4°C. Consumir preferentemente en 2-3 días.',
+                notas: 'Versión sin alcohol disponible bajo petición. Mejor si se consume al día siguiente de su elaboración.'
+            },
+            'revolcon-fresnata': {
+                nombre: 'Revolcón con Fresnata',
+                tipo: 'Tarta',
+                descripcion: 'Tarta fresca y ligera con nata montada y fresas naturales, perfecta para los días de calor.',
+                ingredientes: [
+                    'Bizcocho de vainilla',
+                    'Nata montada',
+                    'Fresas frescas',
+                    'Azúcar',
+                    'Gelatina neutra',
+                    'Huevos',
+                    'Harina de trigo',
+                    'Mantequilla'
+                ],
+                alergenos: ['Gluten', 'Huevos', 'Lácteos'],
+                conservacion: 'Conservar en refrigeración entre 2-4°C. Consumir preferentemente en 2-3 días.',
+                notas: 'Las fresas son de temporada. En otras épocas se pueden sustituir por otras frutas del bosque.'
+            },
+            'que-lo-bailes': {
+                nombre: 'Que lo Bailes',
+                tipo: 'Cheesecake',
+                descripcion: 'Cheesecake cremoso con una deliciosa cobertura de frutos rojos que te hará bailar de alegría.',
+                ingredientes: [
+                    'Queso crema Philadelphia',
+                    'Base de galletas digestive',
+                    'Frutos rojos (arándanos, frambuesas, fresas)',
+                    'Azúcar',
+                    'Huevos',
+                    'Nata agria',
+                    'Mantequilla',
+                    'Gelatina neutra'
+                ],
+                alergenos: ['Gluten', 'Huevos', 'Lácteos'],
+                conservacion: 'Conservar en refrigeración entre 2-4°C. Consumir preferentemente en 4-5 días.',
+                notas: 'Los frutos rojos pueden variar según temporada. Textura extra cremosa garantizada.'
+            },
+            'mangotero': {
+                nombre: 'Mangotero',
+                tipo: 'Cheesecake',
+                descripcion: 'Cheesecake tropical con mango fresco que te transportará a un paraíso de sabores exóticos.',
+                ingredientes: [
+                    'Queso crema Philadelphia',
+                    'Base de galletas de coco',
+                    'Mango fresco',
+                    'Pulpa de mango',
+                    'Azúcar',
+                    'Huevos',
+                    'Nata agria',
+                    'Mantequilla',
+                    'Gelatina neutra'
+                ],
+                alergenos: ['Gluten', 'Huevos', 'Lácteos', 'Coco'],
+                conservacion: 'Conservar en refrigeración entre 2-4°C. Consumir preferentemente en 3-4 días.',
+                notas: 'Utilizamos mango de temporada para garantizar el mejor sabor. Disponible todo el año con mango congelado.'
+            },
+            'limon-ileso': {
+                nombre: 'Limón Ileso',
+                tipo: 'Cheesecake',
+                descripcion: 'Cheesecake cítrico y refrescante con limón natural que despierta todos los sentidos.',
+                ingredientes: [
+                    'Queso crema Philadelphia',
+                    'Base de galletas maría',
+                    'Zumo de limón natural',
+                    'Ralladura de limón',
+                    'Azúcar',
+                    'Huevos',
+                    'Nata agria',
+                    'Mantequilla'
+                ],
+                alergenos: ['Gluten', 'Huevos', 'Lácteos'],
+                conservacion: 'Conservar en refrigeración entre 2-4°C. Consumir preferentemente en 4-5 días.',
+                notas: 'Utilizamos limones ecológicos para mayor intensidad de sabor. Perfecto para paladares que buscan frescura.'
+            },
+            'tradicional': {
+                nombre: 'Tradicional',
+                tipo: 'Cheesecake',
+                descripcion: 'El clásico cheesecake de toda la vida, cremoso y suave, que nunca pasa de moda.',
+                ingredientes: [
+                    'Queso crema Philadelphia',
+                    'Base de galletas digestive',
+                    'Azúcar',
+                    'Huevos',
+                    'Nata agria',
+                    'Esencia de vainilla',
+                    'Mantequilla'
+                ],
+                alergenos: ['Gluten', 'Huevos', 'Lácteos'],
+                conservacion: 'Conservar en refrigeración entre 2-4°C. Consumir preferentemente en 5-6 días.',
+                notas: 'La receta original que conquistó corazones. Simplicidad y perfección en cada bocado.'
+            },
+            'cacao-late': {
+                nombre: 'Cacao Late',
+                tipo: 'Cheesecake',
+                descripcion: 'Cheesecake intenso de chocolate y cacao para los verdaderos amantes del chocolate.',
+                ingredientes: [
+                    'Queso crema Philadelphia',
+                    'Base de galletas oreo',
+                    'Chocolate negro 70%',
+                    'Cacao en polvo puro',
+                    'Azúcar moreno',
+                    'Huevos',
+                    'Nata agria',
+                    'Mantequilla'
+                ],
+                alergenos: ['Gluten', 'Huevos', 'Lácteos', 'Puede contener frutos secos'],
+                conservacion: 'Conservar en refrigeración entre 2-4°C. Consumir preferentemente en 4-5 días.',
+                notas: 'Doble intensidad de chocolate. Recomendado para auténticos chocolateros.'
+            },
+            'que-hore-oes': {
+                nombre: 'Que Hore Oes?',
+                tipo: 'Cheesecake',
+                descripcion: 'Cheesecake con galletas Oreo crujientes que combina cremosidad y textura en cada bocado.',
+                ingredientes: [
+                    'Queso crema Philadelphia',
+                    'Galletas Oreo',
+                    'Base de galletas oreo trituradas',
+                    'Azúcar',
+                    'Huevos',
+                    'Nata agria',
+                    'Mantequilla'
+                ],
+                alergenos: ['Gluten', 'Huevos', 'Lácteos', 'Puede contener soja'],
+                conservacion: 'Conservar en refrigeración entre 2-4°C. Consumir preferentemente en 4-5 días.',
+                notas: 'Las galletas Oreo aportan el contraste perfecto de textura. Un clásico moderno irresistible.'
+            },
+            'rojo-peligroso': {
+                nombre: 'Rojo Peligroso',
+                tipo: 'Cupcake',
+                descripcion: 'Cupcake de red velvet con su característico color rojo intenso y suave textura aterciopelada, coronado con frosting de queso crema.',
+                ingredientes: [
+                    'Bizcocho red velvet',
+                    'Colorante rojo natural',
+                    'Cacao en polvo',
+                    'Frosting de queso crema',
+                    'Azúcar',
+                    'Huevos',
+                    'Harina de trigo',
+                    'Mantequilla',
+                    'Suero de leche'
+                ],
+                alergenos: ['Gluten', 'Huevos', 'Lácteos'],
+                conservacion: 'Conservar en lugar fresco y seco. Consumir preferentemente en 2-3 días.',
+                notas: 'El clásico red velvet americano. Su color rojo intenso lo hace perfecto para ocasiones especiales.'
+            },
+            'zanahoria': {
+                nombre: 'Zanah\'oria',
+                tipo: 'Cupcake',
+                descripcion: 'Cupcake húmedo de zanahoria con especias aromáticas, coronado con frosting de queso crema y un toque de canela.',
+                ingredientes: [
+                    'Zanahoria rallada fresca',
+                    'Bizcocho especiado',
+                    'Canela',
+                    'Nuez moscada',
+                    'Frosting de queso crema',
+                    'Azúcar moreno',
+                    'Huevos',
+                    'Harina de trigo',
+                    'Aceite vegetal'
+                ],
+                alergenos: ['Gluten', 'Huevos', 'Lácteos', 'Puede contener frutos secos'],
+                conservacion: 'Conservar en lugar fresco y seco. Consumir preferentemente en 3-4 días.',
+                notas: 'Rico en zanahoria fresca y especias naturales. Una opción más saludable sin renunciar al sabor.'
+            },
+            'pensamiento-citrico': {
+                nombre: 'Pensamiento Cítrico',
+                tipo: 'Cupcake',
+                descripcion: 'Cupcake refrescante con una mezcla perfecta de limón y naranja, coronado con buttercream cítrico que despierta los sentidos.',
+                ingredientes: [
+                    'Bizcocho de limón y naranja',
+                    'Zumo de limón natural',
+                    'Zumo de naranja natural',
+                    'Ralladura cítrica',
+                    'Buttercream cítrico',
+                    'Azúcar',
+                    'Huevos',
+                    'Harina de trigo',
+                    'Mantequilla'
+                ],
+                alergenos: ['Gluten', 'Huevos', 'Lácteos'],
+                conservacion: 'Conservar en lugar fresco y seco. Consumir preferentemente en 2-3 días.',
+                notas: 'Perfecto para los amantes de los sabores cítricos. Ideal para días calurosos por su frescura.'
+            },
+            'choco-bailes': {
+                nombre: 'Choco Bailes',
+                tipo: 'Cupcake',
+                descripcion: 'Cupcake intenso de chocolate negro con buttercream de chocolate que hará bailar tus papilas gustativas.',
+                ingredientes: [
+                    'Bizcocho de chocolate negro',
+                    'Cacao en polvo puro',
+                    'Chocolate negro 70%',
+                    'Buttercream de chocolate',
+                    'Azúcar moreno',
+                    'Huevos',
+                    'Harina de trigo',
+                    'Mantequilla'
+                ],
+                alergenos: ['Gluten', 'Huevos', 'Lácteos', 'Puede contener frutos secos'],
+                conservacion: 'Conservar en lugar fresco y seco. Consumir preferentemente en 3-4 días.',
+                notas: 'Para los verdaderos amantes del chocolate. Doble intensidad de cacao garantizada.'
+            },
+            'yogurt-salvaje': {
+                nombre: 'Yogurt Salvaje',
+                tipo: 'Cupcake',
+                descripcion: 'Cupcake esponjoso de yogurt natural con frutos del bosque frescos y frosting ligero de yogurt.',
+                ingredientes: [
+                    'Bizcocho de yogurt natural',
+                    'Frutos del bosque (arándanos, frambuesas)',
+                    'Yogurt griego',
+                    'Frosting de yogurt',
+                    'Miel natural',
+                    'Huevos',
+                    'Harina de trigo',
+                    'Aceite de oliva suave'
+                ],
+                alergenos: ['Gluten', 'Huevos', 'Lácteos'],
+                conservacion: 'Conservar en refrigeración entre 2-4°C. Consumir preferentemente en 2-3 días.',
+                notas: 'Opción más ligera y saludable. Los frutos del bosque aportan antioxidantes naturales.'
+            },
+            'crimen-cuqui': {
+                nombre: 'Crimen Cuqui',
+                tipo: 'Cupcake',
+                descripcion: 'Cupcake premium de vainilla bourbon con decoración artesanal especial que lo convierte en una pequeña obra de arte.',
+                ingredientes: [
+                    'Bizcocho de vainilla bourbon',
+                    'Vainilla natural de Madagascar',
+                    'Buttercream suizo',
+                    'Decoraciones comestibles artesanales',
+                    'Azúcar',
+                    'Huevos',
+                    'Harina de trigo premium',
+                    'Mantequilla francesa'
+                ],
+                alergenos: ['Gluten', 'Huevos', 'Lácteos'],
+                conservacion: 'Conservar en lugar fresco y seco. Consumir preferentemente en 2-3 días.',
+                notas: 'Nuestro cupcake más premium. Cada uno es decorado individualmente a mano con técnicas artesanales.'
+            }
+        };
+
+        function openProductModal(productId) {
+            const product = PRODUCTOS_INFO[productId];
+            if (!product) return;
+            
+            const modal = document.getElementById('productModal');
+            const modalTitle = document.getElementById('modalTitle');
+            const modalContent = document.getElementById('modalContent');
+            
+            modalTitle.textContent = product.nombre;
+            
+            modalContent.innerHTML = `
+                <div class="bg-pink-50 p-4 rounded-lg">
+                    <h4 class="font-semibold text-pink-800 mb-2">Tipo</h4>
+                    <p class="text-gray-700">${product.tipo}</p>
+                </div>
+                
+                <div>
+                    <h4 class="font-semibold text-gray-800 mb-2">Descripción</h4>
+                    <p class="text-gray-700">${product.descripcion}</p>
+                </div>
+                
+                <div>
+                    <h4 class="font-semibold text-gray-800 mb-2">Ingredientes principales</h4>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-2">
+                        ${product.ingredientes.map(ingrediente => 
+                            `<div class="flex items-center">
+                                <span class="w-2 h-2 bg-pink-400 rounded-full mr-2"></span>
+                                <span class="text-sm text-gray-700">${ingrediente}</span>
+                            </div>`
+                        ).join('')}
+                    </div>
+                </div>
+                
+                <div class="bg-yellow-50 p-4 rounded-lg border border-yellow-200">
+                    <h4 class="font-semibold text-yellow-800 mb-2 flex items-center">
+                        <span class="mr-2">⚠️</span>
+                        Alérgenos
+                    </h4>
+                    <p class="text-yellow-700 text-sm">
+                        <strong>Contiene:</strong> ${product.alergenos.join(', ')}
+                    </p>
+                </div>
+                
+                <div>
+                    <h4 class="font-semibold text-gray-800 mb-2">Conservación</h4>
+                    <p class="text-gray-700 text-sm">${product.conservacion}</p>
+                </div>
+                
+                <div class="bg-blue-50 p-4 rounded-lg">
+                    <h4 class="font-semibold text-blue-800 mb-2">Notas especiales</h4>
+                    <p class="text-blue-700 text-sm">${product.notas}</p>
+                </div>
+            `;
+            
+            modal.classList.remove('hidden');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeProductModal() {
+            const modal = document.getElementById('productModal');
+            modal.classList.add('hidden');
+            document.body.style.overflow = 'auto';
+        }
+
+        document.getElementById('productModal').addEventListener('click', function(e) {
+            if (e.target === this) {
+                closeProductModal();
+            }
+        });
+
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                closeProductModal();
+            }
+        });
+
+        const PRECIOS = {
+            tartas: {
+                'marcos-no-me-tientes': { pequena: 25, mediana: 35, grande: 45, xl: 55 },
+                'muerte-por-chocolate': { pequena: 25, mediana: 35, grande: 45, xl: 55 },
+                'unicornio-fantastico': { pequena: 30, mediana: 40, grande: 50, xl: 60 },
+                'naranja-que-cacao': { pequena: 25, mediana: 35, grande: 45, xl: 55 },
+                'tia-misu': { pequena: 28, mediana: 38, grande: 48, xl: 58 },
+                'revolcon-fresnata': { pequena: 26, mediana: 36, grande: 46, xl: 56 }
+            },
+            cheesecakes: {
+                'que-lo-bailes': { pequena: 30, mediana: 40, grande: 50, xl: 60 },
+                'mangotero': { pequena: 32, mediana: 42, grande: 52, xl: 62 },
+                'limon-ileso': { pequena: 28, mediana: 38, grande: 48, xl: 58 },
+                'tradicional': { pequena: 26, mediana: 36, grande: 46, xl: 56 },
+                'cacao-late': { pequena: 30, mediana: 40, grande: 50, xl: 60 },
+                'que-hore-oes': { pequena: 32, mediana: 42, grande: 52, xl: 62 }
+            },
+            cupcakes: {
+                'rojo-peligroso': 3.5,
+                'zanahoria': 3.5,
+                'pensamiento-citrico': 3.8,
+                'choco-bailes': 3.5,
+                'yogurt-salvaje': 3.8,
+                'crimen-cuqui': 4.0
+            },
+            extras: {
+                entregaDomicilio: 5,
+                decoracionEspecial: 10,
+                textoPersonalizado: 5
+            }
+        };
+
+        const EMAILJS_CONFIG = {
+            publicKey: 'bvwZyIlaHy325gIzp',
+            serviceId: 'service_a1r8kaa',
+            templateId: 'Pedidos_template',
+            templateIdCliente: 'template_confirmacion_cliente',
+            adminEmail: 'pedidos@malditadulzura.com'
+        };
+
+        function initEmailJS() {
+            emailjs.init(EMAILJS_CONFIG.publicKey);
+            return true;
+        }
+
+        async function sendAdminEmail(formData) {
+            try {
+                const templateParams = {
+                    to_email: EMAILJS_CONFIG.adminEmail,
+                    cliente_nombre: formData.nombre,
+                    cliente_telefono: formData.telefono,
+                    cliente_email: formData.email,
+                    tipo_producto: getTipoProductoText(formData.tipoProducto),
+                    detalles_producto: getDetallesProducto(formData),
+                    fecha_entrega: formData.fechaEntrega,
+                    hora_entrega: formData.horaEntrega || 'No especificada',
+                    tipo_entrega: formData.tipoEntrega === 'recoger' ? 'Recoger en tienda' : 'Entrega a domicilio',
+                    direccion_entrega: formData.direccion || 'No aplica',
+                    tema: formData.tema || 'No especificado',
+                    texto_tarta: formData.texto || 'No especificado',
+                    comentarios: formData.comentarios || 'Ninguno',
+                    fecha_pedido: new Date().toLocaleDateString('es-ES'),
+                    hora_pedido: new Date().toLocaleTimeString('es-ES'),
+                    reply_to: formData.email
+                };
+
+                const response = await emailjs.send(
+                    EMAILJS_CONFIG.serviceId,
+                    EMAILJS_CONFIG.templateId,
+                    templateParams
+                );
+
+                console.log('Email al administrador enviado exitosamente:', response);
+                return { success: true, message: 'Email al administrador enviado correctamente' };
+
+            } catch (error) {
+                console.error('Error enviando email al administrador:', error);
+                return { success: false, message: 'Error al enviar el email al administrador: ' + (error.text || error.message || error) };
+            }
+        }
+
+        async function sendClientConfirmationEmail(formData) {
+            try {
+                const templateParams = {
+                    to_email: formData.email,
+                    cliente_nombre: formData.nombre,
+                    tipo_producto: getTipoProductoText(formData.tipoProducto),
+                    detalles_producto: getDetallesProducto(formData),
+                    fecha_entrega: new Date(formData.fechaEntrega).toLocaleDateString('es-ES', {
+                        weekday: 'long',
+                        year: 'numeric',
+                        month: 'long',
+                        day: 'numeric'
+                    }),
+                    hora_entrega: formData.horaEntrega || 'No especificada',
+                    tipo_entrega: formData.tipoEntrega === 'recoger' ? 'Recoger en tienda' : 'Entrega a domicilio',
+                    direccion_entrega: formData.direccion || 'Recoger en nuestra tienda',
+                    tema: formData.tema || 'No especificado',
+                    texto_tarta: formData.texto || 'No especificado',
+                    comentarios: formData.comentarios || 'Ninguno',
+                    fecha_pedido: new Date().toLocaleDateString('es-ES'),
+                    numero_pedido: 'MD' + Date.now().toString().slice(-6),
+                    reply_to: EMAILJS_CONFIG.adminEmail
+                };
+
+                const response = await emailjs.send(
+                    EMAILJS_CONFIG.serviceId,
+                    EMAILJS_CONFIG.templateIdCliente,
+                    templateParams
+                );
+
+                console.log('Email de confirmación al cliente enviado exitosamente:', response);
+                return { success: true, message: 'Email de confirmación enviado correctamente' };
+
+            } catch (error) {
+                console.error('Error enviando email de confirmación al cliente:', error);
+                return { success: false, message: 'Error al enviar el email de confirmación: ' + (error.text || error.message || error) };
+            }
+        }
+
+        async function sendOrderEmails(formData) {
+            initEmailJS();
+
+            const results = {
+                admin: { success: false, message: '' },
+                client: { success: false, message: '' }
+            };
+
+            try {
+                results.admin = await sendAdminEmail(formData);
+            } catch (error) {
+                results.admin = { success: false, message: 'Error enviando email al administrador' };
+            }
+
+            try {
+                results.client = await sendClientConfirmationEmail(formData);
+            } catch (error) {
+                results.client = { success: false, message: 'Error enviando email de confirmación' };
+            }
+
+            return results;
+        }
+
+        function getTipoProductoText(tipo) {
+            const tipos = {
+                'tartas-cheesecakes': 'Tartas y Cheesecakes',
+                'cupcakes': 'Cupcakes',
+                'personalizado': 'Pedido Personalizado'
+            };
+            return tipos[tipo] || tipo;
+        }
+
+        function getDetallesProducto(formData) {
+            let detalles = '';
+            
+            if (formData.tipoProducto === 'tartas-cheesecakes' && formData.tarta) {
+                if (formData.tarta.tipo) {
+                    detalles += `Tarta: ${formData.tarta.tipo.replace(/-/g, ' ').replace(/\b\w/g, l => l.toUpperCase())}\n`;
+                }
+                if (formData.tarta.tamano) {
+                    detalles += `Tamaño: ${formData.tarta.tamano}\n`;
+                }
+            }
+            
+            if (formData.tipoProducto === 'cupcakes' && formData.cupcakes) {
+                detalles += `Cantidad: ${formData.cupcakes.cantidad}\n`;
+                if (formData.cupcakes.sabores && formData.cupcakes.sabores.length > 0) {
+                    detalles += `Sabores: ${formData.cupcakes.sabores.map(s => s.replace(/-/g, ' ').replace(/\b\w/g, l => l.toUpperCase())).join(', ')}\n`;
+                }
+            }
+            
+            if (formData.tipoProducto === 'personalizado' && formData.personalizado) {
+                if (formData.personalizado.formato) {
+                    detalles += `Formato: ${formData.personalizado.formato.replace(/-/g, ' ').replace(/\b\w/g, l => l.toUpperCase())}\n`;
+                }
+                
+                if (formData.personalizado.tamano) {
+                    detalles += `Tamaño: ${formData.personalizado.tamano.replace(/-/g, ' ').replace(/\b\w/g, l => l.toUpperCase())}\n`;
+                }
+                
+                if (formData.personalizado.bizcocho) {
+                    detalles += `Bizcocho: ${formData.personalizado.bizcocho.replace(/-/g, ' ').replace(/\b\w/g, l => l.toUpperCase())}\n`;
+                }
+                
+                if (formData.personalizado.relleno) {
+                    detalles += `Relleno: ${formData.personalizado.relleno.replace(/-/g, ' ').replace(/\b\w/g, l => l.toUpperCase())}\n`;
+                }
+                
+                if (formData.personalizado.cobertura) {
+                    detalles += `Cobertura: ${formData.personalizado.cobertura.replace(/-/g, ' ').replace(/\b\w/g, l => l.toUpperCase())}\n`;
+                }
+                
+                if (formData.personalizado.decoracion && formData.personalizado.decoracion.length > 0) {
+                    detalles += `Decoración: ${formData.personalizado.decoracion.map(d => d.replace(/-/g, ' ').replace(/\b\w/g, l => l.toUpperCase())).join(', ')}\n`;
+                }
+                
+                if (formData.personalizado.descripcion) {
+                    detalles += `Descripción adicional: ${formData.personalizado.descripcion}\n`;
+                }
+                
+                if (formData.personalizado.personas) {
+                    detalles += `Personas: ${formData.personalizado.personas}\n`;
+                }
+                
+                if (formData.personalizado.presupuesto) {
+                    detalles += `Presupuesto: ${formData.personalizado.presupuesto}\n`;
+                }
+            }
+            
+            return detalles || 'No hay detalles específicos';
+        }
+
+        document.getElementById('orderForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            
+            const nombre = document.getElementById('nombre').value;
+            const telefono = document.getElementById('telefono').value;
+            const email = document.getElementById('email').value;
+            const fechaEntrega = document.getElementById('fechaEntrega').value;
+            const tipoProducto = document.querySelector('input[name="tipoProducto"]:checked');
+            
+            if (!nombre || !telefono || !email || !fechaEntrega || !tipoProducto) {
+                const errorDiv = document.createElement('div');
+                errorDiv.className = 'bg-red-50 border border-red-200 p-4 rounded-lg text-red-700 mb-4';
+                errorDiv.textContent = 'Por favor, completa todos los campos obligatorios marcados con *';
+                this.insertBefore(errorDiv, this.firstChild);
+                setTimeout(() => errorDiv.remove(), 5000);
+                return;
+            }
+            
+            const formData = {
+                nombre: nombre,
+                telefono: telefono,
+                email: email,
+                tipoProducto: tipoProducto.value,
+                fechaEntrega: fechaEntrega,
+                horaEntrega: document.getElementById('horaEntrega').value,
+                tipoEntrega: document.getElementById('tipoEntrega').value,
+                direccion: document.getElementById('direccion').value,
+                tema: document.getElementById('tema').value,
+                texto: document.getElementById('texto').value,
+                comentarios: document.getElementById('comentarios').value
+            };
+            
+            if (tipoProducto.value === 'tartas-cheesecakes') {
+                const tartaSeleccionada = document.querySelector('input[name="tartaSeleccionada"]:checked');
+                formData.tarta = {
+                    tipo: tartaSeleccionada ? tartaSeleccionada.value : '',
+                    tamano: document.getElementById('tamanoTarta').value
+                };
+            }
+            
+            if (tipoProducto.value === 'personalizado') {
+                const formatoPersonalizado = document.querySelector('input[name="formatoPersonalizado"]:checked');
+                const tamanoPersonalizado = document.querySelector('input[name="tamanoPersonalizado"]:checked');
+                const bizcochoPersonalizado = document.querySelector('input[name="bizcochoPersonalizado"]:checked');
+                const rellenoPersonalizado = document.querySelector('input[name="rellenoPersonalizado"]:checked');
+                const coberturaPersonalizada = document.querySelector('input[name="coberturaPersonalizada"]:checked');
+                const decoracionPersonalizada = Array.from(document.querySelectorAll('input[name="decoracionPersonalizada"]:checked'))
+                    .map(cb => cb.value);
+                
+                formData.personalizado = {
+                    formato: formatoPersonalizado ? formatoPersonalizado.value : '',
+                    tamano: tamanoPersonalizado ? tamanoPersonalizado.value : '',
+                    bizcocho: bizcochoPersonalizado ? bizcochoPersonalizado.value : '',
+                    relleno: rellenoPersonalizado ? rellenoPersonalizado.value : '',
+                    cobertura: coberturaPersonalizada ? coberturaPersonalizada.value : '',
+                    decoracion: decoracionPersonalizada,
+                    descripcion: document.getElementById('descripcionPersonalizada').value,
+                    personas: document.getElementById('personasPersonalizado').value,
+                    presupuesto: document.getElementById('presupuestoPersonalizado').value
+                };
+            }
+            
+            if (tipoProducto.value === 'cupcakes') {
+                const cantidadSelect = document.getElementById('cantidadCupcakes').value;
+                const cantidadOtra = document.getElementById('cantidadOtra').value;
+                const cantidadFinal = cantidadSelect === 'otro' ? cantidadOtra : cantidadSelect;
+                
+                const saboresCupcakes = Array.from(document.querySelectorAll('input[name="saboresCupcakes"]:checked'))
+                    .map(cb => cb.value);
+                    
+                formData.cupcakes = {
+                    cantidad: cantidadFinal,
+                    sabores: saboresCupcakes
+                };
+            }
+            
+            const submitButton = document.querySelector('button[type="submit"]');
+            const originalText = submitButton.textContent;
+            submitButton.textContent = 'Enviando pedido...';
+            submitButton.disabled = true;
+            
+            try {
+                const emailResults = await sendOrderEmails(formData);
+                
+                let successMessage = '';
+                let hasErrors = false;
+                
+                if (emailResults.admin.success && emailResults.client.success) {
+                    successMessage = `
+                        <h3 class="text-lg sm:text-xl font-bold mb-2 text-green-800">¡Pedido Enviado Correctamente!</h3>
+                        <p class="text-sm sm:text-base text-green-700">Hemos recibido tu pedido y te hemos enviado un email de confirmación a <strong>${formData.email}</strong>.</p>
+                        <p class="mt-2 text-sm sm:text-base text-green-700">También hemos notificado a nuestro equipo para procesar tu pedido.</p>
+                        <p class="mt-3 text-sm sm:text-base font-semibold text-green-800">Te contactaremos pronto para confirmar los detalles y el presupuesto final.</p>
+                    `;
+                } else if (emailResults.admin.success && !emailResults.client.success) {
+                    hasErrors = true;
+                    successMessage = `
+                        <h3 class="text-lg sm:text-xl font-bold mb-2 text-yellow-800">¡Pedido Recibido!</h3>
+                        <p class="text-sm sm:text-base text-yellow-700">Hemos recibido tu pedido correctamente y nuestro equipo ha sido notificado.</p>
+                        <p class="mt-2 text-sm sm:text-base text-yellow-600">⚠️ No pudimos enviar el email de confirmación a tu dirección. Verifica que ${formData.email} sea correcta.</p>
+                        <p class="mt-3 text-sm sm:text-base font-semibold text-yellow-800">Te contactaremos pronto para confirmar los detalles y el presupuesto final.</p>
+                    `;
+                } else if (!emailResults.admin.success && emailResults.client.success) {
+                    hasErrors = true;
+                    successMessage = `
+                        <h3 class="text-lg sm:text-xl font-bold mb-2 text-yellow-800">¡Pedido Recibido!</h3>
+                        <p class="text-sm sm:text-base text-yellow-700">Te hemos enviado un email de confirmación a <strong>${formData.email}</strong>.</p>
+                        <p class="mt-2 text-sm sm:text-base text-yellow-600">⚠️ Hubo un problema notificando a nuestro equipo, pero hemos guardado tu pedido.</p>
+                        <p class="mt-3 text-sm sm:text-base font-semibold text-yellow-800">Te contactaremos pronto para confirmar los detalles y el presupuesto final.</p>
+                    `;
+                } else {
+                    hasErrors = true;
+                    successMessage = `
+                        <h3 class="text-lg sm:text-xl font-bold mb-2 text-red-800">¡Pedido Recibido con Advertencias!</h3>
+                        <p class="text-sm sm:text-base text-red-700">Hemos recibido tu pedido, pero hubo problemas con el envío de emails.</p>
+                        <p class="mt-2 text-sm sm:text-base text-red-600">⚠️ Por favor, contacta directamente con nosotros para confirmar que recibimos tu pedido:</p>
+                        <p class="mt-2 text-sm sm:text-base font-semibold text-red-700">📧 pedidos@malditadulzura.com</p>
+                        <p class="mt-1 text-sm sm:text-base font-semibold text-red-700">📱 +34 123 456 789</p>
+                    `;
+                }
+                
+                document.getElementById('orderForm').style.display = 'none';
+                document.getElementById('successMessage').innerHTML = successMessage;
+                document.getElementById('successMessage').style.display = 'block';
+                
+                const successDiv = document.getElementById('successMessage');
+                if (hasErrors) {
+                    successDiv.className = 'bg-yellow-50 border border-yellow-200 p-6 sm:p-8 rounded-xl shadow-lg mt-8';
+                } else {
+                    successDiv.className = 'bg-green-50 border border-green-200 p-6 sm:p-8 rounded-xl shadow-lg mt-8';
+                }
+                
+                document.getElementById('successMessage').scrollIntoView({ behavior: 'smooth' });
+                
+            } catch (error) {
+                console.error('Error procesando el pedido:', error);
+                
+                document.getElementById('orderForm').style.display = 'none';
+                document.getElementById('successMessage').innerHTML = `
+                    <h3 class="text-lg sm:text-xl font-bold mb-2 text-red-800">Error al Procesar el Pedido</h3>
+                    <p class="text-sm sm:text-base text-red-700">Hubo un problema técnico al procesar tu pedido. Por favor, inténtalo de nuevo o contacta directamente con nosotros.</p>
+                    <div class="mt-4 p-4 bg-red-100 rounded-lg">
+                        <p class="text-sm font-semibold text-red-800">Información de contacto:</p>
+                        <p class="text-sm text-red-700">📧 pedidos@malditadulzura.com</p>
+                        <p class="text-sm text-red-700">📱 +34 123 456 789</p>
+                    </div>
+                    <button onclick="location.reload()" class="mt-4 bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded-lg text-sm">
+                        Intentar de Nuevo
+                    </button>
+                `;
+                document.getElementById('successMessage').className = 'bg-red-50 border border-red-200 p-6 sm:p-8 rounded-xl shadow-lg mt-8';
+                document.getElementById('successMessage').style.display = 'block';
+                
+                document.getElementById('successMessage').scrollIntoView({ behavior: 'smooth' });
+            }
+        });
+    </script>
+ <script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9aac706884cbcc40',t:'MTc2NTE5ODc1Ny4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</html>
