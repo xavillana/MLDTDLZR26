@@ -8,6 +8,7 @@ document.addEventListener("DOMContentLoaded", () => {
     // Página principal
     if (path.endsWith("/") || path.endsWith("index.html")) {
         loadComponent("hero", "hero.html");
+        loadComponent("sobrenosotros", "sobrenosotros.html");
         loadComponent("how-it-works", "how-it-works.html");
         loadComponent("newsletter", "newsletter.html", initStorePage);
     }
@@ -27,4 +28,5 @@ document.addEventListener("DOMContentLoaded", () => {
     if (path.endsWith("pedido.html")) {
         loadComponent("pedido", "pedido.html", initProductDetailPage);
     }
+
 });
