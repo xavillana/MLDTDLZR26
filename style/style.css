@@ -3,10 +3,10 @@
    Estilos personalizados + mejoras para modal
    =============================================== */
 
-@import url('https://fonts.googleapis.com/css2?family=Sailors&family=Charmonman:wght@400;700&family=Cookie&family=Dekko&family=Oleo+Script+Swash+Caps:wght@400;700&family=Playpen+Sans:wght@100..800&family=Playwrite+NO:wght@100..400&family=Twinkle+Star&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap&family=Charmonman:wght@400;700&family=Cookie&family=Dekko&family=Oleo+Script+Swash+Caps:wght@400;700&family=Playpen+Sans:wght@100..800&family=Playwrite+NO:wght@100..400&family=Twinkle+Star&display=swap');
 
 * {
-    font-family: 'sailors', sans-serif;
+    font-family: 'Bebas Neue', sans-serif;
     box-sizing: border-box;
 }
 
@@ -211,6 +211,7 @@ body {
 #productModal::-webkit-scrollbar-thumb:hover {
     background: #c71585;
 }
+
 
 
 
