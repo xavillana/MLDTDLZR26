@@ -1,32 +1,78 @@
+// router.js
+
+function loadComponent(id, file, callback) {
+    const element = document.getElementById(id);
+    if (!element) {
+        console.warn(`⚠️ Elemento con id "${id}" no encontrado`);
+        return;
+    }
+
+    fetch(file)
+        .then(response => {
+            if (!response.ok) throw new Error(`HTTP ${response.status}`);
+            return response.text();
+        })
+        .then(html => {
+            element.innerHTML = html;
+
+            // Disparamos un evento personalizado para avisar que el componente está listo
+            const event = new CustomEvent('componentLoaded', {
+                detail: { id, element }
+            });
+            document.dispatchEvent(event);
+
+            // Ejecutamos el callback si existe (para inicializaciones específicas)
+            if (typeof callback === 'function') {
+                callback();
+            }
+        })
+        .catch(err => {
+            console.error(`❌ Error cargando componente ${id} desde ${file}:`, err);
+            element.innerHTML = `<p class="text-red-600 text-center py-8">Error al cargar sección</p>`;
+        });
+}
+
 document.addEventListener("DOMContentLoaded", () => {
     const path = window.location.pathname;
 
-    // Navbar y footer siempre
-    loadComponent("navbar", "navbar.html", initMobileMenu);
-    loadComponent("footer", "footer.html");
+    // Navbar y footer siempre se cargan en todas las páginas
+    loadComponent("navbar", "components/navbar.html", initMobileMenu);
+    loadComponent("footer", "components/footer.html");
 
-    // Página principal
+    // ==================== PÁGINA PRINCIPAL (index.html) ====================
     if (path.endsWith("/") || path.endsWith("index.html")) {
-        loadComponent("hero", "hero.html");
-        loadComponent("sobrenosotros", "sobrenosotros.html");
-        loadComponent("how-it-works", "how-it-works.html");
-        loadComponent("newsletter", "newsletter.html", initStorePage);
+        loadComponent("hero", "components/hero.html");
+        loadComponent("destacados", "components/destacados.html"); // Sin callback aún
+        loadComponent("how-it-works", "components/how-it-works.html");
+        loadComponent("newsletter", "components/newsletter.html");
     }
 
-    // Tienda
-    if (path.endsWith("tienda.html")) {
-        loadComponent("hero-tienda", "hero-tienda.html");
-        loadComponent("featured-products", "featured-products.html", initStorePage);
+    // ==================== TIENDA ====================
+    if (path.endsWith("Tienda.html")) {
+        loadComponent("featured-products", "components/featured-products.html", initStorePage);
     }
 
-    // Producto individual
+    // ==================== DETALLE DE PRODUCTO ====================
     if (path.endsWith("producto.html")) {
-        loadComponent("product-detail", "product-detail.html", initProductDetailPage);
+        loadComponent("product-detail", "components/product-detail.html", initProductDetailPage);
     }
 
-     // Producto individual
+    // ==================== PEDIDO ====================
     if (path.endsWith("pedido.html")) {
-        loadComponent("pedido", "pedido.html", initProductDetailPage);
+        loadComponent("pedido", "components/pedido.html", initPedidoPage);
+    }
+});
+
+// ==================== ESCUCHAMOS EVENTOS PERSONALIZADOS ====================
+
+document.addEventListener('componentLoaded', (e) => {
+    const { id } = e.detail;
+
+    if (id === 'destacados') {
+        // Ahora SÍ existe #productsContainer en el DOM
+        renderFeaturedProducts();
     }
 
+    // Puedes añadir más en el futuro:
+    // if (id === 'otro-componente') { initOtraCosa(); }
 });
