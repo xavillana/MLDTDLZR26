@@ -14,6 +14,7 @@
   <!-- Los componentes se inyectarán aquí -->
   <div id="navbar"></div>
   <div id="hero"></div>
+  <div id="featured-products"></div>  
   <div id="how-it-works"></div>
   <div id="newsletter"></div>
   <div id="footer"></div>
@@ -24,6 +25,17 @@
   <script src="js/main.js"></script>
   <script src="js/products.js"></script>
 
- 
+ <!-- Modal de producto -->
+<div id="productModalContainer"></div>
+
+<script>
+    // Cargar el modal una sola vez
+    fetch('components/product-modal.html')
+        .then(r => r.text())
+        .then(html => {
+            document.getElementById('productModalContainer').innerHTML = html;
+        });
+</script>
 </body>
+
 </html>
