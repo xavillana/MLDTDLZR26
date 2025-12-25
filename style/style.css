@@ -9,13 +9,6 @@
     font-family: 'Cookie', cursive;
 }
 
-.title {            
-    font-family: 'TWINKLE STAR', sans-serif;
-    letter-spacing: 1px;
-    font-size: 30px;
-}
-
-
 body {
     background-color: #fffbf7;
 }
@@ -218,6 +211,7 @@ body {
 #productModal::-webkit-scrollbar-thumb:hover {
     background: #c71585;
 }
+
 
 
 
