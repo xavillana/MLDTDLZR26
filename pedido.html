@@ -23,9 +23,21 @@
   <script src="js/pedido.js"></script>
 
  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
-  
+  <!-- Contenedor para el modal de producto -->
+<div id="productModalContainer"></div>
+
+<script>
+    // Cargar el modal una sola vez
+    fetch('components/product-modal.html')
+        .then(response => response.text())
+        .then(html => {
+            document.getElementById('productModalContainer').innerHTML = html;
+        })
+        .catch(err => console.error('Error cargando modal:', err));
+</script>
 </body>
 </html>
+
 
 
 
