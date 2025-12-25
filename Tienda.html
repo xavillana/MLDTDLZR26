@@ -28,16 +28,19 @@
     <script src="js/main.js"></script>
     <script src="js/products.js"></script>
 <!-- Modal de producto -->
+<!-- Contenedor para el modal global -->
 <div id="productModalContainer"></div>
 
 <script>
-    // Cargar el modal una sola vez
-    fetch('components/product-modal.html')
-        .then(r => r.text())
-        .then(html => {
-            document.getElementById('productModalContainer').innerHTML = html;
-        });
+// Cargar el modal una sola vez al cargar la página
+fetch('components/product-modal.html')
+    .then(response => response.text())
+    .then(html => {
+        document.getElementById('productModalContainer').innerHTML = html;
+    })
+    .catch(err => console.error('Error cargando modal:', err));
 </script>
 </body>
 
 </html>
+
