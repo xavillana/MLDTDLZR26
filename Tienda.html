@@ -23,22 +23,32 @@
 <!-- Contenedor para el modal de producto -->
 <div id="productModalContainer"></div>
 
-<script>
-    // Cargar el modal una sola vez
-    fetch('components/product-modal.html')
-        .then(response => response.text())
-        .then(html => {
-            document.getElementById('productModalContainer').innerHTML = html;
-        })
-        .catch(err => console.error('Error cargando modal:', err));
-</script>
        <script src="js/components.js"></script>
     <script src="js/router.js"></script>
     <script src="js/main.js"></script>
     <script src="js/products.js"></script>
+
+    <!-- Contenedor para el modal -->
+<div id="productModalContainer"></div>
+
+<script>
+    fetch('components/product-modal.html')
+        .then(response => {
+            if (!response.ok) throw new Error('No se encontró el archivo');
+            return response.text();
+        })
+        .then(html => {
+            document.getElementById('productModalContainer').innerHTML = html;
+            console.log('✅ Modal cargado correctamente');
+        })
+        .catch(err => {
+            console.error('❌ Error cargando el modal:', err);
+        });
+</script>
 </body>
 
 </html>
+
 
 
 
