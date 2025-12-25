@@ -43,6 +43,10 @@ body {
     transform: translateY(-2px);
 }
 
+.footer-gradient {
+    background: linear-gradient(135deg, #ef1783 10%, #85d2d0 30%, #ffd501 60%, #ef1783 90%);
+}
+
 /* Gradientes para secciones */
 .uno-gradient   { background: linear-gradient(135deg, #ef1783 20%, #85d2d0 80%); }
 .dos-gradient   { background: linear-gradient(135deg, #85d2d0 20%, #ffd501 80%); }
@@ -207,3 +211,4 @@ body {
 #productModal::-webkit-scrollbar-thumb:hover {
     background: #c71585;
 }
+
