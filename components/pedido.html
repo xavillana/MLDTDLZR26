@@ -203,72 +203,28 @@
       <p class="text-base sm:text-lg">Hemos recibido tu pedido. Te contactaremos pronto para confirmar los detalles y el presupuesto.</p>
      </div>
     </div>
-   </section><!-- Sección Contacto -->
-   <section id="contacto" class="contacto-section">
-    <div class="container mx-auto px-4 text-center">
-     <h2 class="text-4xl md:text-5xl font-bold text-green-700 mb-12">Contacto</h2>
-     <div class="max-w-2xl mx-auto bg-white p-8 rounded-xl shadow-lg">
-      <div class="space-y-6">
-       <div>
-        <h3 class="text-2xl font-bold text-gray-800 mb-2">📍 Dirección</h3>
-        <p class="text-gray-600">Calle de la Dulzura, 123<br>
-         28001 Madrid, España</p>
-       </div>
-       <div>
-        <h3 class="text-2xl font-bold text-gray-800 mb-2">📞 Teléfono</h3>
-        <p class="text-gray-600">+34 123 456 789</p>
-       </div>
-       <div>
-        <h3 class="text-2xl font-bold text-gray-800 mb-2">📧 Email</h3>
-        <p class="text-gray-600">pedidos@malditadulzura.com</p>
-       </div>
-       <div>
-        <h3 class="text-2xl font-bold text-gray-800 mb-2">🕐 Horario</h3>
-        <p class="text-gray-600">Lunes a Viernes: 9:00 - 20:00<br>
-          Sábados: 10:00 - 14:00<br>
-          Domingos: Cerrado</p>
-       </div>
-       <div class="pt-6">
-        <h3 class="text-2xl font-bold text-gray-800 mb-4">Síguenos en Redes Sociales</h3>
-        <div class="flex justify-center space-x-6 text-3xl"><a href="#" class="hover:scale-110 transition-transform">📘</a> <a href="#" class="hover:scale-110 transition-transform">📷</a> <a href="#" class="hover:scale-110 transition-transform">🐦</a>
-        </div>
-       </div>
-      </div>
-     </div>
-    </div>
    </section>
   </div>
 
-    <!-- Modal de información del producto -->
-    <div id="productModal" class="fixed inset-0 bg-black bg-opacity-50 z-50 hidden items-center justify-center p-4">
-        <div class="bg-white rounded-xl max-w-2xl w-full max-h-[90vh] overflow-y-auto">
-            <div class="p-6">
-                <!-- Header del modal -->
-                <div class="flex justify-between items-center mb-4">
-                    <h3 id="modalTitle" class="text-xl font-bold text-pink-600"></h3>
-                    <button onclick="closeProductModal()" class="text-gray-500 hover:text-gray-700 text-2xl font-bold">
-                        ×
-                    </button>
-                </div>
+   <!-- Contenedor para el modal de producto -->
+<div id="productModalContainer"></div>
 
-                <!-- Contenido del modal -->
-                <div id="modalContent" class="space-y-4">
-                    <!-- El contenido se generará dinámicamente -->
-                </div>
+<script>
+    // Cargar el componente modal una sola vez
+    fetch('components/product-modal.html')
+        .then(response => response.text())
+        .then(html => {
+            document.getElementById('productModalContainer').innerHTML = html;
+        })
+        .catch(err => console.error('Error cargando modal:', err));
+</script>
 
-                <!-- Footer del modal -->
-                <div class="mt-6 pt-4 border-t border-gray-200 flex justify-end">
-                    <button onclick="closeProductModal()"
-                        class="bg-pink-600 hover:bg-pink-700 text-white px-6 py-2 rounded-lg font-medium">
-                        Cerrar
-                    </button>
-                </div>
-            </div>
-        </div>
-    </div>
-    </script>
+<!-- Cargar tus scripts (ya los tienes, pero asegúrate del orden) -->
+<script src="js/products.js"></script> <!-- Importante: debe cargar después del modal -->
+<script src="js/pedido.js"></script>
 </body>
 
 
 </html>
+
 
