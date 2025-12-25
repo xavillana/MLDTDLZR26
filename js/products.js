@@ -226,7 +226,7 @@ const allProducts = [
         rating: 5,
         reviews: 189,
         sales: 223,
-        bestseller: true,
+        bestseller: false,
         vegan: false,
         gradient: "from-gray-200 via-yellow-100 to-gray-300",
         badges: ["CLÁSICO", "BESTSELLER"],
@@ -244,8 +244,8 @@ const allProducts = [
         category: "cheesecakes",
         description: "Cheesecake de chocolate intenso con capas de ganache. Pecado asegurado.",
         price: 40,
-        oldPrice: 48,
-        discount: 17,
+        oldPrice: null,
+        discount: 0,
         rating: 5,
         reviews: 93,
         sales: 105,
@@ -309,7 +309,7 @@ const allProducts = [
         rating: 4.8,
         reviews: 134,
         sales: 289,
-        bestseller: false,
+        bestseller: true,
         image: "img/carrot-cake.jpg", // Ruta local
         badges: []
     },
@@ -323,7 +323,7 @@ const allProducts = [
         rating: 4.9,
         reviews: 98,
         sales: 167,
-        bestseller: true,
+        bestseller: false,
         badges: ["BESTSELLER"]
     },
     {
@@ -607,6 +607,7 @@ function closeProductModal() {
 document.addEventListener('keydown', e => {
     if (e.key === 'Escape') closeProductModal();
 });
+
 
 
 
