@@ -546,7 +546,12 @@ function openProductModal(product) {
 
     document.getElementById('modalTitle').textContent = product.name;
     document.getElementById('modalEmoji').textContent = product.emoji || '';
-    document.getElementById('modalDescription').textContent = product.description || 'Delicia irresistible hecha con amor rebelde.';
+    document.getElementById('modalDescription').innerHTML = `
+    <p class="font-bold mb-2">${product.shortDescription || ''}</p>
+    <p class="mb-4">${product.longDescription}</p>
+    <p class="text-sm italic mb-2"><strong>Ingredientes:</strong> ${product.ingredients}</p>
+    <p class="text-sm italic"><strong>Formatos disponibles:</strong> ${product.formats}</p>
+`;
     
     const img = document.getElementById('modalImage');
     img.src = product.image || `https://via.placeholder.com/600x600/f8b4d9/ffffff?text=${product.emoji || 'Cake'}`;
@@ -607,6 +612,7 @@ function closeProductModal() {
 document.addEventListener('keydown', e => {
     if (e.key === 'Escape') closeProductModal();
 });
+
 
 
 
