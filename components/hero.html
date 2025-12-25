@@ -1,16 +1,67 @@
-<section id="inicio" class="bg-white py-20 lg:py-32 text-white">
-  <div class="container mx-auto px-4 text-center">
-    <div class="title text-2xl lg:text-4xl font-black mb-9 leading-tight text-pink-600"">
-      Maldita Dulzura
-    <h1 class="text-2xl lg:text-4xl font-black mb-9 leading-tight text-pink-600">
-    LA ÚNICA MANERA DE ACABAR CON <br>
-      <span class="text-yellow-300">LA TENTACIÓN</span>ES CAER EN ELLA
-    </h1>
-    <a href="tienda.html" class="inline-block bg-white text-pink-600 px-8 py-4 rounded-full font-bold text-lg hover:bg-pink-600 hover:text-white transition transform hover:scale-105 shadow-2xl">
-      Ir a la tienda
-      <a href="pedido.html" class="inline-block bg-white text-pink-600 px-8 py-4 rounded-full font-bold text-lg hover:bg-pink-600 hover:text-white transition transform hover:scale-105 shadow-2xl">
-      Hacer pedido
-    </a>
+<section id="inicio" class="bg-gradient-to-br from-pink-500 via-rose-500 to-purple-600 py-20 lg:py-32 text-white relative overflow-hidden">
+  <!-- Elementos decorativos -->
+  <div class="absolute top-0 left-0 w-full h-full overflow-hidden opacity-10">
+    <div class="absolute -top-20 -left-20 w-64 h-64 rounded-full bg-white"></div>
+    <div class="absolute top-1/4 right-10 w-40 h-40 rounded-full bg-yellow-300"></div>
+    <div class="absolute bottom-20 left-1/4 w-32 h-32 rounded-full bg-pink-300"></div>
+  </div>
+  
+  <div class="container mx-auto px-4 text-center relative z-10">
+    <!-- Logo/título principal -->
+    <div class="mb-6">
+      <h2 class="text-5xl lg:text-7xl font-black mb-2 tracking-wider">
+        MALDITA <span class="text-yellow-300">DULZURA</span>
+      </h2>
+      <div class="w-32 h-1 bg-yellow-300 mx-auto mb-6"></div>
+    </div>
+    
+    <!-- Subtítulo destacado -->
+    <div class="mb-12">
+      <h1 class="text-2xl lg:text-4xl font-bold mb-4 leading-tight">
+        LA ÚNICA MANERA DE ACABAR CON <br class="hidden lg:block">
+        <span class="text-yellow-300 font-black animate-pulse">LA TENTACIÓN</span> ES CAER EN ELLA
+      </h1>
+      <p class="text-lg lg:text-xl opacity-90 max-w-2xl mx-auto mt-4">
+        Descubre los postres más pecaminosos que harán que abandones toda dieta
+      </p>
+    </div>
+    
+    <!-- Botones con mejor espaciado -->
+    <div class="flex flex-col sm:flex-row gap-6 justify-center items-center mt-12">
+      <!-- Botón Tienda -->
+      <a href="tienda.html" class="group relative overflow-hidden">
+        <div class="absolute inset-0 bg-gradient-to-r from-yellow-400 to-yellow-500 transform -skew-x-12 group-hover:skew-x-0 transition-transform duration-300"></div>
+        <div class="relative flex items-center justify-center bg-white text-pink-600 px-10 py-5 rounded-2xl font-bold text-lg lg:text-xl hover:bg-transparent hover:text-white transition-all duration-300 transform hover:-translate-y-1 shadow-2xl min-w-[200px]">
+          <span class="mr-3">🍰</span>
+          Ir a la Tienda
+          <span class="ml-3 transform group-hover:translate-x-2 transition-transform">→</span>
+        </div>
+      </a>
+      
+      <!-- Botón Pedido -->
+      <a href="pedido.html" class="group relative overflow-hidden">
+        <div class="absolute inset-0 bg-gradient-to-r from-pink-600 to-rose-600 transform skew-x-12 group-hover:skew-x-0 transition-transform duration-300"></div>
+        <div class="relative flex items-center justify-center bg-yellow-300 text-gray-900 px-10 py-5 rounded-2xl font-bold text-lg lg:text-xl hover:bg-transparent hover:text-white transition-all duration-300 transform hover:-translate-y-1 shadow-2xl min-w-[200px]">
+          <span class="mr-3">🎂</span>
+          Hacer Pedido
+          <span class="ml-3 transform group-hover:translate-x-2 transition-transform">→</span>
+        </div>
+      </a>
+    </div>
+    
+    <!-- Texto decorativo inferior -->
+    <div class="mt-16">
+      <p class="text-sm uppercase tracking-widest opacity-70">
+        Postres Artesanales • Ingredientes Premium • Entrega en 24h
+      </p>
+    </div>
+  </div>
+  
+  <!-- Flecha decorativa -->
+  <div class="absolute bottom-8 left-1/2 transform -translate-x-1/2 animate-bounce">
+    <svg class="w-8 h-8 text-white opacity-50" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"></path>
+    </svg>
   </div>
 </section>
 
