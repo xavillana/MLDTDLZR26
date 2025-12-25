@@ -31,7 +31,7 @@ const allProducts = [
         id: "muerte-por-chocolate",
         name: "Muerte por Chocolate",
         emoji: "🍫",
-        category: "tartas",
+        category:"cupcakes",
         description: "¿Porqué quedarte con lo simple si puedes pecar a lo grande?",
         price: 35,
         oldPrice: null,
@@ -42,7 +42,7 @@ const allProducts = [
         bestseller: true,
         vegan: false,
         gradient: "from-amber-800 via-amber-900 to-black",
-        badges: ["BESTSELLER", "DESCUENTO"],
+        badges: ["BESTSELLER"],
         image: "img/muerte-por-chocolate.jpg", // Ruta local
         sizes: [
             { name: "Pequeña", price: 25, servings: "4-6" },
@@ -607,6 +607,7 @@ function closeProductModal() {
 document.addEventListener('keydown', e => {
     if (e.key === 'Escape') closeProductModal();
 });
+
 
 
 
