@@ -34,8 +34,8 @@ const allProducts = [
         category: "tartas",
         description: "¿Porqué quedarte con lo simple si puedes pecar a lo grande?",
         price: 35,
-        oldPrice: 42,
-        discount: 17,
+        oldPrice: null,
+        discount: 0,
         rating: 5,
         reviews: 156,
         sales: 201,
@@ -43,6 +43,7 @@ const allProducts = [
         vegan: false,
         gradient: "from-amber-800 via-amber-900 to-black",
         badges: ["BESTSELLER", "DESCUENTO"],
+        image: "img/muerte-por-chocolate.jpg", // Ruta local
         sizes: [
             { name: "Pequeña", price: 25, servings: "4-6" },
             { name: "Mediana", price: 35, servings: "8-10" },
@@ -126,7 +127,7 @@ const allProducts = [
         category: "tartas",
         description: "Fresas frescas, nata montada y bizcocho esponjoso. Pura pasión veraniega.",
         price: 36,
-        oldPrice: 42,
+        oldPrice: null,
         discount: 0,
         rating: 4.9,
         reviews: 95,
@@ -271,7 +272,7 @@ const allProducts = [
         rating: 5,
         reviews: 145,
         sales: 178,
-        bestseller: true,
+        bestseller: false,
         vegan: false,
         gradient: "from-black via-gray-800 to-black",
         badges: ["BESTSELLER"],
@@ -295,6 +296,7 @@ const allProducts = [
         reviews: 201,
         sales: 456,
         bestseller: true,
+        image: "img/red-velvet.jpg", // Ruta local
         badges: ["BESTSELLER"]
     },
     {
@@ -308,6 +310,7 @@ const allProducts = [
         reviews: 134,
         sales: 289,
         bestseller: false,
+        image: "img/carrot-cake.jpg", // Ruta local
         badges: []
     },
     {
@@ -604,5 +607,6 @@ function closeProductModal() {
 document.addEventListener('keydown', e => {
     if (e.key === 'Escape') closeProductModal();
 });
+
 
 
