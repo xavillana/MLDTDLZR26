@@ -574,3 +574,82 @@ function renderProductDetail(p) {
     `;
 }
 
+// ===============================================
+// MODAL DE PRODUCTO
+// ===============================================
+
+function openProductModal(product) {
+    const modal = document.getElementById('productModal');
+    if (!modal) return;
+
+    // Rellenar datos
+    document.getElementById('modalTitle').textContent = product.name;
+    document.getElementById('modalEmoji').textContent = product.emoji || '';
+    document.getElementById('modalDescription').textContent = product.description || 'Delicia irresistible hecha con amor rebelde.';
+    
+    // Imagen (fallback si no hay)
+    const img = document.getElementById('modalImage');
+    img.src = product.image || `https://via.placeholder.com/600x600/f8b4d9/ffffff?text=${product.emoji || 'Cake'}`;
+
+    // Precio
+    document.getElementById('modalPrice').textContent = product.price ? `${product.price.toFixed(2)}€` : 'Consultar';
+    const oldPriceEl = document.getElementById('modalOldPrice');
+    if (product.oldPrice) {
+        oldPriceEl.textContent = `${product.oldPrice.toFixed(2)}€`;
+        oldPriceEl.classList.remove('hidden');
+    } else {
+        oldPriceEl.classList.add('hidden');
+    }
+
+    // Badges
+    const badgesContainer = document.getElementById('modalBadges');
+    badgesContainer.innerHTML = '';
+    (product.badges || []).forEach(badge => {
+        const span = document.createElement('span');
+        span.className = 'bg-pink-600 text-white px-4 py-2 rounded-full text-sm font-bold shadow';
+        span.textContent = badge;
+        badgesContainer.appendChild(span);
+    });
+
+    // Tamaños (solo tartas y cheesecakes)
+    const sizesContainer = document.getElementById('modalSizes');
+    const sizesGrid = sizesContainer.querySelector('.grid');
+    sizesGrid.innerHTML = '';
+    if (product.sizes && product.sizes.length > 0) {
+        product.sizes.forEach(s => {
+            const div = document.createElement('div');
+            div.className = 'bg-gray-50 p-4 rounded-xl text-center';
+            div.innerHTML = `<strong>${s.name}</strong><br><span class="text-pink-600 font-bold">${s.price}€</span><br><small class="text-gray-600">${s.servings} pers.</small>`;
+            sizesGrid.appendChild(div);
+        });
+        sizesContainer.classList.remove('hidden');
+    } else {
+        sizesContainer.classList.add('hidden');
+    }
+
+    // Mostrar modal con animación
+    modal.classList.remove('hidden');
+    setTimeout(() => {
+        modal.querySelector('.scale-95').classList.replace('scale-95', 'scale-100');
+        modal.querySelector('.opacity-0').classList.replace('opacity-0', 'opacity-100');
+    }, 10);
+}
+
+function closeProductModal() {
+    const modal = document.getElementById('productModal');
+    if (!modal) return;
+
+    const card = modal.querySelector('.scale-100, .opacity-100');
+    if (card) {
+        card.classList.replace('scale-100', 'scale-95');
+        card.classList.replace('opacity-100', 'opacity-0');
+    }
+    setTimeout(() => modal.classList.add('hidden'), 300);
+}
+
+// Cerrar con Escape
+document.addEventListener('keydown', e => {
+    if (e.key === 'Escape') closeProductModal();
+});
+
+
