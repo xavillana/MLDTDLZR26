@@ -27,6 +27,17 @@
     <script src="js/router.js"></script>
     <script src="js/main.js"></script>
     <script src="js/products.js"></script>
+<!-- Modal de producto -->
+<div id="productModalContainer"></div>
 
+<script>
+    // Cargar el modal una sola vez
+    fetch('components/product-modal.html')
+        .then(r => r.text())
+        .then(html => {
+            document.getElementById('productModalContainer').innerHTML = html;
+        });
+</script>
 </body>
+
 </html>
