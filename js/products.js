@@ -301,7 +301,7 @@ const allProducts = [
     },
     {
         id: "zanahoria",
-        name: "Zanahoria",
+        name: "Zana OH! Ria",
         emoji: "🥕",
         category: "cupcakes",
         description: "¿Quien dijo que lo clásico no puede ser atrevido y seductor?.",
@@ -607,6 +607,7 @@ function closeProductModal() {
 document.addEventListener('keydown', e => {
     if (e.key === 'Escape') closeProductModal();
 });
+
 
 
 
