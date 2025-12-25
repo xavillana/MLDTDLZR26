@@ -43,7 +43,7 @@ document.addEventListener("DOMContentLoaded", () => {
     if (path.endsWith("/") || path.endsWith("index.html")) {
         loadComponent("hero", "components/hero.html");
         loadComponent("destacados", "components/destacados.html"); // Sin callback aún
-         loadComponent("destacados", "sobrenosotros/sobrenosotros.html"); // Sin callback aún
+         loadComponent("sobrenosotros", "sobrenosotros/sobrenosotros.html"); // Sin callback aún
         loadComponent("how-it-works", "components/how-it-works.html");
         loadComponent("newsletter", "components/newsletter.html");
         loadComponent("productModal", "components/product-modal.html", initProductModal);
@@ -74,5 +74,6 @@ document.addEventListener('componentLoaded', (e) => {
     // Puedes añadir más en el futuro:
     // if (id === 'otro-componente') { initOtraCosa(); }
 });
+
 
 
