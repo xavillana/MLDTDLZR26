@@ -370,22 +370,33 @@ const allProducts = [
 
 function productCard(p) {
     return `
-        <div class="gallery-card card-hover cursor-pointer transition-all" 
-             onclick='openProductModal(${JSON.stringify(p).split('"').join('&quot;')})'>
-            <img src="${p.image || `https://via.placeholder.com/400x400/f8b4d9/ffffff?text=${p.emoji || 'Cake'}`}" 
-                 alt="${p.name}" 
-                 class="w-full h-64 object-cover rounded-t-2xl">
-            <div class="p-6">
-                <h3 class="text-2xl font-black text-gray-800 mb-2">${p.emoji} ${p.name}</h3>
-                <p class="text-gray-600 text-sm mb-4 line-clamp-2">${p.description}</p>
+        <div class="gallery-card card-hover cursor-pointer transition-all duration-300 
+                hover:shadow-2xl hover:-translate-y-2" 
+             onclick='openProductModal(${JSON.stringify(p).replace(/'/g, "\\'")})'>
+            <div class="relative overflow-hidden rounded-t-2xl">
+                <img src="${p.image || `https://via.placeholder.com/400x400/f8b4d9/ffffff?text=${encodeURIComponent(p.emoji || '🍰')}`}" 
+                     alt="${p.name}" 
+                     class="w-full h-64 object-cover transition-transform duration-500 hover:scale-110">
+                ${p.badges?.length ? 
+                    '<div class="absolute top-4 left-4 flex flex-col gap-2">' + 
+                    p.badges.map(b => `<span class="bg-pink-600 text-white px-4 py-2 rounded-full text-xs font-bold shadow-lg">${b}</span>`).join('') + 
+                    '</div>' : ''}
+            </div>
+            <div class="p-6 bg-white">
+                <h3 class="text-2xl font-black text-gray-800 mb-2 flex items-center gap-2">
+                    <span>${p.emoji || ''}</span> ${p.name}
+                </h3>
+                <p class="text-gray-600 text-sm mb-4 line-clamp-3">${p.description}</p>
                 <div class="flex justify-between items-end">
                     <div>
-                        <span class="text-3xl font-black text-pink-600">${p.price ? p.price.toFixed(2) + '€' : 'Consultar'}</span>
-                        ${p.oldPrice ? `<span class="text-gray-500 line-through ml-2">${p.oldPrice.toFixed(2)}€</span>` : ''}
+                        <span class="text-3xl font-black text-pink-600">
+                            ${p.price ? p.price.toFixed(2) + '€' : 'Consultar'}
+                        </span>
+                        ${p.oldPrice ? 
+                            `<span class="text-lg text-gray-500 line-through ml-3">${p.oldPrice.toFixed(2)}€</span>` : 
+                            ''}
                     </div>
-                    ${p.badges?.length ? '<div class="flex gap-2">' + 
-                        p.badges.map(b => `<span class="bg-pink-600 text-white px-3 py-1 rounded-full text-xs font-bold">${b}</span>`).join('') + 
-                      '</div>' : ''}
+                    <span class="text-sm text-gray-500">→ Ver detalles</span>
                 </div>
             </div>
         </div>
@@ -593,3 +604,4 @@ function closeProductModal() {
 document.addEventListener('keydown', e => {
     if (e.key === 'Escape') closeProductModal();
 });
+
