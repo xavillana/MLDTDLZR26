@@ -14,7 +14,6 @@
 
 .hero-gradient{
   background: linear-gradient(135deg, #ef1783 10%, #85d2d0 30%, #ffd501 60%, #ef1783 90%);
-  opacity:80%;
 }
 
 
@@ -206,4 +205,5 @@
                 display: none;
             }
         }
+
 
