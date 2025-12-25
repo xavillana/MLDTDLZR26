@@ -58,6 +58,7 @@ document.addEventListener("DOMContentLoaded", () => {
     // ==================== PEDIDO ====================
     if (path.endsWith("pedido.html")) {
         loadComponent("pedido", "components/pedido.html", initPedidoPage);
+        loadComponent("productModal", "components/product-modal.html", initProductModal);
     }
 });
 
@@ -74,6 +75,7 @@ document.addEventListener('componentLoaded', (e) => {
     // Puedes añadir más en el futuro:
     // if (id === 'otro-componente') { initOtraCosa(); }
 });
+
 
 
 
