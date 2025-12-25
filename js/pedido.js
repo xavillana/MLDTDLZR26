@@ -86,7 +86,388 @@ const totalPriceEl = document.getElementById('totalPrice');
 // ===============================================
 // FUNCIONES AUXILIARES
 // ===============================================
+function toggleProductOptions() {
+            const tipoProducto = document.querySelector('input[name="tipoProducto"]:checked');
+            const tartasSection = document.getElementById('tartasSection');
+            const cupcakesSection = document.getElementById('cupcakesSection');
+            const personalizadoSection = document.getElementById('personalizadoSection');
+            
+            tartasSection.classList.add('hidden');
+            cupcakesSection.classList.add('hidden');
+            personalizadoSection.classList.add('hidden');
+            
+            if (tipoProducto) {
+                if (tipoProducto.value === 'tartas-cheesecakes') {
+                    tartasSection.classList.remove('hidden');
+                }
+                if (tipoProducto.value === 'cupcakes') {
+                    cupcakesSection.classList.remove('hidden');
+                }
+                if (tipoProducto.value === 'personalizado') {
+                    personalizadoSection.classList.remove('hidden');
+                }
+            }
+            
+            calculatePrice();
+        }
 
+        function calculatePrice() {
+            const tipoProducto = document.querySelector('input[name="tipoProducto"]:checked');
+            const priceCalculator = document.getElementById('priceCalculator');
+            const priceBreakdown = document.getElementById('priceBreakdown');
+            const totalPriceElement = document.getElementById('totalPrice');
+            
+            let total = 0;
+            let breakdown = [];
+            
+            if (!tipoProducto) {
+                priceCalculator.classList.add('hidden');
+                return;
+            }
+            
+            if (tipoProducto.value === 'tartas-cheesecakes') {
+                const tartaSeleccionada = document.querySelector('input[name="tartaSeleccionada"]:checked');
+                const tamano = document.getElementById('tamanoTarta').value;
+                
+                if (tartaSeleccionada && tamano) {
+                    const tartaKey = tartaSeleccionada.value;
+                    let precio = 0;
+                    
+                    const esCheesecake = ['que-lo-bailes', 'mangotero', 'limon-ileso', 'tradicional', 'cacao-late', 'que-hore-oes'].includes(tartaKey);
+                    
+                    if (esCheesecake && PRECIOS.cheesecakes[tartaKey]) {
+                        precio = PRECIOS.cheesecakes[tartaKey][tamano] || 0;
+                    } else if (PRECIOS.tartas[tartaKey]) {
+                        precio = PRECIOS.tartas[tartaKey][tamano] || 0;
+                    }
+                    
+                    if (precio > 0) {
+                        const nombreTarta = tartaSeleccionada.parentElement.textContent.trim();
+                        
+                        let tamanoInfo = '';
+                        let personasInfo = '';
+                        
+                        switch(tamano) {
+                            case 'pequena':
+                                tamanoInfo = 'Pequeña';
+                                personasInfo = '6-8 personas';
+                                break;
+                            case 'mediana':
+                                tamanoInfo = 'Mediana';
+                                personasInfo = '10-12 personas';
+                                break;
+                            case 'grande':
+                                tamanoInfo = 'Grande';
+                                personasInfo = '15-20 personas';
+                                break;
+                            case 'xl':
+                                tamanoInfo = 'Extra Grande';
+                                personasInfo = '25+ personas';
+                                break;
+                        }
+                        
+                        breakdown.push(`${nombreTarta}|${tamanoInfo}|${personasInfo}|${precio}€`);
+                        total += precio;
+                    }
+                }
+            }
+            
+            if (tipoProducto.value === 'cupcakes') {
+                const cantidadSelect = document.getElementById('cantidadCupcakes').value;
+                const cantidadOtra = document.getElementById('cantidadOtra').value;
+                const saboresSeleccionados = document.querySelectorAll('input[name="saboresCupcakes"]:checked');
+                
+                let cantidad = 0;
+                if (cantidadSelect === 'otro' && cantidadOtra) {
+                    cantidad = parseInt(cantidadOtra);
+                } else if (cantidadSelect && cantidadSelect !== 'otro') {
+                    cantidad = parseInt(cantidadSelect);
+                }
+                
+                if (cantidad > 0 && saboresSeleccionados.length > 0) {
+                    let precioPromedio = 0;
+                    let saboresTexto = [];
+                    
+                    saboresSeleccionados.forEach(sabor => {
+                        const precio = PRECIOS.cupcakes[sabor.value] || 3.5;
+                        precioPromedio += precio;
+                        const nombreSabor = sabor.parentElement.textContent.trim().split(' ')[0] + ' ' + sabor.parentElement.textContent.trim().split(' ')[1];
+                        saboresTexto.push(nombreSabor);
+                    });
+                    
+                    precioPromedio = precioPromedio / saboresSeleccionados.length;
+                    const subtotal = cantidad * precioPromedio;
+                    
+                    breakdown.push(`Cupcakes|${saboresTexto.join(', ')}|${cantidad} unidades|${subtotal.toFixed(2)}€`);
+                    total += subtotal;
+                }
+            }
+            
+            if (tipoProducto.value === 'personalizado') {
+                const personas = document.getElementById('personasPersonalizado').value;
+                if (personas) {
+                    const personasNum = parseInt(personas);
+                    let precioBase = 0;
+                    let tamanoEstimado = '';
+                    
+                    if (personasNum <= 8) {
+                        precioBase = 35;
+                        tamanoEstimado = 'Pequeño';
+                    } else if (personasNum <= 12) {
+                        precioBase = 45;
+                        tamanoEstimado = 'Mediano';
+                    } else if (personasNum <= 20) {
+                        precioBase = 55;
+                        tamanoEstimado = 'Grande';
+                    } else {
+                        precioBase = 65;
+                        tamanoEstimado = 'Extra Grande';
+                    }
+                    
+                    breakdown.push(`Pedido Personalizado|${tamanoEstimado}|${personas} personas|desde ${precioBase}€`);
+                    total += precioBase;
+                }
+            }
+            
+            const tipoEntrega = document.getElementById('tipoEntrega').value;
+            if (tipoEntrega === 'domicilio') {
+                breakdown.push(`Entrega a domicilio|||${PRECIOS.extras.entregaDomicilio}€`);
+                total += PRECIOS.extras.entregaDomicilio;
+            }
+            
+            const texto = document.getElementById('texto').value;
+            if (texto && texto.trim()) {
+                breakdown.push(`Texto personalizado|||${PRECIOS.extras.textoPersonalizado}€`);
+                total += PRECIOS.extras.textoPersonalizado;
+            }
+            
+            if (total > 0) {
+                priceBreakdown.innerHTML = breakdown.map(item => {
+                    const parts = item.split('|');
+                    if (parts.length === 4) {
+                        return `
+                            <div class="grid grid-cols-4 gap-2 py-2 border-b border-gray-200 text-xs sm:text-sm">
+                                <div class="font-medium">${parts[0]}</div>
+                                <div class="text-gray-600">${parts[1]}</div>
+                                <div class="text-gray-600">${parts[2]}</div>
+                                <div class="font-semibold text-right">${parts[3]}</div>
+                            </div>
+                        `;
+                    } else {
+                        return `
+                            <div class="grid grid-cols-4 gap-2 py-2 border-b border-gray-200 text-xs sm:text-sm">
+                                <div class="font-medium col-span-3">${parts[0]}</div>
+                                <div class="font-semibold text-right">${parts[3]}</div>
+                            </div>
+                        `;
+                    }
+                }).join('');
+                
+                const headers = `
+                    <div class="grid grid-cols-4 gap-2 py-2 border-b-2 border-pink-300 text-xs sm:text-sm font-bold text-pink-700">
+                        <div>Producto</div>
+                        <div>Tamaño</div>
+                        <div>Cantidad</div>
+                        <div class="text-right">Precio</div>
+                    </div>
+                `;
+                
+                priceBreakdown.innerHTML = headers + priceBreakdown.innerHTML;
+                totalPriceElement.textContent = `${total.toFixed(2)}€`;
+                priceCalculator.classList.remove('hidden');
+            } else {
+                priceCalculator.classList.add('hidden');
+            }
+        }
+
+        function updateFlavorOptions() {
+            const cantidadSelect = document.getElementById('cantidadCupcakes').value;
+            const cantidadPersonalizada = document.getElementById('cantidadPersonalizada');
+            const cantidadOtra = document.getElementById('cantidadOtra').value;
+            const flavorLabel = document.getElementById('flavorLabel');
+            const flavorsContainer = document.getElementById('flavorsContainer');
+            
+            if (cantidadSelect === 'otro') {
+                cantidadPersonalizada.classList.remove('hidden');
+            } else {
+                cantidadPersonalizada.classList.add('hidden');
+            }
+            
+            let cantidad;
+            if (cantidadSelect === 'otro' && cantidadOtra) {
+                cantidad = parseInt(cantidadOtra);
+            } else if (cantidadSelect && cantidadSelect !== 'otro') {
+                cantidad = parseInt(cantidadSelect);
+            }
+            
+            const flavorLimits = {
+                6: 1, 12: 2, 24: 4
+            };
+            
+            let maxFlavors = 0;
+            if (cantidad) {
+                if (flavorLimits[cantidad]) {
+                    maxFlavors = flavorLimits[cantidad];
+                } else {
+                    maxFlavors = Math.min(6, Math.ceil(cantidad / 6));
+                }
+            }
+            
+            if (maxFlavors > 0) {
+                flavorLabel.textContent = `Sabores (máximo ${maxFlavors} sabor${maxFlavors > 1 ? 'es' : ''})`;
+                
+                flavorsContainer.innerHTML = `
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                        <!-- Rojo Peligroso -->
+                        <div class="border-2 border-gray-200 rounded-lg p-3 hover:border-pink-300 transition-colors">
+                            <div class="flex justify-between items-start mb-2">
+                                <label class="checkbox-custom flavor-option block cursor-pointer flex-1">
+                                    <input type="checkbox" name="saboresCupcakes" value="rojo-peligroso" onchange="calculatePrice()">
+                                    <span class="checkmark"></span>
+                                    <span class="text-sm font-medium">Rojo Peligroso (3.50€)</span>
+                                </label>
+                                <button type="button" onclick="event.stopPropagation(); openProductModal('rojo-peligroso')" class="text-pink-600 hover:text-pink-800 text-sm font-medium ml-2">
+                                    ℹ️ Info
+                                </button>
+                            </div>
+                            <p class="text-xs text-gray-600">Red velvet con frosting de queso crema</p>
+                        </div>
+
+                        <!-- Zanah'oria -->
+                        <div class="border-2 border-gray-200 rounded-lg p-3 hover:border-pink-300 transition-colors">
+                            <div class="flex justify-between items-start mb-2">
+                                <label class="checkbox-custom flavor-option block cursor-pointer flex-1">
+                                    <input type="checkbox" name="saboresCupcakes" value="zanahoria" onchange="calculatePrice()">
+                                    <span class="checkmark"></span>
+                                    <span class="text-sm font-medium">Zanah'oria (3.50€)</span>
+                                </label>
+                                <button type="button" onclick="event.stopPropagation(); openProductModal('zanahoria')" class="text-pink-600 hover:text-pink-800 text-sm font-medium ml-2">
+                                    ℹ️ Info
+                                </button>
+                            </div>
+                            <p class="text-xs text-gray-600">Bizcocho de zanahoria con especias</p>
+                        </div>
+
+                        <!-- Pensamiento Cítrico -->
+                        <div class="border-2 border-gray-200 rounded-lg p-3 hover:border-pink-300 transition-colors">
+                            <div class="flex justify-between items-start mb-2">
+                                <label class="checkbox-custom flavor-option block cursor-pointer flex-1">
+                                    <input type="checkbox" name="saboresCupcakes" value="pensamiento-citrico" onchange="calculatePrice()">
+                                    <span class="checkmark"></span>
+                                    <span class="text-sm font-medium">Pensamiento Cítrico (3.80€)</span>
+                                </label>
+                                <button type="button" onclick="event.stopPropagation(); openProductModal('pensamiento-citrico')" class="text-pink-600 hover:text-pink-800 text-sm font-medium ml-2">
+                                    ℹ️ Info
+                                </button>
+                            </div>
+                            <p class="text-xs text-gray-600">Refrescante cupcake de limón y naranja</p>
+                        </div>
+
+                        <!-- Choco Bailes -->
+                        <div class="border-2 border-gray-200 rounded-lg p-3 hover:border-pink-300 transition-colors">
+                            <div class="flex justify-between items-start mb-2">
+                                <label class="checkbox-custom flavor-option block cursor-pointer flex-1">
+                                    <input type="checkbox" name="saboresCupcakes" value="choco-bailes" onchange="calculatePrice()">
+                                    <span class="checkmark"></span>
+                                    <span class="text-sm font-medium">Choco Bailes (3.50€)</span>
+                                </label>
+                                <button type="button" onclick="event.stopPropagation(); openProductModal('choco-bailes')" class="text-pink-600 hover:text-pink-800 text-sm font-medium ml-2">
+                                    ℹ️ Info
+                                </button>
+                            </div>
+                            <p class="text-xs text-gray-600">Intenso chocolate con buttercream</p>
+                        </div>
+
+                        <!-- Yogurt Salvaje -->
+                        <div class="border-2 border-gray-200 rounded-lg p-3 hover:border-pink-300 transition-colors">
+                            <div class="flex justify-between items-start mb-2">
+                                <label class="checkbox-custom flavor-option block cursor-pointer flex-1">
+                                    <input type="checkbox" name="saboresCupcakes" value="yogurt-salvaje" onchange="calculatePrice()">
+                                    <span class="checkmark"></span>
+                                    <span class="text-sm font-medium">Yogurt Salvaje (3.80€)</span>
+                                </label>
+                                <button type="button" onclick="event.stopPropagation(); openProductModal('yogurt-salvaje')" class="text-pink-600 hover:text-pink-800 text-sm font-medium ml-2">
+                                    ℹ️ Info
+                                </button>
+                            </div>
+                            <p class="text-xs text-gray-600">Bizcocho de yogurt con frutos del bosque</p>
+                        </div>
+
+                        <!-- Crimen Cuqui -->
+                        <div class="border-2 border-gray-200 rounded-lg p-3 hover:border-pink-300 transition-colors">
+                            <div class="flex justify-between items-start mb-2">
+                                <label class="checkbox-custom flavor-option block cursor-pointer flex-1">
+                                    <input type="checkbox" name="saboresCupcakes" value="crimen-cuqui" onchange="calculatePrice()">
+                                    <span class="checkmark"></span>
+                                    <span class="text-sm font-medium">Crimen Cuqui (4.00€)</span>
+                                </label>
+                                <button type="button" onclick="event.stopPropagation(); openProductModal('crimen-cuqui')" class="text-pink-600 hover:text-pink-800 text-sm font-medium ml-2">
+                                    ℹ️ Info
+                                </button>
+                            </div>
+                            <p class="text-xs text-gray-600">Vainilla premium con decoración especial</p>
+                        </div>
+                    </div>
+                `;
+                
+                const flavorCheckboxes = document.querySelectorAll('input[name="saboresCupcakes"]');
+                flavorCheckboxes.forEach(checkbox => {
+                    checkbox.addEventListener('change', function() {
+                        const checkedBoxes = document.querySelectorAll('input[name="saboresCupcakes"]:checked');
+                        if (checkedBoxes.length >= maxFlavors) {
+                            flavorCheckboxes.forEach(cb => {
+                                if (!cb.checked) {
+                                    cb.disabled = true;
+                                }
+                            });
+                        } else {
+                            flavorCheckboxes.forEach(cb => {
+                                cb.disabled = false;
+                            });
+                        }
+                    });
+                });
+            } else {
+                flavorLabel.textContent = 'Sabores (selecciona la cantidad primero)';
+                flavorsContainer.innerHTML = '';
+            }
+            
+            calculatePrice();
+        }
+
+        function toggleDireccionSection() {
+            const tipoEntrega = document.getElementById('tipoEntrega').value;
+            const direccionSection = document.getElementById('direccionSection');
+            if (tipoEntrega === 'domicilio') {
+                direccionSection.classList.remove('hidden');
+            } else {
+                direccionSection.classList.add('hidden');
+            }
+        }
+
+        function selectProduct(productValue) {
+            const radioButton = document.querySelector(`input[name="tartaSeleccionada"][value="${productValue}"]`);
+            if (radioButton) {
+                radioButton.checked = true;
+                calculatePrice();
+                
+                document.querySelectorAll('.product-card').forEach(card => {
+                    card.classList.remove('border-pink-500', 'bg-pink-50');
+                    card.classList.add('border-gray-200');
+                });
+                
+                const selectedCard = radioButton.closest('.product-card');
+                if (selectedCard) {
+                    selectedCard.classList.remove('border-gray-200');
+                    selectedCard.classList.add('border-pink-500', 'bg-pink-50');
+                }
+            }
+        }
+
+        const fechaInput = document.getElementById('fechaEntrega');
+        const tomorrow = new Date();
+        tomorrow.setDate(tomorrow.getDate() + 1);
+        fechaInput.min = tomorrow.toISOString().split('T')[0];
 function calculateTotal() {
     let total = 0;
 
@@ -307,3 +688,4 @@ function loadSavedState() {
 
 // Cargar estado al iniciar
 document.addEventListener('DOMContentLoaded', loadSavedState);
+
