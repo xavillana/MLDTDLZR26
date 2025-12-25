@@ -46,16 +46,13 @@ document.addEventListener("DOMContentLoaded", () => {
          loadComponent("destacados", "sobrenosotros/sobrenosotros.html"); // Sin callback aún
         loadComponent("how-it-works", "components/how-it-works.html");
         loadComponent("newsletter", "components/newsletter.html");
+        loadComponent("productModal", "components/product-modal.html", initProductModal);
     }
 
     // ==================== TIENDA ====================
     if (path.endsWith("Tienda.html")) {
         loadComponent("featured-products", "components/featured-products.html", initStorePage);
-    }
-
-    // ==================== DETALLE DE PRODUCTO ====================
-    if (path.endsWith("producto.html")) {
-        loadComponent("product-detail", "components/product-detail.html", initProductDetailPage);
+        loadComponent("productModal", "components/product-modal.html", initProductModal);
     }
 
     // ==================== PEDIDO ====================
@@ -77,4 +74,5 @@ document.addEventListener('componentLoaded', (e) => {
     // Puedes añadir más en el futuro:
     // if (id === 'otro-componente') { initOtraCosa(); }
 });
+
 
