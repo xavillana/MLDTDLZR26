@@ -296,7 +296,7 @@ const allProducts = [
         reviews: 201,
         sales: 456,
         bestseller: true,
-        image: "img/red-velvet.jpg", // Ruta local
+        image: "img/red-velvet1.jpg", // Ruta local
         badges: ["BESTSELLER"]
     },
     {
@@ -607,6 +607,7 @@ function closeProductModal() {
 document.addEventListener('keydown', e => {
     if (e.key === 'Escape') closeProductModal();
 });
+
 
 
 
