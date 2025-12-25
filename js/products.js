@@ -3,14 +3,14 @@
 // ===============================================
 
 const allProducts = [
-    // ==================== TARTAS ====================
+    // TARTAS
     {
         id: "marcos-no-me-tientes",
         name: "Marcos No Me Tientes",
         emoji: "🍰",
         category: "tartas",
         description: "Deliciosa tarta de vainilla con crema suave y toques de frutos rojos. ¡Irresistible!",
-        price: 35, // precio base mediana (se ajusta por tamaño en pedido)
+        price: 35,
         oldPrice: null,
         discount: 0,
         rating: 5,
@@ -143,7 +143,7 @@ const allProducts = [
         ]
     },
 
-    // ==================== CHEESECAKES ====================
+    // CHEESECAKES
     {
         id: "que-lo-bailes",
         name: "Que lo Bailes",
@@ -283,7 +283,7 @@ const allProducts = [
         ]
     },
 
-    // ==================== CUPCAKES ====================
+    // CUPCAKES
     {
         id: "rojo-peligroso",
         name: "Rojo Peligroso",
@@ -364,168 +364,101 @@ const allProducts = [
     }
 ];
 
+// ===============================================
+// TARJETA DE PRODUCTO (para grid)
+// ===============================================
+
+function productCard(p) {
+    return `
+        <div class="gallery-card card-hover cursor-pointer transition-all" 
+             onclick='openProductModal(${JSON.stringify(p).split('"').join('&quot;')})'>
+            <img src="${p.image || `https://via.placeholder.com/400x400/f8b4d9/ffffff?text=${p.emoji || 'Cake'}`}" 
+                 alt="${p.name}" 
+                 class="w-full h-64 object-cover rounded-t-2xl">
+            <div class="p-6">
+                <h3 class="text-2xl font-black text-gray-800 mb-2">${p.emoji} ${p.name}</h3>
+                <p class="text-gray-600 text-sm mb-4 line-clamp-2">${p.description}</p>
+                <div class="flex justify-between items-end">
+                    <div>
+                        <span class="text-3xl font-black text-pink-600">${p.price ? p.price.toFixed(2) + '€' : 'Consultar'}</span>
+                        ${p.oldPrice ? `<span class="text-gray-500 line-through ml-2">${p.oldPrice.toFixed(2)}€</span>` : ''}
+                    </div>
+                    ${p.badges?.length ? '<div class="flex gap-2">' + 
+                        p.badges.map(b => `<span class="bg-pink-600 text-white px-3 py-1 rounded-full text-xs font-bold">${b}</span>`).join('') + 
+                      '</div>' : ''}
+                </div>
+            </div>
+        </div>
+    `;
+}
 
 // ===============================================
-// VARIABLES GLOBALES
+// RENDERIZADO DE PRODUCTOS DESTACADOS (index.html)
+// ===============================================
+
+function renderFeaturedProducts() {
+    const container = document.getElementById('productsContainer');
+    if (!container) {
+        console.warn('⚠️ productsContainer no encontrado');
+        return;
+    }
+
+    let featured = allProducts.filter(p => p.bestseller || (p.discount && p.discount > 0));
+    
+    // Fallback: si no hay destacados, mostrar primeros 6
+    if (featured.length === 0) {
+        featured = allProducts.slice(0, 6);
+    }
+
+    container.innerHTML = '';
+    featured.forEach(product => {
+        container.innerHTML += productCard(product);
+    });
+}
+
+// ===============================================
+// RENDERIZADO DE LA TIENDA (Tienda.html)
 // ===============================================
 
 let filteredProducts = [...allProducts];
 let currentPage = 1;
-const itemsPerPage = 8;
-
-
-// ===============================================
-// INICIALIZACIÓN SEGÚN LA PÁGINA
-// ===============================================
-
-function initStorePage() {
-    setupFilters();
-    renderProducts();
-}
-
-function initProductDetailPage() {
-    const params = new URLSearchParams(window.location.search);
-    const id = params.get("id");
-
-    const product = allProducts.find(p => p.id === id);
-    if (!product) return;
-
-    renderProductDetail(product);
-}
-
-
-// ===============================================
-// RENDERIZAR GRID DE PRODUCTOS
-// ===============================================
+const itemsPerPage = 12;
 
 function renderProducts() {
-    const container = document.getElementById("productsGrid");
+    const container = document.getElementById('productsGrid');
     if (!container) return;
 
     const start = (currentPage - 1) * itemsPerPage;
     const end = start + itemsPerPage;
-    const page = filteredProducts.slice(start, end);
+    const pageProducts = filteredProducts.slice(start, end);
 
-    container.innerHTML = "";
-    page.forEach(p => container.appendChild(createProductCard(p)));
+    container.innerHTML = '';
+    pageProducts.forEach(product => {
+        container.innerHTML += productCard(product);
+    });
 
-    renderPagination();
+    updatePagination();
     updateResultsCount();
 }
 
-
-// ===============================================
-// TARJETA DE PRODUCTO
-// ===============================================
-
-function createProductCard(p) {
-    const card = document.createElement("div");
-    card.className = `
-        rounded-2xl shadow-lg p-6 cursor-pointer
-        bg-gradient-to-br ${p.gradient}
-        hover:scale-[1.02] transition
-    `;
-
-    card.innerHTML = `
-        <div class="flex justify-between items-center mb-2">
-            <span class="text-3xl">✨</span>
-            ${p.discount > 0 ? `<span class="bg-red-600 text-white px-2 py-1 rounded-lg text-sm">-${p.discount}%</span>` : ""}
-        </div>
-
-        <h3 class="text-xl font-bold text-gray-900">${p.name}</h3>
-        <p class="text-gray-700 text-sm mb-3">${p.description}</p>
-
-        <div class="flex items-center gap-2 mb-3">
-            <span class="text-yellow-500">★</span>
-            <span class="font-semibold">${p.rating}</span>
-            <span class="text-gray-600 text-sm">(${p.reviews} reseñas)</span>
-        </div>
-
-        <div class="flex items-center gap-3">
-            <span class="text-2xl font-bold text-gray-900">${p.price.toFixed(2)}€</span>
-            ${p.oldPrice ? `<span class="line-through text-gray-600">${p.oldPrice.toFixed(2)}€</span>` : ""}
-        </div>
-    `;
-
-    card.addEventListener("click", () => {
-        window.location.href = `producto.html?id=${p.id}`;
-    });
-
-    return card;
-}
-
-
-// ===============================================
-// FILTROS Y ORDENACIÓN
-// ===============================================
-
-function setupFilters() {
-    const buttons = document.querySelectorAll("#categoryButtons .filter-btn");
-    const clearBtn = document.getElementById("clearFilters");
-
-    // Evento para cada botón
-    buttons.forEach(btn => {
-        btn.addEventListener("click", () => {
-            // Activar estilo
-            buttons.forEach(b => b.classList.remove("active-filter"));
-            btn.classList.add("active-filter");
-
-            // Filtrar
-            const category = btn.dataset.category;
-            applyCategoryFilter(category);
-        });
-    });
-
-    // Botón limpiar
-    if (clearBtn) {
-        clearBtn.addEventListener("click", () => {
-            buttons.forEach(b => b.classList.remove("active-filter"));
-            buttons[0].classList.add("active-filter"); // "Todas"
-            applyCategoryFilter("all");
-        });
-    }
-}
-
-function applyCategoryFilter(category) {
-    let list = [...allProducts];
-
-    if (category !== "all") {
-        list = list.filter(p => p.category === category);
-    }
-
-    filteredProducts = list;
-    currentPage = 1;
-    renderProducts();
-}
-
-
-// ===============================================
-// PAGINACIÓN
-// ===============================================
-
-function renderPagination() {
-    const container = document.getElementById("paginationNumbers");
-    const prevBtn = document.getElementById("prevPage");
-    const nextBtn = document.getElementById("nextPage");
-
-    if (!container) return;
-
+function updatePagination() {
     const totalPages = Math.ceil(filteredProducts.length / itemsPerPage);
+    const prevBtn = document.getElementById('prevPage');
+    const nextBtn = document.getElementById('nextPage');
+    const numbers = document.getElementById('paginationNumbers');
 
-    container.innerHTML = "";
+    if (!numbers) return;
+    numbers.innerHTML = '';
 
     for (let i = 1; i <= totalPages; i++) {
-        const btn = document.createElement("button");
+        const btn = document.createElement('button');
         btn.textContent = i;
-        btn.className = `
-            w-10 h-10 rounded-xl font-bold
-            ${i === currentPage ? "bg-pink-600 text-white" : "bg-gray-200"}
-        `;
-        btn.addEventListener("click", () => {
+        btn.className = `w-12 h-12 rounded-xl font-bold ${i === currentPage ? 'bg-pink-600 text-white' : 'bg-gray-200 hover:bg-gray-300'}`;
+        btn.onclick = () => {
             currentPage = i;
             renderProducts();
-        });
-        container.appendChild(btn);
+        };
+        numbers.appendChild(btn);
     }
 
     if (prevBtn) prevBtn.disabled = currentPage === 1;
@@ -533,65 +466,77 @@ function renderPagination() {
 }
 
 function updateResultsCount() {
-    const el = document.getElementById("resultsCount");
-    if (!el) return;
-    el.innerHTML = `Mostrando <strong>${filteredProducts.length}</strong> delicias`;
+    const el = document.getElementById('resultsCount');
+    if (el) {
+        el.innerHTML = `Mostrando <strong>${filteredProducts.length}</strong> delicias`;
+    }
 }
 
+function initStorePage() {
+    // Filtros por categoría
+    document.querySelectorAll('.filter-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+            document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active-filter'));
+            btn.classList.add('active-filter');
 
-// ===============================================
-// DETALLE DE PRODUCTO
-// ===============================================
+            const category = btn.dataset.category;
+            if (category === 'all') {
+                filteredProducts = [...allProducts];
+            } else {
+                filteredProducts = allProducts.filter(p => p.category === category);
+            }
 
-function renderProductDetail(p) {
-    const container = document.getElementById("product-detail");
-    if (!container) return;
+            currentPage = 1;
+            renderProducts();
+        });
+    });
 
-    container.innerHTML = `
-        <div class="max-w-3xl mx-auto p-6">
+    // Limpiar filtros
+    const clearBtn = document.getElementById('clearFilters');
+    if (clearBtn) {
+        clearBtn.addEventListener('click', () => {
+            document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active-filter'));
+            document.querySelector('[data-category="all"]').classList.add('active-filter');
+            filteredProducts = [...allProducts];
+            currentPage = 1;
+            renderProducts();
+        });
+    }
 
-            <h1 class="text-4xl font-black mb-4">${p.name}</h1>
-            <p class="text-gray-700 mb-4">${p.description}</p>
+    // Paginación
+    document.getElementById('prevPage')?.addEventListener('click', () => {
+        if (currentPage > 1) {
+            currentPage--;
+            renderProducts();
+        }
+    });
 
-            <div class="flex items-center gap-3 mb-4">
-                <span class="text-yellow-500 text-2xl">★</span>
-                <span class="font-semibold">${p.rating}</span>
-                <span class="text-gray-600">(${p.reviews} reseñas)</span>
-            </div>
+    document.getElementById('nextPage')?.addEventListener('click', () => {
+        if (currentPage < Math.ceil(filteredProducts.length / itemsPerPage)) {
+            currentPage++;
+            renderProducts();
+        }
+    });
 
-            <div class="text-3xl font-bold mb-6">${p.price.toFixed(2)}€</div>
-
-            <h3 class="text-xl font-bold mb-2">Tamaños disponibles</h3>
-            <ul class="space-y-2">
-                ${p.sizes.map(s => `
-                    <li class="p-3 bg-gray-100 rounded-xl">
-                        <strong>${s.name}</strong> — ${s.price.toFixed(2)}€ (${s.servings} personas)
-                    </li>
-                `).join("")}
-            </ul>
-
-        </div>
-    `;
+    // Render inicial
+    renderProducts();
 }
 
 // ===============================================
-// MODAL DE PRODUCTO
+// MODAL DE DETALLE DE PRODUCTO
 // ===============================================
 
 function openProductModal(product) {
     const modal = document.getElementById('productModal');
     if (!modal) return;
 
-    // Rellenar datos
     document.getElementById('modalTitle').textContent = product.name;
     document.getElementById('modalEmoji').textContent = product.emoji || '';
     document.getElementById('modalDescription').textContent = product.description || 'Delicia irresistible hecha con amor rebelde.';
     
-    // Imagen (fallback si no hay)
     const img = document.getElementById('modalImage');
     img.src = product.image || `https://via.placeholder.com/600x600/f8b4d9/ffffff?text=${product.emoji || 'Cake'}`;
 
-    // Precio
     document.getElementById('modalPrice').textContent = product.price ? `${product.price.toFixed(2)}€` : 'Consultar';
     const oldPriceEl = document.getElementById('modalOldPrice');
     if (product.oldPrice) {
@@ -601,7 +546,6 @@ function openProductModal(product) {
         oldPriceEl.classList.add('hidden');
     }
 
-    // Badges
     const badgesContainer = document.getElementById('modalBadges');
     badgesContainer.innerHTML = '';
     (product.badges || []).forEach(badge => {
@@ -611,7 +555,6 @@ function openProductModal(product) {
         badgesContainer.appendChild(span);
     });
 
-    // Tamaños (solo tartas y cheesecakes)
     const sizesContainer = document.getElementById('modalSizes');
     const sizesGrid = sizesContainer.querySelector('.grid');
     sizesGrid.innerHTML = '';
@@ -627,7 +570,6 @@ function openProductModal(product) {
         sizesContainer.classList.add('hidden');
     }
 
-    // Mostrar modal con animación
     modal.classList.remove('hidden');
     setTimeout(() => {
         modal.querySelector('.scale-95').classList.replace('scale-95', 'scale-100');
@@ -647,9 +589,7 @@ function closeProductModal() {
     setTimeout(() => modal.classList.add('hidden'), 300);
 }
 
-// Cerrar con Escape
+// Cerrar modal con tecla Escape
 document.addEventListener('keydown', e => {
     if (e.key === 'Escape') closeProductModal();
 });
-
-
