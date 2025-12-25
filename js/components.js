@@ -8,7 +8,10 @@ const components = [
   { id: 'testimonials', file: 'components/testimonials.html' },
   { id: 'newsletter', file: 'components/newsletter.html' },
   { id: 'footer', file: 'components/footer.html' },
-  {id:'destacados', file:'components/destacados.html'}
+  {id:'destacados', file:'components/destacados.html'},
+  {id:'product-modal', file:'components/product-modal.html'},
+    {id:'pedido', file:'components/pedido.html'},
+    {id:'sobrenosotros', file:'components/sobrenosotros.html'},
 ];
 
 components.forEach(comp => {
@@ -19,3 +22,4 @@ components.forEach(comp => {
     })
     .catch(err => console.error('Error cargando componente ${comp.id}:', err));
 });
+
