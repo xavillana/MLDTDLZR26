@@ -1,209 +1,209 @@
-/* Estilos personalizados adicionales */
+/* ===============================================
+   STYLE.CSS - MALDITA DULZURA
+   Estilos personalizados + mejoras para modal
+   =============================================== */
 
-@import url('https://fonts.googleapis.com/css2?family=Charmonman:wght@400;700&family=Cookie&family=Dekko&family=Oleo+Script+Swash+Caps:wght@400;700&family=Playpen+Sans:wght@100..800&family=Playwrite+NO:wght@100..400&family=Twinkle+Star&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Berkshire+Swash&family=Charmonman:wght@400;700&family=Cookie&family=Dekko&family=Oleo+Script+Swash+Caps:wght@400;700&family=Playpen+Sans:wght@100..800&family=Playwrite+NO:wght@100..400&family=Twinkle+Star&display=swap');
 
 * {
-    font-family: 'Sailors', sans-serif;
+    font-family: 'Playpen Sans', sans-serif;
+    box-sizing: border-box;
 }
 
-.title {            
-    font-family: 'TWINKLE STAR', sans-serif;
-    letter-spacing: 1px;
-    font-size: 30px;
+body {
+    background-color: #fffbf7;
 }
 
-.hero-gradient{
-  background: linear-gradient(135deg, #ef1783 10%, #85d2d0 30%, #ffd501 60%, #ef1783 90%);
+/* Fuentes personalizadas */
+.title {
+    font-family: 'Twinkle Star', cursive;
+    letter-spacing: 2px;
+    font-size: 38px;
+    color: #ef1783;
 }
 
+/* Navbar con gradiente fijo */
+.hero-gradient {
+    background: linear-gradient(135deg, #ef1783 10%, #85d2d0 30%, #ffd501 60%, #ef1783 90%);
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 1000;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+}
 
-.uno-gradient { background: linear-gradient(135deg, #ef1783 20%, #85d2d0 50%); 
-        }
+.navbar a {
+    transition: all 0.3s ease;
+    padding: 0.5rem 1rem;
+    border-radius: 0.5rem;
+}
 
-        
-.dos-gradient { background: linear-gradient(135deg, #85d2d0 20%, #ffd501 50%); 
-        }
+.navbar a:hover {
+    background-color: rgba(255, 255, 255, 0.25);
+    transform: translateY(-2px);
+}
 
-        
-.tres-gradient { background: linear-gradient(135deg, #ffd501 20%, #ef1783 50%); 
-        }
+/* Gradientes para secciones */
+.uno-gradient   { background: linear-gradient(135deg, #ef1783 20%, #85d2d0 80%); }
+.dos-gradient   { background: linear-gradient(135deg, #85d2d0 20%, #ffd501 80%); }
+.tres-gradient  { background: linear-gradient(135deg, #ffd501 20%, #ef1783 80%); }
 
+/* Animaciones */
 @keyframes float {
-    0%, 100% { transform: translateY(0px); }
-    50% { transform: translateY(-10px); }
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-12px); }
 }
-
-.magenta {
-    color: #f13794;}
 
 .float-animation {
-    animation: float 3s ease-in-out infinite;
+    animation: float 4s ease-in-out infinite;
 }
 
 .card-hover {
-    transition: all 0.3s ease;
+    transition: all 0.4s ease;
 }
 
 .card-hover:hover {
-    transform: translateY(-10px);
-    box-shadow: 0 20px 40px rgba(0,0,0,0.2);
-}
-.filter-btn {
-  padding: 0.6rem 1.2rem;
-  border-radius: 0.75rem;
-  background: #f3f4f6;
-  font-weight: 600;
-  transition: all 0.2s ease;
+    transform: translateY(-12px);
+    box-shadow: 0 25px 50px rgba(0, 0, 0, 0.2);
 }
 
-.filter-btn:hover {
-  background: #e5e7eb;
+/* Colores principales */
+.magenta { color: #f13794; }
+.text-mdYellow { color: #ffd501; }
+.text-mdPink { color: #ef1783; }
+
+/* Botones */
+.btn-primary {
+    background: linear-gradient(to right, #ef1783, #c71585);
+    transition: all 0.3s ease;
 }
 
-.active-filter {
-  background: #ec4899; /* rosa brutalista */
-  color: white;
-  box-shadow: 0 0 0 2px #ec4899;
+.btn-primary:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 10px 20px rgba(239, 23, 131, 0.3);
 }
 
+/* Tarjetas de productos (galería y destacados) */
+.gallery-card {
+    background: white;
+    border-radius: 1.5rem;
+    overflow: hidden;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+    transition: all 0.4s ease;
+    cursor: pointer;
+}
 
-        .productos-section {
-            background: linear-gradient(135deg, #fff7ed, #ffedd5);
-        }
-        
-        .pedidos-section {
-            background: linear-gradient(135deg, #fdf2f8, #fce7f3, #f3e8ff);
-        }
-        
-        .contacto-section {
-            background: linear-gradient(135deg, #f0fdf4, #dcfce7);
-        }
-        
-        /* Estilos del formulario */
-        .form-section {
-            background: white;
-            border-radius: 1rem;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-        }
-        
-        .btn-primary {
-            background-color: #ef1783;
-            transition: all 0.3s ease;
-        }
-        
-        .btn-primary:hover {
-            background-color: #d01472;
-            transform: translateY(-2px);
-        }
-        
-        input:focus, select:focus, textarea:focus {
-            border-color: #ef1783;
-            box-shadow: 0 0 0 3px rgba(239, 23, 131, 0.2);
-            outline: none;
-        }
-        
-        .checkbox-custom {
-            display: inline-block;
-            position: relative;
-            padding-left: 30px;
-            cursor: pointer;
-        }
-        
-        .checkbox-custom input {
-            position: absolute;
-            opacity: 0;
-            cursor: pointer;
-        }
-        
-        .checkmark {
-            position: absolute;
-            top: 0;
-            left: 0;
-            height: 20px;
-            width: 20px;
-            background-color: #fff;
-            border: 2px solid #ef1783;
-            border-radius: 4px;
-        }
-        
-        .checkbox-custom:hover input ~ .checkmark {
-            background-color: #f9f9f9;
-        }
-        
-        .checkbox-custom input:checked ~ .checkmark {
-            background-color: #ef1783;
-        }
-        
-        .checkmark:after {
-            content: "";
-            position: absolute;
-            display: none;
-        }
-        
-        .checkbox-custom input:checked ~ .checkmark:after {
-            display: block;
-        }
-        
-        .checkbox-custom .checkmark:after {
-            left: 6px;
-            top: 2px;
-            width: 5px;
-            height: 10px;
-            border: solid white;
-            border-width: 0 2px 2px 0;
-            transform: rotate(45deg);
-        }
-        
-        .section-title {
-            color: #ef1783;
-        }
-        
-        .hidden {
-            display: none;
-        }
-        
-        .product-card {
-            transition: all 0.3s ease;
-            cursor: pointer;
-        }
-        
-        .product-card:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-        }
-        
-        .product-card.selected {
-            border-color: #ef1783 !important;
-            background-color: #fdf2f8 !important;
-        }
-        
-        /* Tarjetas de productos en la galería */
-        .gallery-card {
-            background: white;
-            border-radius: 1rem;
-            overflow: hidden;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-            transition: all 0.3s ease;
-        }
-        
-        .gallery-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 8px 15px rgba(0,0,0,0.2);
-        }
-        
-        /* Menú móvil */
-        .mobile-menu {
-            display: none;
-        }
-        
-        .mobile-menu.active {
-            display: block;
-        }
-        
-        @media (max-width: 768px) {
-            .desktop-menu {
-                display: none;
-            }
-        }
+.gallery-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.18);
+}
 
+.gallery-card img {
+    transition: transform 0.6s ease;
+}
 
+.gallery-card:hover img {
+    transform: scale(1.1);
+}
+
+/* Sección títulos */
+.section-title {
+    color: #ef1783;
+    font-weight: 800;
+}
+
+/* Responsive ajustes */
+@media (max-width: 768px) {
+    .title {
+        font-size: 32px;
+    }
+    
+    .hero-gradient {
+        padding: 0.5rem 0;
+    }
+    
+    .gallery-card:hover {
+        transform: translateY(-4px);
+    }
+}
+
+/* ===============================================
+   MODAL DE PRODUCTO - ESTILOS ESPECÍFICOS
+   =============================================== */
+
+#productModal {
+    animation: fadeIn 0.3s ease-out forwards;
+}
+
+#productModal.hidden {
+    display: none;
+}
+
+#productModal .scale-95 {
+    transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+#productModal .opacity-0 {
+    transition: opacity 0.4s ease;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+/* Badges en modal */
+#modalBadges span {
+    animation: float 3s ease-in-out infinite;
+    animation-delay: calc(var(--i, 0) * 0.2s);
+}
+
+/* Hover en botón principal del modal */
+#productModal a[href="pedido.html"] {
+    background: linear-gradient(to right, #ef1783, #c71585);
+    box-shadow: 0 10px 25px rgba(239, 23, 131, 0.3);
+}
+
+#productModal a[href="pedido.html"]:hover {
+    background: linear-gradient(to right, #d11478, #b01270);
+    transform: translateY(-4px);
+    box-shadow: 0 15px 30px rgba(239, 23, 131, 0.4);
+}
+
+/* Responsive modal */
+@media (max-width: 768px) {
+    #productModal .grid {
+        grid-template-columns: 1fr;
+    }
+    
+    #productModal img {
+        height: 300px !important;
+    }
+    
+    #productModal .p-8.md\:p-12 {
+        padding: 2rem !important;
+    }
+}
+
+/* Utilidades extra */
+.line-clamp-2 { display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+.line-clamp-3 { display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
+
+/* Scroll suave en modal */
+#productModal::-webkit-scrollbar {
+    width: 8px;
+}
+
+#productModal::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 10px;
+}
+
+#productModal::-webkit-scrollbar-thumb {
+    background: #ef1783;
+    border-radius: 10px;
+}
+
+#productModal::-webkit-scrollbar-thumb:hover {
+    background: #c71585;
+}
