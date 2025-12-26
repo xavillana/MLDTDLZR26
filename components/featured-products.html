@@ -1,52 +1,17 @@
-<section class="container mx-auto px-4 py-12">
-
-  <!-- Título -->
-  <h2 class="text-4xl font-black text-gray-800 mb-8 text-center">
-    Delicias Rebeldes
-  </h2>
-
-  <!-- Filtros -->
-  <div class="flex flex-col md:flex-row justify-between items-center gap-4 mb-8">
-
-    <!-- Botones de categoría -->
-    <div id="categoryButtons" class="flex flex-wrap gap-3 justify-center">
-      <button data-category="all" class="filter-btn active-filter">
-        Todas las categorías
-      </button>
-
-      <button data-category="tartas" class="filter-btn">
-        Tartas
-      </button>
-
-      <button data-category="cupcakes" class="filter-btn">
-        Cupcakes
-      </button>
-
-      <button data-category="cheesecakes" class="filter-btn">
-        Cheesecakes
-      </button>
+<section class="py-16 lg:py-24 bg-white">
+  <div class="container mx-auto px-4">
+    <div class="text-center mb-12">
+      <h2 class="text-4xl lg:text-6xl font-black text-gray-800 mb-6">
+        TODAS NUESTRAS DELICIAS REBELDES
+      </h2>
+      <p class="text-xl text-gray-600 max-w-2xl mx-auto">
+        Elige tu pecado favorito. Todas las tartas disponibles en varios tamaños y formatos.
+      </p>
     </div>
 
-    <!-- Botón limpiar -->
-    <button id="clearFilters" class="px-4 py-2 bg-gray-200 rounded-xl hover:bg-gray-300">
-      Limpiar filtros
-    </button>
-
+    <!-- Grid completo de productos -->
+    <div id="productsGrid" class="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
+      <!-- Productos inyectados por products.js -->
+    </div>
   </div>
-
-  <!-- Contador -->
-  <p id="resultsCount" class="text-gray-600 mb-6 text-center"></p>
-
-  <!-- Grid -->
-  <div id="productsGrid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8"></div>
-
-  <!-- Paginación -->
-  <div class="flex justify-center items-center gap-4 mt-10">
-    <button id="prevPage" class="px-4 py-2 bg-gray-200 rounded-xl hover:bg-gray-300">Anterior</button>
-
-    <div id="paginationNumbers" class="flex gap-2"></div>
-
-    <button id="nextPage" class="px-4 py-2 bg-gray-200 rounded-xl hover:bg-gray-300">Siguiente</button>
-  </div>
-
 </section>
