@@ -1,43 +1,26 @@
-<section class="py-16 bg-white text-pink-600 overflow-hidden">
+<section class="py-16 bg-gray-50">
   <div class="container mx-auto px-4 text-center">
-
-    <h2 class="text-3xl lg:text-4xl font-black mb-4">
-      ÚNETE A NUESTRA<span class="text-mdYellow">DULCE</span> CONSPIRACIÓN
+    <h2 class="text-3xl lg:text-4xl font-black text-pink-600 mb-4">
+      ÚNETE A NUESTRA<span class="text-yellow-500"> DULCE</span> CONSPIRACIÓN
     </h2>
 
-    <p class="text-lg mb-8 text-pink-600">
-      Recibirás novedades y ofertas super secretas que harán temblar a los villanos
+    <p class="text-lg text-gray-700 mb-8 max-w-2xl mx-auto">
+      Recibirás novedades, ofertas secretas y tentaciones exclusivas que harán temblar a los más fuertes.
     </p>
 
-    <!-- FORMULARIO -->
-    <div class="max-w-md mx-auto flex flex-col sm:flex-row gap-3 mb-10">
+    <form class="max-w-md mx-auto flex flex-col sm:flex-row gap-4" onsubmit="event.preventDefault(); alert('¡Gracias por unirte a la rebelión dulce!'); this.reset();">
       <input
         type="email"
-        id="newsletterEmail"
         placeholder="Tu email aquí"
-        class="flex-1 px-5 py-4 rounded-lg text-gray-800 focus:outline-none focus:ring-4 focus:ring-pink-300"
+        required
+        class="flex-1 px-6 py-4 rounded-lg text-gray-800 focus:outline-none focus:ring-4 focus:ring-pink-300 shadow-md"
       />
-
       <button
-        id="newsletterBtn"
-        class="bg-white text-pink-600 px-8 py-4 rounded-lg font-bold hover:bg-pink-100 transition transform hover:scale-105"
+        type="submit"
+        class="bg-pink-600 text-white px-8 py-4 rounded-lg font-bold hover:bg-pink-700 transition transform hover:scale-105 shadow-lg"
       >
-        Suscribirse
+        Suscribirme
       </button>
-    </div>
+    </form>
   </div>
 </section>
-
-<script>
-  document.getElementById('newsletterBtn')?.addEventListener('click', () => {
-    const email = document.getElementById('newsletterEmail').value;
-
-    if (email && email.includes('@')) {
-      alert('¡Gracias por unirte a la rebelión dulce!');
-      document.getElementById('newsletterEmail').value = '';
-    } else {
-      alert('Por favor, introduce un email válido');
-    }
-  });
-
-</script>
