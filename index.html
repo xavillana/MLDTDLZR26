@@ -4,48 +4,64 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Maldita Dulzura | Pasteles Rebeldes</title>
+  <meta name="description" content="Tartas y cupcakes malditamente deliciosos. Creaciones artesanales rebeldes con sabores explosivos y una dosis peligrosa de dulzura.">
+
+  <!-- Tailwind CSS -->
   <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- Font Awesome -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-  <link rel="stylesheet" href="/style/style.css">
 
+  <!-- Fuentes personalizadas -->
+  <link href="https://fonts.googleapis.com/css2?family=Englebert&family=Twinkle+Star&display=swap" rel="stylesheet">
+
+  <!-- Estilos personalizados -->
+  <link rel="stylesheet" href="style/style.css">
+
+  <!-- Preload crítico -->
+  <link rel="preload" href="img/LOGO.png" as="image">
+  <link rel="preload" href="img/18.jpg" as="image">
 </head>
-<body class="bg-white">
 
-  <!-- Los componentes se inyectarán aquí -->
+<body class="bg-white min-h-screen flex flex-col">
+
+  <!-- Contenedor para el modal de producto (cargado una sola vez) -->
+  <div id="productModalContainer"></div>
+
+  <!-- NAVBAR -->
   <div id="navbar"></div>
+
+  <!-- HERO -->
   <div id="hero"></div>
-  <div id="destacados"></div> 
+
+  <!-- DESTACADOS -->
+  <div id="destacados"></div>
+
+  <!-- SOBRE NOSOTROS -->
   <div id="sobrenosotros"></div>
+
+  <!-- NEWSLETTER -->
   <div id="newsletter"></div>
+
+  <!-- FOOTER -->
   <div id="footer"></div>
 
-    <script src="js/components.js"></script>
-  <script src="js/router.js"></script>
-  <script src="js/main.js"></script>
+  <!-- Scripts -->
   <script src="js/products.js"></script>
+  <script src="js/main.js"></script>
+  <script src="js/router.js"></script>
 
-  <!-- Contenedor para el modal -->
-<div id="productModalContainer"></div>
-
-<script>
-    fetch('components/product-modal.html')
-        .then(response => {
-            if (!response.ok) throw new Error('No se encontró el archivo');
-            return response.text();
-        })
-        .then(html => {
-            document.getElementById('productModalContainer').innerHTML = html;
-            console.log('✅ Modal cargado correctamente');
-        })
-        .catch(err => {
-            console.error('❌ Error cargando el modal:', err);
-        });
-</script>
+  <!-- Cargar modal una sola vez -->
+  <script>
+    fetch('components/modal.html')
+      .then(response => response.text())
+      .then(html => {
+        document.getElementById('productModalContainer').innerHTML = html;
+      })
+      .catch(err => console.error('Error cargando modal:', err));
+  </script>
 </body>
-
 </html>
-
-
 
 
 
