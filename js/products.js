@@ -1,496 +1,234 @@
-// ===============================================
-// BASE DE DATOS DE PRODUCTOS
-// ===============================================
+// js/products.js
+// BASE DE DATOS COMPLETA DE PRODUCTOS (con imágenes asignadas según las fotos proporcionadas)
 
 const allProducts = [
-    // ==================== TARTAS ====================
-    {
-        id: "marcos-no-me-tientes",
-        name: "Marcos No Me Tientes",
-        emoji: "🍰",
-        category: "tartas",
-        shortDescription: "Vainilla inocente que se vuelve pecadora con frutos rojos.",
-        longDescription: "Bizcocho de vainilla esponjoso que finge ser angelical, pero está relleno de crema suave y frutos rojos que te hacen gemir al primer bocado. Una tarta que te mira con ojos de 'ven, si te atreves'. Prohibida para corazones débiles.",
-        ingredients: "Harina, huevos, vainilla natural, crema de mantequilla, frutos rojos frescos (frambuesa, fresa, arándanos), azúcar glas.",
-        formats: "Tarta, Cupcakes",
-        cupcakePrice: 3.8,
-        price: 35,
-        badges: ["BESTSELLER"],
-        bestseller: false,
-        sizes: [
-            { name: "Pequena", price: 25, servings: "4-6" },
-            { name: "Mediana", price: 35, servings: "8-10" },
-            { name: "Grande", price: 45, servings: "12-15" },
-            { name: "XL", price: 55, servings: "16-20" }
-        ]
-    },
-    {
-        id: "muerte-por-chocolate",
-        name: "Muerte por Chocolate",
-        emoji: "🍫",
-        category: "tartas",
-        shortDescription: "Chocolate tan intenso que debería venir con advertencia.",
-        longDescription: "Una orgía de chocolate negro, brownie húmedo y ganache brillante que te arrastra al abismo del placer prohibido. Cada cucharada es un pecado mortal que no querrás confesar. Si vas a morir, que sea así: ahogado en cacao puro.",
-        ingredients: "Chocolate 70%, cacao puro, brownie, mantequilla, huevos, ganache de chocolate con leche, sal marina.",
-        formats: "Tarta, Cupcakes",
-        cupcakePrice: 3.8,
-        price: 35,
-        oldPrice: 42,
-        discount: 17,
-        badges: ["BESTSELLER", "DESCUENTO"],
-        bestseller: true,
-        image: "img/muerte-por-chocolate.jpg",
-        sizes: [
-            { name: "Pequena", price: 25, servings: "4-6" },
-            { name: "Mediana", price: 35, servings: "8-10" },
-            { name: "Grande", price: 45, servings: "12-15" },
-            { name: "XL", price: 55, servings: "16-20" }
-        ]
-    },
-    {
-        id: "unicornio-fantastico",
-        name: "Unicornio Fantástico",
-        emoji: "🦄",
-        category: "tartas",
-        shortDescription: "Colores imposibles y sabor mágico.",
-        longDescription: "Explosión de colores arcoíris que esconde capas de vainilla suave, buttercream de algodón de azúcar y sprinkles que brillan como polvo de hadas traviesas. Una tarta que te hace creer en la magia... y en las calorías que no cuentan cuando algo es tan bonito.",
-        ingredients: "Bizcocho vainilla multicolor, buttercream, algodón de azúcar, sprinkles comestibles, esencia de vainilla.",
-        formats: "Tarta",
-        price: 40,
-        badges: ["NUEVO"],
-        sizes: [
-            { name: "Pequena", price: 30, servings: "4-6" },
-            { name: "Mediana", price: 40, servings: "8-10" },
-            { name: "Grande", price: 50, servings: "12-15" },
-            { name: "XL", price: 60, servings: "16-20" }
-        ]
-    },
-    {
-        id: "naranja-que-cacao",
-        name: "Naranja que Cacao",
-        emoji: "🍊",
-        category: "tartas",
-        shortDescription: "Fusión prohibida entre cítrico y chocolate.",
-        longDescription: "Chocolate intenso que se rinde ante la frescura descarada de la naranja. Un duelo de sabores donde nadie gana... excepto tu paladar. Cremosa, jugosa, adictiva. Una tarta que te besa y te deja con ganas de más.",
-        ingredients: "Chocolate negro, zumo y ralladura de naranja, bizcocho húmedo, ganache de cacao.",
-        formats: "Tarta",
-        price: 35,
-        sizes: [
-            { name: "Pequena", price: 25, servings: "4-6" },
-            { name: "Mediana", price: 35, servings: "8-10" },
-            { name: "Grande", price: 45, servings: "12-15" },
-            { name: "XL", price: 55, servings: "16-20" }
-        ]
-    },
-    {
-        id: "tia-misu",
-        name: "Tía Misú",
-        emoji: "☕",
-        category: "tartas",
-        shortDescription: "El tiramisú que tus noches necesitan.",
-        longDescription: "Café fuerte que empapa bizcochos suaves, mascarpone cremoso que se derrite en la boca y cacao que cae como polvo de estrellas prohibidas. Clásico italiano con actitud rebelde. Una tarta que te despierta... y te deja sin dormir.",
-        ingredients: "Café espresso, mascarpone, savoiardi, cacao amargo, Marsala, huevos frescos.",
-        formats: "Tarta",
-        price: 38,
-        badges: ["CLÁSICO"],
-        sizes: [
-            { name: "Pequena", price: 28, servings: "4-6" },
-            { name: "Mediana", price: 38, servings: "8-10" },
-            { name: "Grande", price: 48, servings: "12-15" },
-            { name: "XL", price: 58, servings: "16-20" }
-        ]
-    },
-    {
-        id: "revolcon-fresnata",
-        name: "Revolcón Fresnata",
-        emoji: "🍓",
-        category: "tartas",
-        shortDescription: "Fresas frescas y nata que no pide permiso.",
-        longDescription: "Bizcocho ligero, nata montada que se desborda y fresas maduras que manchan los dedos. Un verano eterno en cada bocado. Dulce, jugoso, descarado. La tarta que todos quieren probar... y nadie quiere compartir.",
-        ingredients: "Fresas frescas, nata 35%, bizcocho genovés, azúcar glas, vainilla.",
-        formats: "Tarta",
-        price: 36,
-        oldPrice: 42,
-        discount: 14,
-        badges: ["DESCUENTO"],
-        sizes: [
-            { name: "Pequena", price: 26, servings: "4-6" },
-            { name: "Mediana", price: 36, servings: "8-10" },
-            { name: "Grande", price: 46, servings: "12-15" },
-            { name: "XL", price: 56, servings: "16-20" }
-        ]
-    },
-
-    // ==================== CHEESECAKES ====================
-    {
-        id: "que-lo-bailes",
-        name: "Que lo Bailes",
-        emoji: "💃",
-        category: "cheesecakes",
-        shortDescription: "Frutos rojos que te hacen mover las caderas.",
-        longDescription: "Base crujiente, cheesecake cremoso y salsa de frutos rojos que se derrama sin control. Dulce, ácido, sensual. Una tarta que te invita a bailar... descalzo y sin remordimientos.",
-        ingredients: "Queso crema, galletas digestive, mantequilla, frutos rojos, azúcar, limón.",
-        formats: "Tarta",
-        price: 40,
-        badges: ["BESTSELLER"],
-        bestseller: false,
-        sizes: [
-            { name: "Pequena", price: 30, servings: "4-6" },
-            { name: "Mediana", price: 40, servings: "8-10" },
-            { name: "Grande", price: 50, servings: "12-15" },
-            { name: "XL", price: 60, servings: "16-20" }
-        ]
-    },
-    {
-        id: "mangotero",
-        name: "Mangotero",
-        emoji: "🥭",
-        category: "cheesecakes",
-        shortDescription: "Tropical, exótico y sin pasaporte.",
-        longDescription: "Mango maduro que se funde con cheesecake cremoso y una base que cruje como arena caliente. Un viaje al caribe sin salir de casa. Dulce, ácido, adictivo. La tarta que te broncea el alma.",
-        ingredients: "Mango fresco, queso crema, galletas, mantequilla, pasión, lima.",
-        formats: "Tarta",
-        price: 42,
-        badges: ["TROPICAL"],
-        sizes: [
-            { name: "Pequena", price: 32, servings: "4-6" },
-            { name: "Mediana", price: 42, servings: "8-10" },
-            { name: "Grande", price: 52, servings: "12-15" },
-            { name: "XL", price: 62, servings: "16-20" }
-        ]
-    },
-    {
-        id: "limon-ileso",
-        name: "Limón Ileso",
-        emoji: "🍋",
-        category: "cheesecakes",
-        shortDescription: "Ácido que te despierta y dulce que te calma.",
-        longDescription: "Cheesecake fresco con limón que pica justo lo necesario. Equilibrio perfecto entre lo que te quema y lo que te salva. Una tarta que te besa con lengua... de cítricos.",
-        ingredients: "Queso crema, limón fresco, galletas, mantequilla, azúcar.",
-        formats: "Tarta",
-        price: 38,
-        sizes: [
-            { name: "Pequena", price: 28, servings: "4-6" },
-            { name: "Mediana", price: 38, servings: "8-10" },
-            { name: "Grande", price: 48, servings: "12-15" },
-            { name: "XL", price: 58, servings: "16-20" }
-        ]
-    },
-    {
-        id: "tradicional",
-        name: "Tradicional",
-        emoji: "🧀",
-        category: "cheesecakes",
-        shortDescription: "New York clásico con actitud rebelde.",
-        longDescription: "Denso, cremoso, perfecto. El cheesecake que no necesita presentación pero sí un tenedor. Base crujiente, relleno que se derrite y un sabor que te hace cerrar los ojos. Clásico nunca fue tan peligroso.",
-        ingredients: "Queso crema Philadelphia, galletas digestive, mantequilla, huevos, azúcar, vainilla.",
-        formats: "Tarta",
-        price: 36,
-        badges: ["CLÁSICO", "BESTSELLER"],
-        bestseller: false,
-        sizes: [
-            { name: "Pequena", price: 26, servings: "4-6" },
-            { name: "Mediana", price: 36, servings: "8-10" },
-            { name: "Grande", price: 46, servings: "12-15" },
-            { name: "XL", price: 56, servings: "16-20" }
-        ]
-    },
-    {
-        id: "cacao-late",
-        name: "Cacao Late",
-        emoji: "🍫",
-        category: "cheesecakes",
-        shortDescription: "Chocolate que no pide perdón.",
-        longDescription: "Cheesecake de chocolate intenso con capas de ganache que brillan como pecado recién cometido. Amargo, dulce, cremoso. Una tarta que te mancha los dedos... y la conciencia.",
-        ingredients: "Chocolate negro, queso crema, cacao puro, ganache, base de Oreo.",
-        formats: "Tarta",
-        price: 40,
-        oldPrice: 48,
-        discount: 17,
-        badges: ["DESCUENTO"],
-        sizes: [
-            { name: "Pequena", price: 30, servings: "4-6" },
-            { name: "Mediana", price: 40, servings: "8-10" },
-            { name: "Grande", price: 50, servings: "12-15" },
-            { name: "XL", price: 60, servings: "16-20" }
-        ]
-    },
-    {
-        id: "que-hore-oes",
-        name: "Que Hore Oes",
-        emoji: "🍪",
-        category: "cheesecakes",
-        shortDescription: "Oreo triturada y sin remordimientos.",
-        longDescription: "Cheesecake con galletas Oreo enteras y trituradas que se funden en una crema negra y blanca. Crujiente, suave, adictivo. La tarta que te hace lamer el plato... y pedir otra ronda.",
-        ingredients: "Galletas Oreo, queso crema, chocolate, nata, azúcar.",
-        formats: "Tarta",
-        price: 42,
-        badges: ["BESTSELLER"],
-        bestseller: false,
-        sizes: [
-            { name: "Pequena", price: 32, servings: "4-6" },
-            { name: "Mediana", price: 42, servings: "8-10" },
-            { name: "Grande", price: 52, servings: "12-15" },
-            { name: "XL", price: 62, servings: "16-20" }
-        ]
-    },
-
-    // ==================== CUPCAKES ====================
-    {
-        id: "rojo-peligroso",
-        name: "Rojo Peligroso",
-        emoji: "❤️",
-        category: "cupcakes",
-        shortDescription: "¿Podrás resistir este pecado  de pura perversión carmesí?",
-        longDescription: "Red Velvet tan suave y húmedo que se desliza como un secreto prohibido. Su color rojo te advierte del peligro, pero el frosting de queso crema te convence de que vale la pena el riesgo. Un cupcake que te deja con ganas de más... siempre más.",
-        ingredients: "Cacao, buttermilk, colorante natural rojo, vinagre, frosting de queso crema, vainilla.",
-        formats: "Cupcakes, Tarta",
-        price: 3.5,
-        cupcakePrice: 3.5,
-        badges: ["BESTSELLER"],
-        bestseller: true,
-        image: "img/red-velvet1.jpg",
-    },
-    {
-        id: "zanahoria",
-        name: "Zana OH! RIA",
-        emoji: "🥕",
-        category: "cupcakes",
-        shortDescription: "¿Quién dijo que lo tradicional no podía ser atrevido y seductor?",
-        longDescription: "Carrot Cake hecho pecado. Rebelde, húmedo, prohibido. La canela, el jengibre y las nueces conspiran para seducir tus sentidos mientras el frosting de queso te susurra obscenidades. ¿Te atreves a caer en esta tentación vegetal? Un crimen de textura que deberían prohibir.",
-        ingredients: "Zanahoria fresca rallada, harina integral, azúcar moreno, nueces, canela, jengibre, huevos, aceite de girasol, frosting de queso crema.",
-        formats: "Cupcakes, Tarta",
-        price: 3.5,
-        cupcakePrice: 3.5,
-        betseller: true,
-        image: "img/carrot-cake.jpg",
-        badges: []
-        
-    },
-    {
-        id: "pensamiento-citrico",
-        name: "Pensamiento Cítrico",
-        emoji: "🍋",
-        category: "cupcakes",
-        shortDescription: "Limón que pica y frosting que calma.",
-        longDescription: "Bizcocho de limón fresco con merengue suave que se derrite en la boca. Ácido al principio, dulce al final. Un cupcake que juega contigo: te despierta, te refresca y te deja pidiendo otro beso cítrico.",
-        ingredients: "Limón fresco, harina, mantequilla, merengue italiano, ralladura de limón.",
-        formats: "Cupcakes, Tarta",
-        price: 3.8,
-        cupcakePrice: 3.8,
-        badges: ["BESTSELLER"],
-        bestseller: false
-    },
-    {
-        id: "choco-bailes",
-        name: "Choco Bailes",
-        emoji: "🍫",
-        category: "cupcakes",
-        shortDescription: "¿Por qué conformarte con lo simple si puedes pecar a lo grande?",
-        longDescription: "Chocolate y licor jugando sucio en tu boca. Baileys deslizándose provocativo entre capas de pecado oscuro. Intensidad criminal en cada mordisco. Adictivo hasta el último mordisco. Una combinación perfecta y exquisita que te dejará con ganas de más. ",
-        ingredients: "Chocolate 70%, ganache, cacao puro, buttercream de Bailys.",
-        formats: "Cupcakes, Tarta",
-        price: 3.5,
-        cupcakePrice: 3.5,
-        badges: [],
-        bestseller: true,
-        image: "img/muerte-por-chocolate.jpg"
-    },
-    {
-        id: "yogurt-salvaje",
-        name: "Yogurt Salvaje",
-        emoji: "🫐",
-        category: "cupcakes",
-        shortDescription: "¿Alguna vez has probado el ácido sabor de una dulce venganza?",
-        longDescription: "Yogurt natural cremoso con frutos del bosque que estallan en la boca. Ligero pero intenso, saludable pero goloso. Un cupcake que te hace sentir bien... mientras pecas deliciosamente.",
-        ingredients: "Yogurt griego, frutos rojos frescos, bizcocho vainilla, miel.",
-        formats: "Cupcakes",
-        price: 3.8,
-        badges: ["SALUDABLE"],
-        bestseller: true,
-        image: "img/yogurt-salvaje.png"
-        
-    },
-    {
-        id: "crimen-cuqui",
-        name: "Crimen Cuqui",
-        emoji: "🔪",
-        category: "cupcakes",
-        shortDescription: "El más goloso y peligroso de todos.",
-        longDescription: "Chocolate, caramelo salado y una sorpresa cremosa en el centro que te hace jadear. Dulce, salado, crujiente, suave. Un cupcake que debería estar prohibido por provocar adicción inmediata.",
-        ingredients: "Chocolate, caramelo salado, toffee, ganache, centro líquido.",
-        formats: "Cupcakes, Tarta",
-        price: 4.0,
-        cupcakePrice: 4.0,
-        badges: ["PREMIUM", "BESTSELLER"],
-        bestseller: false
-    }
+  {
+    id: "marcos-no-me-tientes",
+    name: "Marcos No Me Tientes",
+    emoji: "🍓",
+    category: "tartas",
+    image: "img/berry-cupcakes-1.jpg", // Cupcakes con frutos rojos
+    shortDescription: "Vainilla inocente que se vuelve pecadora con frutos rojos.",
+    longDescription: "Bizcocho de vainilla esponjoso que finge ser angelical, pero está relleno de crema suave y frutos rojos frescos que te hacen cerrar los ojos al primer bocado. Una tarta traviesa, prohibida para corazones débiles.",
+    ingredients: "Harina, huevos, vainilla natural, crema de mantequilla, frutos rojos frescos (fresa, frambuesa, arándanos), azúcar glas.",
+    formats: "Tarta, Cupcakes",
+    cupcakePrice: 3.8,
+    price: 35,
+    badges: ["BESTSELLER"],
+    sizes: [
+      { name: "Pequeña", price: 25, servings: "4-6" },
+      { name: "Mediana", price: 35, servings: "8-10" },
+      { name: "Grande", price: 45, servings: "12-15" },
+      { name: "XL", price: 55, servings: "18-20" }
+    ]
+  },
+  {
+    id: "muerte-por-chocolate",
+    name: "Muerte por Chocolate",
+    emoji: "🍫",
+    category: "tartas",
+    image: "img/MUERTECHOCOLATE.PNG",
+    shortDescription: "Chocolate intenso que te arrastra al pecado más dulce.",
+    longDescription: "Capas de bizcocho de cacao puro, ganache cremoso y trozos de chocolate negro. Una experiencia oscura, densa y adictiva que no deja supervivientes.",
+    ingredients: "Cacao 70%, chocolate negro, crema, mantequilla, huevos, harina.",
+    formats: "Tarta",
+    price: 38,
+    badges: ["INTENSO"],
+    sizes: [
+      { name: "Pequeña", price: 28, servings: "4-6" },
+      { name: "Mediana", price: 38, servings: "8-10" },
+      { name: "Grande", price: 48, servings: "12-15" },
+      { name: "XL", price: 58, servings: "18-20" }
+    ]
+  },
+  {
+    id: "unicornio-fantastico",
+    name: "Unicornio Fantástico",
+    emoji: "🦄",
+    category: "tartas",
+    image: "img/colorful-cupcakes-party.jpg",
+    shortDescription: "Explosión de colores y sprinkles que desafía la gravedad.",
+    longDescription: "Tarta multicolor con buttercream arcoíris, sprinkles brillantes y un toque de magia comestible. Perfecta para fiestas que quieren romper las reglas del buen gusto... de la mejor manera.",
+    ingredients: "Colorantes naturales, vainilla, buttercream, sprinkles, bizcocho esponjoso.",
+    formats: "Tarta, Cupcakes",
+    cupcakePrice: 4.2,
+    price: 42,
+    badges: ["FIESTA"],
+    sizes: [
+      { name: "Pequeña", price: 32, servings: "4-6" },
+      { name: "Mediana", price: 42, servings: "8-10" },
+      { name: "Grande", price: 52, servings: "12-15" },
+      { name: "XL", price: 65, servings: "18-20" }
+    ]
+  },
+  {
+    id: "naranja-que-cacao",
+    name: "Naranja que Cacao",
+    emoji: "🥕",
+    category: "tartas",
+    image: "img/carrot-cake-slice.jpg",
+    shortDescription: "Zanahoria traviesa con crema que no pide perdón.",
+    longDescription: "Bizcocho húmedo de zanahoria, nueces tostadas y especias cálidas, cubierto de crema de queso cremosa. El clásico reinventado con actitud rebelde.",
+    ingredients: "Zanahoria fresca, nueces, canela, crema de queso, azúcar moreno.",
+    formats: "Tarta",
+    price: 36,
+    sizes: [
+      { name: "Pequeña", price: 26, servings: "4-6" },
+      { name: "Mediana", price: 36, servings: "8-10" },
+      { name: "Grande", price: 46, servings: "12-15" }
+    ]
+  },
+  {
+    id: "revolcon-fresnata",
+    name: "Revolcón Fresnata",
+    emoji: "🍓",
+    category: "tartas",
+    image: "img/strawberry-naked-cake.jpg",
+    shortDescription: "Fresas frescas y crema que no se anda con rodeos.",
+    longDescription: "Tarta desnuda con capas de bizcocho vainillado, crema ligera y fresas frescas en abundancia. Natural, sensual y sin artificios.",
+    ingredients: "Fresas frescas, nata montada, bizcocho vainilla, mermelada casera.",
+    formats: "Tarta",
+    price: 40,
+    sizes: [
+      { name: "Pequeña", price: 30, servings: "4-6" },
+      { name: "Mediana", price: 40, servings: "8-10" },
+      { name: "Grande", price: 50, servings: "12-15" }
+    ]
+  },
+  {
+    id: "limon-ileso",
+    name: "Limón Ileso",
+    emoji: "🍋",
+    category: "cheesecakes",
+    image: "img/lemon-cupcakes.jpg",
+    shortDescription: "Cheesecake de limón que pica justo donde debe.",
+    longDescription: "Base crujiente, relleno cremoso de queso con intenso sabor a limón fresco. Ácido, dulce y con final refrescante que te despierta los sentidos.",
+    ingredients: "Queso crema, limón fresco, galleta digestive, mantequilla.",
+    formats: "Cheesecake",
+    price: 38,
+    sizes: [
+      { name: "Pequeña", price: 28, servings: "4-6" },
+      { name: "Mediana", price: 38, servings: "8-10" },
+      { name: "Grande", price: 48, servings: "12-15" }
+    ]
+  },
+  {
+    id: "red-velvet-rebelde",
+    name: "Red Velvet Rebelde",
+    emoji: "❤️",
+    category: "tartas",
+    image: "img/REDVELVET.PNG",
+    shortDescription: "Rojo pasión con crema que no se arrepiente de nada.",
+    longDescription: "El clásico red velvet elevado: bizcocho rojo intenso, crema de queso suave y un toque de cacao que lo hace inolvidable.",
+    ingredients: "Cacao, colorante natural rojo, crema de queso, buttermilk.",
+    formats: "Tarta, Cupcakes",
+    cupcakePrice: 4.0,
+    price: 39,
+    badges: ["CLÁSICO REBELDE"],
+    sizes: [
+      { name: "Pequeña", price: 29, servings: "4-6" },
+      { name: "Mediana", price: 39, servings: "8-10" },
+      { name: "Grande", price: 49, servings: "12-15" }
+    ]
+  }
 ];
 
-// ===============================================
-// TARJETA DE PRODUCTO (para tienda y destacados)
-// ===============================================
+// ====== RENDERIZADO DE PRODUCTOS (para destacados y tienda) ======
+function renderProducts(containerId, products = allProducts, limit = null) {
+  const container = document.getElementById(containerId);
+  if (!container) return;
 
-function productCard(p) {
-    return `
-        <div class="gallery-card card-hover cursor-pointer transition-all" onclick='openProductModal(${JSON.stringify(p)})'>
-            <div class="bg-gray-200 border-2 border-dashed rounded-t-2xl w-full h-64 flex items-center justify-center text-8xl">
-                ${p.image}
-            </div>
-            <div class="p-6">
-                <h3 class="text-2xl font-black text-gray-800 mb-2">${p.emoji} ${p.name}</h3>
-                <p class="text-gray-600 text-sm mb-4 line-clamp-2">${p.shortDescription || p.description}</p>
-                <div class="flex justify-between items-end">
-                    <div>
-                        ${p.sizes ? `<span class="text-2xl font-black text-pink-600">Desde ${Math.min(...p.sizes.map(s => s.price))}€</span>` : `<span class="text-3xl font-black text-pink-600">${p.price.toFixed(2)}€</span>`}
-                        ${p.oldPrice ? `<span class="text-gray-500 line-through ml-2">${p.oldPrice.toFixed(2)}€</span>` : ''}
-                    </div>
-                    ${p.badges?.length ? '<div class="flex flex-wrap gap-2">' + p.badges.map(b => `<span class="bg-pink-600 text-white px-3 py-1 rounded-full text-xs font-bold">${b}</span>`).join('') + '</div>' : ''}
-                </div>
-            </div>
+  const toRender = limit ? products.slice(0, limit) : products;
+
+  container.innerHTML = toRender.map(product => `
+    <div class="bg-white rounded-2xl shadow-xl overflow-hidden transform hover:scale-105 transition-all duration-300 cursor-pointer"
+         onclick="openProductModal('${product.id}')">
+      <div class="relative">
+        <img src="${product.image}" alt="${product.name}" class="w-full h-64 object-cover">
+        <div class="absolute top-4 left-4 flex gap-2">
+          ${product.badges ? product.badges.map(b => 
+            `<span class="bg-pink-600 text-white px-3 py-1 rounded-full text-xs font-bold">${b}</span>`
+          ).join('') : ''}
         </div>
-    `;
+      </div>
+      <div class="p-6 text-center">
+        <h3 class="text-2xl font-black text-gray-800 mb-2">${product.name}</h3>
+        <p class="text-4xl mb-3">${product.emoji}</p>
+        <p class="text-gray-600 mb-4 line-clamp-2">${product.shortDescription}</p>
+        <p class="text-3xl font-bold text-pink-600">
+          Desde ${product.sizes ? product.sizes[0].price : product.price}€
+        </p>
+      </div>
+    </div>
+  `).join('');
 }
 
-// ===============================================
-// RENDERIZADO DE DESTACADOS (index.html)
-// ===============================================
-
+// Para destacados (index.html)
 function renderFeaturedProducts() {
-    const container = document.getElementById('productsContainer');
-    if (!container) {
-        console.warn('⚠️ productsContainer no encontrado aún');
-        return;
-    }
-
-    let featured = allProducts.filter(p => p.bestseller || p.discount > 0);
-
-    if (featured.length === 0) {
-        featured = allProducts.slice(0, 8); // fallback
-    }
-
-    container.innerHTML = '';
-    featured.forEach(product => {
-        container.innerHTML += productCard(product);
-    });
+  renderProducts('productsContainer', allProducts.filter(p => p.badges?.includes('BESTSELLER')), 4);
 }
 
-// ===============================================
-// MODAL DE PRODUCTO
-// ===============================================
+// ====== MODAL DE PRODUCTO ======
+function openProductModal(productId) {
+  const product = allProducts.find(p => p.id === productId);
+  if (!product) return;
 
-function openProductModal(product) {
-    const modal = document.getElementById('productModal');
-    if (!modal) return;
+  const modal = document.getElementById('productModal');
+  if (!modal) return;
 
-    // Título y emoji
-    document.getElementById('modalTitle').textContent = product.name;
-    document.getElementById('modalEmoji').textContent = product.image || '';
+  document.getElementById('modalImage').src = product.image;
+  document.getElementById('modalImage').alt = product.name;
+  document.getElementById('modalTitle').textContent = product.name;
+  document.getElementById('modalEmoji').textContent = product.emoji;
+  document.getElementById('modalDescription').textContent = product.longDescription;
 
-    // Descripción ampliada
-    document.getElementById('modalDescription').innerHTML = `
-        <p class="text-xl font-bold text-pink-600 mb-3">${product.shortDescription}</p>
-        <p class="text-gray-700 leading-relaxed mb-6">${product.longDescription}</p>
-        <p class="text-sm italic text-gray-600 mb-2"><strong>Ingredientes:</strong> ${product.ingredients}</p>
-        <p class="text-sm italic text-gray-600"><strong>Formatos:</strong> ${product.formats}</p>
+  // Badges
+  const badgesContainer = document.getElementById('modalBadges');
+  badgesContainer.innerHTML = product.badges ? product.badges.map(b => 
+    `<span class="bg-pink-600 text-white px-4 py-2 rounded-full text-sm font-bold">${b}</span>`
+  ).join('') : '';
+
+  // Precios
+  let pricesHTML = '';
+  if (product.sizes) {
+    pricesHTML = '<div class="grid grid-cols-2 gap-4 mt-6">' +
+      product.sizes.map(size => `
+        <div class="bg-gray-50 rounded-xl p-4 text-center">
+          <p class="text-lg font-semibold">${size.name}</p>
+          <p class="text-3xl font-black text-pink-600">${size.price}€</p>
+          <p class="text-sm text-gray-600">${size.servings} porciones</p>
+        </div>
+      `).join('') + '</div>';
+  } else if (product.cupcakePrice) {
+    pricesHTML = `
+      <div class="text-center mb-6">
+        <p class="text-2xl">Tarta desde <span class="text-4xl font-black text-pink-600">${product.price}€</span></p>
+        <p class="text-xl mt-2">Cupcake unidad: <span class="font-bold text-pink-600">${product.cupcakePrice}€</span></p>
+      </div>
     `;
+  } else {
+    pricesHTML = `<p class="text-5xl font-black text-pink-600 mb-4">${product.price}€</p>`;
+  }
+  document.getElementById('modalPrices').innerHTML = pricesHTML;
 
-    // Imagen placeholder
-    document.getElementById('modalImage').src = `https://via.placeholder.com/600x600/f8b4d9/ffffff?text=${product.emoji || 'Cake'}`;
-
-    // Badges
-    const badgesContainer = document.getElementById('modalBadges');
-    badgesContainer.innerHTML = '';
-    (product.badges || []).forEach(badge => {
-        const span = document.createElement('span');
-        span.className = 'bg-pink-600 text-white px-4 py-2 rounded-full text-sm font-bold shadow';
-        span.textContent = badge;
-        badgesContainer.appendChild(span);
-    });
-
-    // PRECIOS DINÁMICOS
-    let pricesHTML = '';
-    const hasBothFormats = product.formats && product.formats.includes('Tarta') && product.formats.includes('Cupcakes');
-
-    if (hasBothFormats) {
-        pricesHTML = `
-            <div class="mb-8">
-                <h3 class="text-2xl font-bold mb-6 text-gray-800">Precios por formato</h3>
-                <div class="bg-gray-50 rounded-2xl p-8 space-y-8">
-                    <div class="flex justify-between items-center border-b pb-6">
-                        <div>
-                            <p class="text-xl font-bold">Cupcake individual</p>
-                        </div>
-                        <p class="text-4xl font-black text-pink-600">${(product.cupcakePrice || product.price).toFixed(2)}€</p>
-                    </div>
-                    <div>
-                        <p class="text-xl font-bold mb-4">Tarta completa</p>
-                        <div class="grid grid-cols-2 gap-4">
-                            ${product.sizes.map(s => `
-                                <div class="bg-white p-4 rounded-xl text-center shadow">
-                                    <p class="font-bold text-lg">${s.name}</p>
-                                    <p class="text-3xl font-black text-pink-600">${s.price}€</p>
-                                    <p class="text-sm text-gray-600">${s.servings} personas</p>
-                                </div>
-                            `).join('')}
-                        </div>
-                    </div>
-                </div>
-            </div>
-        `;
-    } else if (product.sizes) {
-        pricesHTML = `
-            <div class="mb-8">
-                <p class="text-5xl font-black text-pink-600 mb-6">Desde ${Math.min(...product.sizes.map(s => s.price))}€</p>
-                <h3 class="text-2xl font-bold mb-4 text-gray-800">Tamaños disponibles</h3>
-                <div class="grid grid-cols-2 gap-4">
-                    ${product.sizes.map(s => `
-                        <div class="bg-gray-50 p-6 rounded-xl text-center">
-                            <p class="font-bold text-xl">${s.name}</p>
-                            <p class="text-4xl font-black text-pink-600 my-2">${s.price}€</p>
-                            <p class="text-gray-600">${s.servings} personas</p>
-                        </div>
-                    `).join('')}
-                </div>
-            </div>
-        `;
-    } else {
-        pricesHTML = `
-            <div class="mb-8">
-                <p class="text-6xl font-black text-pink-600">${product.price.toFixed(2)}€</p>
-                <p class="text-2xl text-gray-700 mt-2">por unidad</p>
-            </div>
-        `;
-    }
-
-    // Inyectar precios
-    const pricesContainer = document.getElementById('modalPrices') || document.querySelector('#modalPrices');
-    if (pricesContainer) pricesContainer.innerHTML = pricesHTML;
-
-    // Mostrar modal
-    modal.classList.remove('hidden');
-    setTimeout(() => {
-        modal.querySelector('.transform').classList.replace('scale-95', 'scale-100');
-        modal.querySelector('.opacity-0').classList.replace('opacity-0', 'opacity-100');
-    }, 10);
+  // Mostrar modal
+  modal.classList.remove('hidden');
+  setTimeout(() => {
+    modal.querySelector('.transform').classList.replace('scale-95', 'scale-100');
+    modal.querySelector('.opacity-0').classList.replace('opacity-0', 'opacity-100');
+  }, 10);
 }
 
 function closeProductModal() {
-    const modal = document.getElementById('productModal');
-    if (!modal) return;
+  const modal = document.getElementById('productModal');
+  if (!modal) return;
 
-    const card = modal.querySelector('.scale-100');
-    if (card) {
-        card.classList.replace('scale-100', 'scale-95');
-        card.classList.replace('opacity-100', 'opacity-0');
-    }
-    setTimeout(() => modal.classList.add('hidden'), 300);
+  modal.querySelector('.transform').classList.replace('scale-100', 'scale-95');
+  modal.querySelector('.opacity-100').classList.replace('opacity-100', 'opacity-0');
+  setTimeout(() => modal.classList.add('hidden'), 300);
 }
 
 // Cerrar con Escape
 document.addEventListener('keydown', e => {
-    if (e.key === 'Escape') closeProductModal();
+  if (e.key === 'Escape') closeProductModal();
 });
-
-
-
