@@ -1,55 +1,69 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tienda | Maldita Dulzura – Pasteles Rebeldes</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="stylesheet" href="/style/style.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tienda | Maldita Dulzura – Pasteles Rebeldes</title>
+  <meta name="description" content="Explora todas nuestras tartas, cupcakes y cheesecakes artesanales. Sabores rebeldes, ingredientes premium y diseños que rompen las reglas.">
+
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+  <!-- Fuentes personalizadas -->
+  <link href="https://fonts.googleapis.com/css2?family=Englebert&family=Twinkle+Star&display=swap" rel="stylesheet">
+
+  <!-- Estilos personalizados -->
+  <link rel="stylesheet" href="style/style.css">
+
+  <!-- Preload logo -->
+  <link rel="preload" href="img/LOGO.png" as="image">
 </head>
 
-<body class="bg-white">
+<body class="bg-white min-h-screen flex flex-col">
 
-    <!-- NAVBAR (siempre obligatorio) -->
-    <div id="navbar"></div>
+  <!-- Contenedor para el modal de producto (cargado una sola vez) -->
+  <div id="productModalContainer"></div>
 
-    <!-- PRODUCTOS -->
-    <div id="featured-products"></div>
+  <!-- NAVBAR -->
+  <div id="navbar"></div>
 
-    <!-- FOOTER (siempre obligatorio) -->
-    <div id="footer"></div>
+  <!-- SECCIÓN TIENDA - Todos los productos -->
+  <div id="featured-products"></div>
 
-<!-- Contenedor para el modal de producto -->
-<div id="productModalContainer"></div>
+  <!-- FOOTER -->
+  <div id="footer"></div>
 
-       <script src="js/components.js"></script>
-    <script src="js/router.js"></script>
-    <script src="js/main.js"></script>
-    <script src="js/products.js"></script>
+  <!-- Scripts -->
+  <script src="js/products.js"></script>     <!-- Base de datos y funciones de render/modal -->
+  <script src="js/main.js"></script>         <!-- Menú móvil -->
+  <script src="js/router.js"></script>       <!-- Carga dinámica de componentes -->
 
-    <!-- Contenedor para el modal -->
-<div id="productModalContainer"></div>
+  <!-- Cargar modal una sola vez -->
+  <script>
+    fetch('components/modal.html')
+      .then(response => response.text())
+      .then(html => {
+        document.getElementById('productModalContainer').innerHTML = html;
+      })
+      .catch(err => console.error('Error cargando modal:', err));
+  </script>
 
-<script>
-    fetch('components/product-modal.html')
-        .then(response => {
-            if (!response.ok) throw new Error('No se encontró el archivo');
-            return response.text();
-        })
-        .then(html => {
-            document.getElementById('productModalContainer').innerHTML = html;
-            console.log('✅ Modal cargado correctamente');
-        })
-        .catch(err => {
-            console.error('❌ Error cargando el modal:', err);
-        });
-</script>
+  <!-- Renderizar todos los productos una vez cargado el componente -->
+  <script>
+    // Cuando router.js termine de cargar featured-products, renderizamos todos
+    document.addEventListener('DOMContentLoaded', () => {
+      const observer = new MutationObserver((mutations, obs) => {
+        if (document.getElementById('productsGrid')) {
+          renderProducts('productsGrid', allProducts); // Función de products.js
+          obs.disconnect();
+        }
+      });
+      observer.observe(document.body, { childList: true, subtree: true });
+    });
+  </script>
 </body>
-
 </html>
-
-
-
-
 
