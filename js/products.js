@@ -39,7 +39,7 @@ const allProducts = [
         discount: 17,
         badges: ["BESTSELLER", "DESCUENTO"],
         bestseller: true,
-        image: "/img/muerte-por-chocolate.jpg",
+        image: "img/muerte-por-chocolate.jpg",
         sizes: [
             { name: "Pequena", price: 25, servings: "4-6" },
             { name: "Mediana", price: 35, servings: "8-10" },
@@ -249,7 +249,7 @@ const allProducts = [
         cupcakePrice: 3.5,
         badges: ["BESTSELLER"],
         bestseller: true,
-        image: "/img/red-velvet1.jpg",
+        image: "img/red-velvet1.jpg",
     },
     {
         id: "zanahoria",
@@ -263,7 +263,7 @@ const allProducts = [
         price: 3.5,
         cupcakePrice: 3.5,
         betseller: true,
-        image: "/img/carrot-cake.jpg",
+        image: "img/carrot-cake.jpg",
         badges: []
         
     },
@@ -294,7 +294,7 @@ const allProducts = [
         cupcakePrice: 3.5,
         badges: [],
         bestseller: true,
-        image: "/img/muerte-por-chocolate.jpg"
+        image: "img/muerte-por-chocolate.jpg"
     },
     {
         id: "yogurt-salvaje",
@@ -308,7 +308,7 @@ const allProducts = [
         price: 3.8,
         badges: ["SALUDABLE"],
         bestseller: true,
-        image: "/img/yogurt-salvaje.png"
+        image: "img/yogurt-salvaje.png"
         
     },
     {
@@ -335,7 +335,7 @@ function productCard(p) {
     return `
         <div class="gallery-card card-hover cursor-pointer transition-all" onclick='openProductModal(${JSON.stringify(p)})'>
             <div class="bg-gray-200 border-2 border-dashed rounded-t-2xl w-full h-64 flex items-center justify-center text-8xl">
-                ${p.emoji}
+                ${p.image}
             </div>
             <div class="p-6">
                 <h3 class="text-2xl font-black text-gray-800 mb-2">${p.emoji} ${p.name}</h3>
@@ -385,7 +385,7 @@ function openProductModal(product) {
 
     // Título y emoji
     document.getElementById('modalTitle').textContent = product.name;
-    document.getElementById('modalEmoji').textContent = product.emoji || '';
+    document.getElementById('modalEmoji').textContent = product.image || '';
 
     // Descripción ampliada
     document.getElementById('modalDescription').innerHTML = `
@@ -491,5 +491,6 @@ function closeProductModal() {
 document.addEventListener('keydown', e => {
     if (e.key === 'Escape') closeProductModal();
 });
+
 
 
