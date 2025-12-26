@@ -6,7 +6,7 @@ const CONFIG = {
     EMAILJS: {
         publicKey: 'bvwZyIlaHy325gIzp',
         serviceId: 'service_a1r8kaa',
-        templateId: 'Pedidos_template',
+        templateId: 'template_pedidos',
         templateIdCliente: 'template_confirmacion_cliente',
         adminEmail: 'pedidos@malditadulzura.com'
     },
@@ -559,3 +559,4 @@ function loadSavedState() {
         console.warn('Error cargando estado:', error);
     }
 }
+
