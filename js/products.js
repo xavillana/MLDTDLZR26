@@ -18,7 +18,7 @@ const allProducts = [
         badges: ["BESTSELLER"],
         bestseller: false,
         sizes: [
-            { name: "Pequeña", price: 25, servings: "4-6" },
+            { name: "Pequena", price: 25, servings: "4-6" },
             { name: "Mediana", price: 35, servings: "8-10" },
             { name: "Grande", price: 45, servings: "12-15" },
             { name: "XL", price: 55, servings: "16-20" }
@@ -41,7 +41,7 @@ const allProducts = [
         bestseller: true,
         image: "/img/muerte-por-chocolate.jpg",
         sizes: [
-            { name: "Pequeña", price: 25, servings: "4-6" },
+            { name: "Pequena", price: 25, servings: "4-6" },
             { name: "Mediana", price: 35, servings: "8-10" },
             { name: "Grande", price: 45, servings: "12-15" },
             { name: "XL", price: 55, servings: "16-20" }
@@ -59,7 +59,7 @@ const allProducts = [
         price: 40,
         badges: ["NUEVO"],
         sizes: [
-            { name: "Pequeña", price: 30, servings: "4-6" },
+            { name: "Pequena", price: 30, servings: "4-6" },
             { name: "Mediana", price: 40, servings: "8-10" },
             { name: "Grande", price: 50, servings: "12-15" },
             { name: "XL", price: 60, servings: "16-20" }
@@ -76,7 +76,7 @@ const allProducts = [
         formats: "Tarta",
         price: 35,
         sizes: [
-            { name: "Pequeña", price: 25, servings: "4-6" },
+            { name: "Pequena", price: 25, servings: "4-6" },
             { name: "Mediana", price: 35, servings: "8-10" },
             { name: "Grande", price: 45, servings: "12-15" },
             { name: "XL", price: 55, servings: "16-20" }
@@ -94,7 +94,7 @@ const allProducts = [
         price: 38,
         badges: ["CLÁSICO"],
         sizes: [
-            { name: "Pequeña", price: 28, servings: "4-6" },
+            { name: "Pequena", price: 28, servings: "4-6" },
             { name: "Mediana", price: 38, servings: "8-10" },
             { name: "Grande", price: 48, servings: "12-15" },
             { name: "XL", price: 58, servings: "16-20" }
@@ -114,7 +114,7 @@ const allProducts = [
         discount: 14,
         badges: ["DESCUENTO"],
         sizes: [
-            { name: "Pequeña", price: 26, servings: "4-6" },
+            { name: "Pequena", price: 26, servings: "4-6" },
             { name: "Mediana", price: 36, servings: "8-10" },
             { name: "Grande", price: 46, servings: "12-15" },
             { name: "XL", price: 56, servings: "16-20" }
@@ -135,7 +135,7 @@ const allProducts = [
         badges: ["BESTSELLER"],
         bestseller: false,
         sizes: [
-            { name: "Pequeña", price: 30, servings: "4-6" },
+            { name: "Pequena", price: 30, servings: "4-6" },
             { name: "Mediana", price: 40, servings: "8-10" },
             { name: "Grande", price: 50, servings: "12-15" },
             { name: "XL", price: 60, servings: "16-20" }
@@ -153,7 +153,7 @@ const allProducts = [
         price: 42,
         badges: ["TROPICAL"],
         sizes: [
-            { name: "Pequeña", price: 32, servings: "4-6" },
+            { name: "Pequena", price: 32, servings: "4-6" },
             { name: "Mediana", price: 42, servings: "8-10" },
             { name: "Grande", price: 52, servings: "12-15" },
             { name: "XL", price: 62, servings: "16-20" }
@@ -170,7 +170,7 @@ const allProducts = [
         formats: "Tarta",
         price: 38,
         sizes: [
-            { name: "Pequeña", price: 28, servings: "4-6" },
+            { name: "Pequena", price: 28, servings: "4-6" },
             { name: "Mediana", price: 38, servings: "8-10" },
             { name: "Grande", price: 48, servings: "12-15" },
             { name: "XL", price: 58, servings: "16-20" }
@@ -189,7 +189,7 @@ const allProducts = [
         badges: ["CLÁSICO", "BESTSELLER"],
         bestseller: false,
         sizes: [
-            { name: "Pequeña", price: 26, servings: "4-6" },
+            { name: "Pequena", price: 26, servings: "4-6" },
             { name: "Mediana", price: 36, servings: "8-10" },
             { name: "Grande", price: 46, servings: "12-15" },
             { name: "XL", price: 56, servings: "16-20" }
@@ -209,7 +209,7 @@ const allProducts = [
         discount: 17,
         badges: ["DESCUENTO"],
         sizes: [
-            { name: "Pequeña", price: 30, servings: "4-6" },
+            { name: "Pequena", price: 30, servings: "4-6" },
             { name: "Mediana", price: 40, servings: "8-10" },
             { name: "Grande", price: 50, servings: "12-15" },
             { name: "XL", price: 60, servings: "16-20" }
@@ -228,7 +228,7 @@ const allProducts = [
         badges: ["BESTSELLER"],
         bestseller: false,
         sizes: [
-            { name: "Pequeña", price: 32, servings: "4-6" },
+            { name: "Pequena", price: 32, servings: "4-6" },
             { name: "Mediana", price: 42, servings: "8-10" },
             { name: "Grande", price: 52, servings: "12-15" },
             { name: "XL", price: 62, servings: "16-20" }
@@ -491,4 +491,5 @@ function closeProductModal() {
 document.addEventListener('keydown', e => {
     if (e.key === 'Escape') closeProductModal();
 });
+
 
