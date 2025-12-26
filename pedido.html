@@ -3,49 +3,69 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Maldita Dulzura | Pasteles Rebeldes</title>
+  <title>Pedido | Maldita Dulzura – Pasteles Rebeldes</title>
+  <meta name="description" content="Haz tu pedido personalizado. Elige tarta, tamaño, fecha y detalles. Te responderemos en menos de 24h con presupuesto y confirmación.">
+
+  <!-- Tailwind CSS -->
   <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- Font Awesome -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-  <link rel="stylesheet" href="/style/style.css">
+
+  <!-- Fuentes personalizadas -->
+  <link href="https://fonts.googleapis.com/css2?family=Englebert&family=Twinkle+Star&display=swap" rel="stylesheet">
+
+  <!-- Estilos personalizados -->
+  <link rel="stylesheet" href="style/style.css">
+
+  <!-- Preload logo -->
+  <link rel="preload" href="img/LOGO.png" as="image">
 </head>
 
+<body class="bg-white min-h-screen flex flex-col">
 
-    
-  <!-- Los componentes se inyectarán aquí -->
+  <!-- Contenedor para el modal de producto (por si el usuario llega desde la tienda) -->
+  <div id="productModalContainer"></div>
+
+  <!-- NAVBAR -->
   <div id="navbar"></div>
+
+  <!-- FORMULARIO DE PEDIDO -->
   <div id="pedido"></div>
+
+  <!-- FOOTER -->
   <div id="footer"></div>
 
-  <!-- Contenedor para el modal -->
-<div id="productModalContainer"></div>
+  <!-- Scripts -->
+  <script src="js/products.js"></script>     <!-- Necesario para allProducts y precios -->
+  <script src="js/main.js"></script>         <!-- Menú móvil -->
+  <script src="js/pedido.js"></script>       <!-- Lógica del formulario -->
+  <script src="js/router.js"></script>       <!-- Carga navbar, pedido y footer -->
 
-<script>
-    fetch('components/product-modal.html')
-        .then(response => {
-            if (!response.ok) throw new Error('No se encontró el archivo');
-            return response.text();
-        })
-        .then(html => {
-            document.getElementById('productModalContainer').innerHTML = html;
-            console.log('✅ Modal cargado correctamente');
-        })
-        .catch(err => {
-            console.error('❌ Error cargando el modal:', err);
-        });
-</script>
+  <!-- Cargar modal una sola vez (opcional en esta página, pero no hace daño) -->
+  <script>
+    fetch('components/modal.html')
+      .then(response => response.text())
+      .then(html => {
+        document.getElementById('productModalContainer').innerHTML = html;
+      })
+      .catch(err => console.error('Error cargando modal:', err));
+  </script>
 
-  <script src="js/components.js"></script>
-  <script src="js/router.js"></script>
-  <script src="js/main.js"></script>
-  <script src="js/products.js"></script>
-  <script src="js/pedido.js"></script>
-
- <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+  <!-- Inicializar lógica del pedido una vez cargado el componente -->
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const observer = new MutationObserver((mutations, obs) => {
+        if (document.getElementById('orderForm')) {
+          initPedidoPage(); // Función de pedido.js
+          obs.disconnect();
+        }
+      });
+      observer.observe(document.body, { childList: true, subtree: true });
+    });
+  </script>
 </body>
 </html>
-
-
-
 
 
 
