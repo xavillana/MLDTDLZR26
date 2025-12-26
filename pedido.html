@@ -15,19 +15,23 @@
   <div id="navbar"></div>
   <div id="pedido"></div>
   <div id="footer"></div>
-  
- <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
-  <!-- Contenedor para el modal de producto -->
+
+  <!-- Contenedor para el modal -->
 <div id="productModalContainer"></div>
 
 <script>
-    // Cargar el modal una sola vez
     fetch('components/product-modal.html')
-        .then(response => response.text())
+        .then(response => {
+            if (!response.ok) throw new Error('No se encontró el archivo');
+            return response.text();
+        })
         .then(html => {
             document.getElementById('productModalContainer').innerHTML = html;
+            console.log('✅ Modal cargado correctamente');
         })
-        .catch(err => console.error('Error cargando modal:', err));
+        .catch(err => {
+            console.error('❌ Error cargando el modal:', err);
+        });
 </script>
 
   <script src="js/components.js"></script>
@@ -39,6 +43,7 @@
  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
 </body>
 </html>
+
 
 
 
