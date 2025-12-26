@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Contacto | Maldita Dulzura – Pasteles Rebeldes</title>
+  <meta name="description" content="Contáctanos para pedidos personalizados, consultas o simplemente para decirnos cuánto te tentamos. Responderemos rapidito.">
+
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+  <!-- Fuentes personalizadas -->
+  <link href="https://fonts.googleapis.com/css2?family=Englebert&family=Twinkle+Star&display=swap" rel="stylesheet">
+
+  <!-- Estilos personalizados -->
+  <link rel="stylesheet" href="style/style.css">
+
+  <!-- Preload logo -->
+  <link rel="preload" href="img/LOGO.png" as="image">
+</head>
+
+<body class="bg-white min-h-screen flex flex-col">
+
+  <!-- NAVBAR -->
+  <div id="navbar"></div>
+
+  <!-- SECCIÓN CONTACTO -->
+  <section class="py-16 lg:py-28 bg-gray-50">
+    <div class="container mx-auto px-4 max-w-5xl">
+      <div class="text-center mb-12">
+        <h1 class="text-4xl md:text-5xl lg:text-6xl font-black text-pink-600 mb-6">
+          Contáctanos
+        </h1>
+        <p class="text-xl text-gray-700 max-w-3xl mx-auto">
+          ¿Tienes una idea loca para una tarta? ¿Quieres saber disponibilidad? ¿O solo quieres decirnos que nos amas? 
+          Aquí estamos para tentarte y ayudarte.
+        </p>
+      </div>
+
+      <div class="grid lg:grid-cols-2 gap-12">
+
+        <!-- Información de contacto -->
+        <div class="bg-white rounded-3xl shadow-2xl p-8 lg:p-12 space-y-8">
+          <h2 class="text-3xl font-black text-gray-800 mb-6">Nuestros datos rebeldes</h2>
+
+          <div class="space-y-6">
+            <div class="flex items-center gap-5">
+              <div class="bg-pink-100 text-pink-600 w-14 h-14 rounded-full flex items-center justify-center text-2xl">
+                <i class="fab fa-whatsapp"></i>
+              </div>
+              <div>
+                <p class="text-lg font-semibold">WhatsApp / Teléfono</p>
+                <a href="https://wa.me/34677674782" target="_blank" class="text-2xl text-pink-600 hover:underline">
+                  +34 677 674 782
+                </a>
+              </div>
+            </div>
+
+            <div class="flex items-center gap-5">
+              <div class="bg-pink-100 text-pink-600 w-14 h-14 rounded-full flex items-center justify-center text-2xl">
+                <i class="fas fa-envelope"></i>
+              </div>
+              <div>
+                <p class="text-lg font-semibold">Email</p>
+                <a href="mailto:info@malditadulzura.com" class="text-xl text-pink-600 hover:underline">
+                  info@malditadulzura.com
+                </a>
+              </div>
+            </div>
+
+            <div class="flex items-center gap-5">
+              <div class="bg-pink-100 text-pink-600 w-14 h-14 rounded-full flex items-center justify-center text-2xl">
+                <i class="fab fa-instagram"></i>
+              </div>
+              <div>
+                <p class="text-lg font-semibold">Instagram</p>
+                <a href="https://instagram.com/malditadulzura" target="_blank" class="text-xl text-pink-600 hover:underline">
+                  @malditadulzura
+                </a>
+              </div>
+            </div>
+          </div>
+
+          <div class="mt-10 pt-8 border-t border-gray-200">
+            <p class="text-lg text-gray-700">
+              <strong>Horario de atención:</strong><br>
+              Lunes a Viernes: 9:00 - 20:00<br>
+              Sábados: 10:00 - 14:00<br>
+              Domingos: Solo emergencias dulces 😈
+            </p>
+          </div>
+        </div>
+
+        <!-- Formulario rápido de contacto -->
+        <div class="bg-gradient-to-br from-pink-600 to-purple-700 rounded-3xl shadow-2xl p-8 lg:p-12 text-white">
+          <h2 class="text-3xl font-black mb-6">Envíanos un mensaje directo</h2>
+          <p class="mb-8 opacity-90">Respondemos en menos de 24h (normalmente mucho antes).</p>
+
+          <form id="contactForm" class="space-y-6">
+            <div>
+              <label for="contactNombre" class="block text-lg font-semibold mb-2">Nombre *</label>
+              <input type="text" id="contactNombre" required class="w-full px-5 py-4 rounded-xl bg-white/20 backdrop-blur placeholder-white/60 text-white focus:outline-none focus:ring-4 focus:ring-white/30">
+            </div>
+
+            <div>
+              <label for="contactEmail" class="block text-lg font-semibold mb-2">Email *</label>
+              <input type="email" id="contactEmail" required class="w-full px-5 py-4 rounded-xl bg-white/20 backdrop-blur placeholder-white/60 text-white focus:outline-none focus:ring-4 focus:ring-white/30">
+            </div>
+
+            <div>
+              <label for="contactMensaje" class="block text-lg font-semibold mb-2">Mensaje *</label>
+              <textarea id="contactMensaje" rows="6" required placeholder="Cuéntanos todo..." class="w-full px-5 py-4 rounded-xl bg-white/20 backdrop-blur placeholder-white/60 text-white focus:outline-none focus:ring-4 focus:ring-white/30"></textarea>
+            </div>
+
+            <div class="text-center">
+              <button type="submit" class="bg-white text-pink-600 px-12 py-5 rounded-2xl font-black text-xl hover:bg-gray-100 transition transform hover:scale-105 shadow-xl">
+                Enviar Mensaje →
+              </button>
+            </div>
+          </form>
+
+          <!-- Mensaje de éxito -->
+          <div id="contactSuccess" class="hidden text-center mt-8">
+            <div class="text-6xl mb-4">🍰✨</div>
+            <h3 class="text-2xl font-black mb-2">¡Mensaje enviado!</h3>
+            <p>Te contestaremos lo antes posible. ¡Gracias por contactar con Maldita Dulzura!</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <div id="footer"></div>
+
+  <!-- Scripts -->
+  <script src="js/main.js"></script>         <!-- Menú móvil -->
+  <script src="js/router.js"></script>       <!-- Carga navbar y footer -->
+
+  <!-- Script para el formulario de contacto -->
+  <script>
+    document.getElementById('contactForm')?.addEventListener('submit', function(e) {
+      e.preventDefault();
+      
+      // Aquí podrías conectar EmailJS o tu backend real
+      // Por ahora, simulamos envío exitoso
+      this.classList.add('hidden');
+      document.getElementById('contactSuccess').classList.remove('hidden');
+    });
+  </script>
+</body>
+</html>
