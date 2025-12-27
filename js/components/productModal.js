@@ -1,5 +1,9 @@
 import { renderPriceBlock } from './utils.js';
 
+export function initProductModal() {
+    // Aquí puedes añadir animaciones o listeners extra si quieres
+}
+
 export function openProductModal(product = {}) {
     const modal = document.getElementById('productModal');
     if (!modal) return;
