@@ -24,24 +24,64 @@
 
 <body class="bg-white min-h-screen flex flex-col">
 
-  <!-- Contenedor para el modal de producto (cargado una sola vez) -->
+  <!-- Contenedor para el modal de producto -->
   <div id="productModalContainer"></div>
 
   <!-- NAVBAR -->
   <div id="navbar"></div>
 
-  <!-- SECCIÓN TIENDA - Todos los productos -->
-  <div id="featured-products"></div>
+  <!-- TIENDA CON FILTROS -->
+  <section class="py-16 lg:py-28 bg-gray-50">
+    <div class="container mx-auto px-4 max-w-7xl">
+      <div class="text-center mb-12">
+        <h1 class="text-4xl lg:text-6xl font-black text-pink-600 mb-6">
+          Nuestra Tienda Rebelde
+        </h1>
+        <p class="text-xl text-gray-700 max-w-3xl mx-auto mb-10">
+          Explora todas nuestras delicias. Haz clic en cualquier tarta para ver detalles y pedir.
+        </p>
+
+        <!-- FILTROS -->
+        <div class="flex flex-wrap justify-center gap-4 mb-8">
+          <button data-category="all" class="filter-btn active px-6 py-3 rounded-full bg-pink-600 text-white font-bold hover:bg-pink-700 transition">
+            Todas
+          </button>
+          <button data-category="tartas" class="filter-btn px-6 py-3 rounded-full bg-gray-200 text-gray-800 font-bold hover:bg-pink-600 hover:text-white transition">
+            Tartas
+          </button>
+          <button data-category="cupcakes" class="filter-btn px-6 py-3 rounded-full bg-gray-200 text-gray-800 font-bold hover:bg-pink-600 hover:text-white transition">
+            Cupcakes
+          </button>
+          <button data-category="cheesecakes" class="filter-btn px-6 py-3 rounded-full bg-gray-200 text-gray-800 font-bold hover:bg-pink-600 hover:text-white transition">
+            Cheesecakes
+          </button>
+        </div>
+
+        <!-- Contador de resultados + Limpiar -->
+        <div class="flex justify-center items-center gap-6 text-gray-600">
+          <p id="resultsCount" class="text-lg">Mostrando <span id="count">0</span> delicias</p>
+          <button id="clearFilters" class="text-pink-600 font-bold hover:underline hidden">
+            Limpiar filtros
+          </button>
+        </div>
+      </div>
+
+      <!-- Grid de productos -->
+      <div id="productsGrid" class="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
+        <!-- Productos inyectados por JS -->
+      </div>
+    </div>
+  </section>
 
   <!-- FOOTER -->
   <div id="footer"></div>
 
   <!-- Scripts -->
-  <script src="js/products.js"></script>     <!-- Base de datos y funciones de render/modal -->
+  <script src="js/products.js"></script>     <!-- Base de datos + render + modal + ahora también filtros -->
   <script src="js/main.js"></script>         <!-- Menú móvil -->
-  <script src="js/router.js"></script>       <!-- Carga dinámica de componentes -->
+  <script src="js/router.js"></script>       <!-- Carga navbar y footer -->
 
-  <!-- Cargar modal una sola vez -->
+  <!-- Cargar modal -->
   <script>
     fetch('components/modal.html')
       .then(response => response.text())
@@ -51,13 +91,12 @@
       .catch(err => console.error('Error cargando modal:', err));
   </script>
 
-  <!-- Renderizar todos los productos una vez cargado el componente -->
+  <!-- Inicializar tienda con filtros -->
   <script>
-    // Cuando router.js termine de cargar featured-products, renderizamos todos
     document.addEventListener('DOMContentLoaded', () => {
       const observer = new MutationObserver((mutations, obs) => {
         if (document.getElementById('productsGrid')) {
-          renderProducts('productsGrid', allProducts); // Función de products.js
+          initStoreFilters(); // Nueva función en products.js
           obs.disconnect();
         }
       });
@@ -66,4 +105,3 @@
   </script>
 </body>
 </html>
-
