@@ -4,12 +4,7 @@
 
 const componentCache = {};
 
-function loadComponent(id, file) {
-    const element = document.getElementById(id);
-    if (!element) {
-        console.warn(`⚠️ Elemento con id "${id}" no encontrado`);
-        return;
-    }
+function loadComponent(id, file, callback) {
 
     // Si ya está cacheado → no recargar
     if (componentCache[file]) {
@@ -28,9 +23,9 @@ function loadComponent(id, file) {
             element.innerHTML = html;
             dispatchComponentLoaded(id, element);
         })
-        .catch(err => {
-            console.error(`❌ Error cargando ${file}:`, err);
-            element.innerHTML = `<p class="text-red-600 text-center py-8">Error al cargar sección</p>`;
+          .catch(err => {
+        console.error(`Error en ${id}: ${err}`);
+        document.getElementById(id).innerHTML = '<p>Error cargando sección</p>';
         });
 }
 
@@ -98,6 +93,7 @@ document.addEventListener("componentLoaded", (e) => {
             break;
     }
 });
+
 
 
 
