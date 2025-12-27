@@ -326,24 +326,61 @@ const allProducts = [
 ];
 
 // ===============================================
-// TARJETA DE PRODUCTO (para tienda y destacados)
+// UTILIDADES SEGURAS
+// ===============================================
+
+// Evita errores si algo no existe
+const safe = (value, fallback = "") => value ?? fallback;
+
+// Busca producto por ID
+function getProductById(id) {
+    return allProducts.find(p => p.id === id);
+}
+
+// ===============================================
+// TARJETA DE PRODUCTO (segura y optimizada)
 // ===============================================
 
 function productCard(p) {
+    const minPrice = p.sizes ? Math.min(...p.sizes.map(s => s.price)) : null;
+
     return `
-        <div class="gallery-card card-hover cursor-pointer transition-all" onclick='openProductModal(${JSON.stringify(p)})'>
+        <div class="gallery-card card-hover cursor-pointer transition-all"
+             data-id="${p.id}"
+             onclick="openProductModalById('${p.id}')">
+
             <div class="bg-gray-200 border-2 border-dashed rounded-t-2xl w-full h-64 flex items-center justify-center text-8xl">
-                ${p.image}
+                ${safe(p.image)}
             </div>
+
             <div class="p-6">
-                <h3 class="text-2xl font-black text-gray-800 mb-2">${p.emoji} ${p.name}</h3>
-                <p class="text-gray-600 text-sm mb-4 line-clamp-2">${p.shortDescription || p.description}</p>
+                <h3 class="text-2xl font-black text-gray-800 mb-2">${safe(p.emoji)} ${safe(p.name)}</h3>
+
+                <p class="text-gray-600 text-sm mb-4 line-clamp-2">
+                    ${safe(p.shortDescription, p.description)}
+                </p>
+
                 <div class="flex justify-between items-end">
                     <div>
-                        ${p.sizes ? `<span class="text-2xl font-black text-pink-600">Desde ${Math.min(...p.sizes.map(s => s.price))}€</span>` : `<span class="text-3xl font-black text-pink-600">${p.price.toFixed(2)}€</span>`}
-                        ${p.oldPrice ? `<span class="text-gray-500 line-through ml-2">${p.oldPrice.toFixed(2)}€</span>` : ''}
+                        ${
+                            p.sizes
+                                ? `<span class="text-2xl font-black text-pink-600">Desde ${minPrice}€</span>`
+                                : `<span class="text-3xl font-black text-pink-600">${p.price.toFixed(2)}€</span>`
+                        }
+                        ${
+                            p.oldPrice
+                                ? `<span class="text-gray-500 line-through ml-2">${p.oldPrice.toFixed(2)}€</span>`
+                                : ""
+                        }
                     </div>
-                    ${p.badges?.length ? '<div class="flex flex-wrap gap-2">' + p.badges.map(b => `<span class="bg-pink-600 text-white px-3 py-1 rounded-full text-xs font-bold">${b}</span>`).join('') + '</div>' : ''}
+
+                    ${
+                        p.badges?.length
+                            ? `<div class="flex flex-wrap gap-2">
+                                ${p.badges.map(b => `<span class="bg-pink-600 text-white px-3 py-1 rounded-full text-xs font-bold">${b}</span>`).join("")}
+                               </div>`
+                            : ""
+                    }
                 </div>
             </div>
         </div>
@@ -351,120 +388,108 @@ function productCard(p) {
 }
 
 // ===============================================
-// TARJETA DE PRODUCTO (para tienda y destacados)
-// ===============================================
-
-function productCard(p) {
-    return `
-        <div class="gallery-card card-hover cursor-pointer transition-all" onclick='openProductModal(${JSON.stringify(p)})'>
-            <div class="bg-gray-200 border-2 border-dashed rounded-t-2xl w-full h-64 flex items-center justify-center text-8xl">
-                ${p.image}
-            </div>
-            <div class="p-6">
-                <h3 class="text-2xl font-black text-gray-800 mb-2">${p.emoji} ${p.name}</h3>
-                <p class="text-gray-600 text-sm mb-4 line-clamp-2">${p.shortDescription || p.description}</p>
-                <div class="flex justify-between items-end">
-                    <div>
-                        ${p.sizes ? `<span class="text-2xl font-black text-pink-600">Desde ${Math.min(...p.sizes.map(s => s.price))}€</span>` : `<span class="text-3xl font-black text-pink-600">${p.price.toFixed(2)}€</span>`}
-                        ${p.oldPrice ? `<span class="text-gray-500 line-through ml-2">${p.oldPrice.toFixed(2)}€</span>` : ''}
-                    </div>
-                    ${p.badges?.length ? '<div class="flex flex-wrap gap-2">' + p.badges.map(b => `<span class="bg-pink-600 text-white px-3 py-1 rounded-full text-xs font-bold">${b}</span>`).join('') + '</div>' : ''}
-                </div>
-            </div>
-        </div>
-    `;
-}
-
-// ===============================================
-// RENDERIZADO DE DESTACADOS (index.html)
+// RENDER DESTACADOS (index.html)
 // ===============================================
 
 function renderFeaturedProducts() {
-    const container = document.getElementById('productsContainer');
+    const container = document.getElementById("productsContainer");
     if (!container) {
-        console.warn('⚠️ productsContainer no encontrado aún');
+        console.warn("⚠️ productsContainer no encontrado aún");
         return;
     }
 
     let featured = allProducts.filter(p => p.bestseller || p.discount > 0);
 
     if (featured.length === 0) {
-        featured = allProducts.slice(0, 8); // fallback
+        featured = allProducts.slice(0, 8);
     }
 
-    container.innerHTML = '';
-    featured.forEach(product => {
-        container.innerHTML += productCard(product);
-    });
+    container.innerHTML = featured.map(productCard).join("");
 }
 
 // ===============================================
-// MODAL DE PRODUCTO
+// MODAL DE PRODUCTO (optimizado y seguro)
 // ===============================================
 
+function openProductModalById(id) {
+    const product = getProductById(id);
+    if (!product) {
+        console.error("❌ Producto no encontrado:", id);
+        return;
+    }
+    openProductModal(product);
+}
+
 function openProductModal(product) {
-    const modal = document.getElementById('productModal');
+    const modal = document.getElementById("productModal");
     if (!modal) return;
 
     // Título y emoji
-    document.getElementById('modalTitle').textContent = product.name;
-    document.getElementById('modalEmoji').textContent = product.image || '';
+    document.getElementById("modalTitle").textContent = safe(product.name);
+    document.getElementById("modalEmoji").textContent = safe(product.image);
 
     // Descripción ampliada
-    document.getElementById('modalDescription').innerHTML = `
-        <p class="text-xl font-bold text-pink-600 mb-3">${product.shortDescription}</p>
-        <p class="text-gray-700 leading-relaxed mb-6">${product.longDescription}</p>
-        <p class="text-sm italic text-gray-600 mb-2"><strong>Ingredientes:</strong> ${product.ingredients}</p>
-        <p class="text-sm italic text-gray-600"><strong>Formatos:</strong> ${product.formats}</p>
+    document.getElementById("modalDescription").innerHTML = `
+        <p class="text-xl font-bold text-pink-600 mb-3">${safe(product.shortDescription)}</p>
+        <p class="text-gray-700 leading-relaxed mb-6">${safe(product.longDescription)}</p>
+        <p class="text-sm italic text-gray-600 mb-2"><strong>Ingredientes:</strong> ${safe(product.ingredients)}</p>
+        <p class="text-sm italic text-gray-600"><strong>Formatos:</strong> ${safe(product.formats)}</p>
     `;
 
     // Imagen placeholder
-    document.getElementById('modalImage').src = `https://via.placeholder.com/600x600/f8b4d9/ffffff?text=${product.emoji || 'Cake'}`;
+    document.getElementById("modalImage").src =
+        `https://via.placeholder.com/600x600/f8b4d9/ffffff?text=${encodeURIComponent(product.emoji || "Cake")}`;
 
     // Badges
-    const badgesContainer = document.getElementById('modalBadges');
-    badgesContainer.innerHTML = '';
+    const badgesContainer = document.getElementById("modalBadges");
+    badgesContainer.innerHTML = "";
     (product.badges || []).forEach(badge => {
-        const span = document.createElement('span');
-        span.className = 'bg-pink-600 text-white px-4 py-2 rounded-full text-sm font-bold shadow';
+        const span = document.createElement("span");
+        span.className = "bg-pink-600 text-white px-4 py-2 rounded-full text-sm font-bold shadow";
         span.textContent = badge;
         badgesContainer.appendChild(span);
     });
 
     // PRECIOS DINÁMICOS
-    let pricesHTML = '';
-    const hasBothFormats = product.formats && product.formats.includes('Tarta') && product.formats.includes('Cupcakes');
+    const formats = Array.isArray(product.formats) ? product.formats : [];
+    const hasCupcakes = formats.some(f => f.toLowerCase() === "cupcakes");
+    const hasTartas = formats.some(f => f.toLowerCase() === "tarta");
+    const hasBothFormats = hasCupcakes && hasTartas;
+
+    let pricesHTML = "";
 
     if (hasBothFormats) {
         pricesHTML = `
             <div class="mb-8">
                 <h3 class="text-2xl font-bold mb-6 text-gray-800">Precios por formato</h3>
                 <div class="bg-gray-50 rounded-2xl p-8 space-y-8">
+
                     <div class="flex justify-between items-center border-b pb-6">
-                        <div>
-                            <p class="text-xl font-bold">Cupcake individual</p>
-                        </div>
+                        <p class="text-xl font-bold">Cupcake individual</p>
                         <p class="text-4xl font-black text-pink-600">${(product.cupcakePrice || product.price).toFixed(2)}€</p>
                     </div>
+
                     <div>
                         <p class="text-xl font-bold mb-4">Tarta completa</p>
                         <div class="grid grid-cols-2 gap-4">
-                            ${product.sizes.map(s => `
+                            ${(product.sizes || []).map(s => `
                                 <div class="bg-white p-4 rounded-xl text-center shadow">
                                     <p class="font-bold text-lg">${s.name}</p>
                                     <p class="text-3xl font-black text-pink-600">${s.price}€</p>
                                     <p class="text-sm text-gray-600">${s.servings} personas</p>
                                 </div>
-                            `).join('')}
+                            `).join("")}
                         </div>
                     </div>
+
                 </div>
             </div>
         `;
     } else if (product.sizes) {
+        const minPrice = Math.min(...product.sizes.map(s => s.price));
         pricesHTML = `
             <div class="mb-8">
-                <p class="text-5xl font-black text-pink-600 mb-6">Desde ${Math.min(...product.sizes.map(s => s.price))}€</p>
+                <p class="text-5xl font-black text-pink-600 mb-6">Desde ${minPrice}€</p>
                 <h3 class="text-2xl font-bold mb-4 text-gray-800">Tamaños disponibles</h3>
                 <div class="grid grid-cols-2 gap-4">
                     ${product.sizes.map(s => `
@@ -473,7 +498,7 @@ function openProductModal(product) {
                             <p class="text-4xl font-black text-pink-600 my-2">${s.price}€</p>
                             <p class="text-gray-600">${s.servings} personas</p>
                         </div>
-                    `).join('')}
+                    `).join("")}
                 </div>
             </div>
         `;
@@ -486,35 +511,36 @@ function openProductModal(product) {
         `;
     }
 
-    // Inyectar precios
-    const pricesContainer = document.getElementById('modalPrices') || document.querySelector('#modalPrices');
+    const pricesContainer = document.getElementById("modalPrices");
     if (pricesContainer) pricesContainer.innerHTML = pricesHTML;
 
-    // Mostrar modal
-    modal.classList.remove('hidden');
-    setTimeout(() => {
-        modal.querySelector('.transform').classList.replace('scale-95', 'scale-100');
-        modal.querySelector('.opacity-0').classList.replace('opacity-0', 'opacity-100');
-    }, 10);
+    // Mostrar modal con animación segura
+    modal.classList.remove("hidden");
+
+    const card = modal.querySelector(".transform");
+    if (card) {
+        card.classList.remove("scale-95", "opacity-0");
+        card.classList.add("scale-100", "opacity-100");
+    }
 }
+
+// ===============================================
+// CERRAR MODAL
+// ===============================================
 
 function closeProductModal() {
-    const modal = document.getElementById('productModal');
+    const modal = document.getElementById("productModal");
     if (!modal) return;
 
-    const card = modal.querySelector('.scale-100');
+    const card = modal.querySelector(".scale-100");
     if (card) {
-        card.classList.replace('scale-100', 'scale-95');
-        card.classList.replace('opacity-100', 'opacity-0');
+        card.classList.replace("scale-100", "scale-95");
+        card.classList.replace("opacity-100", "opacity-0");
     }
-    setTimeout(() => modal.classList.add('hidden'), 300);
+
+    setTimeout(() => modal.classList.add("hidden"), 300);
 }
 
-// Cerrar con Escape
-document.addEventListener('keydown', e => {
-    if (e.key === 'Escape') closeProductModal();
+document.addEventListener("keydown", e => {
+    if (e.key === "Escape") closeProductModal();
 });
-
-
-
-
