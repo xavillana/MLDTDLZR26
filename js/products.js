@@ -32,12 +32,12 @@ const allProducts = [
         ingredients: "Chocolate 70%, cacao puro, brownie, mantequilla, huevos, ganache de chocolate con leche, sal marina.",
         formats: "Tarta, Cupcakes",
         cupcakePrice: 3.8,
-        price: 35,
-        oldPrice: 42,
-        discount: 17,
+        price: 25,
+        oldPrice: NULL,
+        discount: NULL,
         badges: ["BESTSELLER", "DESCUENTO"],
         bestseller: true,
-        image: "img/muerte-por-chocolate.jpg",
+        image: "img/MUERTECHOCOLATE.PNG",
         sizes: [
             { name: "Pequena", price: 25, servings: "4-6" },
             { name: "Mediana", price: 35, servings: "8-10" },
@@ -108,8 +108,8 @@ const allProducts = [
         ingredients: "Fresas frescas, nata 35%, bizcocho genovés, azúcar glas, vainilla.",
         formats: "Tarta",
         price: 36,
-        oldPrice: 42,
-        discount: 14,
+        oldPrice: NULL,
+        discount: NULL,
         badges: ["DESCUENTO"],
         sizes: [
             { name: "Pequena", price: 26, servings: "4-6" },
@@ -203,8 +203,8 @@ const allProducts = [
         ingredients: "Chocolate negro, queso crema, cacao puro, ganache, base de Oreo.",
         formats: "Tarta",
         price: 40,
-        oldPrice: 48,
-        discount: 17,
+        oldPrice: NULL,
+        discount: NULL,
         badges: ["DESCUENTO"],
         sizes: [
             { name: "Pequena", price: 30, servings: "4-6" },
@@ -247,13 +247,13 @@ const allProducts = [
         cupcakePrice: 3.5,
         badges: ["BESTSELLER"],
         bestseller: true,
-        image: "img/red-velvet1.jpg",
+        image: "img/REDVELVET.PNG",
     },
     {
         id: "zanahoria",
         name: "Zana OH! RIA",
         emoji: "🥕",
-        category: "cupcakes",
+        category: "cupcakes", "tartas",
         shortDescription: "¿Quién dijo que lo tradicional no podía ser atrevido y seductor?",
         longDescription: "Carrot Cake hecho pecado. Rebelde, húmedo, prohibido. La canela, el jengibre y las nueces conspiran para seducir tus sentidos mientras el frosting de queso te susurra obscenidades. ¿Te atreves a caer en esta tentación vegetal? Un crimen de textura que deberían prohibir.",
         ingredients: "Zanahoria fresca rallada, harina integral, azúcar moreno, nueces, canela, jengibre, huevos, aceite de girasol, frosting de queso crema.",
@@ -261,7 +261,7 @@ const allProducts = [
         price: 3.5,
         cupcakePrice: 3.5,
         betseller: true,
-        image: "img/carrot-cake.jpg",
+        image: "img/CARROTCAKE.PNG",
         badges: []
         
     },
@@ -277,7 +277,8 @@ const allProducts = [
         price: 3.8,
         cupcakePrice: 3.8,
         badges: ["BESTSELLER"],
-        bestseller: false
+        bestseller:true,
+         image: "img/LIMONCUP.PNG",
     },
     {
         id: "choco-bailes",
@@ -292,7 +293,7 @@ const allProducts = [
         cupcakePrice: 3.5,
         badges: [],
         bestseller: true,
-        image: "img/muerte-por-chocolate.jpg"
+        image: "img/MUERTECHOCOLATE.PNG"
     },
     {
         id: "yogurt-salvaje",
@@ -306,7 +307,7 @@ const allProducts = [
         price: 3.8,
         badges: ["SALUDABLE"],
         bestseller: true,
-        image: "img/yogurt-salvaje.png"
+        image: "img/YOGURTSALVAJE.PNG"
         
     },
     {
@@ -544,3 +545,4 @@ function closeProductModal() {
 document.addEventListener("keydown", e => {
     if (e.key === "Escape") closeProductModal();
 });
+
