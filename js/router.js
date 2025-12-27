@@ -43,9 +43,9 @@ document.addEventListener("DOMContentLoaded", () => {
     if (path.endsWith("/") || path.endsWith("index.html")) {
         loadComponent("hero", "components/hero.html");
         loadComponent("destacados", "components/destacados.html"); // Sin callback aún
-        loadComponent("sobrenosotros", "sobrenosotros/sobrenosotros.html"); // Sin callback aún
+        loadComponent("sobrenosotros", "components/sobrenosotros.html"); // Sin callback aún
         loadComponent("newsletter", "components/newsletter.html");
-        loadComponent("productModal", "components/modal.html", initProductModal);
+        loadComponent("productModal", "components/product-modal.html", initProductModal);
     }
 
     // ==================== TIENDA ====================
@@ -74,6 +74,7 @@ document.addEventListener('componentLoaded', (e) => {
     // Puedes añadir más en el futuro:
     // if (id === 'otro-componente') { initOtraCosa(); }
 });
+
 
 
 
