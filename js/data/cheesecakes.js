@@ -1,4 +1,5 @@
 // ==================== CHEESECAKES ====================
+export const cheesecakes = [
 
 {
     id: "que-lo-bailes",
@@ -128,3 +129,4 @@
         { name: "XL", price: 62, servings: "16-20" }
     ]
 }
+        ];
