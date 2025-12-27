@@ -31,7 +31,8 @@
 
 <body class="bg-white min-h-screen flex flex-col">
 
-
+  <div id="productModalContainer"></div>
+  
   <!-- NAVBAR -->
   <div id="navbar"></div>
 
@@ -55,10 +56,10 @@
   <script src="js/main.js"></script>
   <script src="js/router.js"></script>
 <!-- Contenedor para el modal de producto (cargado una sola vez) -->
-  <div id="productModalContainer"></div>
+
   <!-- Cargar modal una sola vez -->
   <script>
-    fetch('components/modal.html')
+    fetch('components/product-modal.html')
       .then(response => response.text())
       .then(html => {
         document.getElementById('productModalContainer').innerHTML = html;
@@ -67,6 +68,7 @@
   </script>
 </body>
 </html>
+
 
 
 
