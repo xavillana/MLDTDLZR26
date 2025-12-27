@@ -93,15 +93,12 @@ document.addEventListener("componentLoaded", (e) => {
             renderFeaturedProducts();
             break;
 
-        case "featured-products":
-            initStorePage();
-            break;
-
         case "pedido":
             initPedidoPage();
             break;
     }
 });
+
 
 
 
