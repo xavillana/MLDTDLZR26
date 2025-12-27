@@ -38,7 +38,7 @@ const allProducts = [
         discount: 17,
         badges: ["BESTSELLER", "DESCUENTO"],
         bestseller: true,
-        image: "img/muerte-por-chocolate.jpg",
+        image: "IMG/MUERTECHOCOLATE.PNG",
         sizes: [
             { name: "Pequena", price: 25, servings: "4-6" },
             { name: "Mediana", price: 35, servings: "8-10" },
@@ -248,7 +248,7 @@ const allProducts = [
         cupcakePrice: 3.5,
         badges: ["BESTSELLER"],
         bestseller: true,
-        image: "img/red-velvet1.jpg",
+        image: "/IMG/REDVELVET.PNG",
     },
     {
         id: "zanahoria",
@@ -262,7 +262,7 @@ const allProducts = [
         price: 3.5,
         cupcakePrice: 3.5,
         betseller: true,
-        image: "img/carrot-cake.jpg",
+        image: "IMG/CARROTCAKE.PNG",
         badges: []
         
     },
@@ -490,3 +490,4 @@ function closeProductModal() {
 document.addEventListener('keydown', e => {
     if (e.key === 'Escape') closeProductModal();
 });
+
