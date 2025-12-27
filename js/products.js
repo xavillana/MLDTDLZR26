@@ -38,7 +38,7 @@ const allProducts = [
         discount: 17,
         badges: ["BESTSELLER", "DESCUENTO"],
         bestseller: true,
-        image: "IMG/MUERTECHOCOLATE.PNG",
+        image: "IMG/MUERTECHOCOLATE.JPG",
         sizes: [
             { name: "Pequena", price: 25, servings: "4-6" },
             { name: "Mediana", price: 35, servings: "8-10" },
@@ -168,7 +168,7 @@ const allProducts = [
         ingredients: "Queso crema, limón fresco, galletas, mantequilla, azúcar.",
         formats: "Tarta",
         price: 38,
-        sizes: [
+               sizes: [
             { name: "Pequena", price: 28, servings: "4-6" },
             { name: "Mediana", price: 38, servings: "8-10" },
             { name: "Grande", price: 48, servings: "12-15" },
@@ -277,6 +277,7 @@ const allProducts = [
         formats: "Cupcakes, Tarta",
         price: 3.8,
         cupcakePrice: 3.8,
+        image: "IMG/LEMONCUP.JPG",
         badges: ["BESTSELLER"],
         bestseller: false
     },
@@ -362,7 +363,7 @@ function renderFeaturedProducts() {
         return;
     }
 
-    let featured = allProducts.filter(p => p.bestseller || p.discount > 0);
+    let featured = allProducts.filter(p => p.bestseller);
 
     if (featured.length === 0) {
         featured = allProducts.slice(0, 8); // fallback
@@ -374,121 +375,116 @@ function renderFeaturedProducts() {
     });
 }
 
-// ===============================================
-// MODAL DE PRODUCTO
-// ===============================================
-
-function openProductModal(product) {
+function openProductModal(product = {}) {
     const modal = document.getElementById('productModal');
     if (!modal) return;
 
-    // Título y emoji
-    document.getElementById('modalTitle').textContent = product.name;
-    document.getElementById('modalEmoji').textContent = product.image || '';
+    // Cacheo de elementos
+    const titleEl = document.getElementById('modalTitle');
+    const emojiEl = document.getElementById('modalEmoji');
+    const descEl = document.getElementById('modalDescription');
+    const imgEl = document.getElementById('modalImage');
+    const badgesContainer = document.getElementById('modalBadges');
 
-    // Descripción ampliada
-    document.getElementById('modalDescription').innerHTML = `
-        <p class="text-xl font-bold text-pink-600 mb-3">${product.shortDescription}</p>
-        <p class="text-gray-700 leading-relaxed mb-6">${product.longDescription}</p>
-        <p class="text-sm italic text-gray-600 mb-2"><strong>Ingredientes:</strong> ${product.ingredients}</p>
-        <p class="text-sm italic text-gray-600"><strong>Formatos:</strong> ${product.formats}</p>
+    // Datos con fallback seguro
+    const {
+        name = 'Producto sin nombre',
+        image = '',
+        emoji = '🍰',
+        shortDescription = '',
+        longDescription = '',
+        ingredients = 'No especificados',
+        formats = 'No disponibles',
+        badges = []
+    } = product;
+
+    // Título + emoji
+    titleEl.textContent = name;
+    emojiEl.textContent = image || emoji;
+
+    // Descripción
+    descEl.innerHTML = `
+        <p class="text-xl font-bold text-pink-600 mb-3">${shortDescription}</p>
+        <p class="text-gray-700 leading-relaxed mb-6">${longDescription}</p>
+        <p class="text-sm italic text-gray-600 mb-2"><strong>Ingredientes:</strong> ${ingredients}</p>
+        <p class="text-sm italic text-gray-600"><strong>Formatos:</strong> ${formats}</p>
     `;
 
-    // Imagen placeholder
-    document.getElementById('modalImage').src = `https://via.placeholder.com/600x600/f8b4d9/ffffff?text=${product.emoji || 'Cake'}`;
+    // Imagen (idealmente sustituir por tu CDN o imágenes reales)
+    imgEl.src = `https://via.placeholder.com/600x600/f8b4d9/ffffff?text=${emoji}`;
 
     // Badges
-    const badgesContainer = document.getElementById('modalBadges');
-    badgesContainer.innerHTML = '';
-    (product.badges || []).forEach(badge => {
-        const span = document.createElement('span');
-        span.className = 'bg-pink-600 text-white px-4 py-2 rounded-full text-sm font-bold shadow';
-        span.textContent = badge;
-        badgesContainer.appendChild(span);
-    });
+    badgesContainer.innerHTML = badges
+        .map(b => `<span class="bg-pink-600 text-white px-4 py-2 rounded-full text-sm font-bold shadow">${b}</span>`)
+        .join('');
 
-    // PRECIOS DINÁMICOS
-    let pricesHTML = '';
-    const hasBothFormats = product.formats && product.formats.includes('Tarta') && product.formats.includes('Cupcakes');
-
-    if (hasBothFormats) {
-        pricesHTML = `
-            <div class="mb-8">
-                <h3 class="text-2xl font-bold mb-6 text-gray-800">Precios por formato</h3>
-                <div class="bg-gray-50 rounded-2xl p-8 space-y-8">
-                    <div class="flex justify-between items-center border-b pb-6">
-                        <div>
-                            <p class="text-xl font-bold">Cupcake individual</p>
-                        </div>
-                        <p class="text-4xl font-black text-pink-600">${(product.cupcakePrice || product.price).toFixed(2)}€</p>
-                    </div>
-                    <div>
-                        <p class="text-xl font-bold mb-4">Tarta completa</p>
-                        <div class="grid grid-cols-2 gap-4">
-                            ${product.sizes.map(s => `
-                                <div class="bg-white p-4 rounded-xl text-center shadow">
-                                    <p class="font-bold text-lg">${s.name}</p>
-                                    <p class="text-3xl font-black text-pink-600">${s.price}€</p>
-                                    <p class="text-sm text-gray-600">${s.servings} personas</p>
-                                </div>
-                            `).join('')}
-                        </div>
-                    </div>
-                </div>
-            </div>
-        `;
-    } else if (product.sizes) {
-        pricesHTML = `
-            <div class="mb-8">
-                <p class="text-5xl font-black text-pink-600 mb-6">Desde ${Math.min(...product.sizes.map(s => s.price))}€</p>
-                <h3 class="text-2xl font-bold mb-4 text-gray-800">Tamaños disponibles</h3>
-                <div class="grid grid-cols-2 gap-4">
-                    ${product.sizes.map(s => `
-                        <div class="bg-gray-50 p-6 rounded-xl text-center">
-                            <p class="font-bold text-xl">${s.name}</p>
-                            <p class="text-4xl font-black text-pink-600 my-2">${s.price}€</p>
-                            <p class="text-gray-600">${s.servings} personas</p>
-                        </div>
-                    `).join('')}
-                </div>
-            </div>
-        `;
-    } else {
-        pricesHTML = `
-            <div class="mb-8">
-                <p class="text-6xl font-black text-pink-600">${product.price.toFixed(2)}€</p>
-                <p class="text-2xl text-gray-700 mt-2">por unidad</p>
-            </div>
-        `;
-    }
-
-    // Inyectar precios
-    const pricesContainer = document.getElementById('modalPrices') || document.querySelector('#modalPrices');
-    if (pricesContainer) pricesContainer.innerHTML = pricesHTML;
-
-    // Mostrar modal
+    // Mostrar modal (si usas clases de animación)
     modal.classList.remove('hidden');
-    setTimeout(() => {
-        modal.querySelector('.transform').classList.replace('scale-95', 'scale-100');
-        modal.querySelector('.opacity-0').classList.replace('opacity-0', 'opacity-100');
-    }, 10);
+    modal.classList.add('opacity-100', 'scale-100');
 }
 
-function closeProductModal() {
-    const modal = document.getElementById('productModal');
-    if (!modal) return;
+// PRECIOS DINÁMICOS
+let pricesHTML = '';
+const hasBothFormats = product.formats && product.formats.includes('Tarta') && product.formats.includes('Cupcakes');
 
-    const card = modal.querySelector('.scale-100');
-    if (card) {
-        card.classList.replace('scale-100', 'scale-95');
-        card.classList.replace('opacity-100', 'opacity-0');
-    }
-    setTimeout(() => modal.classList.add('hidden'), 300);
+if (hasBothFormats) {
+    pricesHTML = `
+        <div class="mb-8">
+            <h3 class="text-2xl font-bold mb-6 text-gray-800">Precios por formato</h3>
+            <div class="bg-gray-50 rounded-2xl p-8 space-y-8">
+                <div class="flex justify-between items-center border-b pb-6">
+                    <div>
+                        <p class="text-xl font-bold">Cupcake individual</p>
+                    </div>
+                    <p class="text-4xl font-black text-pink-600">${(product.cupcakePrice || product.price).toFixed(2)}€</p>
+                </div>
+                <div>
+                    <p class="text-xl font-bold mb-4">Tarta completa</p>
+                    <div class="grid grid-cols-2 gap-4">
+                        ${product.sizes.map(s => `
+                            <div class="bg-white p-4 rounded-xl text-center shadow">
+                                <p class="font-bold text-lg">${s.name}</p>
+                                <p class="text-3xl font-black text-pink-600">${s.price}€</p>
+                                <p class="text-sm text-gray-600">${s.servings} personas</p>
+                            </div>
+                        `).join('')}
+                    </div>
+                </div>
+            </div>
+        </div>
+    `;
+} else if (product.sizes) {
+    pricesHTML = `
+        <div class="mb-8">
+            <p class="text-5xl font-black text-pink-600 mb-6">Desde ${Math.min(...product.sizes.map(s => s.price))}€</p>
+            <h3 class="text-2xl font-bold mb-4 text-gray-800">Tamaños disponibles</h3>
+            <div class="grid grid-cols-2 gap-4">
+                ${product.sizes.map(s => `
+                    <div class="bg-gray-50 p-6 rounded-xl text-center">
+                        <p class="font-bold text-xl">${s.name}</p>
+                        <p class="text-4xl font-black text-pink-600 my-2">${s.price}€</p>
+                        <p class="text-gray-600">${s.servings} personas</p>
+                    </div>
+                `).join('')}
+            </div>
+        </div>
+    `;
+} else {
+    pricesHTML = `
+        <div class="mb-8">
+            <p class="text-6xl font-black text-pink-600">${product.price.toFixed(2)}€</p>
+            <p class="text-2xl text-gray-700 mt-2">por unidad</p>
+        </div>
+    `;
 }
 
-// Cerrar con Escape
-document.addEventListener('keydown', e => {
-    if (e.key === 'Escape') closeProductModal();
-});
+// Inyectar precios
+const pricesContainer = document.getElementById('modalPrices') || document.querySelector('#modalPrices');
+if (pricesContainer) pricesContainer.innerHTML = pricesHTML;
 
-
+// Mostrar modal
+modal.classList.remove('hidden');
+setTimeout(() => {
+    modal.querySelector('.transform').classList.replace('scale-95', 'scale-100');
+    modal.querySelector('.opacity-0').classList.replace('opacity-0', 'opacity-100');
+}, 10);
