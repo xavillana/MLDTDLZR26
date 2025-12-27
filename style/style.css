@@ -158,6 +158,15 @@ body {
     --shadow-hover: rgba(239, 23, 131, 0.4);
 }
 
+.gallery-card.card-hover {
+    transition: transform .25s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow .25s ease;
+}
+
+.gallery-card.card-hover:hover {
+    transform: translateY(-6px) scale(1.03);
+    box-shadow: 0 20px 40px rgba(239, 23, 131, 0.15);
+}
+
 /* --- CONTENEDOR DEL MODAL --- */
 #productModal {
     animation: fadeIn 0.3s ease-out forwards;
@@ -259,3 +268,4 @@ body {
 #productModal::-webkit-scrollbar-thumb:hover {
     background: var(--pink-dark);
 }
+
