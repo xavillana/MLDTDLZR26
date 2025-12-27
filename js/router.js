@@ -4,7 +4,12 @@
 
 const componentCache = {};
 
-function loadComponent(id, file, callback) {
+function loadComponent(id, file) {
+    const element = document.getElementById(id);
+    if (!element) {
+        console.warn(`⚠️ Elemento con id "${id}" no encontrado`);
+        return;
+    }
 
     // Si ya está cacheado → no recargar
     if (componentCache[file]) {
@@ -23,9 +28,9 @@ function loadComponent(id, file, callback) {
             element.innerHTML = html;
             dispatchComponentLoaded(id, element);
         })
-          .catch(err => {
-        console.error(`Error en ${id}: ${err}`);
-        document.getElementById(id).innerHTML = '<p>Error cargando sección</p>';
+        .catch(err => {
+            console.error(`❌ Error cargando ${file}:`, err);
+            element.innerHTML = `<p class="text-red-600 text-center py-8">Error al cargar sección</p>`;
         });
 }
 
@@ -88,14 +93,12 @@ document.addEventListener("componentLoaded", (e) => {
             renderFeaturedProducts();
             break;
 
+        case "featured-products":
+            initStorePage();
+            break;
+
         case "pedido":
             initPedidoPage();
             break;
     }
 });
-
-
-
-
-
-
