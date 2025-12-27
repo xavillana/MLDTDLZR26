@@ -293,7 +293,7 @@ const allProducts = [
         cupcakePrice: 3.5,
         badges: [],
         bestseller: true,
-        image: "img/muerte-por-chocolate.jpg"
+        image: "IMG/MUERTECHOCOLATE.PNG",
     },
     {
         id: "yogurt-salvaje",
@@ -307,7 +307,7 @@ const allProducts = [
         price: 3.8,
         badges: ["SALUDABLE"],
         bestseller: true,
-        image: "img/yogurt-salvaje.png"
+        image: "IMG/YOGURTSALVAJE.PNG"
         
     },
     {
@@ -490,4 +490,5 @@ function closeProductModal() {
 document.addEventListener('keydown', e => {
     if (e.key === 'Escape') closeProductModal();
 });
+
 
