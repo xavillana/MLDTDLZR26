@@ -17,54 +17,37 @@
 
   <!-- Estilos personalizados -->
   <link rel="stylesheet" href="style/style.css">
-
 </head>
 
 <body class="bg-white min-h-screen flex flex-col">
 
-  <!-- Contenedor para el modal de producto -->
-  <div id="productModalContainer"></div>
+  <!-- MODAL GLOBAL -->
+  <div id="globalModal"></div>
+
+  <!-- MODAL DE PRODUCTO -->
+  <div id="productModal"></div>
 
   <!-- NAVBAR -->
   <div id="navbar"></div>
+
+  <!-- LISTA DE PRODUCTOS DE LA TIENDA -->
   <div id="featured-products"></div>
 
   <!-- FOOTER -->
   <div id="footer"></div>
 
-  <!-- Scripts -->
- 
- 
-  <script src="js/router.js"></script>       <!-- Carga navbar y footer -->
-   <script src="js/main.js"></script>         <!-- Menú móvil -->
-   <script src="js/products.js"></script>     <!-- Base de datos + render + modal + ahora también filtros -->
+  <!-- ========================= -->
+  <!--  SCRIPTS PRINCIPALES     -->
+  <!-- ========================= -->
 
-  <!-- Cargar modal -->
-  <script>
-    fetch('components/product-modal.html')
-      .then(response => response.text())
-      .then(html => {
-        document.getElementById('productModalContainer').innerHTML = html;
-      })
-      .catch(err => console.error('Error cargando modal:', err));
-  </script>
+  <!-- Router dinámico PRO -->
+  <script type="module" src="js/router/router.js"></script>
 
-  <!-- Inicializar tienda con filtros -->
-  <script>
-    document.addEventListener('DOMContentLoaded', () => {
-      const observer = new MutationObserver((mutations, obs) => {
-        if (document.getElementById('featured-products')) {
-          initStoreFilters(); // Nueva función en products.js
-          obs.disconnect();
-        }
-      });
-      observer.observe(document.body, { childList: true, subtree: true });
-    });
-  </script>
+  <!-- Lógica global (menú móvil + modal global) -->
+  <script type="module" src="js/core/ui.js"></script>
+
+  <!-- Arranque general -->
+  <script type="module" src="js/main.js"></script>
+
 </body>
 </html>
-
-
-
-
-
