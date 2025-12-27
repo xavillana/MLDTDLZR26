@@ -331,25 +331,69 @@ const allProducts = [
 // TARJETA DE PRODUCTO (para tienda y destacados)
 // ===============================================
 
+// --- HELPERS --- //
+
+const renderPrice = (p) => {
+    if (p.sizes?.length) {
+        const minPrice = Math.min(...p.sizes.map(s => s.price));
+        return `<span class="text-2xl font-black text-pink-600">Desde ${minPrice}€</span>`;
+    }
+    return `<span class="text-3xl font-black text-pink-600">${p.price.toFixed(2)}€</span>`;
+};
+
+const renderOldPrice = (p) =>
+    p.oldPrice ? `<span class="text-gray-500 line-through ml-2">${p.oldPrice.toFixed(2)}€</span>` : '';
+
+const renderBadges = (p) =>
+    p.badges?.length
+        ? `<div class="flex flex-wrap gap-2">
+                ${p.badges.map(b => `
+                    <span class="bg-pink-600 text-white px-3 py-1 rounded-full text-xs font-bold">${b}</span>
+                `).join('')}
+           </div>`
+        : '';
+
+
+// --- TARJETA PRINCIPAL --- //
+
 function productCard(p) {
     return `
-        <div class="gallery-card card-hover cursor-pointer transition-all" onclick='openProductModal(${JSON.stringify(p)})'>
-            <div class="bg-gray-200 border-2 border-dashed rounded-t-2xl w-full h-64 flex items-center justify-center text-8xl">
+        <div class="gallery-card card-hover cursor-pointer transition-all"
+             data-product='${JSON.stringify(p).replace(/'/g, "&apos;")}'
+             onclick="handleProductClick(this)">
+             
+            <div class="bg-gray-200 border-2 border-dashed rounded-t-2xl w-full h-64
+                        flex items-center justify-center text-8xl">
                 ${p.image}
             </div>
+
             <div class="p-6">
-                <h3 class="text-2xl font-black text-gray-800 mb-2">${p.emoji} ${p.name}</h3>
-                <p class="text-gray-600 text-sm mb-4 line-clamp-2">${p.shortDescription || p.description}</p>
+                <h3 class="text-2xl font-black text-gray-800 mb-2">
+                    ${p.emoji} ${p.name}
+                </h3>
+
+                <p class="text-gray-600 text-sm mb-4 line-clamp-2">
+                    ${p.shortDescription || p.description}
+                </p>
+
                 <div class="flex justify-between items-end">
                     <div>
-                        ${p.sizes ? `<span class="text-2xl font-black text-pink-600">Desde ${Math.min(...p.sizes.map(s => s.price))}€</span>` : `<span class="text-3xl font-black text-pink-600">${p.price.toFixed(2)}€</span>`}
-                        ${p.oldPrice ? `<span class="text-gray-500 line-through ml-2">${p.oldPrice.toFixed(2)}€</span>` : ''}
+                        ${renderPrice(p)}
+                        ${renderOldPrice(p)}
                     </div>
-                    ${p.badges?.length ? '<div class="flex flex-wrap gap-2">' + p.badges.map(b => `<span class="bg-pink-600 text-white px-3 py-1 rounded-full text-xs font-bold">${b}</span>`).join('') + '</div>' : ''}
+                    ${renderBadges(p)}
                 </div>
             </div>
         </div>
     `;
+}
+
+
+// --- HANDLER SEGURO --- //
+
+function handleProductClick(el) {
+    const product = JSON.parse(el.dataset.product);
+    openProductModal(product);
 }
 
 // ===============================================
@@ -488,3 +532,4 @@ setTimeout(() => {
     modal.querySelector('.transform').classList.replace('scale-95', 'scale-100');
     modal.querySelector('.opacity-0').classList.replace('opacity-0', 'opacity-100');
 }, 10);
+
