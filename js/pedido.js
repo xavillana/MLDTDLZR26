@@ -60,7 +60,7 @@ const CONFIG = {
         },
         cupcakes: {
             'rojo-peligroso': 'Rojo Peligroso (Red Velvet)',
-            'zanahoria': 'Zanah'oria',
+            'zanahoria': 'Zana OH Ria',
             'pensamiento-citrico': 'Pensamiento Cítrico',
             'choco-bailes': 'Choco Bailes',
             'yogurt-salvaje': 'Yogurt Salvaje',
@@ -559,4 +559,5 @@ function loadSavedState() {
         console.warn('Error cargando estado:', error);
     }
 }
+
 
