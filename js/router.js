@@ -1,81 +1,107 @@
-// router.js
+// ===============================================
+// ROUTER DINÁMICO — Maldita Dulzura
+// ===============================================
 
-function loadComponent(id, file, callback) {
+const componentCache = {};
+
+function loadComponent(id, file) {
     const element = document.getElementById(id);
     if (!element) {
         console.warn(`⚠️ Elemento con id "${id}" no encontrado`);
         return;
     }
 
+    // Si ya está cacheado → no recargar
+    if (componentCache[file]) {
+        element.innerHTML = componentCache[file];
+        dispatchComponentLoaded(id, element);
+        return;
+    }
+
     fetch(file)
-        .then(response => {
-            if (!response.ok) throw new Error(`HTTP ${response.status}`);
-            return response.text();
+        .then(res => {
+            if (!res.ok) throw new Error(`HTTP ${res.status}`);
+            return res.text();
         })
         .then(html => {
+            componentCache[file] = html;
             element.innerHTML = html;
-
-            // Disparamos un evento personalizado para avisar que el componente está listo
-            const event = new CustomEvent('componentLoaded', {
-                detail: { id, element }
-            });
-            document.dispatchEvent(event);
-
-            // Ejecutamos el callback si existe (para inicializaciones específicas)
-            if (typeof callback === 'function') {
-                callback();
-            }
+            dispatchComponentLoaded(id, element);
         })
         .catch(err => {
-            console.error(`❌ Error cargando componente ${id} desde ${file}:`, err);
+            console.error(`❌ Error cargando ${file}:`, err);
             element.innerHTML = `<p class="text-red-600 text-center py-8">Error al cargar sección</p>`;
         });
 }
 
+function dispatchComponentLoaded(id, element) {
+    document.dispatchEvent(
+        new CustomEvent("componentLoaded", {
+            detail: { id, element }
+        })
+    );
+}
+
+// ===============================================
+// INICIALIZACIÓN SEGÚN LA PÁGINA
+// ===============================================
+
 document.addEventListener("DOMContentLoaded", () => {
-    const path = window.location.pathname;
+    const path = window.location.pathname.toLowerCase();
 
-    // Navbar y footer siempre se cargan en todas las páginas
-    loadComponent("navbar", "components/navbar.html", initMobileMenu);
+    // Siempre presentes
+    loadComponent("navbar", "components/navbar.html");
     loadComponent("footer", "components/footer.html");
+    loadComponent("productModal", "components/product-modal.html");
 
-    // ==================== PÁGINA PRINCIPAL (index.html) ====================
+    // Página principal
     if (path.endsWith("/") || path.endsWith("index.html")) {
         loadComponent("hero", "components/hero.html");
-        loadComponent("destacados", "components/destacados.html"); // Sin callback aún
-        loadComponent("sobrenosotros", "components/sobrenosotros.html"); // Sin callback aún
+        loadComponent("destacados", "components/destacados.html");
+        loadComponent("sobrenosotros", "components/sobrenosotros.html");
         loadComponent("newsletter", "components/newsletter.html");
-        loadComponent("productModal", "components/product-modal.html", initProductModal);
     }
 
-    // ==================== TIENDA ====================
-    if (path.endsWith("Tienda.html")) {
-        loadComponent("featured-products", "components/featured-products.html", initStorePage);
-        loadComponent("productModal", "components/product-modal.html", initProductModal);
+    // Tienda
+    if (path.endsWith("tienda.html")) {
+        loadComponent("featured-products", "components/featured-products.html");
     }
 
-    // ==================== PEDIDO ====================
+    // Pedido
     if (path.endsWith("pedido.html")) {
-        loadComponent("pedido", "components/pedido.html", initPedidoPage);
-        loadComponent("productModal", "components/modal.html", initProductModal);
+        loadComponent("pedido", "components/pedido.html");
     }
 });
 
-// ==================== ESCUCHAMOS EVENTOS PERSONALIZADOS ====================
+// ===============================================
+// EVENTOS DE COMPONENTES CARGADOS
+// ===============================================
 
-document.addEventListener('componentLoaded', (e) => {
+document.addEventListener("componentLoaded", (e) => {
     const { id } = e.detail;
 
-    if (id === 'destacados') {
-        // Ahora SÍ existe #productsContainer en el DOM
-        renderFeaturedProducts();
+    switch (id) {
+        case "navbar":
+            initMobileMenu();
+            break;
+
+        case "productModal":
+            initProductModal();
+            break;
+
+        case "destacados":
+            renderFeaturedProducts();
+            break;
+
+        case "featured-products":
+            initStorePage();
+            break;
+
+        case "pedido":
+            initPedidoPage();
+            break;
     }
-
-    // Puedes añadir más en el futuro:
-    // if (id === 'otro-componente') { initOtraCosa(); }
 });
-
-
 
 
 
