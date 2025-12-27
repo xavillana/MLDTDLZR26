@@ -1,8 +1,26 @@
 // ===============================================
-// ROUTER DINÁMICO — Maldita Dulzura
+// ROUTER DINÁMICO — Maldita Dulzura (Versión PRO)
 // ===============================================
 
 const componentCache = {};
+const componentDependencies = {
+    navbar: () => initMobileMenu(),
+    productModal: () => initProductModal(),
+    destacados: () => renderFeaturedProducts(),
+    "featured-products": () => initStorePage(),
+    pedido: () => initPedidoPage()
+};
+
+// Animación brutalista pastel
+function animateComponent(el) {
+    el.style.opacity = 0;
+    el.style.transform = "translateY(20px)";
+    requestAnimationFrame(() => {
+        el.style.transition = "all .4s cubic-bezier(.25,.8,.25,1)";
+        el.style.opacity = 1;
+        el.style.transform = "translateY(0)";
+    });
+}
 
 function loadComponent(id, file) {
     const element = document.getElementById(id);
@@ -11,9 +29,10 @@ function loadComponent(id, file) {
         return;
     }
 
-    // Si ya está cacheado → no recargar
+    // Cache
     if (componentCache[file]) {
         element.innerHTML = componentCache[file];
+        animateComponent(element);
         dispatchComponentLoaded(id, element);
         return;
     }
@@ -26,11 +45,20 @@ function loadComponent(id, file) {
         .then(html => {
             componentCache[file] = html;
             element.innerHTML = html;
+            animateComponent(element);
             dispatchComponentLoaded(id, element);
         })
         .catch(err => {
             console.error(`❌ Error cargando ${file}:`, err);
-            element.innerHTML = `<p class="text-red-600 text-center py-8">Error al cargar sección</p>`;
+            element.innerHTML = `
+                <div class="text-center py-10">
+                    <p class="text-red-600 font-bold mb-4">Error al cargar sección</p>
+                    <button onclick="loadComponent('${id}', '${file}')"
+                            class="px-4 py-2 bg-pink-600 text-white rounded-xl">
+                        Reintentar
+                    </button>
+                </div>
+            `;
         });
 }
 
@@ -80,25 +108,7 @@ document.addEventListener("DOMContentLoaded", () => {
 document.addEventListener("componentLoaded", (e) => {
     const { id } = e.detail;
 
-    switch (id) {
-        case "navbar":
-            initMobileMenu();
-            break;
-
-        case "productModal":
-            initProductModal();
-            break;
-
-        case "destacados":
-            renderFeaturedProducts();
-            break;
-
-        case "featured-products":
-            initStorePage();
-            break;
-
-        case "pedido":
-            initPedidoPage();
-            break;
+    if (componentDependencies[id]) {
+        componentDependencies[id]();
     }
 });
