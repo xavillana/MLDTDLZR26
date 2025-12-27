@@ -37,7 +37,7 @@ const allProducts = [
         discount: 17,
         badges: ["BESTSELLER", "DESCUENTO"],
         bestseller: true,
-        image: "img/MUERTECHOCOLATE.jpg",
+        image: "img/muerte-por-chocolate.jpg",
         sizes: [
             { name: "Pequena", price: 25, servings: "4-6" },
             { name: "Mediana", price: 35, servings: "8-10" },
@@ -514,6 +514,7 @@ function closeProductModal() {
 document.addEventListener('keydown', e => {
     if (e.key === 'Escape') closeProductModal();
 });
+
 
 
 
