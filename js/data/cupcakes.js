@@ -1,3 +1,4 @@
+export const cupcakes = [
 {
     id: "rojo-peligroso",
     name: "Rojo Peligroso",
@@ -103,3 +104,4 @@
     bestseller: false,
     image: "/IMG/CRIMENCUQUI.PNG",
 }
+];
