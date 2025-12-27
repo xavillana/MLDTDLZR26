@@ -67,7 +67,7 @@
       </div>
 
       <!-- Grid de productos -->
-      <div id="productsGrid" class="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
+      <div id="featured-products" class="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
         <!-- Productos inyectados por JS -->
       </div>
     </div>
@@ -83,7 +83,7 @@
 
   <!-- Cargar modal -->
   <script>
-    fetch('components/modal.html')
+    fetch('components/product-modal.html')
       .then(response => response.text())
       .then(html => {
         document.getElementById('productModalContainer').innerHTML = html;
@@ -95,7 +95,7 @@
   <script>
     document.addEventListener('DOMContentLoaded', () => {
       const observer = new MutationObserver((mutations, obs) => {
-        if (document.getElementById('productsGrid')) {
+        if (document.getElementById('featured-products')) {
           initStoreFilters(); // Nueva función en products.js
           obs.disconnect();
         }
@@ -105,3 +105,4 @@
   </script>
 </body>
 </html>
+
