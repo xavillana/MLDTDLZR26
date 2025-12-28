@@ -12,23 +12,12 @@ const componentDependencies = {
     globalModal: () => initModalSystem()
 };
 
-function animateComponent(el) {
-    el.style.opacity = 0;
-    el.style.transform = "translateY(20px)";
-    requestAnimationFrame(() => {
-        el.style.transition = "all .4s cubic-bezier(.25,.8,.25,1)";
-        el.style.opacity = 1;
-        el.style.transform = "translateY(0)";
-    });
-}
-
 export function loadComponent(id, file) {
     const element = document.getElementById(id);
     if (!element) return;
 
     if (componentCache[file]) {
         element.innerHTML = componentCache[file];
-        animateComponent(element);
         dispatchComponentLoaded(id, element);
         return;
     }
@@ -38,7 +27,6 @@ export function loadComponent(id, file) {
         .then(html => {
             componentCache[file] = html;
             element.innerHTML = html;
-            animateComponent(element);
             dispatchComponentLoaded(id, element);
         })
         .catch(() => {
