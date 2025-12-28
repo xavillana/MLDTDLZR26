@@ -1,5 +1,5 @@
 // ===============================================
-// MENÚ MÓVIL
+// MENÚ MÓVIL (Optimizado y robusto)
 // ===============================================
 
 export function initMobileMenu() {
@@ -7,72 +7,94 @@ export function initMobileMenu() {
     const menu = document.getElementById("mobileMenu");
 
     if (!btn || !menu) {
-        console.warn("⚠ No se encontró el menú móvil");
+        console.warn("⚠ Menú móvil no encontrado en el DOM");
         return;
     }
 
     const icon = btn.querySelector("i");
 
-    const closeMenu = () => {
-        menu.classList.add("hidden");
-        if (icon) {
-            icon.classList.remove("fa-times");
-            icon.classList.add("fa-bars");
-        }
+    const toggleIcon = (open) => {
+        if (!icon) return;
+        icon.classList.toggle("fa-bars", !open);
+        icon.classList.toggle("fa-times", open);
     };
 
     const openMenu = () => {
         menu.classList.remove("hidden");
-        if (icon) {
-            icon.classList.remove("fa-bars");
-            icon.classList.add("fa-times");
-        }
+        toggleIcon(true);
+    };
+
+    const closeMenu = () => {
+        menu.classList.add("hidden");
+        toggleIcon(false);
     };
 
     btn.addEventListener("click", () => {
-        menu.classList.contains("hidden") ? openMenu() : closeMenu();
+        const isHidden = menu.classList.contains("hidden");
+        isHidden ? openMenu() : closeMenu();
     });
 
-    menu.querySelectorAll("a")?.forEach(link => {
+    // Cerrar al hacer clic en un enlace
+    menu.querySelectorAll("a").forEach(link => {
         link.addEventListener("click", closeMenu);
     });
 
+    // Cerrar al cambiar a escritorio
     window.addEventListener("resize", () => {
         if (window.innerWidth >= 1024) closeMenu();
     });
 }
 
 
+
 // ===============================================
-// MODAL GLOBAL
+// SISTEMA DE MODAL GLOBAL (Versión PRO)
 // ===============================================
 
 export function initModalSystem() {
     const modal = document.getElementById("globalModal");
-    const closeBtn = document.getElementById("closeModalBtn");
     const content = document.getElementById("modalContent");
+    const closeBtn = document.getElementById("closeModalBtn");
 
-    if (!modal || !closeBtn || !content) return;
+    if (!modal || !content) {
+        console.warn("⚠ Modal global no encontrado");
+        return;
+    }
 
     const closeModal = () => {
-        modal.classList.add("hidden");
-        document.body.classList.remove("overflow-hidden");
-        content.innerHTML = "";
+        modal.classList.add("opacity-0");
+        modal.classList.remove("opacity-100");
+
+        setTimeout(() => {
+            modal.classList.add("hidden");
+            document.body.classList.remove("overflow-hidden");
+            content.innerHTML = "";
+        }, 200);
     };
 
-    closeBtn.addEventListener("click", closeModal);
+    // Botón cerrar
+    if (closeBtn) {
+        closeBtn.addEventListener("click", closeModal);
+    }
 
+    // Cerrar clicando fuera del contenido
     modal.addEventListener("click", (e) => {
         if (e.target === modal) closeModal();
     });
+
+    // Escape
+    document.addEventListener("keydown", (e) => {
+        if (e.key === "Escape") closeModal();
+    });
 }
+
 
 
 // ===============================================
 // ABRIR MODAL DESDE CUALQUIER PARTE
 // ===============================================
 
-export function openModal(htmlContent) {
+export function openModal(htmlContent, options = {}) {
     const modal = document.getElementById("globalModal");
     const content = document.getElementById("modalContent");
 
@@ -81,5 +103,13 @@ export function openModal(htmlContent) {
     content.innerHTML = htmlContent;
 
     modal.classList.remove("hidden");
+    modal.classList.remove("opacity-0");
+    modal.classList.add("opacity-100");
+
     document.body.classList.add("overflow-hidden");
+
+    // Callback opcional
+    if (typeof options.onOpen === "function") {
+        options.onOpen();
+    }
 }
