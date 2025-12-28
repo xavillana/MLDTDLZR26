@@ -19,7 +19,7 @@ export const cupcakes = [
   formats: ["Cupcakes", "Tarta"],
   price: 3.5,
   badges: ["BESTSELLER"],
-  image: "/IMG/REDVELVET.PNG"
+  image: "/IMG/REDVELVET.JPG"
 },
 
 {
@@ -82,7 +82,7 @@ export const cupcakes = [
   formats: ["Cupcakes", "Tarta"],
   price: 3.5,
   badges: [],
-  image: "/IMG/MUERTECHOCOLATE.PNG"
+  image: "/IMG/MUERTECHOCOLATE.JPG"
 },
 
 {
@@ -101,7 +101,7 @@ export const cupcakes = [
   formats: ["Cupcakes"],
   price: 3.8,
   badges: ["SALUDABLE"],
-  image: "/IMG/YOGURTSALVAJE.PNG"
+  image: "/IMG/YOGURTSALVAJE.JPG"
 },
 
 {
@@ -121,7 +121,7 @@ export const cupcakes = [
   formats: ["Cupcakes", "Tarta"],
   price: 4.0,
   badges: ["PREMIUM", "BESTSELLER"],
-  image: "/IMG/CRIMENCUQUI.PNG"
+  image: "/IMG/CRIMENCUQUI.JPG"
 }
 
 ];;
