@@ -1,40 +1,57 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="es-ES">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
   <title>Tienda | Maldita Dulzura – Pasteles Rebeldes</title>
   <meta name="description" content="Explora todas nuestras tartas, cupcakes y cheesecakes artesanales. Sabores rebeldes, ingredientes premium y diseños que rompen las reglas.">
 
-  <!-- Tailwind CSS -->
-  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- SEO / Open Graph -->
+  <meta property="og:title" content="Maldita Dulzura – Pasteles Rebeldes">
+  <meta property="og:description" content="Tartas artesanales, cupcakes y cheesecakes con actitud.">
+  <meta property="og:type" content="website">
+  <meta property="og:image" content="https://malditadulzura.com/og-image.jpg">
+  <meta property="og:url" content="https://malditadulzura.com/tienda">
 
-  <!-- Font Awesome -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <!-- Preconnect para mejorar carga de fuentes -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
   <!-- Fuentes personalizadas -->
   <link href="https://fonts.googleapis.com/css2?family=Englebert&family=Twinkle+Star&display=swap" rel="stylesheet">
 
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- Iconos -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
   <!-- Estilos personalizados -->
   <link rel="stylesheet" href="style/style.css">
+
+  <!-- Favicon -->
+  <link rel="icon" href="assets/favicon.png" type="image/png">
 </head>
 
 <body class="bg-white min-h-screen flex flex-col">
 
+  <!-- NAVBAR -->
+  <header id="navbar"></header>
+
   <!-- MODAL GLOBAL -->
-  <div id="globalModal"></div>
+  <div id="globalModal" class="fixed inset-0 z-50 pointer-events-none"></div>
 
   <!-- MODAL DE PRODUCTO -->
-  <div id="productModal"></div>
+  <div id="productModal" class="fixed inset-0 z-50 pointer-events-none"></div>
 
-  <!-- NAVBAR -->
-  <div id="navbar"></div>
-
-  <!-- LISTA DE PRODUCTOS DE LA TIENDA -->
-  <div id="featured-products"></div>
+  <!-- CONTENIDO PRINCIPAL -->
+  <main class="flex-1">
+    <section id="featured-products" class="max-w-7xl mx-auto px-4 py-12"></section>
+  </main>
 
   <!-- FOOTER -->
-  <div id="footer"></div>
+  <footer id="footer"></footer>
 
   <!-- ========================= -->
   <!--  SCRIPTS PRINCIPALES     -->
