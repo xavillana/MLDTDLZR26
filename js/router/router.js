@@ -7,7 +7,7 @@ const componentDependencies = {
     navbar: () => initMobileMenu(),
     productModal: () => initProductModal(),
     destacados: () => renderFeaturedProducts(),
-    "featured-products": () => initStorePage(),
+    featuredproducts: () => initStorePage(),
     pedido: () => initPedidoPage(),
     globalModal: () => initModalSystem()
 };
@@ -58,8 +58,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
     loadComponent("navbar", "components/navbar.html");
     loadComponent("footer", "components/footer.html");
-    loadComponent("productModal", "components/product-modal.html");
-    loadComponent("globalModal", "components/global-modal.html");
+    loadComponent("productModal", "components/productmodal.html");
+    loadComponent("globalModal", "components/globalmodal.html");
 
     if (path.endsWith("/") || path.endsWith("index.html")) {
         loadComponent("hero", "components/hero.html");
@@ -69,7 +69,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     if (path.endsWith("tienda.html")) {
-        loadComponent("featured-products", "components/featured-products.html");
+        loadComponent("featuredproducts", "components/featuredproducts.html");
     }
 
     if (path.endsWith("pedido.html")) {
