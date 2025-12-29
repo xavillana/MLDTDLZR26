@@ -59,7 +59,7 @@ document.addEventListener("DOMContentLoaded", () => {
     loadComponent("navbar", "components/navbar.html");
     loadComponent("footer", "components/footer.html");
     loadComponent("productModal", "components/productModal.html");
-    loadComponent("globalModal", "components/globalModal.html");
+
 
     if (path.endsWith("/") || path.endsWith("index.html")) {
         loadComponent("hero", "components/hero.html");
