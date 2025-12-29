@@ -1,55 +1,52 @@
 <!DOCTYPE html>
-<html lang="es-ES">
+<html lang="es">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <title>Tienda | Maldita Dulzura – Pasteles Rebeldes</title>
-  <meta name="description" content="Explora todas nuestras tartas, cupcakes y cheesecakes artesanales. Sabores rebeldes, ingredientes premium y diseños que rompen las reglas.">
+  <title>Tienda | Maldita Dulzura – Tartas y Cupcakes Rebeldes</title>
+  <meta name="description" content="Explora todas nuestras tartas artesanales, cupcakes y cheesecakes. Sabores intensos, ingredientes premium y diseños que rompen las reglas.">
 
-  <!-- SEO / Open Graph -->
-  <meta property="og:title" content="Maldita Dulzura – Pasteles Rebeldes">
-  <meta property="og:description" content="Tartas artesanales, cupcakes y cheesecakes con actitud.">
+  <!-- Open Graph -->
+  <meta property="og:title" content="Tienda | Maldita Dulzura – Pasteles Rebeldes">
+  <meta property="og:description" content="Tartas, cupcakes y cheesecakes artesanales con actitud y sabor prohibido.">
   <meta property="og:type" content="website">
-  <meta property="og:image" content="https://malditadulzura.com/og-image.jpg">
   <meta property="og:url" content="https://malditadulzura.com/tienda">
+  <meta property="og:image" content="https://malditadulzura.com/img/og-tienda.jpg">
 
-   <!-- Preconnect para mejorar carga de fuentes -->
+  <!-- Favicon -->
+  <link rel="icon" href="img/favicon.png" type="image/png">
+
+  <!-- Fuentes -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-
-  <!-- Fuentes personalizadas -->
   <link href="https://fonts.googleapis.com/css2?family=Englebert&family=Twinkle+Star&display=swap" rel="stylesheet">
+
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
   <!-- Tailwind CSS -->
   <script src="https://cdn.tailwindcss.com"></script>
 
-  <!-- Iconos -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-
   <!-- Estilos personalizados -->
-  <link rel="stylesheet" href="style/style.css">
-
-  <!-- Favicon -->
-  <link rel="icon" href="assets/favicon.png" type="image/png">
+  <link rel="stylesheet" href="styles/style.css">
 </head>
 
-<body class="bg-white min-h-screen flex flex-col">
+<body class="bg-[#fffbf7] min-h-screen flex flex-col">
 
   <!-- NAVBAR -->
   <header id="navbar"></header>
 
-  <!-- MODALES -->
+  <!-- MODAL GLOBAL -->
   <div id="globalModal"></div>
-  <div id="productModal"></div>
 
   <!-- CONTENIDO PRINCIPAL -->
   <main class="flex-1">
 
-    <!-- DESTACADOS (si quieres mostrar arriba) -->
+    <!-- Sección de productos destacados (opcional en tienda) -->
     <section id="featured-products-container"></section>
 
-    <!-- TIENDA COMPLETA -->
+    <!-- Tienda completa con filtros -->
     <section id="store-container"></section>
 
   </main>
@@ -58,9 +55,17 @@
   <footer id="footer"></footer>
 
   <!-- SCRIPTS -->
-  <script type="module" src="js/router/router.js"></script>
-  <script type="module" src="js/core/ui.js"></script>
-  <script type="module" src="js/main.js"></script>
+  <script type="module" src="js/router.js"></script>
 
+  <!-- Fade-in suave al cargar -->
+  <script type="module">
+    document.body.classList.add('opacity-0');
+    document.addEventListener('DOMContentLoaded', () => {
+      setTimeout(() => {
+        document.body.classList.remove('opacity-0');
+        document.body.classList.add('opacity-100', 'transition-opacity', 'duration-700');
+      }, 100);
+    });
+  </script>
 </body>
 </html>
