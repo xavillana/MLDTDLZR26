@@ -2,7 +2,7 @@ import { allProducts } from '../data/allProducts.js';
 import { productCard } from '../components/productCard.js';
 
 export function renderFeaturedProducts() {
-    const container = document.getElementById('featuredProducts');
+    const container = document.getElementById('featured-products');
     if (!container) return;
 
     let featured = allProducts.filter(p => p.bestseller);
