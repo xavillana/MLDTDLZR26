@@ -20,7 +20,7 @@ export const tartas = [
   cupcakePrice: 3.8,
   price: 35,
   badges: ["BESTSELLER"],
-  image: "/IMG/TARTA-MARCOS.JPG",
+  image: "img/TARTA-MARCOS.JPG",
   sizes: [
     { size: "Pequeña", price: 25, servings: 6 },
     { size: "Mediana", price: 35, servings: 10 },
@@ -50,7 +50,7 @@ export const tartas = [
   price: 35,
   oldPrice: 42,
   badges: ["BESTSELLER", "DESCUENTO"],
-  image: "/IMG/MUERTECHOCOLATE.JPG",
+  image: "img/MUERTECHOCOLATE.JPG",
   sizes: [
     { size: "Pequeña", price: 25, servings: 6 },
     { size: "Mediana", price: 35, servings: 10 },
@@ -76,7 +76,7 @@ export const tartas = [
   formats: ["Tarta"],
   price: 40,
   badges: ["NUEVO"],
-  image: "/IMG/UNICORNIO.JPG",
+  image: "img/UNICORNIO.JPG",
   sizes: [
     { size: "Pequeña", price: 30, servings: 6 },
     { size: "Mediana", price: 40, servings: 10 },
@@ -102,7 +102,7 @@ export const tartas = [
   formats: ["Tarta"],
   price: 35,
   badges: [],
-  image: "/IMG/NARANJACACAO.JPG",
+  image: "img/NARANJACACAO.JPG",
   sizes: [
     { size: "Pequeña", price: 25, servings: 6 },
     { size: "Mediana", price: 35, servings: 10 },
@@ -129,7 +129,7 @@ export const tartas = [
   formats: ["Tarta"],
   price: 38,
   badges: ["CLÁSICO"],
-  image: "/IMG/TIAMISU.JPG",
+  image: "img/TIAMISU.JPG",
   sizes: [
     { size: "Pequeña", price: 28, servings: 6 },
     { size: "Mediana", price: 38, servings: 10 },
@@ -156,7 +156,7 @@ export const tartas = [
   price: 36,
   oldPrice: 42,
   badges: ["DESCUENTO"],
-  image: "/IMG/FRESNATA.JPG",
+  image: "img/FRESNATA.JPG",
   sizes: [
     { size: "Pequeña", price: 26, servings: 6 },
     { size: "Mediana", price: 36, servings: 10 },
