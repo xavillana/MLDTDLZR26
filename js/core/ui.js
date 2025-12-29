@@ -94,22 +94,27 @@ export function initModalSystem() {
 // ABRIR MODAL DESDE CUALQUIER PARTE
 // ===============================================
 
+// ... todo el código anterior ...
+
 export function openModal(htmlContent, options = {}) {
-    const modal = document.getElementById("globalModal");
-    const content = document.getElementById("modalContent");
+  const modal = document.getElementById("globalModal");
+  const content = document.getElementById("modalContent");
 
-    if (!modal || !content) return;
+  if (!modal || !content) {
+    console.error("Modal global no encontrado");
+    return;
+  }
 
-    content.innerHTML = htmlContent;
+  content.innerHTML = htmlContent;
 
-    modal.classList.remove("hidden");
-    modal.classList.remove("opacity-0");
-    modal.classList.add("opacity-100");
+  modal.classList.remove("hidden", "opacity-0");
+  modal.classList.add("opacity-100");
+  document.body.classList.add("overflow-hidden");
 
-    document.body.classList.add("overflow-hidden");
-
-    // Callback opcional
-    if (typeof options.onOpen === "function") {
-        options.onOpen();
-    }
+  if (typeof options.onOpen === "function") {
+    setTimeout(options.onOpen, 100);
+  }
 }
+
+// ← ESTA LÍNEA ES LA IMPORTANTE
+export { openModal as openProductModal };
