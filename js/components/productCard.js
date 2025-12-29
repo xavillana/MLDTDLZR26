@@ -1,59 +1,157 @@
-import { openModal } from "../core/ui.js";
+// js/components/productCard.js
 
+import { openProductModal } from '../core/ui.js'; // Reutilizamos el modal global
+import { renderPriceBlock, renderBadges } from './utils.js';
+
+/**
+ * Genera el HTML de una tarjeta de producto
+ * @param {Object} product - Objeto de producto desde allProducts.js
+ * @returns {string} HTML de la card
+ */
 export function productCard(product) {
+  const { name, image, shortDescription, badges = [] } = product;
+
+  // Precio mínimo si tiene tamaños, o precio directo
+  const minPrice = product.sizes
+    ? Math.min(...product.sizes.map(s => s.price))
+    : product.price || product.cupcakePrice || 0;
+
   return `
-    <div 
-      class="cursor-pointer group"
-      onclick='openProductModal(${JSON.stringify(product)})'
+    <article 
+      class="group cursor-pointer bg-white rounded-2xl shadow-lg overflow-hidden transition-all duration-300 hover:shadow-2xl hover:-translate-y-2"
+      role="button"
+      tabindex="0"
+      aria-label="Ver detalles de ${name}"
+      data-product='${JSON.stringify(product)}'
     >
-      <div class="overflow-hidden rounded-xl shadow-lg bg-white">
+      <div class="relative overflow-hidden">
         <img 
-          src="${product.image}" 
-          alt="${product.name}" 
-          class="w-full h-64 object-cover group-hover:scale-105 transition-transform duration-300"
+          src="${image || '/img/placeholder.jpg'}" 
+          alt="${name}"
+          loading="lazy"
+          class="w-full h-64 object-cover group-hover:scale-110 transition-transform duration-500"
         >
+        ${renderBadges({ badges })}
       </div>
 
-      <h3 class="mt-4 text-xl font-bold text-gray-800">${product.name}</h3>
-      <p class="text-gray-600 text-sm">${product.short || "Dulce, rebelde y peligrosa."}</p>
-    </div>
+      <div class="p-6">
+        <h3 class="text-2xl font-bold text-gray-800 mb-2">${name}</h3>
+        <p class="text-gray-600 text-base line-clamp-2 mb-4">
+          ${shortDescription || 'Dulce rebelde y peligrosamente adictivo.'}
+        </p>
+        <div class="flex justify-between items-end">
+          <p class="text-3xl font-black text-pink-600">
+            Desde ${minPrice}€
+          </p>
+          <span class="text-pink-600 font-bold text-lg">→ Ver más</span>
+        </div>
+      </div>
+    </article>
   `;
 }
 
-// Función global para abrir el modal con HTML externo
-window.openProductModal = async function (product) {
-  const modalHTML = await fetch("components/productModal.html").then(r => r.text());
+/**
+ * Inicializa los eventos de clic/teclado en todas las cards
+ * Se llama automáticamente después de renderizar productos
+ */
+export function initProductCards() {
+  document.querySelectorAll('[data-product]').forEach(card => {
+    const product = JSON.parse(card.dataset.product);
 
-  // Insertamos el HTML base del modal
-  openModal(modalHTML, {
-    onOpen: () => {
-      // Rellenamos los datos dinámicos
-      document.getElementById("pm-image").src = product.image;
-      document.getElementById("pm-title").textContent = product.name;
-      document.getElementById("pm-description").textContent =
-        product.description || "Una creación rebelde, dulce y peligrosa.";
-      document.getElementById("pm-category").textContent = product.category;
+    const openModal = (e) => {
+      if (e.type === 'keydown' && !['Enter', ' '].includes(e.key)) return;
+      e.preventDefault();
+      openGlobalProductModal(product);
+    };
 
-      // Tamaños
-      const sizesContainer = document.getElementById("pm-sizes");
-      if (product.sizes) {
-        sizesContainer.innerHTML = product.sizes
-          .map(
-            s => `
-            <li class="flex justify-between bg-gray-100 px-4 py-2 rounded-lg">
-              <span>${s.label}</span>
-              <span class="font-bold text-gray-800">${s.price}€</span>
-            </li>
-          `
-          )
-          .join("");
-      } else {
-        sizesContainer.innerHTML = `<p class="text-gray-500">Tamaño único</p>`;
-      }
-
-      // Botón de pedido
-      document.getElementById("pm-order").href =
-        "pedido.html?product=" + encodeURIComponent(product.name);
-    }
+    card.addEventListener('click', openModal);
+    card.addEventListener('keydown', openModal);
   });
-};
+}
+
+/**
+ * Abre el modal global con los detalles del producto
+ * @param {Object} product
+ */
+async function openGlobalProductModal(product) {
+  // Cargar el template del modal solo una vez
+  let modalHTML = sessionStorage.getItem('productModalHTML');
+  if (!modalHTML) {
+    try {
+      const response = await fetch('components/productModal.html');
+      if (!response.ok) throw new Error('No se pudo cargar el modal');
+      modalHTML = await response.text();
+      sessionStorage.setItem('productModalHTML', modalHTML);
+    } catch (err) {
+      console.error(err);
+      return alert('Error al cargar los detalles del producto');
+    }
+  }
+
+  // Abrir modal global con contenido personalizado
+  openProductModal(modalHTML, {
+    onOpen: () => populateProductModal(product)
+  });
+}
+
+/**
+ * Rellena el modal con los datos del producto
+ * @param {Object} product
+ */
+function populateProductModal(product) {
+  const {
+    name,
+    emoji = '🍰',
+    image,
+    shortDescription,
+    longDescription,
+    ingredients = [],
+    formats = [],
+    badges = [],
+    sizes,
+    price,
+    cupcakePrice
+  } = product;
+
+  // Imagen principal
+  const imgEl = document.getElementById('pm-image');
+  if (imgEl) {
+    imgEl.src = image || '/img/placeholder.jpg';
+    imgEl.alt = name;
+  }
+
+  // Título y emoji
+  document.getElementById('pm-title').textContent = name;
+  document.getElementById('pm-emoji')?.then(el => el.textContent = emoji);
+
+  // Descripciones
+  document.getElementById('pm-short-desc').textContent = shortDescription;
+  document.getElementById('pm-long-desc').innerHTML = longDescription.replace(/\n/g, '<br>');
+
+  // Ingredientes y formatos
+  document.getElementById('pm-ingredients').textContent = Array.isArray(ingredients)
+    ? ingredients.join(', ')
+    : ingredients;
+
+  document.getElementById('pm-formats').textContent = Array.isArray(formats)
+    ? formats.join(' • ')
+    : formats;
+
+  // Badges
+  const badgesContainer = document.getElementById('pm-badges');
+  if (badgesContainer) {
+    badgesContainer.innerHTML = renderBadges({ badges });
+  }
+
+  // Precios y tamaños
+  const pricesContainer = document.getElementById('pm-prices');
+  if (pricesContainer) {
+    pricesContainer.innerHTML = renderPriceBlock(product);
+  }
+
+  // Botón de pedido
+  const orderBtn = document.getElementById('pm-order');
+  if (orderBtn) {
+    orderBtn.href = `pedido.html?product=${encodeURIComponent(name)}`;
+  }
+}
