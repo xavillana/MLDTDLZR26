@@ -1,9 +1,14 @@
 // js/router.js
 
-import { initMobileMenu, initModalSystem } from './core/ui.js';
-import { renderFeaturedProducts } from './components/featuredProducts.js';
-import { initStorePage } from './components/tienda.js';
-import { initProductCards } from './components/productCard.js'; // Nueva inicialización de cards
+const componentInitializers = {
+  navbar: () => initMobileMenu(),
+  globalModal: () => initModalSystem(),
+  'featured-products': () => renderFeaturedProducts(),
+  'featured-products-container': () => renderFeaturedProducts('featured-products-container'),
+  'store-container': () => initStorePage(),
+  destacados: () => renderFeaturedProducts('featured-products'), // si usas este contenedor
+  // ...
+};
 
 // Caché de componentes HTML para evitar múltiples fetches
 const componentCache = new Map();
