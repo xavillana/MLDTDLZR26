@@ -1,6 +1,6 @@
 // js/components/productCard.js
 
-import { openProductModal } from '../core/ui.js'; // Reutilizamos el modal global
+import { openModal } from '../core/ui.js'; // Cambia openProductModal por openModal
 import { renderPriceBlock, renderBadges } from './utils.js';
 
 /**
@@ -89,7 +89,7 @@ async function openGlobalProductModal(product) {
   }
 
   // Abrir modal global con contenido personalizado
-  openProductModal(modalHTML, {
+  openModal(modalHTML, {
     onOpen: () => populateProductModal(product)
   });
 }
