@@ -1,46 +1,42 @@
-<nav class="hero-gradient text-white">
-    <div class="container mx-auto px-4">
-        <div class="flex items-center justify-between py-3">
+<!-- components/navbar.html -->
+<nav class="hero-gradient text-white fixed top-0 w-full z-50 shadow-2xl">
+  <div class="container mx-auto px-4 py-4">
+    <div class="flex items-center justify-between">
 
-            <!-- Logo con imagen y texto -->
-             <a href="index.html" class="flex items-center gap-3 hover:opacity-90 transition-opacity">
-                <img src="img/LOGO.JPG" alt="Maldita Dulzura" class="w-12 h-12 md:w-14 md:h-14 object-contain">
-                <div class="flex flex-col">
-                    <span class="title text-white font-black text-2xl md:text-3xl tracking-tight">Maldita Dulzura</span>
-                </div>
-            </a>
+      <!-- Logo -->
+      <a href="index.html" class="flex items-center gap-4 hover:opacity-90 transition">
+        <img src="img/LOGO.JPG" alt="Maldita Dulzura" class="w-14 h-14 object-contain rounded-full shadow-lg">
+        <span class="title text-3xl md:text-4xl font-black tracking-wider">Maldita Dulzura</span>
+      </a>
 
-            <!-- Mobile Menu Button -->
-            <button id="mobileMenuBtn" class="lg:hidden text-2xl focus:outline-none focus:ring-2 focus:ring-white rounded" aria-label="Abrir menu">
-                <i class="fas fa-bars"></i>
-            </button>
+      <!-- Botón menú móvil -->
+      <button id="mobileMenuBtn" class="lg:hidden text-3xl focus:outline-none" aria-label="Abrir menú">
+        <i class="fas fa-bars"></i>
+      </button>
 
-            <!-- Desktop Menu -->
-            <ul class="hidden lg:flex md:flex items-center gap-8 text-2xl font-medium">
-                <li><a href="index.html" class="hover:text-pink-200 transition-colors">Inicio</a></li>
-                <li><a href="tienda.html" class="hover:text-pink-200 transition-colors">Tienda</a></li>
-                <li><a href="#sobre-nosotros" class="hover:text-pink-200 transition-colors">Sobre nosotros</a></li>
-                <li><a href="pedido.html" class="hover:text-pink-200 transition-colors">Pedido</a></li>
-            </ul>
-        </div>
-
-        <!-- Mobile Menu -->
-        <div id="mobileMenu" class="lg:hidden hidden pb-4 animate__animated animate__fadeIn">
-            <ul class="flex flex-col gap-4 text-lg font-medium">
-                <li><a href="index.html" class="hover:text-pink-200 transition-colors">Inicio</a></li>
-                <li><a href="tienda.html" class="hover:text-pink-200 transition-colors">Tienda</a></li>
-                <li><a href="#sobre-nosotros" class="hover:text-pink-200 transition-colors">Sobre nosotros</a></li>
-                <li><a href="pedido.html" class="hover:text-pink-200 transition-colors">Pedido</a></li>
-            </ul>
-        </div>
+      <!-- Menú desktop -->
+      <ul class="hidden lg:flex items-center gap-10 text-xl font-medium">
+        <li><a href="index.html" class="hover:text-pink-200 transition">Inicio</a></li>
+        <li><a href="tienda.html" class="hover:text-pink-200 transition">Tienda</a></li>
+        <li><a href="index.html#destacados" class="hover:text-pink-200 transition">Destacados</a></li>
+        <li><a href="pedido.html" class="hover:text-pink-200 transition font-bold bg-white/20 px-6 py-3 rounded-full">Pedido</a></li>
+      </ul>
     </div>
+
+    <!-- Menú móvil -->
+    <div id="mobileMenu" class="lg:hidden hidden mt-6 pb-4">
+      <ul class="flex flex-col gap-6 text-2xl font-medium text-center">
+        <li><a href="index.html" class="block hover:text-pink-200 transition">Inicio</a></li>
+        <li><a href="tienda.html" class="block hover:text-pink-200 transition">Tienda</a></li>
+        <li><a href="index.html#destacados" class="block hover:text-pink-200 transition">Destacados</a></li>
+        <li><a href="pedido.html" class="block bg-white text-pink-600 font-bold py-3 rounded-full hover:bg-pink-100 transition">Pedido</a></li>
+      </ul>
+    </div>
+  </div>
 </nav>
 
-
-
-
-
-
+<!-- Espacio para navbar fijo -->
+<div class="h-24 lg:h-28"></div>
 
 
 
