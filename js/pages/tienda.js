@@ -1,5 +1,5 @@
 import { allProducts } from "../data/allProducts.js";
-import { productCard } from "./productCard.js";
+import { productCard } from "../components/productCard.js";
 
 let activeCategory = "all";
 
