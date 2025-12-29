@@ -1,22 +1,15 @@
 // js/router.js
 
-const componentInitializers = {
-  navbar: () => initMobileMenu(),
-  globalModal: () => initModalSystem(),
-  'featured-products': () => renderFeaturedProducts(),
-  'featured-products-container': () => renderFeaturedProducts('featured-products-container'),
-  'store-container': () => initStorePage(),
-  destacados: () => renderFeaturedProducts('featured-products'), // si usas este contenedor
-  // ...
-};
+import { initMobileMenu, initModalSystem } from './core/ui.js';
+import { renderFeaturedProducts, initStorePage } from './components/productsRenderer.js';
 
-// Caché de componentes HTML para evitar múltiples fetches
+// Caché de componentes HTML (usa Map para mejor rendimiento)
 const componentCache = new Map();
 
 /**
- * Carga un componente HTML desde /components/ y lo inserta en el elemento con el ID dado
+ * Carga un componente HTML desde la carpeta /components/
  * @param {string} id - ID del elemento contenedor en el DOM
- * @param {string} file - Ruta relativa del archivo HTML (ej: "navbar.html")
+ * @param {string} file - Nombre del archivo HTML (ej: "navbar.html")
  */
 async function loadComponent(id, file) {
   const element = document.getElementById(id);
@@ -35,7 +28,7 @@ async function loadComponent(id, file) {
   }
 
   try {
-    const response = await fetch(`components/${file}`);
+    const response = await fetch(`components/${file}?v=${Date.now()}`); // Cache busting opcional
 
     if (!response.ok) {
       throw new Error(`HTTP ${response.status}: ${response.statusText}`);
@@ -49,11 +42,12 @@ async function loadComponent(id, file) {
     console.error(`❌ Error cargando componente "${file}":`, error);
 
     element.innerHTML = `
-      <div class="text-center py-12">
-        <p class="text-red-600 font-bold text-xl mb-4">Error al cargar esta sección</p>
+      <div class="text-center py-16 px-6">
+        <p class="text-red-600 font-bold text-2xl mb-6">Error al cargar esta sección</p>
+        <p class="text-gray-600 mb-8">Puede que haya un problema de conexión o el contenido no esté disponible.</p>
         <button 
           onclick="location.reload()" 
-          class="px-6 py-3 bg-pink-600 text-white rounded-xl font-bold hover:bg-pink-700 transition"
+          class="px-8 py-4 bg-pink-600 text-white rounded-2xl font-black text-lg hover:bg-pink-700 transition transform hover:scale-105 shadow-lg"
         >
           Recargar página
         </button>
@@ -63,7 +57,7 @@ async function loadComponent(id, file) {
 }
 
 /**
- * Dispara un evento personalizado cuando un componente se ha cargado
+ * Dispara evento personalizado cuando un componente termina de cargarse
  * @param {string} id
  */
 function dispatchComponentLoaded(id) {
@@ -75,26 +69,25 @@ function dispatchComponentLoaded(id) {
 }
 
 /**
- * Mapeo de componentes que requieren inicialización específica después de cargarse
+ * Mapeo de inicializadores por ID de componente
  */
 const componentInitializers = {
   navbar: () => initMobileMenu(),
   globalModal: () => initModalSystem(),
+
+  // Secciones de productos destacados (home)
+  hero: () => {}, // Hero es estático
+  destacados: () => renderFeaturedProducts('featured-products'), // contenedor dentro de destacados.html
   'featured-products': () => renderFeaturedProducts(),
-  'featured-products-container': () => {
-    renderFeaturedProducts();
-    initProductCards(); // Importante: activar clics en cards
-  },
-  'store-container': () => {
-    initStorePage();
-    initProductCards(); // Activar modales en la tienda
-  },
-  destacados: () => {
-    renderFeaturedProducts();
-    initProductCards();
-  },
+  'featured-products-container': () => renderFeaturedProducts('featured-products-container'),
+
+  // Tienda completa
+  'store-container': () => initStorePage(),
+
+  // Newsletter y otros
+  newsletter: () => {}, // Estático por ahora
   pedido: () => {
-    // Aquí podrías inicializar lógica específica de pedido.html si la tuvieras
+    // Aquí puedes inicializar lógica específica del formulario de pedido si la creas
   }
 };
 
@@ -102,17 +95,18 @@ const componentInitializers = {
  * Inicialización principal al cargar la página
  */
 document.addEventListener('DOMContentLoaded', async () => {
-  const path = window.location.pathname.toLowerCase(); // Normalizamos a minúsculas
+  // Normalizar ruta para evitar problemas de mayúsculas/minúsculas
+  const path = window.location.pathname.toLowerCase();
 
-  // Componentes comunes a todas las páginas
+  // Componentes comunes a TODAS las páginas
   await Promise.all([
     loadComponent('navbar', 'navbar.html'),
     loadComponent('footer', 'footer.html'),
-    loadComponent('globalModal', 'global-modal.html') // Asegúrate de que exista o crea uno vacío
+    loadComponent('globalModal', 'global-modal.html') // Asegúrate de que este archivo exista
   ]);
 
-  // Carga condicional según la página actual
-  if (path === '/' || path.endsWith('/index.html') || path.endsWith('/maldita-dulzura/')) {
+  // Carga condicional según la página
+  if (path === '/' || path.endsWith('index.html') || path.includes('/maldita-dulzura/')) {
     // Página de inicio
     await Promise.all([
       loadComponent('hero', 'hero.html'),
@@ -121,7 +115,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     ]);
   }
 
-  else if (path.endsWith('/tienda.html')) {
+  else if (path.endsWith('tienda.html')) {
     // Página de tienda
     await Promise.all([
       loadComponent('featured-products-container', 'featured-products.html'),
@@ -129,28 +123,34 @@ document.addEventListener('DOMContentLoaded', async () => {
     ]);
   }
 
-  else if (path.endsWith('/pedido.html')) {
+  else if (path.endsWith('pedido.html')) {
     // Página de pedido
     await loadComponent('pedido', 'pedido.html');
   }
 
-  // Puedes añadir más páginas aquí fácilmente:
-  // else if (path.endsWith('/contacto.html')) { ... }
+  else if (path.endsWith('contacto.html')) {
+    // Página de contacto (si la tienes)
+    // await loadComponent('contacto', 'contacto.html');
+  }
+
+  // Puedes añadir más rutas fácilmente aquí
 });
 
 /**
- * Escucha cuando un componente se carga y ejecuta su inicializador si existe
+ * Escucha la carga de componentes y ejecuta su inicializador correspondiente
  */
 document.addEventListener('componentLoaded', (event) => {
   const { id } = event.detail;
 
-  if (typeof componentInitializers[id] === 'function') {
-    // Usar setTimeout para asegurar que el DOM esté listo
+  const initializer = componentInitializers[id];
+
+  if (typeof initializer === 'function') {
+    // Usamos setTimeout para asegurar que el DOM esté completamente actualizado
     setTimeout(() => {
       try {
-        componentInitializers[id]();
+        initializer();
       } catch (err) {
-        console.error(`Error inicializando componente "${id}":`, err);
+        console.error(`Error al inicializar componente "${id}":`, err);
       }
     }, 0);
   }
