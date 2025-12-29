@@ -113,13 +113,10 @@ function populateProductModal(product) {
     emoji = '🍰',
     image,
     shortDescription,
-    longDescription,
+    longDescription = '',
     ingredients = [],
     formats = [],
     badges = [],
-    sizes,
-    price,
-    cupcakePrice
   } = product;
 
   // Imagen principal
@@ -129,22 +126,39 @@ function populateProductModal(product) {
     imgEl.alt = name;
   }
 
-  // Título y emoji
-  document.getElementById('pm-title').textContent = name;
-  document.getElementById('pm-emoji')?.then(el => el.textContent = emoji);
+  // Título
+  const titleEl = document.getElementById('pm-title');
+  if (titleEl) titleEl.textContent = name;
+
+  // Emoji
+  const emojiEl = document.getElementById('pm-emoji');
+  if (emojiEl) emojiEl.textContent = emoji;
 
   // Descripciones
-  document.getElementById('pm-short-desc').textContent = shortDescription;
-  document.getElementById('pm-long-desc').innerHTML = longDescription.replace(/\n/g, '<br>');
+  const shortDescEl = document.getElementById('pm-short-desc');
+  if (shortDescEl) shortDescEl.textContent = shortDescription || '';
+
+  const longDescEl = document.getElementById('pm-long-desc');
+  if (longDescEl) {
+    longDescEl.innerHTML = longDescription
+      ? longDescription.replace(/\n/g, '<br>')
+      : 'Una creación rebelde, dulce y peligrosa.';
+  }
 
   // Ingredientes y formatos
-  document.getElementById('pm-ingredients').textContent = Array.isArray(ingredients)
-    ? ingredients.join(', ')
-    : ingredients;
+  const ingredientsEl = document.getElementById('pm-ingredients');
+  if (ingredientsEl) {
+    ingredientsEl.textContent = Array.isArray(ingredients)
+      ? ingredients.join(', ')
+      : ingredients || 'No especificados';
+  }
 
-  document.getElementById('pm-formats').textContent = Array.isArray(formats)
-    ? formats.join(' • ')
-    : formats;
+  const formatsEl = document.getElementById('pm-formats');
+  if (formatsEl) {
+    formatsEl.textContent = Array.isArray(formats)
+      ? formats.join(' • ')
+      : formats || 'Tarta';
+  }
 
   // Badges
   const badgesContainer = document.getElementById('pm-badges');
@@ -152,7 +166,7 @@ function populateProductModal(product) {
     badgesContainer.innerHTML = renderBadges({ badges });
   }
 
-  // Precios y tamaños
+  // Precios
   const pricesContainer = document.getElementById('pm-prices');
   if (pricesContainer) {
     pricesContainer.innerHTML = renderPriceBlock(product);
