@@ -1,63 +1,59 @@
-// components/productCard.js
+import { openModal } from "../core/ui.js";
 
-export function productCard(p) {
+export function productCard(product) {
   return `
-    <div class="gallery-card card-hover cursor-pointer transition-all"
-         data-product='${JSON.stringify(p).replace(/'/g, "&apos;")}'
-         onclick="handleProductClick(this)">
-
-      <div class="bg-gray-200 border-2 border-dashed rounded-t-2xl w-full h-64
-                  flex items-center justify-center text-8xl">
-        ${p.emoji}
+    <div 
+      class="cursor-pointer group"
+      onclick='openProductModal(${JSON.stringify(product)})'
+    >
+      <div class="overflow-hidden rounded-xl shadow-lg bg-white">
+        <img 
+          src="${product.image}" 
+          alt="${product.name}" 
+          class="w-full h-64 object-cover group-hover:scale-105 transition-transform duration-300"
+        >
       </div>
 
-      <div class="p-6">
-        <h3 class="text-2xl font-black text-gray-800 mb-2">
-          ${p.emoji} ${p.name}
-        </h3>
-
-        <p class="text-gray-600 text-sm mb-4 line-clamp-2">
-          ${p.shortDescription}
-        </p>
-
-        <div class="flex justify-between items-end">
-          <div>
-            ${renderPrice(p)}
-            ${renderOldPrice(p)}
-          </div>
-          ${renderBadges(p)}
-        </div>
-      </div>
+      <h3 class="mt-4 text-xl font-bold text-gray-800">${product.name}</h3>
+      <p class="text-gray-600 text-sm">${product.short || "Dulce, rebelde y peligrosa."}</p>
     </div>
   `;
 }
 
-function renderPrice(p) {
-  if (p.sizes?.length) {
-    const min = Math.min(...p.sizes.map(s => s.price));
-    return `<span class="text-2xl font-black text-pink-600">Desde ${min}€</span>`;
-  }
-  return `<span class="text-3xl font-black text-pink-600">${p.price}€</span>`;
-}
+// Función global para abrir el modal con HTML externo
+window.openProductModal = async function (product) {
+  const modalHTML = await fetch("components/productModal.html").then(r => r.text());
 
-function renderOldPrice(p) {
-  return p.oldPrice
-    ? `<span class="text-gray-500 line-through ml-2">${p.oldPrice}€</span>`
-    : "";
-}
+  // Insertamos el HTML base del modal
+  openModal(modalHTML, {
+    onOpen: () => {
+      // Rellenamos los datos dinámicos
+      document.getElementById("pm-image").src = product.image;
+      document.getElementById("pm-title").textContent = product.name;
+      document.getElementById("pm-description").textContent =
+        product.description || "Una creación rebelde, dulce y peligrosa.";
+      document.getElementById("pm-category").textContent = product.category;
 
-function renderBadges(p) {
-  return p.badges?.length
-    ? `<div class="flex flex-wrap gap-2">
-         ${p.badges.map(b => `
-           <span class="bg-pink-600 text-white px-3 py-1 rounded-full text-xs font-bold">${b}</span>
-         `).join('')}
-       </div>`
-    : "";
-}
+      // Tamaños
+      const sizesContainer = document.getElementById("pm-sizes");
+      if (product.sizes) {
+        sizesContainer.innerHTML = product.sizes
+          .map(
+            s => `
+            <li class="flex justify-between bg-gray-100 px-4 py-2 rounded-lg">
+              <span>${s.label}</span>
+              <span class="font-bold text-gray-800">${s.price}€</span>
+            </li>
+          `
+          )
+          .join("");
+      } else {
+        sizesContainer.innerHTML = `<p class="text-gray-500">Tamaño único</p>`;
+      }
 
-// Handler seguro
-window.handleProductClick = (el) => {
-  const product = JSON.parse(el.dataset.product);
-  openProductModal(product);
+      // Botón de pedido
+      document.getElementById("pm-order").href =
+        "pedido.html?product=" + encodeURIComponent(product.name);
+    }
+  });
 };
