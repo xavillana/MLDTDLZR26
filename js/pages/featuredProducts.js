@@ -1,8 +1,8 @@
 import { allProducts } from '../data/allProducts.js';
-import { productCard } from './productCard.js';
+import { productCard } from '../components/productCard.js';
 
 export function renderFeaturedProducts() {
-    const container = document.getElementById('featured-products');
+    const container = document.getElementById('featuredProducts');
     if (!container) return;
 
     let featured = allProducts.filter(p => p.bestseller);
