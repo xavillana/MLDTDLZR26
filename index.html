@@ -39,33 +39,28 @@
   <!-- NAVBAR -->
   <header id="navbar"></header>
 
-  <!-- MODAL GLOBAL -->
-  <div id="globalModal" class="fixed inset-0 z-50 pointer-events-none"></div>
-
-  <!-- MODAL DE PRODUCTO -->
-  <div id="productModal" class="fixed inset-0 z-50 pointer-events-none"></div>
+  <!-- MODALES -->
+  <div id="globalModal"></div>
+  <div id="productModal"></div>
 
   <!-- CONTENIDO PRINCIPAL -->
   <main class="flex-1">
-    <section id="hero"></section>
-     <section id="featuredProducts"></section>
-    <section id="sobrenosotros"></section>
-    <section id="newsletter"></section>
+
+    <!-- DESTACADOS (si quieres mostrar arriba) -->
+    <section id="featured-products-container"></section>
+
+    <!-- TIENDA COMPLETA -->
+    <section id="store-container"></section>
+
   </main>
 
   <!-- FOOTER -->
   <footer id="footer"></footer>
 
-  <!-- ========================= -->
-  <!--  SCRIPTS PRINCIPALES     -->
-  <!-- ========================= -->
-
+  <!-- SCRIPTS -->
   <script type="module" src="js/router/router.js"></script>
   <script type="module" src="js/core/ui.js"></script>
   <script type="module" src="js/main.js"></script>
 
 </body>
 </html>
-
-
-
