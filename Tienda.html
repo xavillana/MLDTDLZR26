@@ -14,7 +14,7 @@
   <meta property="og:image" content="https://malditadulzura.com/og-image.jpg">
   <meta property="og:url" content="https://malditadulzura.com/tienda">
 
-  <!-- Preconnect para mejorar carga de fuentes -->
+   <!-- Preconnect para mejorar carga de fuentes -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
@@ -39,31 +39,27 @@
   <!-- NAVBAR -->
   <header id="navbar"></header>
 
-  <!-- MODAL GLOBAL -->
-  <div id="globalModal" class="fixed inset-0 z-50 pointer-events-none"></div>
-
-  <!-- MODAL DE PRODUCTO -->
-  <div id="productModal" class="fixed inset-0 z-50 pointer-events-none"></div>
+  <!-- MODALES -->
+  <div id="globalModal"></div>
+  <div id="productModal"></div>
 
   <!-- CONTENIDO PRINCIPAL -->
   <main class="flex-1">
-    <section id="featured-products" class="max-w-7xl mx-auto px-4 py-12"></section>
+
+    <!-- DESTACADOS (si quieres mostrar arriba) -->
+    <section id="featured-products-container"></section>
+
+    <!-- TIENDA COMPLETA -->
+    <section id="store-container"></section>
+
   </main>
 
   <!-- FOOTER -->
   <footer id="footer"></footer>
 
-  <!-- ========================= -->
-  <!--  SCRIPTS PRINCIPALES     -->
-  <!-- ========================= -->
-
-  <!-- Router dinámico PRO -->
+  <!-- SCRIPTS -->
   <script type="module" src="js/router/router.js"></script>
-
-  <!-- Lógica global (menú móvil + modal global) -->
   <script type="module" src="js/core/ui.js"></script>
-
-  <!-- Arranque general -->
   <script type="module" src="js/main.js"></script>
 
 </body>
