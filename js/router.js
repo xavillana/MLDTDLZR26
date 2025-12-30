@@ -111,6 +111,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     await Promise.all([
       loadComponent('hero', 'hero.html'),
       loadComponent('destacados', 'destacados.html'),
+       loadComponent('personalizacion', 'personalizacion.html'),
       loadComponent('sobrenosotros', 'sobrenosotros.html'),
       loadComponent('newsletter', 'newsletter.html')
     ]);
