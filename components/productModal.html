@@ -1,47 +1,35 @@
 <!-- components/productModal.html -->
 <div class="max-w-5xl mx-auto bg-white rounded-3xl shadow-2xl overflow-hidden">
-  <div class="flex flex-col md:flex-row gap-8 max-h-[90vh] overflow-y-auto">
+  <div class="flex flex-col md:flex-row gap-8 max-h-[90vh] overflow-y-auto p-8">
     
     <!-- Imagen -->
     <div class="md:w-1/2">
-      <img 
-        id="pm-image"
-        src=""
-        alt=""
-        class="w-full h-full object-cover rounded-l-3xl"
-      >
+      <img id="pm-image" src="" alt="" class="w-full rounded-2xl shadow-lg object-cover">
     </div>
 
     <!-- Contenido -->
-    <div class="md:w-1/2 p-8 md:p-12 flex flex-col justify-between">
-      <div>
-        <div class="flex items-center gap-4 mb-6">
-          <h2 id="pm-title" class="text-4xl font-black text-gray-800"></h2>
-          <span id="pm-emoji" class="text-5xl"></span>
-        </div>
-
-        <p id="pm-short-desc" class="text-xl font-bold text-pink-600 mb-4"></p>
-        <p id="pm-long-desc" class="text-gray-700 leading-relaxed mb-8"></p>
-
-        <div id="pm-badges" class="flex flex-wrap gap-3 mb-8"></div>
-
-        <p class="text-sm text-gray-600 mb-2">
-          <strong>Ingredientes:</strong> <span id="pm-ingredients"></span>
-        </p>
-        <p class="text-sm text-gray-600 mb-8">
-          <strong>Formatos:</strong> <span id="pm-formats"></span>
-        </p>
-
-        <div id="pm-prices" class="mb-10">
-          <!-- Precios inyectados por renderPriceBlock -->
-        </div>
+    <div class="md:w-1/2 flex flex-col">
+      <div class="flex items-center gap-4 mb-6">
+        <h2 id="pm-title" class="text-4xl font-black text-gray-800"></h2>
+        <span id="pm-emoji" class="text-5xl"></span>
       </div>
 
-      <a 
-        id="pm-order"
-        href="#"
-        class="block text-center bg-pink-600 hover:bg-pink-700 text-white font-black text-xl py-5 rounded-2xl transition transform hover:scale-105 shadow-lg"
-      >
+      <p id="pm-short-desc" class="text-xl font-bold text-pink-600 mb-4"></p>
+      <div id="pm-long-desc" class="text-gray-700 leading-relaxed mb-8"></div>
+
+      <div id="pm-badges" class="flex flex-wrap gap-3 mb-8"></div>
+
+      <p class="text-sm text-gray-600 mb-2">
+        <strong>Ingredientes:</strong> <span id="pm-ingredients"></span>
+      </p>
+      <p class="text-sm text-gray-600 mb-8">
+        <strong>Formatos:</strong> <span id="pm-formats"></span>
+      </p>
+
+      <div id="pm-prices" class="mb-10"></div>
+
+      <a id="pm-order" href="#" 
+         class="text-center bg-pink-600 hover:bg-pink-700 text-white font-black text-xl py-5 rounded-2xl transition shadow-lg">
         ¡Quiero esta delicia! →
       </a>
     </div>
