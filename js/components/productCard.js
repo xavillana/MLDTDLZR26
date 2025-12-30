@@ -88,33 +88,23 @@ async function openGlobalProductModal(product) {
   
   if (!modalHTML) {
     try {
-      // ← LÍNEA CORREGIDA: nombre correcto del archivo
       const response = await fetch('components/productModal.html');
-      if (!response.ok) throw new Error(`HTTP ${response.status}`);
+      if (!response.ok) throw new Error('No se pudo cargar el modal');
       modalHTML = await response.text();
       sessionStorage.setItem('productModalHTML', modalHTML);
     } catch (err) {
-      console.error('Error cargando productModal.html:', err);
-      // Fallback bonito si falla
-      modalHTML = `
-        <div class="p-12 text-center bg-white rounded-3xl">
-          <h2 class="text-4xl font-black text-pink-600 mb-6">${product.name} ${product.emoji || '🍰'}</h2>
-          <img src="${product.image || '/img/placeholder.jpg'}" alt="${product.name}" class="w-full max-w-md mx-auto rounded-2xl mb-8 shadow-lg">
-          <p class="text-xl text-gray-700 mb-6 leading-relaxed">${product.longDescription || product.shortDescription}</p>
-          <div class="mb-8">
-            ${renderPriceBlock(product)}
-          </div>
-          <a href="pedido.html?product=${encodeURIComponent(product.name)}" 
-             class="inline-block bg-pink-600 text-white font-black text-xl py-5 px-10 rounded-2xl hover:bg-pink-700 transition shadow-lg">
-            ¡Hacer pedido ahora!
-          </a>
-        </div>
-      `;
+      console.error(err);
+      modalHTML = `<div class="text-center py-12">
+        <h2 class="text-4xl font-black text-pink-600 mb-6">${product.name}</h2>
+        <img src="${product.image}" class="w-full max-w-md mx-auto rounded-2xl mb-8">
+        <p class="text-xl mb-8">${product.longDescription || product.shortDescription}</p>
+        <a href="pedido.html" class="bg-pink-600 text-white px-8 py-4 rounded-full font-bold">Hacer pedido</a>
+      </div>`;
     }
   }
 
   openModal(modalHTML, {
-    onOpen: () => setTimeout(() => populateProductModal(product), 50)
+    onOpen: () => populateProductModal(product)
   });
 }
 
