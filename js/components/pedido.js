@@ -1,7 +1,7 @@
 // js/pedido.js
 // Lógica completa para el formulario avanzado de pedido
 
-import { allProducts } from './data/allProducts.js';
+import { allProducts } from '../data/allProducts.js';
 
 let selectedProduct = null; // Producto seleccionado actualmente
 
