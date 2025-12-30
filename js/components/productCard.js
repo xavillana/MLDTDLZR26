@@ -87,33 +87,33 @@ async function openGlobalProductModal(product) {
   
   if (!modalHTML) {
     try {
+      // ← LÍNEA CORREGIDA: nombre correcto del archivo
       const response = await fetch('components/productModal.html');
       if (!response.ok) throw new Error(`HTTP ${response.status}`);
       modalHTML = await response.text();
       sessionStorage.setItem('productModalHTML', modalHTML);
     } catch (err) {
       console.error('Error cargando productModal.html:', err);
-      // Fallback simple si falla el fetch
+      // Fallback bonito si falla
       modalHTML = `
-        <div class="p-12 text-center">
-          <h2 class="text-4xl font-black text-pink-600 mb-6">${product.name}</h2>
-          <img src="${product.image}" alt="${product.name}" class="w-full max-w-md mx-auto rounded-2xl mb-8">
-          <p class="text-xl text-gray-700 mb-6">${product.longDescription || product.shortDescription}</p>
+        <div class="p-12 text-center bg-white rounded-3xl">
+          <h2 class="text-4xl font-black text-pink-600 mb-6">${product.name} ${product.emoji || '🍰'}</h2>
+          <img src="${product.image || '/img/placeholder.jpg'}" alt="${product.name}" class="w-full max-w-md mx-auto rounded-2xl mb-8 shadow-lg">
+          <p class="text-xl text-gray-700 mb-6 leading-relaxed">${product.longDescription || product.shortDescription}</p>
+          <div class="mb-8">
+            ${renderPriceBlock(product)}
+          </div>
           <a href="pedido.html?product=${encodeURIComponent(product.name)}" 
-             class="bg-pink-600 text-white font-black py-4 px-8 rounded-2xl hover:bg-pink-700 transition">
-            ¡Hacer pedido!
+             class="inline-block bg-pink-600 text-white font-black text-xl py-5 px-10 rounded-2xl hover:bg-pink-700 transition shadow-lg">
+            ¡Hacer pedido ahora!
           </a>
         </div>
       `;
     }
   }
 
-  // Usamos openModal directamente (más seguro)
   openModal(modalHTML, {
-    onOpen: () => {
-      // Esperamos un tick para que el DOM se actualice
-      setTimeout(() => populateProductModal(product), 50);
-    }
+    onOpen: () => setTimeout(() => populateProductModal(product), 50)
   });
 }
 
