@@ -2,6 +2,7 @@
 
 import { initMobileMenu, initModalSystem } from './core/ui.js';
 import { renderFeaturedProducts, initStorePage } from './components/productsRenderer.js';
+import { initProductCards } from './components/productCard.js'; // ← NUEVA LÍNEA
 import { initPedidoPage } from './components/pedido.js';
 
 // Caché de componentes HTML (usa Map para mejor rendimiento)
@@ -79,13 +80,28 @@ const componentInitializers = {
 
   // Secciones de productos destacados (home)
   hero: () => {}, // Hero es estático
-destacados: () => {
-  renderFeaturedProducts('featured-products');
-  initProductCards();
-},
 
-  // Tienda completa
-  'store-container': () => initStorePage(),
+  destacados: () => {
+    renderFeaturedProducts('featured-products');
+    initProductCards(); // ← Ahora sí existe
+  },
+
+  'featured-products': () => {
+    renderFeaturedProducts();
+    initProductCards();
+  },
+
+  'featured-products-container': () => {
+    renderFeaturedProducts('featured-products-container');
+    initProductCards();
+  },
+
+  'store-container': () => {
+    initStorePage(); // initStorePage ya llama a initProductCards internamente
+  },
+
+  // ...
+};
 
   // Newsletter (estático por ahora, no necesita JS)
   newsletter: () => {},
