@@ -1,39 +1,49 @@
 /* ===============================================
    STYLE.CSS - MALDITA DULZURA
-   Estilos personalizados + mejoras para modal
+   Estilos personalizados optimizados
    =============================================== */
 
-@import url('https://fonts.googleapis.com/css2?family=Englebert&display=swap&family=Charmonman:wght@400;700&family=Cookie&family=Dekko&family=Oleo+Script+Swash+Caps:wght@400;700&family=Playpen+Sans:wght@100..800&family=Playwrite+NO:wght@100..400&family=Twinkle+Star&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Englebert&family=Charmonman:wght@400;700&family=Cookie&family=Dekko&family=Oleo+Script+Swash+Caps:wght@400;700&family=Playpen+Sans:wght@100..800&family=Playwrite+NO:wght@100..400&family=Twinkle+Star&display=swap');
 
-/* Agregar al inicio */
-@font-face { /* Preload fuentes */ }
-
-/* Modal responsive */
-@media (max-width: 768px) {
-    #productModal .max-h-[90vh] { max-height: 80vh; }
+/* Variables de color principales */
+:root {
+    --pink-main: #ef1783;
+    --pink-dark: #c71585;
+    --pink-darker: #b01270;
+    --yellow-main: #ffd501;
+    --teal-main: #85d2d0;
+    --shadow-main: rgba(239, 23, 131, 0.3);
+    --shadow-hover: rgba(239, 23, 131, 0.4);
 }
 
+/* Reset y fuente base */
 * {
     font-family: "Englebert", cursive;
-  font-weight: 400;
-  font-style: normal;
+    font-weight: 400;
+    font-style: normal;
 }
 
 body {
     background-color: #fffbf7;
+    min-height: 100vh;
 }
 
-/* Fuentes personalizadas */
+/* Títulos personalizados */
 .title {
     font-family: 'Twinkle Star', cursive;
     letter-spacing: 2px;
     font-size: 38px;
-    color: #ef1783;
+    color: var(--pink-main);
 }
 
-/* Navbar con gradiente fijo */
+/* Gradiente hero/navbar/footer */
+.hero-gradient,
+.footer-gradient {
+    background: linear-gradient(135deg, var(--pink-main) 10%, var(--teal-main) 30%, var(--yellow-main) 60%, var(--pink-main) 90%);
+}
+
+/* Navbar fija */
 .hero-gradient {
-    background: linear-gradient(135deg, #ef1783 10%, #85d2d0 30%, #ffd501 60%, #ef1783 90%);
     position: fixed;
     top: 0;
     width: 100%;
@@ -41,32 +51,33 @@ body {
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
 }
 
+/* Espacio para navbar fija */
+body > header + main,
+body > header + div {
+    margin-top: 100px; /* Ajusta según altura de navbar */
+}
+
+/* Enlaces navbar */
 .navbar a {
     transition: all 0.3s ease;
     padding: 0.5rem 1rem;
     border-radius: 0.5rem;
 }
-
 .navbar a:hover {
     background-color: rgba(255, 255, 255, 0.25);
     transform: translateY(-2px);
 }
 
-.footer-gradient {
-    background: linear-gradient(135deg, #ef1783 10%, #85d2d0 30%, #ffd501 60%, #ef1783 90%);
-}
-
 /* Gradientes para secciones */
-.uno-gradient   { background: linear-gradient(135deg, #ef1783 20%, #85d2d0 80%); }
-.dos-gradient   { background: linear-gradient(135deg, #85d2d0 20%, #ffd501 80%); }
-.tres-gradient  { background: linear-gradient(135deg, #ffd501 20%, #ef1783 80%); }
+.uno-gradient { background: linear-gradient(135deg, var(--pink-main) 20%, var(--teal-main) 80%); }
+.dos-gradient { background: linear-gradient(135deg, var(--teal-main) 20%, var(--yellow-main) 80%); }
+.tres-gradient { background: linear-gradient(135deg, var(--yellow-main) 20%, var(--pink-main) 80%); }
 
 /* Animaciones */
 @keyframes float {
     0%, 100% { transform: translateY(0); }
     50% { transform: translateY(-12px); }
 }
-
 .float-animation {
     animation: float 4s ease-in-out infinite;
 }
@@ -74,30 +85,12 @@ body {
 .card-hover {
     transition: all 0.4s ease;
 }
-
 .card-hover:hover {
     transform: translateY(-12px);
     box-shadow: 0 25px 50px rgba(0, 0, 0, 0.2);
 }
 
-/* Colores principales */
-.magenta { color: #f13794; }
-.text-mdYellow { color: #ffd501; }
-.text-mdPink { color: #ef1783; }
-
-/* Botones */
-.btn-primary {
-    background-color:  #f13794;
-    transition: all 0.3s ease;
-}
-
-.btn-primary:hover {
-   background: linear-gradient(to right, 135deg, #ef1783 10%, #85d2d0 30%, #ffd501 60%, #ef1783 90%);
-    transform: translateY(-3px);
-    box-shadow: 0 10px 20px rgba(239, 23, 131, 0.3);
-}
-
-/* Tarjetas de productos (galería y destacados) */
+/* Tarjetas de productos */
 .gallery-card {
     background: white;
     border-radius: 1.5rem;
@@ -106,166 +99,100 @@ body {
     transition: all 0.4s ease;
     cursor: pointer;
 }
-
 .gallery-card:hover {
     transform: translateY(-8px);
     box-shadow: 0 20px 40px rgba(0, 0, 0, 0.18);
 }
-
 .gallery-card img {
     transition: transform 0.6s ease;
 }
-
 .gallery-card:hover img {
     transform: scale(1.1);
 }
 
-/* Sección títulos */
-.section-title {
-    color: #ef1783;
-    font-weight: 800;
+/* Botones principales */
+.btn-primary {
+    background: linear-gradient(to right, var(--pink-main), var(--pink-dark));
+    transition: all 0.3s ease;
+    box-shadow: 0 10px 20px var(--shadow-main);
 }
-
-/* Responsive ajustes */
-@media (max-width: 768px) {
-    .title {
-        font-size: 32px;
-    }
-    
-    .hero-gradient {
-        padding: 0.5rem 0;
-    }
-    
-    .gallery-card:hover {
-        transform: translateY(-4px);
-    }
+.btn-primary:hover {
+    background: linear-gradient(to right, var(--pink-dark), var(--pink-darker));
+    transform: translateY(-3px);
+    box-shadow: 0 15px 30px var(--shadow-hover);
 }
 
 /* ===============================================
-   MODAL DE PRODUCTO - ESTILOS ESPECÍFICOS
+   MODAL GLOBAL - ESTILOS OPTIMIZADOS
    =============================================== */
-
-/* ===============================================
-   MODAL DE PRODUCTO — ESTILOS OPTIMIZADOS
-   =============================================== */
-
-/* Variables pastel-brutalistas */
-:root {
-    --pink-main: #ef1783;
-    --pink-dark: #c71585;
-    --pink-darker: #b01270;
-    --shadow-main: rgba(239, 23, 131, 0.3);
-    --shadow-hover: rgba(239, 23, 131, 0.4);
+#globalModal {
+    transition: opacity 0.3s ease;
 }
-
-.gallery-card.card-hover {
-    transition: transform .25s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow .25s ease;
-}
-
-.gallery-card.card-hover:hover {
-    transform: translateY(-6px) scale(1.03);
-    box-shadow: 0 20px 40px rgba(239, 23, 131, 0.15);
-}
-
-/* --- CONTENEDOR DEL MODAL --- */
-#productModal {
-    animation: fadeIn 0.3s ease-out forwards;
-    transition: opacity .4s ease, transform .4s cubic-bezier(0.34, 1.56, 0.64, 1);
-}
-#productModal .card {
-    backdrop-filter: blur(12px) saturate(1.2);
-    background: rgba(255, 255, 255, 0.75);
-    border: 1px solid rgba(255, 255, 255, 0.4);
-}
-
-#productModal.hidden {
-    display: none;
-}
-
-/* Estados animados */
-#productModal .scale-95 {
-    transform: scale(.95);
+#globalModal.hidden {
     opacity: 0;
+    pointer-events: none;
+}
+#globalModal:not(.hidden) {
+    opacity: 1;
+    pointer-events: auto;
 }
 
-#productModal .scale-100 {
+#modalContent {
+    transform: scale(0.95);
+    opacity: 0;
+    transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+#globalModal:not(.hidden) #modalContent {
     transform: scale(1);
     opacity: 1;
 }
 
-/* Fade general */
-@keyframes fadeIn {
-    from { opacity: 0; }
-    to { opacity: 1; }
-}
-
-/* --- BADGES FLOTANTES --- */
+/* Badges flotantes en modal */
 #modalBadges span {
     animation: float 3s ease-in-out infinite;
     animation-delay: calc(var(--i, 0) * 0.2s);
 }
 
-@keyframes float {
-    0%, 100% { transform: translateY(0); }
-    50% { transform: translateY(-6px); }
+/* Scrollbar personalizado */
+#modalContent::-webkit-scrollbar {
+    width: 8px;
+}
+#modalContent::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 10px;
+}
+#modalContent::-webkit-scrollbar-thumb {
+    background: var(--pink-main);
+    border-radius: 10px;
+}
+#modalContent::-webkit-scrollbar-thumb:hover {
+    background: var(--pink-dark);
 }
 
-/* --- BOTÓN PRINCIPAL DEL MODAL --- */
-#productModal a[href="pedido.html"] {
-    background: linear-gradient(to right, var(--pink-main), var(--pink-dark));
-    box-shadow: 0 10px 25px var(--shadow-main);
-    transition: all .25s ease;
+/* Line clamp */
+.line-clamp-2 {
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
 }
-
-#productModal a[href="pedido.html"]:hover {
-    background: linear-gradient(to right, var(--pink-dark), var(--pink-darker));
-    transform: translateY(-4px);
-    box-shadow: 0 15px 30px var(--shadow-hover);
-}
-
-/* --- RESPONSIVE --- */
-@media (max-width: 768px) {
-    #productModal .grid {
-        grid-template-columns: 1fr;
-    }
-
-    #productModal img {
-        height: 300px !important;
-        object-fit: cover;
-    }
-
-    #productModal .p-8.md\:p-12 {
-        padding: 2rem !important;
-    }
-}
-
-/* --- UTILIDADES EXTRA --- */
-.line-clamp-2,
 .line-clamp-3 {
     display: -webkit-box;
+    -webkit-line-clamp: 3;
     -webkit-box-orient: vertical;
     overflow: hidden;
 }
 
-.line-clamp-2 { -webkit-line-clamp: 2; }
-.line-clamp-3 { -webkit-line-clamp: 3; }
-
-/* --- SCROLLBAR PERSONALIZADO --- */
-#productModal::-webkit-scrollbar {
-    width: 8px;
+/* Responsive general */
+@media (max-width: 768px) {
+    .title {
+        font-size: 32px;
+    }
+    .gallery-card:hover {
+        transform: translateY(-4px);
+    }
+    body > header + main,
+    body > header + div {
+        margin-top: 80px;
+    }
 }
-
-#productModal::-webkit-scrollbar-track {
-    background: #f1f1f1;
-    border-radius: 10px;
-}
-
-#productModal::-webkit-scrollbar-thumb {
-    background: var(--pink-main);
-    border-radius: 10px;
-}
-
-#productModal::-webkit-scrollbar-thumb:hover {
-    background: var(--pink-dark);
-}
-
