@@ -101,20 +101,16 @@ export function openModal(htmlContent, options = {}) {
   const content = document.getElementById("modalContent");
 
   if (!modal || !content) {
-    console.error("Modal global no encontrado");
+    console.error("Modal global no encontrado en el DOM");
     return;
   }
 
   content.innerHTML = htmlContent;
 
-  modal.classList.remove("hidden", "opacity-0");
-  modal.classList.add("opacity-100");
-  document.body.classList.add("overflow-hidden");
+  modal.classList.remove("hidden");
+  modal.classList.add("flex"); // Importante para que se vea
 
   if (typeof options.onOpen === "function") {
     setTimeout(options.onOpen, 100);
   }
 }
-
-// ← ESTA LÍNEA ES LA IMPORTANTE
-export { openModal as openProductModal };
