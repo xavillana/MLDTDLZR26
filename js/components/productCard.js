@@ -1,6 +1,6 @@
 // js/components/productCard.js
 
-import { openProductModal } from '../core/ui.js'; // Reutilizamos el modal global
+import { openModal } from '../core/ui.js'; // Cambia a openModal directamente
 import { renderPriceBlock, renderBadges } from './utils.js';
 
 /**
@@ -83,23 +83,37 @@ export function initProductCards() {
  * @param {Object} product
  */
 async function openGlobalProductModal(product) {
-  // Cargar el template del modal solo una vez
   let modalHTML = sessionStorage.getItem('productModalHTML');
+  
   if (!modalHTML) {
     try {
       const response = await fetch('components/productModal.html');
-      if (!response.ok) throw new Error('No se pudo cargar el modal');
+      if (!response.ok) throw new Error(`HTTP ${response.status}`);
       modalHTML = await response.text();
       sessionStorage.setItem('productModalHTML', modalHTML);
     } catch (err) {
-      console.error(err);
-      return alert('Error al cargar los detalles del producto');
+      console.error('Error cargando productModal.html:', err);
+      // Fallback simple si falla el fetch
+      modalHTML = `
+        <div class="p-12 text-center">
+          <h2 class="text-4xl font-black text-pink-600 mb-6">${product.name}</h2>
+          <img src="${product.image}" alt="${product.name}" class="w-full max-w-md mx-auto rounded-2xl mb-8">
+          <p class="text-xl text-gray-700 mb-6">${product.longDescription || product.shortDescription}</p>
+          <a href="pedido.html?product=${encodeURIComponent(product.name)}" 
+             class="bg-pink-600 text-white font-black py-4 px-8 rounded-2xl hover:bg-pink-700 transition">
+            ¡Hacer pedido!
+          </a>
+        </div>
+      `;
     }
   }
 
-  // Abrir modal global con contenido personalizado
-  openProductModal(modalHTML, {
-    onOpen: () => populateProductModal(product)
+  // Usamos openModal directamente (más seguro)
+  openModal(modalHTML, {
+    onOpen: () => {
+      // Esperamos un tick para que el DOM se actualice
+      setTimeout(() => populateProductModal(product), 50);
+    }
   });
 }
 
