@@ -1,226 +1,224 @@
 <!-- components/pedido.html -->
 <section class="py-16 lg:py-28 bg-gray-50">
-  <div class="container mx-auto px-4 max-w-5xl">
+  <div class="container mx-auto px-4 max-w-6xl">
     <div class="text-center mb-12">
       <h2 class="text-4xl md:text-5xl lg:text-6xl font-black text-pink-600 mb-6">
         Realiza tu Pedido
       </h2>
       <p class="text-xl text-gray-700 max-w-3xl mx-auto">
-        Cuéntanos qué delicia rebelde deseas y te daremos un presupuesto personalizado en menos de 24h.
+        Elige tu delicia rebelde, personalízala a tu gusto y te daremos un presupuesto personalizado en menos de 24h.
       </p>
     </div>
 
-    <!-- Formulario -->
-    <form id="orderForm" class="bg-white rounded-3xl shadow-2xl p-8 lg:p-12 space-y-10">
+    <!-- Formulario principal -->
+    <form id="orderForm" class="space-y-12">
       <!-- Información Personal -->
-      <div class="grid lg:grid-cols-2 gap-8">
-        <div>
-          <label for="nombre" class="block text-lg font-semibold text-gray-800 mb-2">Nombre completo *</label>
-          <input type="text" id="nombre" required class="w-full px-5 py-4 rounded-xl border border-gray-300 focus:border-pink-600 focus:ring-4 focus:ring-pink-200 transition">
-        </div>
-        <div>
-          <label for="telefono" class="block text-lg font-semibold text-gray-800 mb-2">Teléfono *</label>
-          <input type="tel" id="telefono" required class="w-full px-5 py-4 rounded-xl border border-gray-300 focus:border-pink-600 focus:ring-4 focus:ring-pink-200 transition">
-        </div>
-        <div class="lg:col-span-2">
-          <label for="email" class="block text-lg font-semibold text-gray-800 mb-2">Email *</label>
-          <input type="email" id="email" required class="w-full px-5 py-4 rounded-xl border border-gray-300 focus:border-pink-600 focus:ring-4 focus:ring-pink-200 transition">
-        </div>
-      </div>
-
-      <!-- Producto y Detalles -->
-      <div class="grid lg:grid-cols-2 gap-8">
-        <div>
-          <label for="producto" class="block text-lg font-semibold text-gray-800 mb-2">¿Qué delicia quieres? *</label>
-          <select id="producto" required class="w-full px-5 py-4 rounded-xl border border-gray-300 focus:border-pink-600 focus:ring-4 focus:ring-pink-200 transition">
-            <option value="">Selecciona un producto</option>
-            <!-- Opciones inyectadas por JS -->
-          </select>
-        </div>
-        <div>
-          <label for="tamaño" class="block text-lg font-semibold text-gray-800 mb-2">Tamaño *</label>
-          <select id="tamaño" disabled required class="w-full px-5 py-4 rounded-xl border border-gray-300 focus:border-pink-600 focus:ring-4 focus:ring-pink-200 transition">
-            <option value="">Primero elige un producto</option>
-          </select>
-        </div>
-        <div class="lg:col-span-2 bg-pink-50 rounded-2xl p-6 text-center">
-          <p class="text-lg text-gray-700 mb-2">Precio estimado</p>
-          <p id="precioEstimado" class="text-4xl font-black text-pink-600">Selecciona producto y tamaño</p>
-        </div>
-      </div>
-
-      <!-- Entrega -->
-      <div class="grid lg:grid-cols-3 gap-8">
-        <div>
-          <label for="fechaEntrega" class="block text-lg font-semibold text-gray-800 mb-2">Fecha de entrega/recogida *</label>
-          <input type="date" id="fechaEntrega" required min="" class="w-full px-5 py-4 rounded-xl border border-gray-300 focus:border-pink-600 focus:ring-4 focus:ring-pink-200 transition">
-        </div>
-        <div>
-          <label for="horaEntrega" class="block text-lg font-semibold text-gray-800 mb-2">Hora aproximada</label>
-          <input type="time" id="horaEntrega" class="w-full px-5 py-4 rounded-xl border border-gray-300 focus:border-pink-600 focus:ring-4 focus:ring-pink-200 transition">
-        </div>
-        <div>
-          <label class="block text-lg font-semibold text-gray-800 mb-2">Tipo de entrega *</label>
-          <div class="flex flex-col sm:flex-row gap-4">
-            <label class="flex items-center">
-              <input type="radio" name="tipoEntrega" value="recogida" checked required class="mr-3 text-pink-600">
-              <span>Recogida en tienda</span>
-            </label>
-            <label class="flex items-center">
-              <input type="radio" name="tipoEntrega" value="envio" class="mr-3 text-pink-600">
-              <span>Envío a domicilio</span>
-            </label>
+      <div class="form-section bg-white p-8 rounded-3xl shadow-2xl">
+        <h2 class="text-3xl font-black text-gray-800 mb-8">Información Personal</h2>
+        <div class="grid lg:grid-cols-2 gap-8">
+          <div>
+            <label for="nombre" class="block text-lg font-semibold text-gray-800 mb-2">Nombre completo *</label>
+            <input type="text" id="nombre" required class="w-full px-6 py-4 rounded-xl border border-gray-300 focus:border-pink-600 focus:ring-4 focus:ring-pink-200 transition">
+          </div>
+          <div>
+            <label for="telefono" class="block text-lg font-semibold text-gray-800 mb-2">Teléfono *</label>
+            <input type="tel" id="telefono" required class="w-full px-6 py-4 rounded-xl border border-gray-300 focus:border-pink-600 focus:ring-4 focus:ring-pink-200 transition">
+          </div>
+          <div class="lg:col-span-2">
+            <label for="email" class="block text-lg font-semibold text-gray-800 mb-2">Email *</label>
+            <input type="email" id="email" required class="w-full px-6 py-4 rounded-xl border border-gray-300 focus:border-pink-600 focus:ring-4 focus:ring-pink-200 transition">
           </div>
         </div>
       </div>
 
-      <!-- Dirección (solo si envío) -->
-      <div id="direccionContainer" class="hidden">
-        <label for="direccion" class="block text-lg font-semibold text-gray-800 mb-2">Dirección completa de envío *</label>
-        <textarea id="direccion" rows="3" class="w-full px-5 py-4 rounded-xl border border-gray-300 focus:border-pink-600 focus:ring-4 focus:ring-pink-200 transition"></textarea>
-      </div>
-
-      <!-- Personalización -->
-      <div class="grid lg:grid-cols-2 gap-8">
-        <div>
-          <label for="tema" class="block text-lg font-semibold text-gray-800 mb-2">Tema o dedicatoria (opcional)</label>
-          <input type="text" id="tema" placeholder="Ej: Cumpleaños rockero, boda gótica..." class="w-full px-5 py-4 rounded-xl border border-gray-300 focus:border-pink-600 focus:ring-4 focus:ring-pink-200 transition">
+      <!-- Tipo de Producto -->
+      <div class="form-section bg-white p-8 rounded-3xl shadow-2xl">
+        <h2 class="text-3xl font-black text-gray-800 mb-8">¿Qué tipo de delicia deseas?</h2>
+        <div class="flex flex-wrap justify-center gap-8">
+          <label class="cursor-pointer">
+            <input type="radio" name="tipoProducto" value="tartas-cheesecakes" class="hidden peer" onchange="toggleProductOptions()">
+            <div class="peer-checked:bg-pink-600 peer-checked:text-white bg-gray-100 text-gray-800 px-10 py-6 rounded-2xl text-xl font-bold text-center transition hover:scale-105 shadow-lg">
+              Tartas y Cheesecakes
+            </div>
+          </label>
+          <label class="cursor-pointer">
+            <input type="radio" name="tipoProducto" value="cupcakes" class="hidden peer" onchange="toggleProductOptions()">
+            <div class="peer-checked:bg-pink-600 peer-checked:text-white bg-gray-100 text-gray-800 px-10 py-6 rounded-2xl text-xl font-bold text-center transition hover:scale-105 shadow-lg">
+              Cupcakes
+            </div>
+          </label>
+          <label class="cursor-pointer">
+            <input type="radio" name="tipoProducto" value="personalizado" class="hidden peer" onchange="toggleProductOptions()">
+            <div class="peer-checked:bg-pink-600 peer-checked:text-white bg-gray-100 text-gray-800 px-10 py-6 rounded-2xl text-xl font-bold text-center transition hover:scale-105 shadow-lg">
+              Pedido Personalizado
+            </div>
+          </label>
         </div>
-        <div>
-          <label for="texto" class="block text-lg font-semibold text-gray-800 mb-2">Texto para la tarta (opcional)</label>
-          <input type="text" id="texto" placeholder="Ej: Feliz 30, diablillo" class="w-full px-5 py-4 rounded-xl border border-gray-300 focus:border-pink-600 focus:ring-4 focus:ring-pink-200 transition">
+      </div>
+
+      <!-- Tartas y Cheesecakes -->
+      <div id="tartasSection" class="form-section bg-white p-8 rounded-3xl shadow-2xl hidden">
+        <h2 class="text-3xl font-black text-gray-800 mb-8">Elige tu tarta o cheesecake</h2>
+        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+          <!-- Productos inyectados manualmente o dinámicamente -->
+          <!-- Ejemplo: Marcos No Me Tientes -->
+          <div class="product-card border-4 border-transparent hover:border-pink-600 rounded-2xl p-6 bg-gray-50 transition-all cursor-pointer"
+               onclick="selectProduct('marcos-no-me-tientes')">
+            <label class="cursor-pointer block">
+              <input type="radio" name="tartaSeleccionada" value="marcos-no-me-tientes" class="hidden" onchange="calculatePrice()">
+              <img src="img/TARTA-MARCOS.JPG" alt="Marcos No Me Tientes" class="w-full rounded-xl mb-4 shadow-lg">
+              <h3 class="text-xl font-bold text-gray-800 text-center">Marcos No Me Tientes</h3>
+              <button type="button" onclick="event.stopPropagation(); openProductModal('marcos-no-me-tientes')"
+                      class="block mx-auto mt-4 text-pink-600 font-bold hover:text-pink-800">
+                ℹ️ Ver detalles
+              </button>
+            </label>
+          </div>
+          <!-- Repite para los demás productos (muerte-por-chocolate, tia-misu, etc.) -->
+          <!-- Puedes añadir todos los que tengas en allProducts.js -->
+        </div>
+
+        <div class="mt-10">
+          <label for="tamanoTarta" class="block text-xl font-semibold text-gray-800 mb-4">Tamaño</label>
+          <select id="tamanoTarta" class="w-full md:w-1/2 px-6 py-4 rounded-xl border border-gray-300 focus:border-pink-600 focus:ring-4 focus:ring-pink-200 transition" onchange="calculatePrice()">
+            <option value="">Seleccionar tamaño</option>
+            <option value="pequena">Pequeña (6-8 personas)</option>
+            <option value="mediana">Mediana (10-12 personas)</option>
+            <option value="grande">Grande (15-20 personas)</option>
+            <option value="xl">Extra Grande (25+ personas)</option>
+          </select>
         </div>
       </div>
 
-      <!-- Comentarios adicionales -->
-      <div>
-        <label for="comentarios" class="block text-lg font-semibold text-gray-800 mb-2">Comentarios o peticiones especiales</label>
-        <textarea id="comentarios" rows="4" placeholder="Alergias, preferencias de color, ideas locas..." class="w-full px-5 py-4 rounded-xl border border-gray-300 focus:border-pink-600 focus:ring-4 focus:ring-pink-200 transition"></textarea>
+      <!-- Cupcakes -->
+      <div id="cupcakesSection" class="form-section bg-white p-8 rounded-3xl shadow-2xl hidden">
+        <h2 class="text-3xl font-black text-gray-800 mb-8">Cupcakes</h2>
+        <div class="grid lg:grid-cols-2 gap-8">
+          <div>
+            <label for="cantidadCupcakes" class="block text-xl font-semibold text-gray-800 mb-4">Cantidad</label>
+            <select id="cantidadCupcakes" class="w-full px-6 py-4 rounded-xl border border-gray-300 focus:border-pink-600 focus:ring-4 focus:ring-pink-200 transition" onchange="updateFlavorOptions()">
+              <option value="">Seleccionar cantidad</option>
+              <option value="6">6 cupcakes</option>
+              <option value="12">12 cupcakes</option>
+              <option value="24">24 cupcakes</option>
+              <option value="otro">Otra cantidad</option>
+            </select>
+            <div id="cantidadPersonalizada" class="mt-6 hidden">
+              <input type="number" id="cantidadOtra" min="1" placeholder="Ej: 15" class="w-full px-6 py-4 rounded-xl border border-gray-300 focus:border-pink-600 focus:ring-4 focus:ring-pink-200 transition" onchange="updateFlavorOptions()">
+            </div>
+          </div>
+          <div id="flavorsContainer">
+            <!-- Sabores generados dinámicamente por JS -->
+            <p class="text-gray-600 italic">Selecciona la cantidad primero para elegir sabores</p>
+          </div>
+        </div>
       </div>
 
-      <!-- Botón enviar -->
+      <!-- Pedido Personalizado -->
+      <div id="personalizadoSection" class="form-section bg-white p-8 rounded-3xl shadow-2xl hidden">
+        <h2 class="text-3xl font-black text-gray-800 mb-8">Pedido 100% Personalizado</h2>
+        <div class="space-y-10">
+          <!-- Formato, tamaño, bizcocho, relleno, cobertura, decoración... (como en tu versión) -->
+          <!-- Puedes copiar la parte de "Pedido Personalizado" de tu código original aquí -->
+          <p class="text-center text-gray-600 text-lg">Describe tu idea loca y nosotros la hacemos realidad.</p>
+          <textarea id="descripcionPersonalizada" rows="6" placeholder="Cuéntanos todo: forma, colores, temática, sabores, dedicatoria..." class="w-full px-6 py-4 rounded-xl border border-gray-300 focus:border-pink-600 focus:ring-4 focus:ring-pink-200 transition"></textarea>
+          <input type="number" id="personasPersonalizado" placeholder="Número aproximado de personas" class="w-full md:w-1/2 px-6 py-4 rounded-xl border border-gray-300 focus:border-pink-600 focus:ring-4 focus:ring-pink-200 transition" oninput="calculatePrice()">
+        </div>
+      </div>
+
+      <!-- Personalización general -->
+      <div class="form-section bg-white p-8 rounded-3xl shadow-2xl">
+        <h2 class="text-3xl font-black text-gray-800 mb-8">Personalización Extra</h2>
+        <div class="grid lg:grid-cols-2 gap-8">
+          <div>
+            <label for="tema" class="block text-lg font-semibold text-gray-800 mb-2">Tema o ocasión</label>
+            <input type="text" id="tema" placeholder="Cumpleaños, boda, baby shower..." class="w-full px-6 py-4 rounded-xl border border-gray-300 focus:border-pink-600 focus:ring-4 focus:ring-pink-200 transition">
+          </div>
+          <div>
+            <label for="texto" class="block text-lg font-semibold text-gray-800 mb-2">Texto para la tarta</label>
+            <input type="text" id="texto" placeholder="Feliz cumpleaños María, Te quiero mucho..." class="w-full px-6 py-4 rounded-xl border border-gray-300 focus:border-pink-600 focus:ring-4 focus:ring-pink-200 transition">
+          </div>
+          <div class="lg:col-span-2">
+            <label for="comentarios" class="block text-lg font-semibold text-gray-800 mb-2">Comentarios adicionales</label>
+            <textarea id="comentarios" rows="4" placeholder="Alergias, preferencias, ideas locas..." class="w-full px-6 py-4 rounded-xl border border-gray-300 focus:border-pink-600 focus:ring-4 focus:ring-pink-200 transition"></textarea>
+          </div>
+        </div>
+      </div>
+
+      <!-- Entrega -->
+      <div class="form-section bg-white p-8 rounded-3xl shadow-2xl">
+        <h2 class="text-3xl font-black text-gray-800 mb-8">Entrega</h2>
+        <div class="grid lg:grid-cols-3 gap-8">
+          <div>
+            <label for="fechaEntrega" class="block text-lg font-semibold text-gray-800 mb-2">Fecha *</label>
+            <input type="date" id="fechaEntrega" required class="w-full px-6 py-4 rounded-xl border border-gray-300 focus:border-pink-600 focus:ring-4 focus:ring-pink-200 transition">
+          </div>
+          <div>
+            <label for="horaEntrega" class="block text-lg font-semibold text-gray-800 mb-2">Hora preferida</label>
+            <input type="time" id="horaEntrega" class="w-full px-6 py-4 rounded-xl border border-gray-300 focus:border-pink-600 focus:ring-4 focus:ring-pink-200 transition">
+          </div>
+          <div>
+            <label class="block text-lg font-semibold text-gray-800 mb-2">Tipo de entrega *</label>
+            <select id="tipoEntrega" class="w-full px-6 py-4 rounded-xl border border-gray-300 focus:border-pink-600 focus:ring-4 focus:ring-pink-200 transition" onchange="toggleDireccionSection(); calculatePrice()">
+              <option value="recogida">Recogida en tienda</option>
+              <option value="domicilio">Envío a domicilio (+5€)</option>
+            </select>
+          </div>
+        </div>
+        <div id="direccionSection" class="mt-8 hidden">
+          <label for="direccion" class="block text-lg font-semibold text-gray-800 mb-2">Dirección completa *</label>
+          <textarea id="direccion" rows="3" required class="w-full px-6 py-4 rounded-xl border border-gray-300 focus:border-pink-600 focus:ring-4 focus:ring-pink-200 transition"></textarea>
+        </div>
+      </div>
+
+      <!-- Precio estimado -->
+      <div id="priceCalculator" class="form-section bg-gradient-to-r from-pink-100 to-purple-100 p-8 rounded-3xl shadow-2xl hidden">
+        <h2 class="text-3xl font-black text-gray-800 mb-6 text-center">Precio Estimado</h2>
+        <div id="priceBreakdown" class="text-lg space-y-3 mb-6 max-w-md mx-auto"></div>
+        <p class="text-4xl font-black text-pink-600 text-center">
+          Total: <span id="totalPrice">0€</span>
+        </p>
+        <p class="text-center text-gray-600 mt-4 italic">* Precio aproximado. El definitivo lo confirmaremos en 24h.</p>
+      </div>
+
+      <!-- Enviar -->
       <div class="text-center">
-        <button type="submit" class="bg-gradient-to-r from-pink-600 to-purple-600 text-white px-12 py-6 rounded-2xl font-black text-2xl hover:from-pink-700 hover:to-purple-700 transition transform hover:scale-105 shadow-2xl">
+        <button type="submit" class="bg-gradient-to-r from-pink-600 to-purple-600 text-white font-black text-2xl px-16 py-6 rounded-full hover:from-pink-700 hover:to-purple-700 transition transform hover:scale-105 shadow-2xl">
           Enviar Pedido →
         </button>
       </div>
     </form>
 
     <!-- Mensaje de éxito -->
-    <div id="successMessage" class="hidden bg-gradient-to-r from-pink-100 to-purple-100 rounded-3xl shadow-2xl p-12 text-center mt-12">
-      <div class="text-6xl mb-6">🍰✨</div>
-      <h3 class="text-3xl lg:text-4xl font-black text-gray-800 mb-4">
+    <div id="successMessage" class="hidden text-center py-20">
+      <div class="text-8xl mb-8">🍰✨</div>
+      <h3 class="text-4xl lg:text-5xl font-black text-pink-600 mb-6">
         ¡Pedido enviado con éxito!
       </h3>
-      <p class="text-xl text-gray-700 max-w-2xl mx-auto">
-        Hemos recibido tu solicitud. Te contactaremos en menos de 24 horas con el presupuesto definitivo y confirmación.
+      <p class="text-xl lg:text-2xl text-gray-700 max-w-3xl mx-auto">
+        Hemos recibido tu solicitud. Te contactaremos en menos de 24 horas con el presupuesto definitivo y todos los detalles.
       </p>
-      <p class="text-lg text-gray-600 mt-6">
+      <p class="text-lg text-gray-600 mt-8">
         ¡Gracias por confiar en Maldita Dulzura para tu próxima tentación!
       </p>
     </div>
   </div>
 </section>
 
-<script type="module">
-  import { allProducts } from '../js/data/allProducts.js';
-
-  const form = document.getElementById('orderForm');
-  const successMessage = document.getElementById('successMessage');
-  const productoSelect = document.getElementById('producto');
-  const tamañoSelect = document.getElementById('tamaño');
-  const precioEstimado = document.getElementById('precioEstimado');
-  const direccionContainer = document.getElementById('direccionContainer');
-  const direccionInput = document.getElementById('direccion');
-  const fechaInput = document.getElementById('fechaEntrega');
-
-  // Fecha mínima: hoy + 3 días (para dar tiempo de preparación)
-  const today = new Date();
-  today.setDate(today.getDate() + 3);
-  fechaInput.min = today.toISOString().split('T')[0];
-
-  // Llenar select de productos
-  allProducts.forEach(product => {
-    const option = document.createElement('option');
-    option.value = product.id;
-    option.textContent = `${product.emoji} ${product.name}`;
-    productoSelect.appendChild(option);
-  });
-
-  // Mostrar/ocultar dirección
-  document.querySelectorAll('input[name="tipoEntrega"]').forEach(radio => {
-    radio.addEventListener('change', () => {
-      if (radio.value === 'envio') {
-        direccionContainer.classList.remove('hidden');
-        direccionInput.required = true;
-      } else {
-        direccionContainer.classList.add('hidden');
-        direccionInput.required = false;
-      }
-    });
-  });
-
-  // Calcular precio estimado
-  function calculatePrice() {
-    const productId = productoSelect.value;
-    const size = tamañoSelect.value;
-
-    if (!productId || !size) {
-      precioEstimado.textContent = 'Selecciona producto y tamaño';
-      return;
-    }
-
-    const product = allProducts.find(p => p.id === productId);
-    if (!product) return;
-
-    let price = 0;
-    if (product.sizes) {
-      const sizeObj = product.sizes.find(s => (s.size || s.name).toLowerCase() === size.toLowerCase());
-      price = sizeObj ? sizeObj.price : 0;
-    } else {
-      price = product.price || product.cupcakePrice || 0;
-    }
-
-    precioEstimado.textContent = `${price}€`;
-  }
-
-  // Habilitar tamaños al elegir producto
-  productoSelect.addEventListener('change', () => {
-    const productId = productoSelect.value;
-    tamañoSelect.innerHTML = '<option value="">Selecciona tamaño</option>';
-    tamañoSelect.disabled = !productId;
-
-    if (productId) {
-      const product = allProducts.find(p => p.id === productId);
-      if (product && product.sizes) {
-        product.sizes.forEach(s => {
-          const opt = document.createElement('option');
-          opt.value = s.size || s.name;
-          opt.textContent = `${s.size || s.name} (${s.servings} personas) - ${s.price}€`;
-          tamañoSelect.appendChild(opt);
-        });
-      } else {
-        // Si no tiene tamaños (ej: cupcake individual)
-        const opt = document.createElement('option');
-        opt.value = 'único';
-        opt.textContent = `Único - ${product.price || product.cupcakePrice}€`;
-        tamañoSelect.appendChild(opt);
-        tamañoSelect.value = 'único';
-      }
-    }
-    calculatePrice();
-  });
-
-  tamañoSelect.addEventListener('change', calculatePrice);
-
-  // Enviar formulario (simulación)
-  form.addEventListener('submit', (e) => {
-    e.preventDefault();
-    
-    // Aquí podrías conectar con EmailJS, Formspree, etc.
-    // Por ahora, simulamos envío exitoso
-    form.classList.add('hidden');
-    successMessage.classList.remove('hidden');
-    window.scrollTo({ top: successMessage.offsetTop - 100, behavior: 'smooth' });
-  });
-</script>
+<!-- Modal de información del producto -->
+<div id="productModal" class="fixed inset-0 bg-black/70 hidden flex items-center justify-center z-50 p-4">
+  <div class="bg-white rounded-3xl max-w-4xl w-full max-h-[90vh] overflow-y-auto shadow-2xl">
+    <div class="p-8">
+      <div class="flex justify-between items-center mb-6">
+        <h3 id="modalTitle" class="text-3xl font-black text-pink-600"></h3>
+        <button onclick="closeProductModal()" class="text-4xl text-gray-500 hover:text-gray-700">&times;</button>
+      </div>
+      <div id="modalContent" class="space-y-6"></div>
+      <div class="text-center mt-8">
+        <button onclick="closeProductModal()" class="bg-pink-600 hover:bg-pink-700 text-white font-black px-10 py-4 rounded-2xl text-xl">
+          Cerrar
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
