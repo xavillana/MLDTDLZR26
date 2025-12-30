@@ -2,6 +2,7 @@
 
 import { initMobileMenu, initModalSystem } from './core/ui.js';
 import { renderFeaturedProducts, initStorePage } from './components/productsRenderer.js';
+import { initPedidoPage } from './components/pedido.js';
 
 // Caché de componentes HTML (usa Map para mejor rendimiento)
 const componentCache = new Map();
@@ -86,8 +87,9 @@ const componentInitializers = {
 
   // Newsletter y otros
   newsletter: () => {}, // Estático por ahora
-  pedido: () => {
-    // Aquí puedes inicializar lógica específica del formulario de pedido si la creas
+  pedido: () => initPedidoPage(),
+  // ...
+};
   }
 };
 
