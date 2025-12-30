@@ -70,6 +70,7 @@ function dispatchComponentLoaded(id) {
 }
 
 /**
+
  * Mapeo de inicializadores por ID de componente
  */
 const componentInitializers = {
@@ -78,17 +79,24 @@ const componentInitializers = {
 
   // Secciones de productos destacados (home)
   hero: () => {}, // Hero es estático
-  destacados: () => renderFeaturedProducts('featured-products'), // contenedor dentro de destacados.html
+  destacados: () => renderFeaturedProducts('featured-products'),
   'featured-products': () => renderFeaturedProducts(),
   'featured-products-container': () => renderFeaturedProducts('featured-products-container'),
 
   // Tienda completa
   'store-container': () => initStorePage(),
 
-  // Newsletter y otros
-  newsletter: () => {}, // Estático por ahora
+  // Newsletter (estático por ahora, no necesita JS)
+  newsletter: () => {},
+
+  // Sobre nosotros (si lo tienes)
+  sobrenosotros: () => {},
+
+  // Pedido - Aquí activamos la lógica completa del formulario
   pedido: () => initPedidoPage(),
-  // ...
+
+  // Puedes añadir más aquí en el futuro
+  // contacto: () => initContactoPage(),
 };
 
 /**
