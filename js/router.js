@@ -79,10 +79,14 @@ const componentInitializers = {
 
   // Secciones de productos destacados (home)
   hero: () => {}, // Hero es estático
-  destacados: () => renderFeaturedProducts('featured-products'),
-  'featured-products': () => renderFeaturedProducts(),
-  'featured-products-container': () => renderFeaturedProducts('featured-products-container'),
-
+destacados: () => {
+  renderFeaturedProducts('featured-products');
+  initProductCards();
+},
+'featured-products-container': () => {
+  renderFeaturedProducts('featured-products-container');
+  initProductCards();
+},
   // Tienda completa
   'store-container': () => initStorePage(),
 
