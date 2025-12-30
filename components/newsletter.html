@@ -1,26 +1,83 @@
-<section class="py-16 bg-gray-50">
-  <div class="container mx-auto px-4 text-center">
-    <h2 class="text-3xl lg:text-4xl font-black text-pink-600 mb-4">
-      ÚNETE A NUESTRA<span class="text-yellow-500"> DULCE</span> CONSPIRACIÓN
-    </h2>
+<!-- components/newsletter.html -->
+<section class="py-20 lg:py-28 bg-gradient-to-br from-pink-100 via-purple-50 to-yellow-50">
+  <div class="container mx-auto px-6 max-w-5xl">
+    <div class="text-center">
+      <!-- Título con más personalidad -->
+      <h2 class="text-4xl md:text-5xl lg:text-6xl font-black text-pink-600 mb-6 leading-tight">
+        ÚNETE A NUESTRA<br>
+        <span class="text-yellow-500 drop-shadow-lg">DULCE</span> CONSPIRACIÓN
+      </h2>
 
-    <p class="text-lg text-gray-700 mb-8 max-w-2xl mx-auto">
-      Recibirás novedades, ofertas secretas y tentaciones exclusivas que harán temblar a los más fuertes.
-    </p>
+      <!-- Texto provocador -->
+      <p class="text-xl lg:text-2xl text-gray-800 mb-12 max-w-3xl mx-auto leading-relaxed">
+        Recibirás <strong>novedades prohibidas</strong>, ofertas secretas y tentaciones exclusivas<br>
+        que harán temblar hasta a los más fuertes. 
+        <br><em>Una vez que entras… ya no hay vuelta atrás.</em>
+      </p>
 
-    <form class="max-w-md mx-auto flex flex-col sm:flex-row gap-4" onsubmit="event.preventDefault(); alert('¡Gracias por unirte a la rebelión dulce!'); this.reset();">
-      <input
-        type="email"
-        placeholder="Tu email aquí"
-        required
-        class="flex-1 px-6 py-4 rounded-lg text-gray-800 focus:outline-none focus:ring-4 focus:ring-pink-300 shadow-md"
-      />
-      <button
-        type="submit"
-        class="bg-pink-600 text-white px-8 py-4 rounded-lg font-bold hover:bg-pink-700 transition transform hover:scale-105 shadow-lg"
-      >
-        Suscribirme
-      </button>
-    </form>
+      <!-- Formulario mejorado -->
+      <form id="newsletterForm" class="max-w-2xl mx-auto flex flex-col sm:flex-row gap-6 shadow-2xl rounded-3xl overflow-hidden bg-white p-4">
+        <input
+          type="email"
+          id="newsletterEmail"
+          placeholder="Tu email... (prometo no contarlo)"
+          required
+          aria-label="Dirección de email para suscribirse"
+          class="flex-1 px-8 py-5 text-lg text-gray-800 rounded-2xl focus:outline-none focus:ring-4 focus:ring-pink-400 transition-shadow shadow-inner"
+        />
+        <button
+          type="submit"
+          class="bg-gradient-to-r from-pink-600 to-purple-600 text-white font-black text-xl px-10 py-5 rounded-2xl hover:from-pink-700 hover:to-purple-700 transition-all duration-300 transform hover:scale-105 shadow-2xl whitespace-nowrap"
+        >
+          Quiero pecar →
+        </button>
+      </form>
+
+      <!-- Mensaje de éxito (oculto por defecto) -->
+      <div id="newsletterSuccess" class="hidden mt-10">
+        <div class="text-7xl mb-6 animate-bounce">😈🍰</div>
+        <h3 class="text-3xl lg:text-4xl font-black text-pink-600 mb-4">
+          ¡Bienvenid@ a la conspiración!
+        </h3>
+        <p class="text-xl text-gray-700 max-w-2xl mx-auto">
+          Pronto recibirás tu primera tentación en el correo. 
+          <br>Guarda el secreto… o compártelo bajo tu propia responsabilidad.
+        </p>
+      </div>
+    </div>
   </div>
 </section>
+
+<script type="module">
+  const form = document.getElementById('newsletterForm');
+  const success = document.getElementById('newsletterSuccess');
+
+  if (form && success) {
+    form.addEventListener('submit', (e) => {
+      e.preventDefault();
+
+      // Aquí puedes conectar EmailJS, Formspree o tu backend real más adelante
+      // Por ahora, simulación bonita
+      form.classList.add('opacity-0', 'translate-y-4', 'transition-all', 'duration-500');
+      
+      setTimeout(() => {
+        form.classList.add('hidden');
+        success.classList.remove('hidden');
+        success.classList.add('animate-fade-in');
+      }, 500);
+
+      // Resetear formulario
+      form.reset();
+    });
+  }
+</script>
+
+<style>
+  @keyframes fade-in {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  .animate-fade-in {
+    animation: fade-in 1s ease-out;
+  }
+</style>
