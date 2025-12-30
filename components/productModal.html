@@ -1,37 +1,56 @@
 <!-- components/productModal.html -->
-<div class="max-w-5xl mx-auto bg-white rounded-3xl shadow-2xl overflow-hidden">
-  <div class="flex flex-col md:flex-row gap-8 max-h-[90vh] overflow-y-auto p-8">
+<div class="p-6 lg:p-12">
+  <div class="grid md:grid-cols-2 gap-8 lg:gap-12 items-start">
     
-    <!-- Imagen -->
-    <div class="md:w-1/2">
-      <img id="pm-image" src="" alt="" class="w-full rounded-2xl shadow-lg object-cover">
+    <!-- Imagen del producto -->
+    <div class="order-2 md:order-1">
+      <img id="pm-image" 
+           src="" 
+           alt="" 
+           class="w-full rounded-3xl shadow-2xl object-cover max-h-[500px] mx-auto">
     </div>
 
-    <!-- Contenido -->
-    <div class="md:w-1/2 flex flex-col">
-      <div class="flex items-center gap-4 mb-6">
-        <h2 id="pm-title" class="text-4xl font-black text-gray-800"></h2>
-        <span id="pm-emoji" class="text-5xl"></span>
+    <!-- Información del producto -->
+    <div class="order-1 md:order-2 flex flex-col justify-between h-full">
+      <div>
+        <!-- Título y emoji -->
+        <div class="flex items-center gap-4 mb-6">
+          <h2 id="pm-title" class="text-4xl lg:text-5xl font-black text-gray-800"></h2>
+          <span id="pm-emoji" class="text-6xl"></span>
+        </div>
+
+        <!-- Descripción corta -->
+        <p id="pm-short-desc" class="text-xl font-bold text-pink-600 mb-4"></p>
+
+        <!-- Descripción larga -->
+        <div id="pm-long-desc" class="text-gray-700 text-lg leading-relaxed mb-8"></div>
+
+        <!-- Badges -->
+        <div id="pm-badges" class="flex flex-wrap gap-3 mb-8"></div>
+
+        <!-- Ingredientes y formatos -->
+        <div class="grid sm:grid-cols-2 gap-6 mb-8 text-sm">
+          <div>
+            <p class="font-bold text-gray-800 mb-2">Ingredientes principales</p>
+            <p id="pm-ingredients" class="text-gray-600"></p>
+          </div>
+          <div>
+            <p class="font-bold text-gray-800 mb-2">Formatos disponibles</p>
+            <p id="pm-formats" class="text-gray-600"></p>
+          </div>
+        </div>
+
+        <!-- Precios y tamaños (inyectados por renderPriceBlock) -->
+        <div id="pm-prices" class="mb-10"></div>
       </div>
 
-      <p id="pm-short-desc" class="text-xl font-bold text-pink-600 mb-4"></p>
-      <div id="pm-long-desc" class="text-gray-700 leading-relaxed mb-8"></div>
-
-      <div id="pm-badges" class="flex flex-wrap gap-3 mb-8"></div>
-
-      <p class="text-sm text-gray-600 mb-2">
-        <strong>Ingredientes:</strong> <span id="pm-ingredients"></span>
-      </p>
-      <p class="text-sm text-gray-600 mb-8">
-        <strong>Formatos:</strong> <span id="pm-formats"></span>
-      </p>
-
-      <div id="pm-prices" class="mb-10"></div>
-
-      <a id="pm-order" href="#" 
-         class="text-center bg-pink-600 hover:bg-pink-700 text-white font-black text-xl py-5 rounded-2xl transition shadow-lg">
-        ¡Quiero esta delicia! →
-      </a>
+      <!-- Botón de pedido -->
+      <div class="text-center">
+        <a id="pm-order" href="#" 
+           class="inline-block bg-gradient-to-r from-pink-600 to-purple-600 text-white font-black text-2xl px-12 py-6 rounded-full hover:from-pink-700 hover:to-purple-700 transition-all duration-300 transform hover:scale-105 shadow-2xl">
+          ¡Quiero esta delicia! →
+        </a>
+      </div>
     </div>
   </div>
 </div>
