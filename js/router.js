@@ -83,10 +83,7 @@ destacados: () => {
   renderFeaturedProducts('featured-products');
   initProductCards();
 },
-'featured-products-container': () => {
-  renderFeaturedProducts('featured-products-container');
-  initProductCards();
-},
+
   // Tienda completa
   'store-container': () => initStorePage(),
 
@@ -129,13 +126,13 @@ document.addEventListener('DOMContentLoaded', async () => {
     ]);
   }
 
-  else if (path.endsWith('tienda.html')) {
-    // Página de tienda
-    await Promise.all([
-      loadComponent('featured-products-container', 'featured-products.html'),
-      loadComponent('store-container', 'store.html')
-    ]);
-  }
+ else if (path.endsWith('tienda.html')) {
+  // Página de tienda
+  await Promise.all([
+    // loadComponent('featured-products-container', 'featured-products.html'),  ← COMENTA O ELIMINA ESTA LÍNEA
+    loadComponent('store-container', 'store.html')
+  ]);
+}
 
   else if (path.endsWith('pedido.html')) {
     // Página de pedido
