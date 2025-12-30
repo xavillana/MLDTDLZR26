@@ -2,6 +2,7 @@
 
 import { openModal } from '../core/ui.js'; // Cambia a openModal directamente
 import { renderPriceBlock, renderBadges } from './utils.js';
+import { allProducts } from '../data/allProducts.js';
 
 /**
  * Genera el HTML de una tarjeta de producto
