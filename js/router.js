@@ -90,8 +90,6 @@ const componentInitializers = {
   pedido: () => initPedidoPage(),
   // ...
 };
-  }
-};
 
 /**
  * Inicialización principal al cargar la página
