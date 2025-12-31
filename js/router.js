@@ -93,6 +93,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     loadComponent('navbar', 'navbar.html'),
     loadComponent('footer', 'footer.html'),
     loadComponent('globalModal', 'global-modal.html')
+    loadComponent('productModal', 'productModal.html')
   ]);
 
   // Página de inicio
