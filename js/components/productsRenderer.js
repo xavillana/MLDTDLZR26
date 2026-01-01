@@ -84,12 +84,12 @@ export function initStorePage() {
     if (clearBtn) {
       clearBtn.classList.toggle('hidden', activeCategory === 'all');
     }
-
-  renderProducts('productsContainer', filtered, (count) => {
+    
+renderProducts('productsContainer', filtered, (count) => {
   countEl.textContent = count;
-  initProductCards();  // ← Añade esto para adjuntar eventos después de render
+  initProductCards();  // ← AÑADE ESTA LÍNEA
 });
-  }
+
 
   // Eventos de filtros
   filterButtons.forEach(btn => {
