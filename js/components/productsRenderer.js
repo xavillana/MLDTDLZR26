@@ -73,6 +73,11 @@ export function initStorePage() {
 
     if (activeCategory !== 'all') {
       filtered = allProducts.filter(p => p.category === activeCategory);
+
+      renderProducts('productsContainer', filtered, (count) => {
+  countEl.textContent = count;
+  initProductCards();  // ← AÑADE ESTA LÍNEA
+});
     }
 
     // Actualizar botón activo
@@ -85,10 +90,7 @@ export function initStorePage() {
       clearBtn.classList.toggle('hidden', activeCategory === 'all');
     }
     
-renderProducts('productsContainer', filtered, (count) => {
-  countEl.textContent = count;
-  initProductCards();  // ← AÑADE ESTA LÍNEA
-});
+
 
 
   // Eventos de filtros
