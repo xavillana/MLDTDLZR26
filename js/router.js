@@ -67,7 +67,7 @@ function dispatchComponentLoaded(id) {
  */
 const componentInitializers = {
   navbar: () => initMobileMenu(),
-  globalModal: () => initModalSystem(),
+  'globalModal': initModalSystem,
 
   hero: () => {}, // Estático
   destacados: () => {
@@ -80,6 +80,7 @@ const componentInitializers = {
   'store-container': () => initStorePage(), // Ya incluye initProductCards internamente
 
   pedido: () => initPedidoPage(),
+ 
 };
 
 /**
@@ -93,7 +94,6 @@ document.addEventListener('DOMContentLoaded', async () => {
     loadComponent('navbar', 'navbar.html'),
     loadComponent('footer', 'footer.html'),
     loadComponent('globalModal', 'global-modal.html'),
-    loadComponent('productModal', 'productModal.html')
   ]);
 
   // Página de inicio
