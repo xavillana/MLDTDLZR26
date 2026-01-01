@@ -74,7 +74,131 @@
               </button>
             </label>
           </div>
-          <!-- Repite para los demás productos (muerte-por-chocolate, tia-misu, etc.) -->
+         <!-- Rojo Peligroso -->
+<div class="product-card border-4 border-transparent hover:border-pink-600 rounded-2xl p-6 bg-gray-50 transition-all cursor-pointer"
+     onclick="selectProduct('rojo-peligroso')">
+  <label class="cursor-pointer block">
+    <input type="radio" name="tartaSeleccionada" value="rojo-peligroso" class="hidden" onchange="calculatePrice()">
+    <img src="img/REDVELVET.JPG" alt="Rojo Peligroso" class="w-full rounded-xl mb-4 shadow-lg">
+    <h3 class="text-xl font-bold text-gray-800 text-center">Rojo Peligroso</h3>
+    <button type="button" onclick="event.stopPropagation(); openProductModal('rojo-peligroso')"
+            class="block mx-auto mt-4 text-pink-600 font-bold hover:text-pink-800">
+      ℹ️ Ver detalles
+    </button>
+  </label>
+</div>
+
+<!-- Zana OH! RIA -->
+<div class="product-card border-4 border-transparent hover:border-pink-600 rounded-2xl p-6 bg-gray-50 transition-all cursor-pointer"
+     onclick="selectProduct('zanahoria')">
+  <label class="cursor-pointer block">
+    <input type="radio" name="tartaSeleccionada" value="zanahoria" class="hidden" onchange="calculatePrice()">
+    <img src="img/ZANAHORIA.JPG" alt="Zana OH! RIA" class="w-full rounded-xl mb-4 shadow-lg">
+    <h3 class="text-xl font-bold text-gray-800 text-center">Zana OH! RIA</h3>
+    <button type="button" onclick="event.stopPropagation(); openProductModal('zanahoria')"
+            class="block mx-auto mt-4 text-pink-600 font-bold hover:text-pink-800">
+      ℹ️ Ver detalles
+    </button>
+  </label>
+</div>
+
+<!-- Limón Desnudo -->
+<div class="product-card border-4 border-transparent hover:border-pink-600 rounded-2xl p-6 bg-gray-50 transition-all cursor-pointer"
+     onclick="selectProduct('limon-desnudo')">
+  <label class="cursor-pointer block">
+    <input type="radio" name="tartaSeleccionada" value="limon-desnudo" class="hidden" onchange="calculatePrice()">
+    <img src="img/LIMON.JPG" alt="Limón Desnudo" class="w-full rounded-xl mb-4 shadow-lg">
+    <h3 class="text-xl font-bold text-gray-800 text-center">Limón Desnudo</h3>
+    <button type="button" onclick="event.stopPropagation(); openProductModal('limon-desnudo')"
+            class="block mx-auto mt-4 text-pink-600 font-bold hover:text-pink-800">
+      ℹ️ Ver detalles
+    </button>
+  </label>
+</div>
+
+<!-- Yogurt Salvaje -->
+<div class="product-card border-4 border-transparent hover:border-pink-600 rounded-2xl p-6 bg-gray-50 transition-all cursor-pointer"
+     onclick="selectProduct('yogurt-salvaje')">
+  <label class="cursor-pointer block">
+    <input type="radio" name="tartaSeleccionada" value="yogurt-salvaje" class="hidden" onchange="calculatePrice()">
+    <img src="img/YOGURTSALVAJE.JPG" alt="Yogurt Salvaje" class="w-full rounded-xl mb-4 shadow-lg">
+    <h3 class="text-xl font-bold text-gray-800 text-center">Yogurt Salvaje</h3>
+    <button type="button" onclick="event.stopPropagation(); openProductModal('yogurt-salvaje')"
+            class="block mx-auto mt-4 text-pink-600 font-bold hover:text-pink-800">
+      ℹ️ Ver detalles
+    </button>
+  </label>
+</div>
+
+<!-- Crimen Cuqui -->
+<div class="product-card border-4 border-transparent hover:border-pink-600 rounded-2xl p-6 bg-gray-50 transition-all cursor-pointer"
+     onclick="selectProduct('crimen-cuqui')">
+  <label class="cursor-pointer block">
+    <input type="radio" name="tartaSeleccionada" value="crimen-cuqui" class="hidden" onchange="calculatePrice()">
+    <img src="img/CRIMENCUQUI.JPG" alt="Crimen Cuqui" class="w-full rounded-xl mb-4 shadow-lg">
+    <h3 class="text-xl font-bold text-gray-800 text-center">Crimen Cuqui</h3>
+    <button type="button" onclick="event.stopPropagation(); openProductModal('crimen-cuqui')"
+            class="block mx-auto mt-4 text-pink-600 font-bold hover:text-pink-800">
+      ℹ️ Ver detalles
+    </button>
+  </label>
+</div>
+
+<!-- Marcos No Me Tientes (el original) -->
+<div class="product-card border-4 border-transparent hover:border-pink-600 rounded-2xl p-6 bg-gray-50 transition-all cursor-pointer"
+     onclick="selectProduct('marcos-no-me-tientes')">
+  <label class="cursor-pointer block">
+    <input type="radio" name="tartaSeleccionada" value="marcos-no-me-tientes" class="hidden" onchange="calculatePrice()">
+    <img src="img/TARTA-MARCOS.JPG" alt="Marcos No Me Tientes" class="w-full rounded-xl mb-4 shadow-lg">
+    <h3 class="text-xl font-bold text-gray-800 text-center">Marcos No Me Tientes</h3>
+    <button type="button" onclick="event.stopPropagation(); openProductModal('marcos-no-me-tientes')"
+            class="block mx-auto mt-4 text-pink-600 font-bold hover:text-pink-800">
+      ℹ️ Ver detalles
+    </button>
+  </label>
+</div>
+
+<!-- Revolcón Fresnata -->
+<div class="product-card border-4 border-transparent hover:border-pink-600 rounded-2xl p-6 bg-gray-50 transition-all cursor-pointer"
+     onclick="selectProduct('revolcon-fresnata')">
+  <label class="cursor-pointer block">
+    <input type="radio" name="tartaSeleccionada" value="revolcon-fresnata" class="hidden" onchange="calculatePrice()">
+    <img src="img/FRESNATA.JPG" alt="Revolcón Fresnata" class="w-full rounded-xl mb-4 shadow-lg">
+    <h3 class="text-xl font-bold text-gray-800 text-center">Revolcón Fresnata</h3>
+    <button type="button" onclick="event.stopPropagation(); openProductModal('revolcon-fresnata')"
+            class="block mx-auto mt-4 text-pink-600 font-bold hover:text-pink-800">
+      ℹ️ Ver detalles
+    </button>
+  </label>
+</div>
+
+<!-- Que lo Bailes (Cheesecake) -->
+<div class="product-card border-4 border-transparent hover:border-pink-600 rounded-2xl p-6 bg-gray-50 transition-all cursor-pointer"
+     onclick="selectProduct('que-lo-bailes')">
+  <label class="cursor-pointer block">
+    <input type="radio" name="tartaSeleccionada" value="que-lo-bailes" class="hidden" onchange="calculatePrice()">
+    <img src="img/QUELOBAILES.JPG" alt="Que lo Bailes" class="w-full rounded-xl mb-4 shadow-lg">
+    <h3 class="text-xl font-bold text-gray-800 text-center">Que lo Bailes</h3>
+    <button type="button" onclick="event.stopPropagation(); openProductModal('que-lo-bailes')"
+            class="block mx-auto mt-4 text-pink-600 font-bold hover:text-pink-800">
+      ℹ️ Ver detalles
+    </button>
+  </label>
+</div>
+
+<!-- Que Hore Oes (Cheesecake) -->
+<div class="product-card border-4 border-transparent hover:border-pink-600 rounded-2xl p-6 bg-gray-50 transition-all cursor-pointer"
+     onclick="selectProduct('que-hore-oes')">
+  <label class="cursor-pointer block">
+    <input type="radio" name="tartaSeleccionada" value="que-hore-oes" class="hidden" onchange="calculatePrice()">
+    <img src="img/OREO.JPG" alt="Que Hore Oes" class="w-full rounded-xl mb-4 shadow-lg">
+    <h3 class="text-xl font-bold text-gray-800 text-center">Que Hore Oes</h3>
+    <button type="button" onclick="event.stopPropagation(); openProductModal('que-hore-oes')"
+            class="block mx-auto mt-4 text-pink-600 font-bold hover:text-pink-800">
+      ℹ️ Ver detalles
+    </button>
+  </label>
+</div>
           <!-- Puedes añadir todos los que tengas en allProducts.js -->
         </div>
 
@@ -222,3 +346,4 @@
     </div>
   </div>
 </div>
+
