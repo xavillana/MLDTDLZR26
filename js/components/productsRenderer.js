@@ -73,25 +73,24 @@ export function initStorePage() {
 
     if (activeCategory !== 'all') {
       filtered = allProducts.filter(p => p.category === activeCategory);
-
-      renderProducts('productsContainer', filtered, (count) => {
-  countEl.textContent = count;
-  initProductCards();  // ← AÑADE ESTA LÍNEA
-});
     }
 
-    // Actualizar botón activo
+    renderProducts('productsContainer', filtered, (count) => {
+      countEl.textContent = count;
+      initProductCards(); // ← Siempre se ejecuta tras renderizar
+    });
+
+    // Actualización visual de filtros
     filterButtons.forEach(b => b.classList.remove('active', 'bg-pink-600', 'text-white'));
     const activeBtn = document.querySelector(`[data-category="${activeCategory}"]`);
-    if (activeBtn) activeBtn.classList.add('active', 'bg-pink-600', 'text-white');
+    if (activeBtn) {
+      activeBtn.classList.add('active', 'bg-pink-600', 'text-white');
+    }
 
-    // Mostrar/ocultar botón limpiar
     if (clearBtn) {
       clearBtn.classList.toggle('hidden', activeCategory === 'all');
     }
-    
-
-
+  }
 
   // Eventos de filtros
   filterButtons.forEach(btn => {
@@ -101,7 +100,7 @@ export function initStorePage() {
     });
   });
 
-  // Botón limpiar filtros
+  // Botón limpiar
   if (clearBtn) {
     clearBtn.addEventListener('click', () => {
       activeCategory = 'all';
@@ -112,3 +111,4 @@ export function initStorePage() {
   // Render inicial
   applyFilters();
 }
+   
