@@ -111,4 +111,3 @@ export function initStorePage() {
   // Render inicial
   applyFilters();
 }
-   
