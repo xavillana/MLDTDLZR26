@@ -48,53 +48,57 @@ export function initMobileMenu() {
 
 
 // ===============================================
-// SISTEMA DE MODAL GLOBAL (Versión PRO)
+// SISTEMA DE MODAL GLOBAL (Versión PRO - Actualizada)
 // ===============================================
-
 export function initModalSystem() {
     const modal = document.getElementById("globalModal");
     const content = document.getElementById("modalContent");
-    const closeBtn = document.getElementById("closeModalBtn");
+    
+    // Cambiado a modalCloseBtn para coincidir con globalModal.html
+    const closeBtn = document.getElementById("modalCloseBtn");
 
     if (!modal || !content) {
-        console.warn("⚠ Modal global no encontrado");
+        console.warn("⚠ Modal global no encontrado en el DOM");
         return;
     }
 
     const closeModal = () => {
+        // Animación de salida suave
         modal.classList.add("opacity-0");
         modal.classList.remove("opacity-100");
 
+        // Esperamos a que termine la transición antes de ocultar y limpiar
         setTimeout(() => {
             modal.classList.add("hidden");
+            modal.classList.remove("flex", "opacity-0", "opacity-100");
             document.body.classList.remove("overflow-hidden");
-            content.innerHTML = "";
-        }, 200);
+            content.innerHTML = ""; // Limpia el contenido
+        }, 300); // Ajustado a 300ms para coincidir con la transición del CSS
     };
 
-    // Botón cerrar
+    // Botón cerrar (X)
     if (closeBtn) {
         closeBtn.addEventListener("click", closeModal);
     }
 
-    // Cerrar clicando fuera del contenido
+    // Cerrar al hacer clic fuera del contenido (en el overlay)
     modal.addEventListener("click", (e) => {
-        if (e.target === modal) closeModal();
+        if (e.target === modal || e.target.classList.contains("absolute")) {
+            closeModal();
+        }
     });
 
-    // Escape
+    // Cerrar con tecla Escape
     document.addEventListener("keydown", (e) => {
-        if (e.key === "Escape") closeModal();
+        if (e.key === "Escape" && !modal.classList.contains("hidden")) {
+            closeModal();
+        }
     });
 }
-
-
 
 // ===============================================
 // ABRIR MODAL DESDE CUALQUIER PARTE
 // ===============================================
-
-// ... todo el código anterior ...
 
 export function openModal(htmlContent, options = {}) {
   const modal = document.getElementById("globalModal");
@@ -105,11 +109,18 @@ export function openModal(htmlContent, options = {}) {
     return;
   }
 
+  // Insertar contenido
   content.innerHTML = htmlContent;
 
+  // Mostrar modal con clases correctas
   modal.classList.remove("hidden");
-  modal.classList.add("flex"); // Importante para que se vea
+  modal.classList.add("flex", "opacity-100");
+  modal.classList.remove("opacity-0");
 
+  // Bloquear scroll del body
+  document.body.classList.add("overflow-hidden");
+
+  // Callback después de abrir (ideal para inicializar cosas dentro del modal)
   if (typeof options.onOpen === "function") {
     setTimeout(options.onOpen, 100);
   }
