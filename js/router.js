@@ -66,9 +66,8 @@ function dispatchComponentLoaded(id) {
  * Inicializadores por componente
  */
 const componentInitializers = {
-  navbar: () => initMobileMenu(),
-  'globalModal': initModalSystem,
-
+  navbar: initMobileMenu,
+  globalModal: initModalSystem,  // ← AÑADE ESTA LÍNEA
   hero: () => {}, // Estático
   destacados: () => {
     renderFeaturedProducts('featured-products');
