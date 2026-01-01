@@ -1,6 +1,30 @@
-<!-- components/global-modal.html -->
-<div id="globalModal" class="hidden fixed inset-0 bg-black bg-opacity-70 flex items-center justify-center z-50 p-4 transition-opacity duration-200 opacity-0">
-  <div id="modalContent" class="bg-white rounded-3xl shadow-2xl max-w-5xl w-full max-h-[95vh] overflow-y-auto">
-    <!-- Contenido dinámico inyectado aquí -->
+<!-- components/globalModal.html -->
+<div id="globalModal" 
+     class="hidden fixed inset-0 bg-black/70 flex items-center justify-center z-50 p-4 transition-opacity duration-300"
+     role="dialog" 
+     aria-modal="true" 
+     aria-labelledby="modalTitle">
+
+  <!-- Overlay: clic fuera cierra el modal -->
+  <div class="absolute inset-0" aria-hidden="true"></div>
+
+  <!-- Contenedor del contenido -->
+  <div id="modalContent" 
+       class="relative bg-white rounded-3xl shadow-2xl max-w-5xl w-full max-h-[95vh] overflow-y-auto p-8 md:p-12 transform scale-95 opacity-0 transition-all duration-350 ease-out">
+    
+    <!-- Botón cerrar (X) -->
+    <button id="modalCloseBtn" 
+            class="absolute top-4 right-4 text-gray-400 hover:text-gray-700 focus:outline-none focus:text-gray-700 transition"
+            aria-label="Cerrar modal">
+      <i class="fa-solid fa-xmark text-3xl"></i>
+    </button>
+
+    <!-- Título opcional (para accesibilidad) -->
+    <h2 id="modalTitle" class="sr-only">Detalles del producto</h2>
+
+    <!-- Aquí se inyecta el contenido dinámico (productModal.html renderizado) -->
+    <div id="modalInnerContent">
+      <!-- JS inserta aquí el HTML del producto -->
+    </div>
   </div>
 </div>
