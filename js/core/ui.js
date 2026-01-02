@@ -173,4 +173,3 @@ export function openModal(htmlContent, options = {}) {
   if (typeof options.onOpen === "function") {
     setTimeout(options.onOpen, 100);
   }
-}
