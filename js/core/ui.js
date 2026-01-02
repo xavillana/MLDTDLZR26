@@ -96,31 +96,72 @@ export function initModalSystem() {
     });
 }
 
-// ===============================================
-// ABRIR MODAL DESDE CUALQUIER PARTE
-// ===============================================
-
 export function openModal(htmlContent, options = {}) {
   const modal = document.getElementById("globalModal");
   const content = document.getElementById("modalContent");
+  const closeBtn = document.getElementById("modalCloseBtn");
 
   if (!modal || !content) {
     console.error("Modal global no encontrado en el DOM");
     return;
   }
 
-  // Insertar contenido
   content.innerHTML = htmlContent;
 
-  // Mostrar modal con clases correctas
   modal.classList.remove("hidden");
   modal.classList.add("flex", "opacity-100");
   modal.classList.remove("opacity-0");
-
-  // Bloquear scroll del body
   document.body.classList.add("overflow-hidden");
 
-  // Callback después de abrir (ideal para inicializar cosas dentro del modal)
+  // === FOCUS TRAP (Accesibilidad esencial) ===
+  // Enfocar el modal
+  modal.focus();
+
+  // Guardar elemento previamente enfocado para restaurar al cerrar
+  const previouslyFocused = document.activeElement;
+
+  // Trampa de foco: mantener dentro del modal
+  const focusableElements = modal.querySelectorAll(
+    'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])'
+  );
+  const firstFocusable = focusableElements[0];
+  const lastFocusable = focusableElements[focusableElements.length - 1];
+
+  modal.addEventListener("keydown", (e) => {
+    if (e.key === "Tab") {
+      if (e.shiftKey) {
+        if (document.activeElement === firstFocusable) {
+          e.preventDefault();
+          lastFocusable.focus();
+        }
+      } else {
+        if (document.activeElement === lastFocusable) {
+          e.preventDefault();
+          firstFocusable.focus();
+        }
+      }
+    }
+  });
+
+  // Enfocar botón cerrar por defecto (mejor UX)
+  if (closeBtn) closeBtn.focus();
+
+  // Restaurar foco al cerrar
+  const originalCloseModal = () => {
+    modal.classList.add("opacity-0");
+    modal.classList.remove("opacity-100");
+    setTimeout(() => {
+      modal.classList.add("hidden");
+      modal.classList.remove("flex", "opacity-0", "opacity-100");
+      document.body.classList.remove("overflow-hidden");
+      content.innerHTML = "";
+      if (previouslyFocused) previouslyFocused.focus();
+    }, 300);
+  };
+
+  // Reemplazar listeners de cierre para usar la versión con restore focus
+  // (o integrar en initModalSystem)
+
   if (typeof options.onOpen === "function") {
     setTimeout(options.onOpen, 100);
   }
