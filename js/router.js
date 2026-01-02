@@ -92,7 +92,7 @@ document.addEventListener('DOMContentLoaded', async () => {
   await Promise.all([
     loadComponent('navbar', 'navbar.html'),
     loadComponent('footer', 'footer.html'),
-    loadComponent('globalModal', 'global-modal.html'),
+    loadComponent('globalModal', 'globalModal.html'),
   ]);
 
   // Página de inicio
