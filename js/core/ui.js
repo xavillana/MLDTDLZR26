@@ -99,20 +99,28 @@ export function initModalSystem() {
 export function openModal(htmlContent, options = {}) {
   const modal = document.getElementById("globalModal");
   const content = document.getElementById("modalContent");
-  const closeBtn = document.getElementById("modalCloseBtn");
 
   if (!modal || !content) {
-    console.error("Modal global no encontrado en el DOM");
+    // En lugar de fallar, esperamos un poquito y reintentamos
+    console.warn("Modal global aún cargando... reintentando en 50ms");
+    setTimeout(() => openModal(htmlContent, options), 50);
     return;
   }
 
+  // Todo bien → abrir modal
   content.innerHTML = htmlContent;
 
   modal.classList.remove("hidden");
   modal.classList.add("flex", "opacity-100");
   modal.classList.remove("opacity-0");
-  document.body.classList.add("overflow-hidden");
 
+  document.body.classList.add("overflow-hidden");
+  modal.focus(); // Accesibilidad
+
+  if (typeof options.onOpen === "function") {
+    setTimeout(options.onOpen, 100);
+  }
+}
   // === FOCUS TRAP (Accesibilidad esencial) ===
   // Enfocar el modal
   modal.focus();
