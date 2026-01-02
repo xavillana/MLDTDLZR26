@@ -1,56 +1,52 @@
 <!-- components/productModal.html -->
-<div class="p-6 lg:p-12">
-  <div class="grid md:grid-cols-2 gap-8 lg:gap-12 items-start">
-    
-    <!-- Imagen del producto -->
-    <div class="order-2 md:order-1">
-      <img id="pm-image" 
-           src="" 
-           alt="" 
-           class="w-full rounded-3xl shadow-2xl object-cover max-h-[500px] mx-auto">
-    </div>
+<div class="relative">
+  <!-- Título principal con emoji -->
+  <div class="text-center mb-8">
+    <h2 id="modalTitle" class="text-4xl md:text-5xl font-black text-gray-800 mb-4">
+      <span id="pm-emoji" class="inline-block mr-3 text-5xl md:text-6xl"></span>
+      <span id="pm-name"></span>
+    </h2>
+    <p id="pm-shortDescription" class="text-lg md:text-xl text-gray-600 max-w-2xl mx-auto line-clamp-3"></p>
+  </div>
 
-    <!-- Información del producto -->
-    <div class="order-1 md:order-2 flex flex-col justify-between h-full">
-      <div>
-        <!-- Título y emoji -->
-        <div class="flex items-center gap-4 mb-6">
-          <h2 id="pm-title" class="text-4xl lg:text-5xl font-black text-gray-800"></h2>
-          <span id="pm-emoji" class="text-6xl"></span>
-        </div>
+  <!-- Imagen principal -->
+  <div class="mb-10">
+    <img id="pm-image" src="" alt="" class="w-full rounded-2xl shadow-xl object-cover max-h-96 mx-auto">
+  </div>
 
-        <!-- Descripción corta -->
-        <p id="pm-short-desc" class="text-xl font-bold text-pink-600 mb-4"></p>
+  <!-- Badges (BESTSELLER, DESCUENTO, etc.) -->
+  <div id="pm-badges" class="flex flex-wrap justify-center gap-3 mb-8"></div>
 
-        <!-- Descripción larga -->
-        <div id="pm-long-desc" class="text-gray-700 text-lg leading-relaxed mb-8"></div>
+  <!-- Descripción larga -->
+  <div class="mb-10 bg-gray-50 rounded-2xl p-8">
+    <h3 class="text-2xl font-bold text-gray-800 mb-4">¿Por qué es tan peligrosa?</h3>
+    <p id="pm-longDescription" class="text-lg text-gray-700 leading-relaxed"></p>
+  </div>
 
-        <!-- Badges -->
-        <div id="pm-badges" class="flex flex-wrap gap-3 mb-8"></div>
+  <!-- Ingredientes -->
+  <div class="mb-10">
+    <h3 class="text-2xl font-bold text-gray-800 mb-4">Ingredientes rebeldes</h3>
+    <p id="pm-ingredients" class="text-lg text-gray-700"></p>
+  </div>
 
-        <!-- Ingredientes y formatos -->
-        <div class="grid sm:grid-cols-2 gap-6 mb-8 text-sm">
-          <div>
-            <p class="font-bold text-gray-800 mb-2">Ingredientes principales</p>
-            <p id="pm-ingredients" class="text-gray-600"></p>
-          </div>
-          <div>
-            <p class="font-bold text-gray-800 mb-2">Formatos disponibles</p>
-            <p id="pm-formats" class="text-gray-600"></p>
-          </div>
-        </div>
+  <!-- Formatos disponibles -->
+  <div class="mb-10">
+    <h3 class="text-2xl font-bold text-gray-800 mb-4">Formatos</h3>
+    <p id="pm-formats" class="text-lg text-pink-600 font-bold"></p>
+  </div>
 
-        <!-- Precios y tamaños (inyectados por renderPriceBlock) -->
-        <div id="pm-prices" class="mb-10"></div>
-      </div>
+  <!-- Precios y tamaños -->
+  <div id="pm-prices" class="mb-12">
+    <!-- Aquí se inyecta el bloque de precios generado por renderPriceBlock() -->
+  </div>
 
-      <!-- Botón de pedido -->
-      <div class="text-center">
-        <a id="pm-order" href="#" 
-           class="inline-block bg-gradient-to-r from-pink-600 to-purple-600 text-white font-black text-2xl px-12 py-6 rounded-full hover:from-pink-700 hover:to-purple-700 transition-all duration-300 transform hover:scale-105 shadow-2xl">
-          ¡Quiero esta delicia! →
-        </a>
-      </div>
-    </div>
+  <!-- Call to Action -->
+  <div class="text-center">
+    <a id="pm-order" 
+       href="#" 
+       class="inline-block bg-pink-600 hover:bg-pink-700 text-white font-black text-xl md:text-2xl px-10 py-5 rounded-full shadow-lg transition transform hover:scale-105">
+      ¡Quiero esta tentación! 🍰
+    </a>
+    <p class="text-gray-500 mt-4 text-sm">Te responderemos en menos de 24h con presupuesto personalizado</p>
   </div>
 </div>
