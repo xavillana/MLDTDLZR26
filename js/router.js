@@ -1,6 +1,6 @@
 // js/router.js
 
-import { initMobileMenu, initModalSystem } from './core/ui.js';
+import { initMobileMenu, initModalSystem, openModal } from './core/ui.js';
 import { renderFeaturedProducts, initStorePage } from './components/productsRenderer.js';
 import { initProductCards } from './components/productCard.js'; // ← Import clave para los modales
 import { initPedidoPage } from './components/pedido.js';
@@ -66,8 +66,12 @@ function dispatchComponentLoaded(id) {
  * Inicializadores por componente
  */
 const componentInitializers = {
-  navbar: initMobileMenu,
-  globalModal: initModalSystem,  // ← AÑADE ESTA LÍNEA
+  navbar: () => { initMobileMenu();
+                },
+  globalModal: () => { 
+    initModalSystem();
+    openModal();
+  },  // ← AÑADE ESTA LÍNEA
   hero: () => {}, // Estático
   destacados: () => {
     renderFeaturedProducts('featured-products');
