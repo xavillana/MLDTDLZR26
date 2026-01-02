@@ -1,8 +1,9 @@
-import { initMobileMenu, initModalSystem } from './core/ui.js';
+import { initMobileMenu, initModalSystem, openModal } from './core/ui.js';
 
 document.addEventListener("DOMContentLoaded", () => {
     initMobileMenu();
     initModalSystem();
-    openmodal();
+    openModal();
 });
+
 
