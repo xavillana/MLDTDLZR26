@@ -1,34 +1,16 @@
-<!-- components/globalModal.html -->
-<div id="globalModal"
-     class="hidden fixed inset-0 bg-black/70 flex items-center justify-center z-50 p-4 transition-opacity duration-300"
-     role="dialog"
-     aria-modal="true"
-     aria-labelledby="modalTitle"
-     aria-describedby="modalInnerContent"
-     tabindex="-1">
+<div id="modalContent" 
+     class="relative bg-white rounded-3xl shadow-2xl max-w-5xl w-full mx-4 
+            max-h-[90vh] flex flex-col 
+            overflow-hidden">  <!-- overflow-hidden en el contenedor principal -->
 
-  <!-- Overlay: clic fuera cierra el modal -->
-  <div class="absolute inset-0" aria-hidden="true"></div>
+  <!-- Botón cerrar -->
+  <button id="modalCloseBtn" ... >...</button>
 
-  <!-- Contenedor del contenido -->
-  <div id="modalContent"
-       class="relative bg-white rounded-3xl shadow-2xl max-w-5xl w-full max-h-[95vh] overflow-y-auto p-8 md:p-12 transform scale-95 opacity-0 transition-all duration-350 ease-out focus:outline-none">
-
-    <!-- Botón cerrar (X) -->
-    <button id="modalCloseBtn"
-            class="absolute top-4 right-4 text-gray-400 hover:text-gray-700 focus:outline-none focus:text-gray-700 focus:ring-4 focus:ring-pink-300 rounded-full p-2 transition"
-            aria-label="Cerrar modal">
-      <i class="fa-solid fa-xmark text-3xl" aria-hidden="true"></i>
-    </button>
-
-    <!-- Título principal del modal (visible y accesible) -->
-    <h2 id="modalTitle" class="sr-only">
-      <!-- JS rellenará esto dinámicamente, ej: "Rojo Peligroso" -->
-    </h2>
-
-    <!-- Contenido descriptivo del modal -->
-    <div id="modalInnerContent" role="document">
-      <!-- Aquí se inyecta productModal.html -->
+  <!-- Contenido con scroll independiente -->
+  <div class="flex-1 overflow-y-auto px-8 pt-8 pb-12 md:px-12 md:pt-12 scrollbar-thin scrollbar-thumb-pink-600 scrollbar-track-gray-100">
+    <!-- Aquí va el productModal.html inyectado -->
+    <div id="modalInnerContent">
+      <!-- Contenido dinámico -->
     </div>
   </div>
 </div>
