@@ -3,70 +3,37 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
   <title>Maldita Dulzura | Tartas y Cupcakes Rebeldes</title>
-  <meta name="description" content="Tartas artesanales, cupcakes y cheesecakes malditamente deliciosos. Creaciones rebeldes con sabores explosivos y una dosis peligrosa de dulzura.">
+  <meta name="description" content="Tartas artesanales, cupcakes y cheesecakes malditamente deliciosos. Creaciones rebeldes con sabores explosivos.">
 
-  <!-- Open Graph / Social Meta -->
   <meta property="og:title" content="Maldita Dulzura | Tartas y Cupcakes Rebeldes">
   <meta property="og:description" content="Creaciones artesanales con actitud. Dulces que no piden permiso.">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://malditadulzura.com">
   <meta property="og:image" content="https://malditadulzura.com/img/og-image.jpg">
 
-  <!-- Favicon -->
   <link rel="icon" href="img/favicon.png" type="image/png">
-
-  <!-- Preconnect para fuentes -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-
-  <!-- Fuentes personalizadas -->
   <link href="https://fonts.googleapis.com/css2?family=Englebert&family=Twinkle+Star&display=swap" rel="stylesheet">
-
-  <!-- Font Awesome -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-
-  <!-- Tailwind CSS (vía CDN para simplicidad) -->
   <script src="https://cdn.tailwindcss.com"></script>
-
-  <!-- Estilos personalizados -->
   <link rel="stylesheet" href="style/style.css">
 </head>
-
 <body class="bg-[#fffbf7] min-h-screen flex flex-col">
-
-  <!-- MODAL GLOBAL (contenedor) -->
   <div id="globalModal"></div>
-
-  <!-- NAVBAR (cargado dinámicamente) -->
   <header id="navbar"></header>
 
-  <!-- CONTENIDO PRINCIPAL -->
   <main class="flex-1">
-        <!-- PRODUCTOS DESTACADOS (cargado dinámicamente) -->
     <section id="hero"></section>
     <section id="destacados"></section>
-
     <section id="personalizacion"></section>
-    
     <section id="sobrenosotros"></section>
-
-    <!-- NEWSLETTER (cargado dinámicamente) -->
     <section id="newsletter"></section>
   </main>
 
-  <!-- FOOTER -->
   <footer id="footer"></footer>
-</body>
 
-  <!-- SCRIPTS -->
-  <!-- Router principal que carga todo lo demás -->
   <script type="module" src="js/router.js"></script>
-
-  <!-- Inicialización básica (opcional, solo si necesitas algo inmediato antes del router) -->
   <script type="module">
-    // Pequeño fallback visual mientras carga
     document.body.classList.add('opacity-0');
     document.addEventListener('DOMContentLoaded', () => {
       setTimeout(() => {
@@ -77,15 +44,3 @@
   </script>
 </body>
 </html>
-
-
-
-
-
-
-
-
-
-
-
-
