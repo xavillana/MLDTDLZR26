@@ -1,4 +1,4 @@
-// data/tartas.js
+t// data/tartas.js
 export const tartas = [
   {
     id: "marcos-no-me-tientes",
@@ -10,7 +10,7 @@ export const tartas = [
     formats: ["Tarta"],
     price: 35,
     cupcakePrice: 3.8,
-    badges: [],
+    badges: [BESTSELLER],
     image: "img/TARTA-MARCOS.JPG",
     sizes: [
       { size: "Pequeña", price: 25, servings: 6 },
