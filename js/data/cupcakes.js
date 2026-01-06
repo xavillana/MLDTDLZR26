@@ -45,7 +45,7 @@ export const cupcakes = [
     ingredients: ["Yogurt griego", "Frutos rojos frescos", "Bizcocho vainilla", "Miel"],
     formats: ["Cupcakes"],
     price: 3.8,
-    badges: ["SALUDABLE"],
+    badges: ["BESTSELLER"],
     image: "img/YOGURTSALVAJE.JPG"
   },
   {
