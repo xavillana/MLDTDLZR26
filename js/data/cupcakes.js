@@ -14,7 +14,7 @@ export const cupcakes = [
   },
   {
     id: "zanahoria",
-    name: "Zana OH! RIA",
+    name: "Zana Oh! Ria",
     emoji: "🥕",
     shortDescription: "¿Quién dijo que lo tradicional no podía ser atrevido y seductor?",
     longDescription: "Carrot Cake elevado a la categoría de vicio. Zanahoria fresca, especias cálidas y nueces crujientes conspirando para seducirte sin prisa mientras el frosting de queso te susurra obscenidades.",
