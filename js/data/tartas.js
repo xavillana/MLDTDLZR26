@@ -10,7 +10,7 @@ export const tartas = [
     formats: ["Tarta"],
     price: 35,
     cupcakePrice: 3.8,
-    badges: [BESTSELLER],
+    badges: [],
     image: "img/TARTA-MARCOS.JPG",
     sizes: [
       { size: "Pequeña", price: 25, servings: 6 },
