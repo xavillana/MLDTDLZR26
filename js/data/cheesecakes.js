@@ -19,7 +19,7 @@ export const cheesecakes = [
     ],
     formats: ["Tarta"],
     price: 40,
-    badges: ["BESTSELLER"],
+    badges: [],
     image: "img/QUELOBAILES.JPG",
     sizes: [
       { name: "Pequeña", price: 30, servings: "4-6" },
