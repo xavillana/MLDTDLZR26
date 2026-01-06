@@ -1,75 +1,48 @@
 <!-- components/productModal.html -->
 <div class="relative">
-  <!-- Título principal con emoji (visible y accesible) -->
+  <!-- Título con emoji -->
   <div class="text-center mb-8">
-    <h2 id="modalTitle" class="text-4xl md:text-5xl font-black text-gray-800 mb-4">
-      <span id="pm-emoji" class="inline-block mr-3 text-5xl md:text-6xl" aria-hidden="true"></span>
+    <h2 id="pm-title" class="text-4xl md:text-5xl font-black text-gray-800 mb-4">
+      <span id="pm-emoji" class="inline-block mr-3 text-5xl md:text-6xl" aria-hidden="true">🍰</span>
       <span id="pm-name"></span>
     </h2>
-    <p id="pm-shortDescription" 
-       class="text-lg md:text-xl text-gray-600 max-w-2xl mx-auto line-clamp-3">
-    </p>
+    <p id="pm-short-desc" class="text-lg md:text-xl text-gray-600 max-w-2xl mx-auto line-clamp-3"></p>
   </div>
 
   <!-- Imagen principal -->
   <div class="mb-10">
-    <img id="pm-image" 
-         src="" 
-         alt="" 
-         class="w-full rounded-2xl shadow-xl object-cover max-h-96 mx-auto"
-         loading="lazy">
+    <img id="pm-image" src="" alt="" class="w-full rounded-2xl shadow-xl object-cover max-h-96 mx-auto" loading="lazy">
   </div>
 
-  <!-- Badges (BESTSELLER, DESCUENTO, etc.) -->
-  <div id="pm-badges" 
-       class="flex flex-wrap justify-center gap-3 mb-8"
-       aria-label="Etiquetas destacadas del producto">
-  </div>
+  <!-- Badges -->
+  <div id="pm-badges" class="flex flex-wrap justify-center gap-3 mb-8"></div>
 
   <!-- Descripción larga -->
-  <section class="mb-10 bg-gray-50 rounded-2xl p-8" aria-labelledby="desc-title">
-    <h3 id="desc-title" class="text-2xl font-bold text-gray-800 mb-4">
-      ¿Por qué es tan peligrosa?
-    </h3>
-    <p id="pm-longDescription" class="text-lg text-gray-700 leading-relaxed"></p>
+  <section class="mb-10 bg-gray-50 rounded-2xl p-8">
+    <h3 class="text-2xl font-bold text-gray-800 mb-4">¿Por qué es tan peligrosa?</h3>
+    <p id="pm-long-desc" class="text-lg text-gray-700 leading-relaxed"></p>
   </section>
 
   <!-- Ingredientes -->
-  <section class="mb-10" aria-labelledby="ingredients-title">
-    <h3 id="ingredients-title" class="text-2xl font-bold text-gray-800 mb-4">
-      Ingredientes rebeldes
-    </h3>
-    <ul id="pm-ingredients" 
-        class="text-lg text-gray-700 list-disc list-inside space-y-1"
-        aria-label="Lista de ingredientes">
-      <!-- JS insertará <li> aquí si es array -->
-    </ul>
+  <section class="mb-10">
+    <h3 class="text-2xl font-bold text-gray-800 mb-4">Ingredientes principales</h3>
+    <ul id="pm-ingredients" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 text-lg text-gray-700"></ul>
   </section>
 
-  <!-- Formatos disponibles -->
-  <section class="mb-10" aria-labelledby="formats-title">
-    <h3 id="formats-title" class="text-2xl font-bold text-gray-800 mb-4">
-      Formatos disponibles
-    </h3>
+  <!-- Formatos -->
+  <section class="mb-10">
+    <h3 class="text-2xl font-bold text-gray-800 mb-4">Formatos disponibles</h3>
     <p id="pm-formats" class="text-lg text-pink-600 font-bold"></p>
   </section>
 
-  <!-- Precios y tamaños -->
-  <section id="pm-prices" 
-           class="mb-12" 
-           aria-labelledby="prices-title">
-    <h3 id="prices-title" class="text-2xl font-bold text-gray-800 mb-6">
-      Precios y tamaños
-    </h3>
-    <!-- Aquí se inyecta renderPriceBlock() con tablas o cards -->
+  <!-- Precios -->
+  <section id="pm-prices" class="mb-12">
+    <!-- renderPriceBlock inyecta aquí -->
   </section>
 
-  <!-- Call to Action -->
+  <!-- Botón de pedido -->
   <div class="text-center">
-    <a id="pm-order" 
-       href="#" 
-       class="inline-block bg-pink-600 hover:bg-pink-700 focus:bg-pink-700 text-white font-black text-xl md:text-2xl px-10 py-5 rounded-full shadow-lg transition transform hover:scale-105 focus:outline-none focus:ring-4 focus:ring-pink-300"
-       aria-label="Solicitar presupuesto personalizado para este producto">
+    <a id="pm-order" href="#" class="inline-block bg-pink-600 hover:bg-pink-700 text-white font-black text-xl md:text-2xl px-10 py-5 rounded-full shadow-lg transition transform hover:scale-105">
       ¡Quiero esta tentación! 🍰
     </a>
     <p class="text-gray-500 mt-4 text-sm">
