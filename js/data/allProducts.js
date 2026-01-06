@@ -1,23 +1,23 @@
-// data/allProducts.js
+// js/data/allProducts.js
+
 import { cupcakes } from './cupcakes.js';
 import { tartas } from './tartas.js';
 import { cheesecakes } from './cheesecakes.js';
 
-// Normalizador PRO
 function normalize(list, category) {
-  return list.map(p => ({
-    ...p,
+  return list.map(product => ({
+    ...product,
     category,
-    formats: Array.isArray(p.formats) ? p.formats : p.formats?.split(',').map(f => f.trim()) || [],
-    ingredients: Array.isArray(p.ingredients) ? p.ingredients : p.ingredients?.split(',').map(i => i.trim()) || [],
-    badges: p.badges || [],
-    featured: p.badges?.includes("BESTSELLER") || false,
-    hidden: p.hidden || false,
+    formats: Array.isArray(product.formats) ? product.formats : [product.formats || 'Tarta'],
+    ingredients: Array.isArray(product.ingredients) ? product.ingredients : product.ingredients.split(',').map(i => i.trim()),
+    badges: product.badges || [],
+    featured: (product.badges || []).includes('BESTSELLER'),
+    hidden: product.hidden || false,
   }));
 }
 
 export const allProducts = [
-  ...normalize(cupcakes, "cupcakes"),
-  ...normalize(tartas, "tartas"),
-  ...normalize(cheesecakes, "cheesecakes"),
+  ...normalize(cupcakes, 'cupcakes'),
+  ...normalize(tartas, 'tartas'),
+  ...normalize(cheesecakes, 'cheesecakes'),
 ];
