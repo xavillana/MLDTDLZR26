@@ -1,30 +1,16 @@
 // js/components/productCard.js
 
-import { openModal } from '../core/ui.js'; // Cambia a openModal directamente
+import { openModal } from '../core/ui.js';
 import { renderPriceBlock, renderBadges } from './utils.js';
-import { allProducts } from '../data/allProducts.js';
-
-/**
- * Genera el HTML de una tarjeta de producto
- * @param {Object} product - Objeto de producto desde allProducts.js
- * @returns {string} HTML de la card
- */
-// js/components/productCard.js
 
 export function productCard(product) {
-  const { name, image, shortDescription = 'Dulce rebelde y peligrosamente adictivo.', badges = [] } = product;
+  const { name, emoji = '🍰', image, shortDescription = 'Dulce rebelde y peligrosamente adictivo.', badges = [] } = product;
 
   const minPrice = product.sizes
     ? Math.min(...product.sizes.map(s => s.price))
     : product.price || product.cupcakePrice || 0;
 
-  // Codificamos el JSON de forma segura para HTML
-  const safeProductData = JSON.stringify(product)
-    .replace(/&/g, '&amp;')
-    .replace(/</g, '&lt;')
-    .replace(/>/g, '&gt;')
-    .replace(/"/g, '&quot;')
-    .replace(/'/g, '&#39;');
+  const safeProductData = btoa(unescape(encodeURIComponent(JSON.stringify(product))));
 
   return `
     <article 
@@ -36,150 +22,73 @@ export function productCard(product) {
     >
       <div class="relative overflow-hidden">
         <img 
-          src="${image || '/img/placeholder.jpg'}" 
+          src="${image || 'img/placeholder.jpg'}" 
           alt="${name}"
           loading="lazy"
           class="w-full h-64 object-cover group-hover:scale-110 transition-transform duration-500"
         >
         ${renderBadges({ badges })}
       </div>
-
-      <div class="p-6">
-        <h3 class="text-2xl font-bold text-gray-800 mb-2">${name}</h3>
-        <p class="text-gray-600 text-base line-clamp-2 mb-4">
-          ${shortDescription}
+      <div class="p-6 text-center">
+        <h3 class="text-2xl font-black text-gray-800 mb-2">
+          <span class="text-3xl mr-2" aria-hidden="true">${emoji}</span>
+          ${name}
+        </h3>
+        <p class="text-gray-600 line-clamp-2 mb-4">${shortDescription}</p>
+        <p class="text-pink-600 font-black text-2xl">
+          ${minPrice ? `Desde ${minPrice}€` : 'Consultar precio'}
         </p>
-        <div class="flex justify-between items-end">
-          <p class="text-3xl font-black text-pink-600">
-            Desde ${minPrice}€
-          </p>
-          <span class="text-pink-600 font-bold text-lg">→ Ver más</span>
-        </div>
       </div>
     </article>
   `;
 }
- 
-/**
- * Inicializa los eventos de clic/teclado en todas las cards
- * Se llama automáticamente después de renderizar productos
- */
+
 export function initProductCards() {
   document.querySelectorAll('[data-product]').forEach(card => {
-    const product = JSON.parse(card.dataset.product);
+    const clickHandler = () => {
+      const encoded = card.getAttribute('data-product');
+      const product = JSON.parse(decodeURIComponent(escape(atob(encoded))));
 
-    const openModal = (e) => {
-      if (e.type === 'keydown' && !['Enter', ' '].includes(e.key)) return;
-      e.preventDefault();
-      openGlobalProductModal(product);
+      // Carga el HTML del modal
+      fetch('components/productModal.html')
+        .then(response => {
+          if (!response.ok) throw new Error('Modal no encontrado');
+          return response.text();
+        })
+        .then(html => {
+          openModal(html, {
+            onOpen: () => {
+              // Rellenamos todos los campos
+              document.getElementById('pm-emoji').textContent = product.emoji || '🍰';
+              document.getElementById('pm-name').textContent = product.name;
+              document.getElementById('pm-short-desc').textContent = product.shortDescription || '';
+              document.getElementById('pm-long-desc').innerHTML = (product.longDescription || 'Una delicia rebelde').replace(/\n/g, '<br>');
+              document.getElementById('pm-image').src = product.image || 'img/placeholder.jpg';
+              document.getElementById('pm-image').alt = product.name;
+
+              const ingredientsEl = document.getElementById('pm-ingredients');
+              ingredientsEl.innerHTML = (product.ingredients || []).map(i => `<li class="bg-gray-100 px-4 py-2 rounded-full">${i}</li>`).join('');
+
+              document.getElementById('pm-formats').textContent = (product.formats || ['Tarta']).join(' • ');
+              document.getElementById('pm-badges').innerHTML = renderBadges(product);
+              document.getElementById('pm-prices').innerHTML = renderPriceBlock(product);
+
+              document.getElementById('pm-order').href = `pedido.html?product=${encodeURIComponent(product.name)}`;
+            }
+          });
+        })
+        .catch(err => {
+          console.error(err);
+          openModal('<div class="text-center py-20 text-red-600 text-2xl">Error al cargar el modal 😔</div>');
+        });
     };
 
-    card.addEventListener('click', openModal);
-    card.addEventListener('keydown', openModal);
+    card.addEventListener('click', clickHandler);
+    card.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        clickHandler();
+      }
+    });
   });
-}
-
-/**
- * Abre el modal global con los detalles del producto
- * @param {Object} product
- */
-async function openGlobalProductModal(product) {
-  let modalHTML = sessionStorage.getItem('productModalHTML');
-  
-  if (!modalHTML) {
-    try {
-      const response = await fetch('components/productModal.html');
-      if (!response.ok) throw new Error('No se pudo cargar el modal');
-      modalHTML = await response.text();
-      sessionStorage.setItem('productModalHTML', modalHTML);
-    } catch (err) {
-      console.error(err);
-      modalHTML = `<div class="text-center py-12">
-        <h2 class="text-4xl font-black text-pink-600 mb-6">${product.name}</h2>
-        <img src="${product.image}" class="w-full max-w-md mx-auto rounded-2xl mb-8">
-        <p class="text-xl mb-8">${product.longDescription || product.shortDescription}</p>
-        <a href="pedido.html" class="bg-pink-600 text-white px-8 py-4 rounded-full font-bold">Hacer pedido</a>
-      </div>`;
-    }
-  }
-
-  openModal(modalHTML, {
-    onOpen: () => populateProductModal(product)
-  });
-}
-
-/**
- * Rellena el modal con los datos del producto
- * @param {Object} product
- */
-function populateProductModal(product) {
-  const {
-    name,
-    emoji = '🍰',
-    image,
-    shortDescription,
-    longDescription = '',
-    ingredients = [],
-    formats = [],
-    badges = [],
-  } = product;
-
-  // Imagen principal
-  const imgEl = document.getElementById('pm-image');
-  if (imgEl) {
-    imgEl.src = image || '/img/placeholder.jpg';
-    imgEl.alt = name;
-  }
-
-  // Título
-  const titleEl = document.getElementById('pm-title');
-  if (titleEl) titleEl.textContent = name;
-
-  // Emoji
-  const emojiEl = document.getElementById('pm-emoji');
-  if (emojiEl) emojiEl.textContent = emoji;
-
-  // Descripciones
-  const shortDescEl = document.getElementById('pm-short-desc');
-  if (shortDescEl) shortDescEl.textContent = shortDescription || '';
-
-  const longDescEl = document.getElementById('pm-long-desc');
-  if (longDescEl) {
-    longDescEl.innerHTML = longDescription
-      ? longDescription.replace(/\n/g, '<br>')
-      : 'Una creación rebelde, dulce y peligrosa.';
-  }
-
-  // Ingredientes y formatos
-  const ingredientsEl = document.getElementById('pm-ingredients');
-  if (ingredientsEl) {
-    ingredientsEl.textContent = Array.isArray(ingredients)
-      ? ingredients.join(', ')
-      : ingredients || 'No especificados';
-  }
-
-  const formatsEl = document.getElementById('pm-formats');
-  if (formatsEl) {
-    formatsEl.textContent = Array.isArray(formats)
-      ? formats.join(' • ')
-      : formats || 'Tarta';
-  }
-
-  // Badges
-  const badgesContainer = document.getElementById('pm-badges');
-  if (badgesContainer) {
-    badgesContainer.innerHTML = renderBadges({ badges });
-  }
-
-  // Precios
-  const pricesContainer = document.getElementById('pm-prices');
-  if (pricesContainer) {
-    pricesContainer.innerHTML = renderPriceBlock(product);
-  }
-
-  // Botón de pedido
-  const orderBtn = document.getElementById('pm-order');
-  if (orderBtn) {
-    orderBtn.href = `pedido.html?product=${encodeURIComponent(name)}`;
-  }
 }
