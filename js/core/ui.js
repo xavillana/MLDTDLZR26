@@ -1,74 +1,86 @@
 // js/core/ui.js
-export function initModalSystem() {
+
+export function initMobileMenu() {
+  const btn = document.getElementById("mobileMenuBtn");
+  const menu = document.getElementById("mobileMenu");
+  if (!btn || !menu) return;
+
+  const icon = btn.querySelector("i");
+
+  const toggle = (open) => {
+    menu.classList.toggle("hidden", !open);
+    if (icon) {
+      icon.classList.toggle("fa-bars", !open);
+      icon.classList.toggle("fa-times", open);
+    }
+  };
+
+  btn.addEventListener("click", () => toggle(menu.classList.contains("hidden")));
+  menu.querySelectorAll("a").forEach(link => link.addEventListener("click", () => toggle(false)));
+  window.addEventListener("resize", () => { if (window.innerWidth >= 1024) toggle(false); });
+}
+
+// js/core/ui.js
+
+let previouslyFocused = null;
+
+export function openModal(innerHTML = "", options = {}) {
   const modal = document.getElementById("globalModal");
-  const content = document.getElementById("modalContent");
+  const content = modal?.querySelector("#modalContent");
   const closeBtn = document.getElementById("modalCloseBtn");
 
-  if (!modal || !content) return console.warn("⚠ Modal global no encontrado");
+  if (!modal || !content) {
+    console.error("❌ Modal no encontrado en el DOM");
+    return;
+  }
 
-  let previouslyFocused = document.activeElement;
+  // Guardar foco anterior
+  previouslyFocused = document.activeElement;
 
-  function closeModal() {
-    modal.classList.add("opacity-0");
-    modal.classList.remove("opacity-100");
+  // Inyectar contenido
+  const scrollContainer = content.querySelector('.overflow-y-auto');
+  if (scrollContainer) {
+    scrollContainer.innerHTML = innerHTML;
+  } else {
+    content.innerHTML = innerHTML;
+  }
+
+  // Mostrar modal con animación
+  modal.classList.remove("hidden");
+
+  // Forzar reflow para animación
+  void modal.offsetWidth;
+
+  content.classList.remove("scale-95", "opacity-0");
+  content.classList.add("scale-100", "opacity-100");
+
+  document.body.classList.add("overflow-hidden");
+
+  // Cerrar modal
+  const close = () => {
+    content.classList.remove("scale-100", "opacity-100");
+    content.classList.add("scale-95", "opacity-0");
 
     setTimeout(() => {
       modal.classList.add("hidden");
-      modal.classList.remove("flex", "opacity-0", "opacity-100");
       document.body.classList.remove("overflow-hidden");
-      content.innerHTML = "";
       if (previouslyFocused) previouslyFocused.focus();
     }, 300);
-  }
-
-  if (closeBtn) closeBtn.addEventListener("click", closeModal);
-  modal.addEventListener("click", (e) => {
-    if (e.target === modal) closeModal();
-  });
-  document.addEventListener("keydown", (e) => {
-    if (e.key === "Escape" && !modal.classList.contains("hidden")) closeModal();
-  });
-
-  window.openModal = function (innerHTML, options = {}) {
-    previouslyFocused = document.activeElement;
-    content.innerHTML = innerHTML;
-    modal.classList.remove("hidden");
-    modal.classList.add("flex");
-    document.body.classList.add("overflow-hidden");
-
-    setTimeout(() => modal.classList.add("opacity-100"), 10);
-
-    const focusableElements = modal.querySelectorAll(
-      'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])'
-    );
-    const firstFocusable = focusableElements[0];
-    const lastFocusable = focusableElements[focusableElements.length - 1];
-
-    const trapFocus = (e) => {
-      if (e.key === "Tab") {
-        if (e.shiftKey && document.activeElement === firstFocusable) {
-          e.preventDefault();
-          lastFocusable?.focus();
-        } else if (!e.shiftKey && document.activeElement === lastFocusable) {
-          e.preventDefault();
-          firstFocusable?.focus();
-        }
-      }
-    };
-
-    modal.addEventListener("keydown", trapFocus);
-
-    if (closeBtn) closeBtn.focus();
-    else if (firstFocusable) firstFocusable.focus();
-
-    if (typeof options.onOpen === "function") {
-      setTimeout(options.onOpen, 100);
-    }
-
-    const originalClose = closeModal;
-    modal.dataset.cleanup = () => {
-      modal.removeEventListener("keydown", trapFocus);
-      originalClose();
-    };
   };
+
+  // Eventos de cierre
+  closeBtn && (closeBtn.onclick = close);
+  modal.onclick = (e) => e.target === modal && close();
+  document.onkeydown = (e) => e.key === "Escape" && close();
+
+  // Callback opcional
+  options.onOpen?.();
+}
+
+export function initModalSystem() {
+  const modal = document.getElementById("globalModal");
+  if (modal) {
+    modal.classList.add("hidden"); // Seguridad extra
+    console.log("✅ Modal system initialized");
+  }
 }
