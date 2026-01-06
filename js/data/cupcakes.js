@@ -21,7 +21,7 @@ export const cupcakes = [
     ingredients: ["Zanahoria fresca rallada", "Harina integral", "Azúcar moreno", "Nueces", "Canela", "Jengibre", "Huevos", "Aceite de girasol", "Frosting de queso crema"],
     formats: ["Cupcakes", "Tarta"],
     price: 3.8,
-    badges: [],
+    badges: ["BESTSELLER"],
     image: "img/ZANAHORIA.JPG"
   },
   {
