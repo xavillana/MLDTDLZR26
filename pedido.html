@@ -3,62 +3,20 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Pedido | Maldita Dulzura – Pasteles Rebeldes</title>
-  <meta name="description" content="Haz tu pedido personalizado. Elige tarta, tamaño, fecha y detalles. Te responderemos en menos de 24h con presupuesto y confirmación.">
-
-  <!-- Open Graph -->
-  <meta property="og:title" content="Pedido | Maldita Dulzura">
-  <meta property="og:description" content="Pide tu tarta o cupcakes personalizados. Presupuesto en 24h.">
-  <meta property="og:type" content="website">
-  <meta property="og:url" content="https://malditadulzura.com/pedido.html">
-
-  <!-- Favicon -->
-  <link rel="icon" href="img/favicon.png" type="image/png">
-
-  <!-- Fuentes -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <title>Pedido | Maldita Dulzura</title>
+  <meta name="description" content="Haz tu pedido personalizado. Presupuesto en 24h.">
   <link href="https://fonts.googleapis.com/css2?family=Englebert&family=Twinkle+Star&display=swap" rel="stylesheet">
-
-  <!-- Font Awesome -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-
-  <!-- Tailwind CSS -->
   <script src="https://cdn.tailwindcss.com"></script>
-
-  <!-- Estilos personalizados -->
   <link rel="stylesheet" href="style/style.css">
 </head>
-
 <body class="bg-[#fffbf7] min-h-screen flex flex-col">
-
-  <!-- NAVBAR (cargado por router.js) -->
-  <header id="navbar"></header>
-
-  <!-- MODAL GLOBAL (cargado por router.js) -->
   <div id="globalModal"></div>
-
-  <!-- CONTENIDO PRINCIPAL: Formulario de pedido -->
+  <header id="navbar"></header>
   <main class="flex-1">
     <section id="pedido"></section>
   </main>
-
-  <!-- FOOTER (cargado por router.js) -->
   <footer id="footer"></footer>
-
-  <!-- ÚNICO SCRIPT: router.js carga todo lo demás -->
   <script type="module" src="js/router.js"></script>
-
-  <!-- Fade-in suave -->
-  <script type="module">
-    document.body.classList.add('opacity-0');
-    document.addEventListener('DOMContentLoaded', () => {
-      setTimeout(() => {
-        document.body.classList.remove('opacity-0');
-        document.body.classList.add('opacity-100', 'transition-opacity', 'duration-700');
-      }, 100);
-    });
-  </script>
 </body>
 </html>
-
