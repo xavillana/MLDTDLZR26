@@ -41,7 +41,7 @@ export const cupcakes = [
     name: "Yogurt Salvaje",
     emoji: "🫐",
     shortDescription: "¿Alguna vez has probado el ácido sabor de una dulce venganza?",
-    longDescription: "Yogurt natural cremoso con frutos del bosque que estallan en la boca. Ligero pero intenso, saludable pero goloso.",
+    longDescription: "Yogurt griego cremoso mezclado con frutos del bosque que estallan como pequeñas venganzas dulces. Un bocado fresco, juguetón y sorprendentemente intenso. Saludable, sí… pero con un punto travieso que no se molesta en disimular.",
     ingredients: ["Yogurt griego", "Frutos rojos frescos", "Bizcocho vainilla", "Miel"],
     formats: ["Cupcakes"],
     price: 3.8,
