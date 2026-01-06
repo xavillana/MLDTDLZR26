@@ -3,12 +3,6 @@
 import { allProducts } from '../data/allProducts.js';
 import { productCard, initProductCards } from './productCard.js';
 
-/**
- * Renderiza una lista de productos en un contenedor dado
- * @param {string} containerId - ID del elemento contenedor (ej: "featured-products", "productsContainer")
- * @param {Array} products - Lista de productos a renderizar
- * @param {Function} [postRenderCallback] - Callback opcional después de renderizar (ej: actualizar contador)
- */
 function renderProducts(containerId, products, postRenderCallback) {
   const container = document.getElementById(containerId);
   if (!container) {
@@ -28,33 +22,21 @@ function renderProducts(containerId, products, postRenderCallback) {
   }
 
   container.innerHTML = products.map(productCard).join('');
-  initProductCards(); // Activa los modales en las nuevas cards
+  initProductCards();
 
   if (postRenderCallback) postRenderCallback(products.length);
 }
 
-/**
- * Renderiza los productos destacados (best sellers o primeros 8)
- * @param {string} [containerId='featured-products'] - ID del contenedor
- */
-export function renderFeaturedProducts(containerId = 'featured-products') {
+export function renderFeaturedProducts(containerId = 'featured-products-container') {
   let featured = allProducts.filter(p => p.badges?.includes('BESTSELLER'));
 
-  // Fallback: si no hay bestsellers, mostrar los primeros 8
   if (featured.length === 0) {
     featured = allProducts.slice(0, 8);
   }
 
-  renderProducts(containerId, featured, (count) => {
-    // Opcional: actualizar contador si existe
-    const countEl = document.getElementById('featured-count');
-    if (countEl) countEl.textContent = count;
-  });
+  renderProducts(containerId, featured);
 }
 
-/**
- * Inicializa la página completa de tienda con filtros
- */
 export function initStorePage() {
   const container = document.getElementById('productsContainer');
   const countEl = document.getElementById('count');
@@ -77,10 +59,8 @@ export function initStorePage() {
 
     renderProducts('productsContainer', filtered, (count) => {
       countEl.textContent = count;
-      initProductCards(); // ← Siempre se ejecuta tras renderizar
     });
 
-    // Actualización visual de filtros
     filterButtons.forEach(b => b.classList.remove('active', 'bg-pink-600', 'text-white'));
     const activeBtn = document.querySelector(`[data-category="${activeCategory}"]`);
     if (activeBtn) {
@@ -92,7 +72,6 @@ export function initStorePage() {
     }
   }
 
-  // Eventos de filtros
   filterButtons.forEach(btn => {
     btn.addEventListener('click', () => {
       activeCategory = btn.dataset.category;
@@ -100,7 +79,6 @@ export function initStorePage() {
     });
   });
 
-  // Botón limpiar
   if (clearBtn) {
     clearBtn.addEventListener('click', () => {
       activeCategory = 'all';
@@ -108,6 +86,5 @@ export function initStorePage() {
     });
   }
 
-  // Render inicial
   applyFilters();
 }
