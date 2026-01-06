@@ -1,20 +1,15 @@
 // js/router.js
 
-import { initMobileMenu, initModalSystem, openModal } from './core/ui.js';
+import { initMobileMenu, initModalSystem } from './core/ui.js';
 import { renderFeaturedProducts, initStorePage } from './components/productsRenderer.js';
-import { initProductCards } from './components/productCard.js'; // ← Import clave para los modales
 import { initPedidoPage } from './components/pedido.js';
 
-// Caché de componentes HTML
 const componentCache = new Map();
 
-/**
- * Carga un componente HTML desde la carpeta /components/
- */
 async function loadComponent(id, file) {
   const element = document.getElementById(id);
   if (!element) {
-    console.warn(`⚠ Elemento con ID "${id}" no encontrado en el DOM`);
+    console.warn(`⚠ Elemento con ID "${id}" no encontrado`);
     return;
   }
 
@@ -27,10 +22,10 @@ async function loadComponent(id, file) {
   }
 
   try {
-    const response = await fetch(`components/${file}`);
+    const response = await fetch(`components/${file}?v=${Date.now()}`); // cache busting opcional
 
     if (!response.ok) {
-      throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+      throw new Error(`HTTP ${response.status}`);
     }
 
     const html = await response.text();
@@ -38,12 +33,13 @@ async function loadComponent(id, file) {
     element.innerHTML = html;
     dispatchComponentLoaded(id);
   } catch (error) {
-    console.error(`❌ Error cargando componente "${file}":`, error);
+    console.error(`❌ Error cargando "${file}":`, error);
     element.innerHTML = `
-      <div class="text-center py-16 px-6">
-        <p class="text-red-600 font-bold text-2xl mb-6">Error al cargar esta sección</p>
+      <div class="text-center py-20 px-8">
+        <p class="text-2xl font-bold text-red-600 mb-6">No se pudo cargar esta sección</p>
+        <p class="text-gray-600 mb-8">Por favor, recarga la página o inténtalo más tarde.</p>
         <button onclick="location.reload()" 
-                class="px-8 py-4 bg-pink-600 text-white rounded-2xl font-black hover:bg-pink-700 transition shadow-lg">
+                class="px-8 py-4 bg-pink-600 text-white rounded-2xl font-black hover:bg-pink-700 transition">
           Recargar página
         </button>
       </div>
@@ -51,91 +47,52 @@ async function loadComponent(id, file) {
   }
 }
 
-/**
- * Dispara evento cuando un componente se carga
- */
 function dispatchComponentLoaded(id) {
-  document.dispatchEvent(
-    new CustomEvent('componentLoaded', {
-      detail: { id, element: document.getElementById(id) }
-    })
-  );
+  document.dispatchEvent(new CustomEvent('componentLoaded', { detail: { id } }));
 }
 
-/**
- * Inicializadores por componente
- */
 const componentInitializers = {
-  navbar: () => { initMobileMenu();
-                },
-  globalModal: () => { 
-    initModalSystem();
-    openModal();
-  },  // ← AÑADE ESTA LÍNEA
-  hero: () => {}, // Estático
-  destacados: () => {
-    renderFeaturedProducts('featured-products');
-    initProductCards(); // ← Clave para que los clics funcionen
-  },
-  sobrenosotros: () => {}, // Estático
-  newsletter: () => {}, // Estático
-
-  'store-container': () => initStorePage(), // Ya incluye initProductCards internamente
-
-  pedido: () => initPedidoPage(),
- 
+  navbar: initMobileMenu,
+  globalModal: initModalSystem,
+  destacados: () => renderFeaturedProducts('featured-products-container'),
+  'store-container': initStorePage,
+  pedido: initPedidoPage,
 };
 
-/**
- * Carga inicial según la página
- */
+document.addEventListener('componentLoaded', (event) => {
+  const { id } = event.detail;
+  const initializer = componentInitializers[id];
+  if (typeof initializer === 'function') {
+    setTimeout(initializer, 0);
+  }
+});
+
 document.addEventListener('DOMContentLoaded', async () => {
+  // Load critical components first, sequentially
+  await loadComponent('globalModal', 'globalModal.html'); // ← First!
+  await loadComponent('navbar', 'navbar.html');
+  await loadComponent('footer', 'footer.html');
+
+  // Then page-specific
   const path = window.location.pathname.toLowerCase();
+  // ... rest
 
-  // Componentes comunes a TODAS las páginas
-  await Promise.all([
-    loadComponent('navbar', 'navbar.html'),
-    loadComponent('footer', 'footer.html'),
-    loadComponent('globalModal', 'globalModal.html'),
-  ]);
-
-  // Página de inicio
   if (path === '/' || path.endsWith('index.html') || path.includes('/maldita-dulzura/')) {
     await Promise.all([
       loadComponent('hero', 'hero.html'),
       loadComponent('destacados', 'destacados.html'),
+      loadComponent('personalizacion', 'personalizacion.html'),
       loadComponent('sobrenosotros', 'sobrenosotros.html'),
-      loadComponent('newsletter', 'newsletter.html')
+      loadComponent('newsletter', 'newsletter.html'),
     ]);
-  }
-
-  // Página de tienda
-  else if (path.endsWith('tienda.html')) {
+  } else if (path.endsWith('tienda.html')) {
     await loadComponent('store-container', 'store.html');
-  }
-
-  // Página de pedido
-  else if (path.endsWith('pedido.html')) {
+  } else if (path.endsWith('pedido.html')) {
     await loadComponent('pedido', 'pedido.html');
   }
-
-  // Puedes añadir más páginas aquí (contacto, etc.)
 });
 
-/**
- * Ejecuta el inicializador correspondiente al cargar un componente
- */
-document.addEventListener('componentLoaded', (event) => {
-  const { id } = event.detail;
-  const initializer = componentInitializers[id];
-
-  if (typeof initializer === 'function') {
-    setTimeout(() => {
-      try {
-        initializer();
-      } catch (err) {
-        console.error(`Error al inicializar componente "${id}":`, err);
-      }
-    }, 0);
-  }
-});
+// Force init modal hidden after everything
+setTimeout(() => {
+  document.getElementById('globalModal')?.classList.add('hidden');
+}, 1000);
