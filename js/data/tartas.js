@@ -1,4 +1,4 @@
-t// data/tartas.js
+// data/tartas.js
 export const tartas = [
   {
     id: "marcos-no-me-tientes",
