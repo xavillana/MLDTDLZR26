@@ -1,16 +1,26 @@
-<div id="modalContent" 
-     class="relative bg-white rounded-3xl shadow-2xl max-w-5xl w-full mx-4 
-            max-h-[90vh] flex flex-col 
-            overflow-hidden">  <!-- overflow-hidden en el contenedor principal -->
+<!-- components/globalModal.html -->
+<div id="globalModal" 
+     class="hidden fixed inset-0 z-[70] flex items-center justify-center bg-black/70 px-4 overflow-y-auto py-10 transition-all duration-300">
+  <div id="modalContent" 
+       class="relative bg-white rounded-3xl shadow-2xl w-full max-w-5xl mx-auto 
+              max-h-[90vh] flex flex-col 
+              transform scale-95 opacity-0 transition-all duration-300">
+    
+    <!-- Botón cerrar siempre visible -->
+    <button id="modalCloseBtn" 
+            class="absolute top-4 right-4 z-20 text-4xl w-12 h-12 
+                   bg-white/90 backdrop-blur rounded-full shadow-lg 
+                   flex items-center justify-center 
+                   hover:bg-pink-100 hover:text-pink-600 
+                   transition">
+      &times;
+    </button>
 
-  <!-- Botón cerrar -->
-  <button id="modalCloseBtn" ... >...</button>
-
-  <!-- Contenido con scroll independiente -->
-  <div class="flex-1 overflow-y-auto px-8 pt-8 pb-12 md:px-12 md:pt-12 scrollbar-thin scrollbar-thumb-pink-600 scrollbar-track-gray-100">
-    <!-- Aquí va el productModal.html inyectado -->
-    <div id="modalInnerContent">
-      <!-- Contenido dinámico -->
+    <!-- Contenido con scroll interno -->
+    <div class="overflow-y-auto px-6 py-10 md:px-10 md:py-12 
+                scrollbar-thin scrollbar-thumb-pink-600 scrollbar-track-gray-100 
+                flex-1">
+      <!-- Aquí se inyecta el contenido del producto -->
     </div>
   </div>
 </div>
