@@ -1,104 +1,89 @@
 // js/components/pedido.js
+import { allProducts } from '../data/allProducts.js';
+
+const normalize = str => str?.normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase() || '';
 
 export function initPedidoPage() {
-  const form = document.getElementById('orderForm');
-  const successMessage = document.getElementById('successMessage');
-  const priceCalculator = document.getElementById('priceCalculator');
-  const priceBreakdown = document.getElementById('priceBreakdown');
-  const totalPrice = document.getElementById('totalPrice');
+  console.log("🔄 Iniciando página de pedido...");
 
-  if (!form) return;
-
-  // Fecha mínima: hoy + 3 días
-  const today = new Date();
-  today.setDate(today.getDate() + 3);
-  const fechaInput = document.getElementById('fechaEntrega');
-  if (fechaInput) {
-    fechaInput.min = today.toISOString().split('T')[0];
-  }
-
-  // Toggle secciones
   const tipoRadios = document.querySelectorAll('input[name="tipoProducto"]');
   const tartasSection = document.getElementById('tartasSection');
   const cupcakesSection = document.getElementById('cupcakesSection');
   const personalizadoSection = document.getElementById('personalizadoSection');
-  const direccionSection = document.getElementById('direccionSection');
+  const productoOtraSection = document.getElementById('productoOtraSection');
 
-  tipoRadios.forEach(radio => {
-    radio.addEventListener('change', () => {
-      tartasSection?.classList.toggle('hidden', radio.value !== 'tarta');
-      cupcakesSection?.classList.toggle('hidden', radio.value !== 'cupcakes');
-      personalizadoSection?.classList.toggle('hidden', radio.value !== 'personalizado');
-      calculatePrice();
+  const selectTarta = document.getElementById('productoTartaSelect');
+  const selectCupcake = document.getElementById('productoCupcakeSelect');
+
+  if (!selectTarta || !selectCupcake) {
+    console.error("❌ No se encontraron los selects de productos");
+    return;
+  }
+
+  // === Poblar selects ===
+  function populateSelects() {
+    // Limpiar
+    selectTarta.innerHTML = '<option value="">Selecciona una tarta...</option>';
+    selectCupcake.innerHTML = '<option value="">Selecciona un cupcake...</option>';
+
+    allProducts.forEach(product => {
+      const opt = document.createElement('option');
+      opt.value = product.id;
+      opt.textContent = `${product.emoji || ''} ${product.name}`;
+
+      if (product.category === 'tartas' || product.category === 'cheesecakes') {
+        selectTarta.appendChild(opt.cloneNode(true));
+      } else if (product.category === 'cupcakes') {
+        selectCupcake.appendChild(opt.cloneNode(true));
+      }
     });
-  });
 
-  // Entrega
-  const entregaRadios = document.querySelectorAll('input[name="entrega"]');
-  entregaRadios.forEach(radio => {
-    radio.addEventListener('change', () => {
-      direccionSection?.classList.toggle('hidden', radio.value !== 'domicilio');
-      calculatePrice();
-    });
-  });
+    console.log("✅ Productos cargados en selects");
+  }
 
-  // Calculadora aproximada
-  function calculatePrice() {
-    let basePrice = 0;
-    let extras = 0;
-    let delivery = 0;
+  // === Mostrar/ocultar secciones ===
+  function toggleSections() {
+    const selected = document.querySelector('input[name="tipoProducto"]:checked')?.value;
 
-    const tipo = document.querySelector('input[name="tipoProducto"]:checked')?.value;
+    tartasSection?.classList.toggle('hidden', selected !== 'tarta');
+    cupcakesSection?.classList.toggle('hidden', selected !== 'cupcakes');
+    personalizadoSection?.classList.toggle('hidden', selected !== 'personalizado');
 
-    if (tipo === 'tarta') {
-      const tamano = document.getElementById('tamanoTarta')?.value;
-      if (tamano?.includes('XL')) basePrice = 55;
-      else if (tamano?.includes('Grande')) basePrice = 45;
-      else if (tamano?.includes('Mediana')) basePrice = 35;
-      else basePrice = 25;
-    } else if (tipo === 'cupcakes') {
-      const cantidad = parseInt(document.getElementById('cantidadCupcakes')?.value) || 0;
-      basePrice = cantidad * 3.8;
-    } else if (tipo === 'personalizado') {
-      const personas = parseInt(document.getElementById('personasPersonalizado')?.value) || 0;
-      basePrice = personas * 4.2;
-      extras = document.querySelectorAll('input[name="decoracionPersonalizada"]:checked').length * 10;
-    }
+    productoOtraSection?.classList.toggle('hidden', selected !== 'personalizado');
+  }
 
-    if (document.querySelector('input[name="entrega"]:checked')?.value === 'domicilio') {
-      delivery = 8;
-    }
+  // === Pre-seleccionar desde URL ===
+  function preselectFromURL() {
+    const params = new URLSearchParams(location.search);
+    const productName = params.get('product');
+    if (!productName) return;
 
-    const total = basePrice + extras + delivery;
+    const found = allProducts.find(p => 
+      normalize(p.name) === normalize(decodeURIComponent(productName))
+    );
 
-    if (total > 0) {
-      priceCalculator?.classList.remove('hidden');
-      priceBreakdown.innerHTML = `
-        <div class="flex justify-between"><span>Base</span><span>${basePrice.toFixed(2)}€</span></div>
-        ${extras > 0 ? `<div class="flex justify-between"><span>Extras</span><span>+${extras}€</span></div>` : ''}
-        ${delivery > 0 ? `<div class="flex justify-between"><span>Entrega</span><span>+${delivery}€</span></div>` : ''}
-      `;
-      totalPrice.textContent = `${total.toFixed(2)}€`;
-    } else {
-      priceCalculator?.classList.add('hidden');
+    if (found) {
+      const radioValue = found.category === 'cupcakes' ? 'cupcakes' : 'tarta';
+      const radio = document.querySelector(`input[name="tipoProducto"][value="${radioValue}"]`);
+      if (radio) {
+        radio.checked = true;
+        toggleSections();
+
+        const select = found.category === 'cupcakes' ? selectCupcake : selectTarta;
+        select.value = found.id;
+
+        console.log(`✅ Producto pre-seleccionado: ${found.name}`);
+      }
     }
   }
 
-  // Eventos para recalcular
-  document.querySelectorAll('#tamanoTarta, #cantidadCupcakes, #personasPersonalizado, input[name="decoracionPersonalizada"], input[name="entrega"]').forEach(el => {
-    el?.addEventListener('change', calculatePrice);
-    el?.addEventListener('input', calculatePrice);
+  // === Eventos ===
+  tipoRadios.forEach(radio => {
+    radio.addEventListener('change', toggleSections);
   });
 
-  // Envío del formulario (simulación)
-  form.addEventListener('submit', (e) => {
-    e.preventDefault();
-
-    form.classList.add('hidden');
-    successMessage?.classList.remove('hidden');
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-  });
-
-  // Inicializar
-  calculatePrice();
+  // === Inicializar ===
+  populateSelects();
+  toggleSections();
+  preselectFromURL();
 }
