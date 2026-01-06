@@ -111,3 +111,12 @@ body {
         margin-top: 80px;
     }
 }
+.text-shadow-pink {
+  text-shadow: 4px 4px 0 #ff2e9a;
+}
+
+.text-shadow-white {
+  text-shadow: 4px 4px 0 rgba(255, 255, 255, 0.9);
+}
+
+
