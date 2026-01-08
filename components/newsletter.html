@@ -19,6 +19,7 @@
         <input
           type="email"
           id="newsletterEmail"
+          name="email"
           placeholder="Tu email... (prometo no contarlo)"
           required
           aria-label="Dirección de email para suscribirse"
@@ -26,6 +27,7 @@
         />
         <button
           type="submit"
+          id="submitButton"
           class="bg-gradient-to-r from-pink-600 to-purple-600 text-white font-black text-xl px-10 py-5 rounded-2xl hover:from-pink-700 hover:to-purple-700 transition-all duration-300 transform hover:scale-105 shadow-2xl whitespace-nowrap"
         >
           Quiero pecar →
@@ -39,42 +41,76 @@
           ¡Bienvenid@ a la conspiración!
         </h3>
         <p class="text-xl text-gray-700 max-w-2xl mx-auto">
-          Pronto recibirás tu primera tentación en el correo. 
-          <br>Guarda el secreto… o compártelo bajo tu propia responsabilidad.
+          Revisa tu bandeja de entrada: te hemos enviado un email para confirmar.<br>
+          <strong>Haz clic en el botón</strong> para activar tu suscripción y recibir tu descuento del 10%.
         </p>
+      </div>
+
+      <!-- Mensaje de error (opcional) -->
+      <div id="newsletterError" class="hidden mt-10 text-red-600 text-xl font-bold">
+        ¡Ups! Algo ha fallado. Inténtalo de nuevo o escribe a hola@malditadulzura.com
       </div>
     </div>
   </div>
 </section>
 
+<!-- Cargar EmailJS SDK -->
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+<script type="text/javascript">
+  (function() {
+    // Reemplaza con tu Public Key de EmailJS
+    emailjs.init("bvwZyllaHy325glzp");
+  })();
+</script>
+
 <script type="module">
   const form = document.getElementById('newsletterForm');
   const success = document.getElementById('newsletterSuccess');
+  const errorMsg = document.getElementById('newsletterError');
+  const submitButton = document.getElementById('submitButton');
 
-  if (form && success) {
-    form.addEventListener('submit', (e) => {
-      e.preventDefault();
+  form.addEventListener('submit', function(e) {
+    e.preventDefault();
 
-      // Aquí puedes conectar EmailJS, Formspree o tu backend real más adelante
-      // Por ahora, simulación bonita
-      form.classList.add('opacity-0', 'translate-y-4', 'transition-all', 'duration-500');
-      
-      setTimeout(() => {
-        form.classList.add('hidden');
-        success.classList.remove('hidden');
-        success.classList.add('animate-fade-in');
-      }, 500);
+    // Desactivar botón y mostrar loading
+    submitButton.disabled = true;
+    submitButton.textContent = "Enviando tentación...";
 
-      // Resetear formulario
-      form.reset();
-    });
-  }
-    </script>
-<script>
-  function enviarConfirmacionEmail(userdata){
+    const email = document.getElementById('newsletterEmail').value.trim();
+
+    // Generar un token único simple (en producción deberías hacerlo en el backend)
+    const token = btoa(email + Date.now()).replace(/=/g, '').substring(0, 20);
+    const confirmationLink = `https://malditadulzura.com/confirmar?token=\( {token}&email= \){encodeURIComponent(email)}`;
+
     const templateParams = {
-      nombre: userData.nombre,
-        email: userdata.email,
+      nombre: "pecador/a dulce", // Puedes añadir un campo nombre si quieres
+      email: email,
+      confirmation_link: confirmationLink
+    };
+
+    // Reemplaza con tu Service ID y Template ID reales
+    emailjs.send('service_a1r8kaa', 'template_bienvenida', templateParams)
+      .then(() => {
+        // Ocultar formulario y mostrar éxito
+        form.classList.add('opacity-0', 'translate-y-4', 'transition-all', 'duration-500');
+        
+        setTimeout(() => {
+          form.classList.add('hidden');
+          success.classList.remove('hidden');
+          success.classList.add('animate-fade-in');
+        }, 500);
+
+        form.reset();
+      })
+      .catch((err) => {
+        console.error('Error EmailJS:', err);
+        errorMsg.classList.remove('hidden');
+      })
+      .finally(() => {
+        submitButton.disabled = false;
+        submitButton.textContent = "Quiero pecar →";
+      });
+  });
 </script>
 
 <style>
@@ -85,6 +121,4 @@
   .animate-fade-in {
     animation: fade-in 1s ease-out;
   }
-</style>
-
-
+  </style>
