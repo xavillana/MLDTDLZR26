@@ -1,0 +1,106 @@
+
+<body class="bg-gradient-to-br from-pink-100 via-purple-50 to-yellow-50 min-h-screen flex items-center justify-center py-12 px-6">
+    <div class="max-w-3xl mx-auto text-center">
+        <!-- Estado: Cargando -->
+        <div id="loading" class="animate-fadeInUp">
+            <div class="text-8xl mb-8 animate-bounce">🍰😈</div>
+            <h1 class="text-5xl md:text-6xl font-black text-pink-600 mb-6">
+                Verificando tu pecado dulce...
+            </h1>
+            <p class="text-xl text-gray-700">Un momento mientras preparamos tu bienvenida</p>
+        </div>
+
+        <!-- Estado: Éxito -->
+        <div id="success" class="hidden animate-fadeInUp">
+            <div class="text-9xl mb-8">🎉🍰</div>
+            <h1 class="text-5xl md:text-6xl font-black text-pink-600 mb-6">
+                ¡Bienvenid@ oficialmente a la conspiración!
+            </h1>
+            <p class="text-2xl text-gray-800 mb-8 max-w-2xl mx-auto">
+                Ya formas parte de los que no resisten la <strong>Maldita Dulzura</strong>.<br>
+                Te hemos enviado tu regalo de bienvenida al correo.
+            </p>
+            <div class="bg-white rounded-3xl shadow-2xl p-8 max-w-lg mx-auto">
+                <p class="text-lg text-gray-700 mb-4">
+                    Tu código exclusivo del <strong>10% de descuento</strong>:
+                </p>
+                <p class="text-4xl font-black text-pink-600 mb-6 tracking-wider">
+                    PECADO10
+                </p>
+                <a href="https://malditadulzura.com" 
+                   class="inline-block bg-gradient-to-r from-pink-600 to-purple-600 text-white font-black text-xl px-10 py-5 rounded-2xl hover:from-pink-700 hover:to-purple-700 transition-all duration-300 transform hover:scale-105 shadow-2xl">
+                    Ir a por mi tarta ahora →
+                </a>
+            </div>
+        </div>
+
+        <!-- Estado: Error -->
+        <div id="error" class="hidden animate-fadeInUp">
+            <div class="text-8xl mb-8">😢</div>
+            <h1 class="text-4xl md:text-5xl font-black text-red-600 mb-6">
+                ¡Ups! Algo no ha ido bien
+            </h1>
+            <p class="text-xl text-gray-700 mb-8">
+                El enlace puede haber caducado o ya se ha usado.<br>
+                Vuelve a suscribirte o escríbenos a hola@malditadulzura.com
+            </p>
+            <a href="https://malditadulzura.com" 
+               class="inline-block bg-gray-600 text-white font-bold text-xl px-10 py-5 rounded-2xl hover:bg-gray-700 transition-all">
+                Volver a la web
+            </a>
+        </div>
+    </div>
+
+    <!-- EmailJS SDK -->
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+    <script type="text/javascript">
+        (function() {
+            emailjs.init("TU_PUBLIC_KEY_AQUÍ"); // ← Reemplaza con tu Public Key
+        })();
+    </script>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const urlParams = new URLSearchParams(window.location.search);
+            const token = urlParams.get('token');
+            const email = urlParams.get('email');
+
+            const loading = document.getElementById('loading');
+            const success = document.getElementById('success');
+            const error = document.getElementById('error');
+
+            if (!token || !email) {
+                loading.classList.add('hidden');
+                error.classList.remove('hidden');
+                return;
+            }
+
+            // Aquí en producción: validar token con tu backend
+            // Por ahora simulamos que siempre es válido después de 2 segundos
+            setTimeout(() => {
+                // Enviar email de bienvenida con EmailJS
+                const templateParams = {
+                    nombre: "pecador/a dulce",
+                    email: email,
+                    discount_code: "PECADO10"
+                };
+
+                emailjs.send('YOUR_SERVICE_ID', 'bienvenida_maldita_dulzura', templateParams)
+                    .then(() => {
+                        loading.classList.add('hidden');
+                        success.classList.remove('hidden');
+                        
+                        // Opcional: guardar en localStorage para no volver a mostrar formulario
+                        localStorage.setItem('maldita_subscribed', 'true');
+                        localStorage.setItem('maldita_email', email);
+                    })
+                    .catch((err) => {
+                        console.error('Error enviando bienvenida:', err);
+                        loading.classList.add('hidden');
+                        error.classList.remove('hidden');
+                    });
+            }, 2000); // Simulación de verificación
+        });
+    </script>
+</body>
+</html>
