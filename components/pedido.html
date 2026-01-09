@@ -52,24 +52,64 @@
 
       <!-- Tartas y Cheesecakes (se muestra/oculta con JS) -->
       <div id="tartasSection" class="form-section conditional-field bg-white p-6 sm:p-8 rounded-xl shadow-lg hidden">
-        <!-- Aquí el contenido de tartas y cheesecakes que ya tenías -->
-        <!-- ... (mantengo tu código original de productos, solo añado openModal correcto) ... -->
-        <!-- Ejemplo de un producto -->
-        <div class="product-card border-2 border-gray-200 rounded-lg p-4 hover:border-pink-300 transition-colors" onclick="selectProduct('marcos-no-me-tientes')">
-          <div class="flex justify-between items-start mb-3">
-            <label class="checkbox-custom block cursor-pointer flex-1">
-              <input type="radio" name="tartaSeleccionada" value="marcos-no-me-tientes" onchange="calculatePrice()">
-              <span class="checkmark"></span>
-              <span class="font-medium">Marcos No Me Tientes</span>
-            </label>
-            <button type="button" onclick="event.stopPropagation(); openModal({ productId: 'marcos-no-me-tientes' })" class="text-pink-600 hover:text-pink-800 text-sm font-medium ml-2">
-              ℹ️ Info
-            </button>
-          </div>
-          <p class="text-xs text-gray-600">Deliciosa tarta con capas de bizcocho y crema</p>
-        </div>
-        <!-- Repite el mismo patrón para todos los productos, cambiando el ID -->
-        <!-- ... resto de productos ... -->
+        <div class="space-y-4 sm:space-y-6">
+          <!-- Tartas -->
+        <div>
+         <h4 class="text-md sm:text-lg font-semibold text-pink-600 mb-3 border-b border-pink-200 pb-2">Tartas</h4>
+         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-4">
+           <!-- Marcos No Me Tientes -->
+          <div class="product-card border-2 border-gray-200 rounded-lg p-4 hover:border-pink-300 transition-colors" onclick="selectProduct('marcos-no-me-tientes')">
+           <div class="flex justify-between items-start mb-3">
+             <label class="checkbox-custom block cursor-pointer flex-1"> 
+               <input type="radio" name="tartaSeleccionada" value="marcos-no-me-tientes" onchange="calculatePrice()"> 
+               <span class="checkmark"></span> 
+               <span class="font-medium">Marcos No Me Tientes</span> </label>
+             <button type="button" onclick="event.stopPropagation(); openModal({ productId: 'marcos-no-me-tientes' })" class="text-pink-600 hover:text-pink-800 text-sm font-medium ml-2">ℹ️ Info </button>
+           </div>
+           <p class="text-xs text-gray-600">Deliciosa tarta con capas de bizcocho y crema</p>
+          </div><!-- Muerte por Chocolate -->
+          <div class="product-card border-2 border-gray-200 rounded-lg p-4 hover:border-pink-300 transition-colors" onclick="selectProduct('muerte-por-chocolate')">
+           <div class="flex justify-between items-start mb-3">
+             <label class="checkbox-custom block cursor-pointer flex-1"> 
+               <input type="radio" name="tartaSeleccionada" value="muerte-por-chocolate" onchange="calculatePrice()"> 
+               <span class="checkmark"></span> <span class="font-medium">Muerte por Chocolate</span> </label> 
+             <button type="button" onclick="event.stopPropagation(); openModal({ productID: 'muerte-por-chocolate' })" class="text-pink-600 hover:text-pink-800 text-sm font-medium ml-2"> ℹ️ Info </button>
+           </div>
+           <p class="text-xs text-gray-600">Intensa tarta de chocolate para los amantes del cacao</p>
+          </div><!-- Unicornio Fantástico -->
+          <div class="product-card border-2 border-gray-200 rounded-lg p-4 hover:border-pink-300 transition-colors" onclick="selectProduct('unicornio-fantastico')">
+           <div class="flex justify-between items-start mb-3"><label class="checkbox-custom block cursor-pointer flex-1">
+             <input type="radio" name="tartaSeleccionada" value="unicornio-fantastico" onchange="calculatePrice()"> 
+             <span class="checkmark"></span> <span class="font-medium">Unicornio Fantástico</span> </label> 
+             <button type="button" onclick="event.stopPropagation(); openModal({ productID: 'unicornio-fantastico' })" class="text-pink-600 hover:text-pink-800 text-sm font-medium ml-2"> ℹ️ Info </button>
+           </div>
+           <p class="text-xs text-gray-600">Tarta mágica con colores vibrantes y decoración especial</p>
+          </div><!-- Naranja que Cacao -->
+          <div class="product-card border-2 border-gray-200 rounded-lg p-4 hover:border-pink-300 transition-colors" onclick="selectProduct('naranja-que-cacao')">
+           <div class="flex justify-between items-start mb-3"><label class="checkbox-custom block cursor-pointer flex-1"> 
+             <input type="radio" name="tartaSeleccionada" value="naranja-que-cacao" onchange="calculatePrice()"> 
+             <span class="checkmark"></span> <span class="font-medium">Naranja que Cacao</span> </label> 
+             <button type="button" onclick="event.stopPropagation(); openProductModal('naranja-que-cacao')" class="text-pink-600 hover:text-pink-800 text-sm font-medium ml-2"> 
+               🎂 Info </button>
+           </div>
+           <p class="text-xs text-gray-600">Perfecta combinación de naranja fresca y chocolate</p>
+          </div><!-- Tía Misú -->
+          <div class="product-card border-2 border-gray-200 rounded-lg p-4 hover:border-pink-300 transition-colors" onclick="selectProduct('tia-misu')">
+           <div class="flex justify-between items-start mb-3"><label class="checkbox-custom block cursor-pointer flex-1"> 
+             <input type="radio" name="tartaSeleccionada" value="tia-misu" onchange="calculatePrice()"> 
+             <span class="checkmark"></span> <span class="font-medium">Tía Misú</span> </label> 
+             <button type="button" onclick="event.stopPropagation(); openModal({ productID: 'tia-misu' })" class="text-pink-600 hover:text-pink-800 text-sm font-medium ml-2"> 
+               🎂 Info </button>
+           </div>
+           <p class="text-xs text-gray-600">Inspirada en el clásico tiramisú italiano</p>
+          </div><!-- Revolcón con Fresnata -->
+          <div class="product-card border-2 border-gray-200 rounded-lg p-4 hover:border-pink-300 transition-colors" onclick="selectProduct('revolcon-fresnata')">
+           <div class="flex justify-between items-start mb-3"><label class="checkbox-custom block cursor-pointer flex-1"> <input type="radio" name="tartaSeleccionada" value="revolcon-fresnata" onchange="calculatePrice()"> <span class="checkmark"></span> <span class="font-medium">Revolcón con Fresnata</span> </label> <button type="button" onclick="event.stopPropagation(); openProductModal('revolcon-fresnata')" class="text-pink-600 hover:text-pink-800 text-sm font-medium ml-2"> ℹ️ Info </button>
+           </div>
+           <p class="text-xs text-gray-600">Tarta fresca con nata y fresas naturales</p>
+          </div>
+         </div>
+      
 
         <!-- Tamaño -->
         <div>
@@ -91,16 +131,108 @@
 
       <!-- Personalizado Section -->
       <div id="personalizadoSection" class="form-section conditional-field bg-white p-6 sm:p-8 rounded-xl shadow-lg hidden">
-        <!-- ... tu código original de personalizado ... -->
-      </div>
-
-      <!-- Resto de secciones: Personalización, Datos de Entrega, Calculadora, etc. -->
-      <!-- ... mantengo todo tu código original ... -->
+        <div class="space-y-6"><!-- Cantidad -->
+        <div>
+         <h4 class="text-md sm:text-lg font-semibold text-pink-600 mb-3 border-b border-pink-200 pb-2">Cantidad</h4>
+         <div><select id="cantidadCupcakes" class="w-full px-3 py-2 border border-gray-300 rounded-md text-sm sm:text-base" onchange="updateFlavorOptions()"> <option value="">Seleccionar cantidad</option> <option value="6">6 cupcakes</option> <option value="12">12 cupcakes</option> <option value="24">24 cupcakes</option> <option value="otro">Otra cantidad</option> </select>
+          <div id="cantidadPersonalizada" class="mt-3 hidden"><label class="block text-sm font-medium text-gray-700 mb-2">¿Cuántos cupcakes?</label> <input type="number" id="cantidadOtra" min="1" max="100" placeholder="Ej: 15" class="w-full px-3 py-2 border border-gray-300 rounded-md text-sm sm:text-base" onchange="updateFlavorOptions()" oninput="updateFlavorOptions()">
+          </div>
+         </div>
+        </div><!-- Sabores -->
+        <div>
+         <h4 class="text-md sm:text-lg font-semibold text-pink-600 mb-3 border-b border-pink-200 pb-2">SABORES</h4>
+         <div><label class="block text-sm font-medium text-gray-700 mb-3"> <span id="flavorLabel">Sabores (selecciona la cantidad primero)</span> </label>
+          <div id="flavorsContainer" class="space-y-3"><!-- Los selectores de sabores se generarán dinámicamente -->
+          </div>
+         </div>
+        </div>
+       </div>
+      </div>
+      <!-- Pedido Personalizado -->
+      <div id="personalizadoSection" class="form-section conditional-field bg-white p-6 sm:p-8 rounded-xl shadow-lg hidden">
+       <h3 class="section-title text-xl sm:text-2xl lg:text-3xl font-semibold mb-4 sm:mb-6">Pedido Personalizado</h3>
+       <div class="space-y-4 sm:space-y-6"><!-- Formato -->
+        <div>
+         <h4 class="text-md sm:text-lg font-semibold text-pink-600 mb-3 border-b border-pink-200 pb-2">Formato</h4>
+         <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 sm:gap-3"><label class="checkbox-custom"> <input type="radio" name="formatoPersonalizado" value="tarta-redonda"> <span class="checkmark"></span> Tarta Redonda </label> <label class="checkbox-custom"> <input type="radio" name="formatoPersonalizado" value="tarta-cuadrada"> <span class="checkmark"></span> Tarta Cuadrada </label> <label class="checkbox-custom"> <input type="radio" name="formatoPersonalizado" value="tarta-rectangular"> <span class="checkmark"></span> Tarta Rectangular </label> <label class="checkbox-custom"> <input type="radio" name="formatoPersonalizado" value="cupcakes"> <span class="checkmark"></span> Cupcakes </label> <label class="checkbox-custom"> <input type="radio" name="formatoPersonalizado" value="cake-pops"> <span class="checkmark"></span> Cake Pops </label> <label class="checkbox-custom"> <input type="radio" name="formatoPersonalizado" value="galletas"> <span class="checkmark"></span> Galletas Decoradas </label>
+         </div>
+        </div><!-- Tamaño -->
+        <div>
+         <h4 class="text-md sm:text-lg font-semibold text-pink-600 mb-3 border-b border-pink-200 pb-2">Tamaño</h4>
+         <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 sm:gap-3"><label class="checkbox-custom"> <input type="radio" name="tamanoPersonalizado" value="pequeno"> <span class="checkmark"></span> Pequeño (6-8 personas) </label> <label class="checkbox-custom"> <input type="radio" name="tamanoPersonalizado" value="mediano"> <span class="checkmark"></span> Mediano (10-12 personas) </label> <label class="checkbox-custom"> <input type="radio" name="tamanoPersonalizado" value="grande"> <span class="checkmark"></span> Grande (15-20 personas) </label> <label class="checkbox-custom"> <input type="radio" name="tamanoPersonalizado" value="xl"> <span class="checkmark"></span> Extra Grande (25+ personas) </label> <label class="checkbox-custom"> <input type="radio" name="tamanoPersonalizado" value="personalizado"> <span class="checkmark"></span> Tamaño Personalizado </label>
+         </div>
+        </div><!-- Tipo de Bizcocho -->
+        <div>
+         <h4 class="text-md sm:text-lg font-semibold text-pink-600 mb-3 border-b border-pink-200 pb-2">Tipo de Bizcocho</h4>
+         <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 sm:gap-3"><label class="checkbox-custom"> <input type="radio" name="bizcochoPersonalizado" value="vainilla"> <span class="checkmark"></span> Vainilla </label> <label class="checkbox-custom"> <input type="radio" name="bizcochoPersonalizado" value="chocolate"> <span class="checkmark"></span> Chocolate </label> <label class="checkbox-custom"> <input type="radio" name="bizcochoPersonalizado" value="red-velvet"> <span class="checkmark"></span> Red Velvet </label> <label class="checkbox-custom"> <input type="radio" name="bizcochoPersonalizado" value="zanahoria"> <span class="checkmark"></span> Zanahoria </label> <label class="checkbox-custom"> <input type="radio" name="bizcochoPersonalizado" value="limon"> <span class="checkmark"></span> Limón </label> <label class="checkbox-custom"> <input type="radio" name="bizcochoPersonalizado" value="fresa"> <span class="checkmark"></span> Fresa </label>
+         </div>
+        </div><!-- Relleno -->
+        <div>
+         <h4 class="text-md sm:text-lg font-semibold text-pink-600 mb-3 border-b border-pink-200 pb-2">Relleno</h4>
+         <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 sm:gap-3"><label class="checkbox-custom"> <input type="radio" name="rellenoPersonalizado" value="crema-vainilla"> <span class="checkmark"></span> Crema de Vainilla </label> <label class="checkbox-custom"> <input type="radio" name="rellenoPersonalizado" value="crema-chocolate"> <span class="checkmark"></span> Crema de Chocolate </label> <label class="checkbox-custom"> <input type="radio" name="rellenoPersonalizado" value="dulce-leche"> <span class="checkmark"></span> Dulce de Leche </label> <label class="checkbox-custom"> <input type="radio" name="rellenoPersonalizado" value="mermelada-fresa"> <span class="checkmark"></span> Mermelada de Fresa </label> <label class="checkbox-custom"> <input type="radio" name="rellenoPersonalizado" value="nutella"> <span class="checkmark"></span> Nutella </label> <label class="checkbox-custom"> <input type="radio" name="rellenoPersonalizado" value="cream-cheese"> <span class="checkmark"></span> Cream Cheese </label>
+         </div>
+        </div><!-- Cobertura -->
+        <div>
+         <h4 class="text-md sm:text-lg font-semibold text-pink-600 mb-3 border-b border-pink-200 pb-2">Cobertura</h4>
+         <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 sm:gap-3"><label class="checkbox-custom"> <input type="radio" name="coberturaPersonalizada" value="buttercream"> <span class="checkmark"></span> Buttercream </label> <label class="checkbox-custom"> <input type="radio" name="coberturaPersonalizada" value="fondant"> <span class="checkmark"></span> Fondant </label> <label class="checkbox-custom"> <input type="radio" name="coberturaPersonalizada" value="ganache"> <span class="checkmark"></span> Ganache de Chocolate </label> <label class="checkbox-custom"> <input type="radio" name="coberturaPersonalizada" value="cream-cheese-frosting"> <span class="checkmark"></span> Cream Cheese Frosting </label> <label class="checkbox-custom"> <input type="radio" name="coberturaPersonalizada" value="merengue"> <span class="checkmark"></span> Merengue </label> <label class="checkbox-custom"> <input type="radio" name="coberturaPersonalizada" value="glaseado"> <span class="checkmark"></span> Glaseado </label>
+         </div>
+        </div><!-- Decoración -->
+        <div>
+         <h4 class="text-md sm:text-lg font-semibold text-pink-600 mb-3 border-b border-pink-200 pb-2">Decoración</h4>
+         <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 sm:gap-3"><label class="checkbox-custom"> <input type="checkbox" name="decoracionPersonalizada" value="flores-azucar"> <span class="checkmark"></span> Flores de Azúcar </label> <label class="checkbox-custom"> <input type="checkbox" name="decoracionPersonalizada" value="figuras-fondant"> <span class="checkmark"></span> Figuras de Fondant </label> <label class="checkbox-custom"> <input type="checkbox" name="decoracionPersonalizada" value="perlas-comestibles"> <span class="checkmark"></span> Perlas Comestibles </label> <label class="checkbox-custom"> <input type="checkbox" name="decoracionPersonalizada" value="purpurina-comestible"> <span class="checkmark"></span> Purpurina Comestible </label> <label class="checkbox-custom"> <input type="checkbox" name="decoracionPersonalizada" value="frutas-frescas"> <span class="checkmark"></span> Frutas Frescas </label> <label class="checkbox-custom"> <input type="checkbox" name="decoracionPersonalizada" value="chocolate-decorativo"> <span class="checkmark"></span> Chocolate Decorativo </label>
+         </div>
+        </div><!-- Descripción adicional -->
+        <div><label class="block text-sm font-medium text-gray-700 mb-2">Descripción adicional o detalles especiales</label> <textarea id="descripcionPersonalizada" rows="4" placeholder="Describe cualquier detalle especial, colores específicos, temática, etc." class="w-full px-3 py-2 border border-gray-300 rounded-md text-sm sm:text-base"></textarea>
+        </div><!-- Número de personas y presupuesto -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
+         <div><label class="block text-sm font-medium text-gray-700 mb-2">Número de personas aproximado</label> <input type="number" id="personasPersonalizado" min="1" placeholder="Ej: 15" class="w-full px-3 py-2 border border-gray-300 rounded-md text-sm sm:text-base" oninput="calculatePrice()">
+         </div>
+         <div><label class="block text-sm font-medium text-gray-700 mb-2">Presupuesto aproximado (opcional)</label> <input type="text" id="presupuestoPersonalizado" placeholder="Ej: 50-80€" class="w-full px-3 py-2 border border-gray-300 rounded-md text-sm sm:text-base">
+         </div>
+        </div>
+       </div>
+      </div><!-- Personalización -->
+      <div class="form-section bg-white p-6 sm:p-8 rounded-xl shadow-lg">
+       <h3 class="section-title text-xl sm:text-2xl lg:text-3xl font-semibold mb-4 sm:mb-6">Personalización</h3>
+       <div class="space-y-3 sm:space-y-4">
+        <div><label class="block text-sm font-medium text-gray-700 mb-2">Tema o ocasión</label> <select id="tema" class="w-full px-3 py-2 border border-gray-300 rounded-md text-sm sm:text-base"> <option value="">Seleccionar tema</option> <option value="cumpleanos">Cumpleaños</option> <option value="boda">Boda</option> <option value="bautizo">Bautizo</option> <option value="comunion">Primera Comunión</option> <option value="graduacion">Graduación</option> <option value="aniversario">Aniversario</option> <option value="baby-shower">Baby Shower</option> <option value="otro">Otro</option> </select>
+        </div>
+        <div><label class="block text-sm font-medium text-gray-700 mb-2">Texto para escribir</label> <input type="text" id="texto" placeholder="Ej: Feliz Cumpleaños María" class="w-full px-3 py-2 border border-gray-300 rounded-md text-sm sm:text-base" oninput="calculatePrice()">
+        </div>
+        <div><label class="block text-sm font-medium text-gray-700 mb-2">Detalles especiales o comentarios</label> <textarea id="comentarios" rows="3" placeholder="Describe cualquier detalle especial que quieras incluir..." class="w-full px-3 py-2 border border-gray-300 rounded-md text-sm sm:text-base"></textarea>
+        </div>
+       </div>
+      </div>
+          <!-- Datos de Entrega -->
+      <div class="form-section bg-white p-6 sm:p-8 rounded-xl shadow-lg">
+       <h3 class="section-title text-xl sm:text-2xl lg:text-3xl font-semibold mb-4 sm:mb-6">Datos de Entrega</h3>
+       <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-4">
+        <div><label class="block text-sm font-medium text-gray-700 mb-2">Fecha de entrega *</label> <input type="date" id="fechaEntrega" required class="w-full px-3 py-2 border border-gray-300 rounded-md text-sm sm:text-base">
+        </div>
+        <div><label class="block text-sm font-medium text-gray-700 mb-2">Hora preferida</label> <select id="horaEntrega" class="w-full px-3 py-2 border border-gray-300 rounded-md text-sm sm:text-base"> <option value="">Seleccionar hora</option> <option value="manana">Mañana (9:00 - 12:00)</option> <option value="tarde">Tarde (12:00 - 18:00)</option> <option value="noche">Noche (18:00 - 21:00)</option> </select>
+        </div>
+        <div class="sm:col-span-2 lg:col-span-1"><label class="block text-sm font-medium text-gray-700 mb-2">Tipo de entrega</label> <select id="tipoEntrega" class="w-full px-3 py-2 border border-gray-300 rounded-md text-sm sm:text-base" onchange="toggleDireccionSection(); calculatePrice()"> <option value="">Seleccionar tipo de entrega</option> <option value="recoger">Recoger en tienda</option> <option value="domicilio">Entrega a domicilio (+5€)</option> </select>
+        </div>
+       </div>
+       <div id="direccionSection" class="mt-3 sm:mt-4 hidden"><label class="block text-sm font-medium text-gray-700 mb-2">Dirección de entrega</label> <textarea id="direccion" rows="2" placeholder="Escribe la dirección completa..." class="w-full px-3 py-2 border border-gray-300 rounded-md text-sm sm:text-base"></textarea>
+       </div>
+      </div><!-- Calculadora de Precio -->
+      <div id="priceCalculator" class="form-section bg-linear-to-r from-pink-50 to-purple-50 p-6 sm:p-8 rounded-xl border-2 border-pink-200 shadow-lg hidden">
+       <h3 class="section-title text-xl sm:text-2xl lg:text-3xl font-semibold mb-4 sm:mb-6 text-center">Precio Estimado</h3>
+       <div class="text-center">
+        <div id="priceBreakdown" class="space-y-2 mb-4 text-left max-w-md mx-auto text-sm sm:text-base"><!-- El desglose se generará dinámicamente -->
+        </div>
+        <div class="text-xl sm:text-2xl font-bold text-pink-600 bg-white px-4 sm:px-6 py-2 sm:py-3 rounded-lg shadow-md inline-block">
+         Total: <span id="totalPrice">0€</span>
+        </div>
+        <p class="text-xs sm:text-sm text-gray-600 mt-2 px-2">*Precio estimado. El precio final puede variar según personalizaciones especiales.</p>
+       </div>
+      </div>
 
       <!-- Botón de Envío -->
       <div class="text-center pt-6 sm:pt-8">
         <button type="submit" class="btn-primary text-white px-8 sm:px-12 py-3 sm:py-4 rounded-xl font-semibold text-lg sm:text-xl shadow-xl w-full sm:w-auto transform transition-all duration-300 hover:scale-105">
-          Enviar Pedido
+          Enviar
         </button>
       </div>
     </form>
@@ -109,10 +241,11 @@
     <div id="successMessage" class="hidden text-center py-20">
       <div class="text-8xl mb-8"></div>
       <h3 class="text-4xl lg:text-5xl font-black text-pink-600 mb-6">
-        ¡Pedido enviado con éxito!
+        ¡Solicitud enviada con éxito!
       </h3>
       <p class="text-xl lg:text-2xl text-gray-700 max-w-3xl mx-auto">
-        Hemos recibido tu solicitud. Te contactaremos en menos de 24 horas con el presupuesto definitivo y todos los detalles.
+        Te contactaremos en menos de 24 horas para confirmarte el pedido y darte todos los detalles.<br>
+        Puedes ir escondiendo los consejos de tu dietista.
       </p>
     </div>
   </div>
@@ -125,3 +258,4 @@
     emailjs.init("YOUR_PUBLIC_KEY"); // ← Reemplaza con tu Public Key (User ID) de EmailJS
   })();
 </script>
+
