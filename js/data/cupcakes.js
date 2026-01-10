@@ -59,7 +59,7 @@ export const cupcakes = [
     formats: ["Cupcakes", "Tarta"],
     price: 3,
     badges: [""],
-    image: "img/COOKIECRIM.JPG"
+    image: "img/OREOCUPCAKES.JPG"
   },
    {
     id: "pensamiento-citrico",
@@ -71,6 +71,6 @@ export const cupcakes = [
     formats: [],
     price: 3,
     badges: ["BESTSELLER"],
-    image: "img/PENSAMIENTOCITRICO.JPG"
+    image: "img/LEMONCUPCAKES.JPG"
   },
 ];
