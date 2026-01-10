@@ -22,7 +22,7 @@ export const cupcakes = [
     formats: [],
     price: 3.2,
     badges: ["BESTSELLER"],
-    image: "img/ZANAHORIA.JPG
+    image: "img/ZANAHORIA.JPG"
   },
   {
     id: "choco-bailes",
