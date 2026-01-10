@@ -6,7 +6,7 @@ export const cupcakes = [
     emoji: "❤️",
     shortDescription: "¿Podrás resistir este pecado de pura perversión carmesí?",
     longDescription: "Aterciopelado como una caricia prohibida, este cupcake de Red Velvet con crema de chocolate blanco hipnotiza con su color y textura. Es un beso robado, un secreto entre amantes de lo dulce. La mezcla de cacao, vainilla y chocolate blanco ofrece un placer eterno, donde cada bocado susurra promesas y deseos. Es ese tipo de pecado que sabes que no deberías probar… y aun así repetirías una otra vez.",
-    ingredients: ["Harina", "Cacao", "Mantequilla", "Azúcar2, "Huevos", "Colorante rojo", "Vinagre", "Queso crema", "Chocolate blanco", "Extracto de vainilla"],
+    ingredients: ["Harina", "Cacao", "Mantequilla", "Azúcar", "Huevos", "Colorante rojo", "Vinagre", "Queso crema", "Chocolate blanco", "Extracto de vainilla"],
     formats: [],
     price: 3.5,
     badges: ["BESTSELLER"],
