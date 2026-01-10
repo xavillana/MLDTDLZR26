@@ -30,7 +30,7 @@ export const cupcakes = [
     emoji: "🍫",
     shortDescription: "¿Por qué conformarte con lo simple si puedes pecar a lo grande?",
     longDescription: "Chocolate y licor bailando en tu boca. Este cupcake es como una noche de gala, elegante y sofisticado, donde cada detalle está pensado para cautivar y seducir. El Baileys se desliza provocativo entre capas de puro cacao. Una experiencia única ¿Te atreves a dejar que este encanto te conquiste?",
-    ingredients: ["Harina", "Mantequilla", "Azúcar", "Huevos", "Chocolate 70%", "Cacao puro", " “Baileys", "Extracto de vainilla”],
+    ingredients: ["Harina", "Mantequilla", "Azúcar", "Huevos", "Chocolate 70%", "Cacao puro", " "Baileys", "Extracto de vainilla"],
     formats: [],
     price: 3.5,
     badges: ["BESTSELLER"],
