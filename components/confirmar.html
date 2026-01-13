@@ -55,7 +55,7 @@
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
     <script type="text/javascript">
         (function() {
-            emailjs.init("TU_PUBLIC_KEY_AQUÍ"); // ← Reemplaza con tu Public Key
+            emailjs.init("RU3xIhpZvPCm25Otj"); // ← Reemplaza con tu Public Key
         })();
     </script>
 
@@ -85,7 +85,7 @@
                     discount_code: "PECADO10"
                 };
 
-                emailjs.send('YOUR_SERVICE_ID', 'bienvenida_maldita_dulzura', templateParams)
+                emailjs.send('service_a1r8kaa', 'bienvenida_maldita_dulzura', templateParams)
                     .then(() => {
                         loading.classList.add('hidden');
                         success.classList.remove('hidden');
