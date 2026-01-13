@@ -40,7 +40,7 @@
 
 <script>
   // Inicializa EmailJS con tu User ID (Public Key)
-  emailjs.init("TU_USER_ID_AQUÍ");  // ← REEMPLAZA CON TU USER ID REAL
+  emailjs.init("RU3xIhpZvPCm25Otj");  // ← REEMPLAZA CON TU USER ID REAL
 
   document.getElementById('newsletterForm').addEventListener('submit', function(e) {
     e.preventDefault();
@@ -65,8 +65,8 @@
 
     // Envía el correo usando EmailJS
     emailjs.send(
-      'TU_SERVICE_ID_AQUÍ',          // ← Reemplaza con tu Service ID
-      'TU_TEMPLATE_BIENVENIDA_ID_AQUÍ',  // ← Reemplaza con el ID de tu plantilla de bienvenida
+      'service_a1r8kaa',          // ← Reemplaza con tu Service ID
+      'template_bienvenida',  // ← Reemplaza con el ID de tu plantilla de bienvenida
       templateParams
     )
     .then(() => {
@@ -97,3 +97,4 @@
     animation: fade-in 0.8s ease-out forwards;
   }
 </style>
+
