@@ -1,126 +1,99 @@
-<!-- components/newsletter.html -->
-<section class="py-20 lg:py-28 bg-gradient-to-br from-pink-100 via-purple-50 to-yellow-50">
-  <div class="container mx-auto px-6 max-w-5xl">
-    <div class="text-center">
-      <!-- Título con más personalidad -->
-      <h2 class="text-4xl md:text-5xl lg:text-6xl font-black text-pink-600 mb-6 leading-tight">
-        ÚNETE A NUESTRA<br>
-        <span class="text-yellow-500 drop-shadow-lg">DULCE</span> CONSPIRACIÓN
-      </h2>
+<!-- Newsletter Form + EmailJS -->
+<form id="newsletterForm" class="max-w-2xl mx-auto flex flex-col sm:flex-row gap-6 shadow-2xl rounded-3xl overflow-hidden bg-white p-4">
+  <input
+    type="email"
+    id="newsletterEmail"
+    name="email"
+    placeholder="Tu email... (prometo no contarlo)"
+    required
+    aria-label="Dirección de email para suscribirse"
+    class="flex-1 px-8 py-5 text-lg text-gray-800 rounded-2xl focus:outline-none focus:ring-4 focus:ring-pink-400 transition-shadow shadow-inner"
+  />
+  <button
+    type="submit"
+    id="submitNewsletter"
+    class="bg-pink-600 text-white font-black px-10 py-5 rounded-2xl hover:bg-pink-700 transition transform hover:scale-105 shadow-xl"
+  >
+    Quiero pecar →
+  </button>
+</form>
 
-      <!-- Texto provocador -->
-      <p class="text-xl lg:text-2xl text-gray-800 mb-12 max-w-3xl mx-auto leading-relaxed">
-        Recibirás <strong>novedades prohibidas</strong>, ofertas secretas y tentaciones exclusivas que harán temblar hasta a los más fuertes. <br>
-        <em>Una vez que entras… ya no hay vuelta atrás.</em>
-      </p>
+<!-- Mensaje de éxito -->
+<div id="newsletterSuccess" class="hidden text-center mt-10 animate-fade-in">
+  <div class="text-7xl mb-6">🎉🍰</div>
+  <h3 class="text-4xl font-black text-pink-600 mb-4">¡Ya eres parte de la conspiración!</h3>
+  <p class="text-xl text-gray-700 max-w-xl mx-auto">
+    Te hemos enviado un <strong>código de descuento del 10%</strong> a tu correo.<br>
+    <strong>Código: PECADO10</strong> – Úsalo en tu próximo pecado dulce.
+  </p>
+  <p class="text-lg text-gray-600 mt-4">Revisa tu bandeja (y spam 😈)</p>
+</div>
 
-      <!-- Formulario mejorado -->
-      <form id="newsletterForm" class="max-w-2xl mx-auto flex flex-col sm:flex-row gap-6 shadow-2xl rounded-3xl overflow-hidden bg-white p-4">
-        <input
-          type="email"
-          id="newsletterEmail"
-          name="email"
-          placeholder="Tu email... (prometo no contarlo)"
-          required
-          aria-label="Dirección de email para suscribirse"
-          class="flex-1 px-8 py-5 text-lg text-gray-800 rounded-2xl focus:outline-none focus:ring-4 focus:ring-pink-400 transition-shadow shadow-inner"
-        />
-        <button
-          type="submit"
-          id="submitButton"
-          class="bg-gradient-to-r from-pink-600 to-purple-600 text-white font-black text-xl px-10 py-5 rounded-2xl hover:from-pink-700 hover:to-purple-700 transition-all duration-300 transform hover:scale-105 shadow-2xl whitespace-nowrap"
-        >
-          Quiero pecar →
-        </button>
-      </form>
+<!-- Mensaje de error -->
+<div id="newsletterError" class="hidden text-center mt-10 text-red-600">
+  <p class="text-xl">Algo salió mal... 😔</p>
+  <p>Por favor, inténtalo de nuevo o escríbenos a info@malditadulzura.com</p>
+</div>
 
-      <!-- Mensaje de éxito (oculto por defecto) -->
-      <div id="newsletterSuccess" class="hidden mt-10">
-        <div class="text-7xl mb-6 animate-bounce">😈🍰</div>
-        <h3 class="text-3xl lg:text-4xl font-black text-pink-600 mb-4">
-          ¡Bienvenid@ a la conspiración!
-        </h3>
-        <p class="text-xl text-gray-700 max-w-2xl mx-auto">
-          Revisa tu bandeja de entrada: te hemos enviado un email para confirmar.<br>
-          <strong>Haz clic en el botón</strong> para activar tu suscripción y recibir tu descuento del 10%.
-        </p>
-      </div>
+<!-- EmailJS SDK -->
+<script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
 
-      <!-- Mensaje de error (opcional) -->
-      <div id="newsletterError" class="hidden mt-10 text-red-600 text-xl font-bold">
-        ¡Ups! Algo ha fallado. Inténtalo de nuevo o escribe a hola@malditadulzura.com
-      </div>
-    </div>
-  </div>
-</section>
+<script>
+  // Inicializa EmailJS con tu User ID (Public Key)
+  emailjs.init("TU_USER_ID_AQUÍ");  // ← REEMPLAZA CON TU USER ID REAL
 
-<!-- Cargar EmailJS SDK -->
-<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
-<script type="text/javascript">
-  (function() {
-    // Reemplaza con tu Public Key de EmailJS
-    emailjs.init("RU3xIhpZvPCm25Otj");
-  })();
-</script>
-
-<script type="module">
-  const form = document.getElementById('newsletterForm');
-  const success = document.getElementById('newsletterSuccess');
-  const errorMsg = document.getElementById('newsletterError');
-  const submitButton = document.getElementById('submitButton');
-
-  form.addEventListener('submit', function(e) {
+  document.getElementById('newsletterForm').addEventListener('submit', function(e) {
     e.preventDefault();
 
-    // Desactivar botón y mostrar loading
-    submitButton.disabled = true;
-    submitButton.textContent = "Enviando tentación...";
-
     const email = document.getElementById('newsletterEmail').value.trim();
+    const submitButton = document.getElementById('submitNewsletter');
+    const successDiv = document.getElementById('newsletterSuccess');
+    const errorDiv = document.getElementById('newsletterError');
 
-    // Generar un token único simple (en producción deberías hacerlo en el backend)
-    const token = btoa(email + Date.now()).replace(/=/g, '').substring(0, 20);
-    const confirmationLink = `https://malditadulzura.com/confirmar?token=\( {token}&email= \){encodeURIComponent(email)}`;
+    if (!email) return;
 
+    submitButton.disabled = true;
+    submitButton.textContent = "Enviando pecado...";
+
+    // Datos que se envían a la plantilla de EmailJS
     const templateParams = {
-      nombre: "pecador/a dulce", // Puedes añadir un campo nombre si quieres
-      email: email,
-      confirmation_link: confirmationLink
+      to_email: email,               // ← Destinatario
+      nombre: "Pecador/a dulce",     // Puedes pedir nombre si quieres
+      discount_code: "PECADO10",
+      reply_to: "info@malditadulzura.com"  // Para que puedan responderte
     };
 
-    // Reemplaza con tu Service ID y Template ID reales
-    emailjs.send('service_a1r8kaa', 'template_bienvenida', templateParams)
-      .then(() => {
-        // Ocultar formulario y mostrar éxito
-        form.classList.add('opacity-0', 'translate-y-4', 'transition-all', 'duration-500');
-        
-        setTimeout(() => {
-          form.classList.add('hidden');
-          success.classList.remove('hidden');
-          success.classList.add('animate-fade-in');
-        }, 500);
-
-        form.reset();
-      })
-      .catch((err) => {
-        console.error('Error EmailJS:', err);
-        errorMsg.classList.remove('hidden');
-      })
-      .finally(() => {
-        submitButton.disabled = false;
-        submitButton.textContent = "Quiero pecar →";
-      });
+    // Envía el correo usando EmailJS
+    emailjs.send(
+      'TU_SERVICE_ID_AQUÍ',          // ← Reemplaza con tu Service ID
+      'TU_TEMPLATE_BIENVENIDA_ID_AQUÍ',  // ← Reemplaza con el ID de tu plantilla de bienvenida
+      templateParams
+    )
+    .then(() => {
+      // Éxito: muestra mensaje bonito
+      document.getElementById('newsletterForm').classList.add('hidden');
+      successDiv.classList.remove('hidden');
+      successDiv.classList.add('animate-fade-in');
+      errorDiv.classList.add('hidden');
+    })
+    .catch((err) => {
+      console.error('Error al enviar:', err);
+      errorDiv.classList.remove('hidden');
+      successDiv.classList.add('hidden');
+    })
+    .finally(() => {
+      submitButton.disabled = false;
+      submitButton.textContent = "Quiero pecar →";
+    });
   });
 </script>
 
 <style>
   @keyframes fade-in {
     from { opacity: 0; transform: translateY(20px); }
-    to { opacity: 1; transform: translateY(0); }
+    to   { opacity: 1; transform: translateY(0); }
   }
   .animate-fade-in {
-    animation: fade-in 1s ease-out;
+    animation: fade-in 0.8s ease-out forwards;
   }
-  </style>
-
-
+</style>
