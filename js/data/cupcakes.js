@@ -21,7 +21,7 @@ export const cupcakes = [
     ingredients: ["Zanahoria", "Harina integral", "Azúcar moreno", "Nueces", "Canela", "Jengibre", "Huevos", "Aceite de girasol", "Queso crema"],
     formats: [],
     price: 3.2,
-    badges: ["BESTSELLER"],
+    badges: [""],
     image: "img/ZANAHORIA.JPG"
   },
   {
@@ -33,7 +33,7 @@ export const cupcakes = [
     ingredients: ["Harina", "Mantequilla", "Azúcar", "Huevos", "Chocolate 70%", "Cacao puro", "Baileys", "Extracto de vainilla"],
     formats: [],
     price: 3.5,
-    badges: ["BESTSELLER"],
+    badges: [""],
     image: "img/CHOCOBAILES.JPG"
 
   },
