@@ -1,28 +1,27 @@
-// js/newsletter.js
+// js/components/newsletter.js
 
-// Esperamos el evento custom que ya disparas en router.js al cargar el componente
 document.addEventListener('componentLoaded', (event) => {
   if (event.detail.id !== 'newsletter') return;
 
-  console.log("Componente newsletter cargado → inicializando EmailJS");
+  console.log("✅ Newsletter component loaded - initializing EmailJS");
 
-  // Inicializa EmailJS una sola vez
+  // Inicialización de EmailJS (solo una vez por carga del componente)
   emailjs.init({
-    publicKey: "RU3xIhpZvPCm25Otj"  // ← CAMBIA por tu Public Key real del dashboard
+    publicKey: "RU3xIhpZvPCm25Otj"  // ← CAMBIA ESTO por tu Public Key REAL
   });
 
   const form = document.getElementById('newsletterForm');
   if (!form) {
-    console.error("Formulario newsletter no encontrado en el DOM");
+    console.error("❌ Newsletter form (#newsletterForm) not found");
     return;
   }
 
-  console.log("Formulario newsletter encontrado, listener añadido");
+  console.log("Newsletter form found - attaching submit listener");
 
-  form.addEventListener('submit', function (e) {
+  form.addEventListener('submit', function(e) {
     e.preventDefault();
 
-    console.log("Submit detectado - Email:", document.getElementById('newsletterEmail').value);
+    console.log("Newsletter submit triggered - email:", document.getElementById('newsletterEmail')?.value);
 
     const email = document.getElementById('newsletterEmail').value;
     const consent = document.getElementById('consent').checked;
@@ -42,34 +41,35 @@ document.addEventListener('componentLoaded', (event) => {
       email: email,
       nombre: "pecador/a dulce",
       discount_code: "PECADO10"
+      // Añade más variables si tu plantilla de EmailJS las necesita
     };
 
-    // ← CAMBIA estos dos valores por los reales de tu cuenta EmailJS
+    // ← CAMBIA estos valores por los reales de tu cuenta EmailJS
     emailjs.send(
-      'service_a1r8kaa',              // ← Service ID real (ej: service_abc123xyz)
-      'template_bienvenida',          // ← Template ID real (ej: bienvenida_maldita)
+      'service_a1r8kaa',                  // ← Service ID real (ej: service_abc123xyz)
+      'template_bienvenida',              // ← Template ID real (ej: bienvenida_maldita)
       templateParams
     )
-      .then((response) => {
-        console.log('ÉXITO - Email enviado!', response.status, response.text);
-        form.classList.add('opacity-0', 'translate-y-4', 'transition-all', 'duration-500');
-        setTimeout(() => {
-          form.classList.add('hidden');
-          success.classList.remove('hidden');
-          success.classList.add('animate-fade-in');
-        }, 500);
-        form.reset();
-      })
-      .catch((err) => {
-        console.error('ERROR EmailJS:', err);
-        console.log('Status:', err.status);
-        console.log('Texto:', err.text);
-        errorMsg.classList.remove('hidden');
-        errorMsg.innerHTML = `Error: ${err.text || 'Inténtalo más tarde'}`;
-      })
-      .finally(() => {
-        submitButton.disabled = false;
-        submitButton.textContent = "Quiero pecar →";
-      });
+    .then((response) => {
+      console.log('Newsletter email sent successfully!', response.status, response.text);
+      form.classList.add('opacity-0', 'translate-y-4', 'transition-all', 'duration-500');
+      setTimeout(() => {
+        form.classList.add('hidden');
+        success.classList.remove('hidden');
+        success.classList.add('animate-fade-in');
+      }, 500);
+      form.reset();
+    })
+    .catch((err) => {
+      console.error('Newsletter EmailJS error:', err);
+      console.log('Error status:', err.status);
+      console.log('Error text:', err.text);
+      errorMsg.classList.remove('hidden');
+      errorMsg.textContent = `Error: ${err.text || 'Inténtalo de nuevo más tarde'}`;
+    })
+    .finally(() => {
+      submitButton.disabled = false;
+      submitButton.textContent = "Quiero pecar →";
+    });
   });
-});
+});;
