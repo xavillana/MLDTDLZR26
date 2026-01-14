@@ -3,6 +3,7 @@
 import { initMobileMenu, initModalSystem } from './core/ui.js';
 import { renderFeaturedProducts, initStorePage } from './components/productsRenderer.js';
 import { initPedidoPage } from './components/pedido.js';
+import './components/newsletter.js';
 
 const componentCache = new Map();
 
