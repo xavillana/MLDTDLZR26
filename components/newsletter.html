@@ -2,19 +2,16 @@
 <section class="py-20 lg:py-28 bg-gradient-to-br from-pink-100 via-purple-50 to-yellow-50">
   <div class="container mx-auto px-6 max-w-5xl">
     <div class="text-center">
-      <!-- Título con personalidad -->
       <h2 class="text-4xl md:text-5xl lg:text-6xl font-black text-pink-600 mb-6 leading-tight">
         ÚNETE A NUESTRA<br>
         <span class="text-yellow-500 drop-shadow-lg">DULCE</span> CONSPIRACIÓN
       </h2>
 
-      <!-- Texto provocador -->
       <p class="text-xl lg:text-2xl text-gray-800 mb-10 max-w-3xl mx-auto leading-relaxed">
         Recibirás <strong>novedades prohibidas</strong>, ofertas secretas y tentaciones exclusivas.<br>
         <em>Una vez que entras… ya no hay vuelta atrás.</em>
       </p>
 
-      <!-- Formulario -->
       <form id="newsletterForm" class="max-w-2xl mx-auto flex flex-col sm:flex-row gap-4 shadow-2xl rounded-3xl overflow-hidden bg-white p-5">
         <input
           type="email"
@@ -26,7 +23,6 @@
           class="flex-1 px-6 py-4 text-lg text-gray-800 rounded-2xl focus:outline-none focus:ring-4 focus:ring-pink-400 transition-shadow shadow-inner"
         />
 
-        <!-- Checkbox de consentimiento (muy recomendado para GDPR) -->
         <div class="flex items-center justify-center sm:justify-start text-sm text-gray-700 mt-3 sm:mt-0">
           <input type="checkbox" id="consent" name="consent" required class="mr-2 w-5 h-5 accent-pink-600">
           <label for="consent">Acepto recibir emails con ofertas y pecados dulces</label>
@@ -40,12 +36,10 @@
         </button>
       </form>
 
-      <!-- Mensaje de error -->
       <div id="errorMsg" class="hidden text-red-600 mt-6 text-lg">
         Algo salió mal... ¿puedes intentarlo de nuevo?
       </div>
 
-      <!-- Mensaje de éxito -->
       <div id="success" class="hidden text-center py-16 animate-fade-in">
         <div class="text-8xl mb-8">🎉🍰😈</div>
         <h3 class="text-4xl lg:text-5xl font-black text-pink-600 mb-6">
@@ -59,7 +53,6 @@
       </div>
     </div>
   </div>
-</section>  
 
   <!-- Estilos de animación -->
   <style>
@@ -72,73 +65,6 @@
     }
   </style>
 
-  <!-- EmailJS + Lógica del formulario -->
-<script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
-<script>
-  window.addEventListener('DOMContentLoaded', () => {
-    // Inicialización segura
-    emailjs.init({
-      publicKey: "RU3xIhpZvPCm25Otj"  // ← Confirma que esta es tu Public Key real del dashboard
-    });
-    console.log("EmailJS inicializado");  // ← Aparecerá esto en consola al cargar la página
-
-    const form = document.getElementById('newsletterForm');
-    if (!form) {
-      console.error("¡ERROR! No se encuentra el formulario con id='newsletterForm'");
-      return;
-    }
-
-    console.log("Formulario encontrado, añadiendo listener...");
-
-    form.addEventListener('submit', function(e) {
-      e.preventDefault();
-      console.log("Formulario submit detectado! Email:", document.getElementById('newsletterEmail').value);
-
-      const email = document.getElementById('newsletterEmail').value;
-      const consent = document.getElementById('consent').checked;
-      const success = document.getElementById('success');
-      const errorMsg = document.getElementById('errorMsg');
-      const submitButton = form.querySelector('button[type="submit"]');
-
-      if (!consent) {
-        alert("Debes aceptar recibir emails para continuar.");
-        return;
-      }
-
-      submitButton.disabled = true;
-      submitButton.textContent = "Enviando pecado...";
-
-      const templateParams = {
-        email: email,
-        nombre: "pecador/a dulce",
-        discount_code: "PECADO10"
-      };
-
-      // ← ¡Reemplaza con tus IDs reales!
-     emailjs.send("service_a1r8kaa","template_bienvenida");
-      
-      .then((response) => {
-        console.log('EMAIL ENVIADO OK!', response.status, response.text);
-        form.classList.add('opacity-0', 'translate-y-4', 'transition-all', 'duration-500');
-        setTimeout(() => {
-          form.classList.add('hidden');
-          success.classList.remove('hidden');
-          success.classList.add('animate-fade-in');
-        }, 500);
-        form.reset();
-      })
-      .catch((err) => {
-        console.error('ERROR EN EMAILJS:', err);
-        console.log('Status:', err.status);
-        console.log('Texto:', err.text);
-        errorMsg.classList.remove('hidden');
-        errorMsg.innerHTML = `Error: ${err.text || 'Inténtalo más tarde'}`;
-      })
-      .finally(() => {
-        submitButton.disabled = false;
-        submitButton.textContent = "Quiero pecar →";
-      });
-    });
-  });
-</script>
-
+  <!-- Solo el CDN de EmailJS (el resto del JS va en newsletter.js) -->
+  <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+</section>
