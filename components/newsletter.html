@@ -73,67 +73,74 @@
   </style>
 
   <!-- EmailJS + Lógica del formulario -->
- <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
 <script>
-  (function() {
-    // Inicialización correcta con publicKey (¡reemplaza con TU clave real!)
+  window.addEventListener('DOMContentLoaded', () => {
+    // Inicialización segura
     emailjs.init({
-      publicKey: "RU3xIhpZvPCm25Otj"  // ← Pon aquí tu Public Key exacta (la de Account > API Keys)
+      publicKey: "RU3xIhpZvPCm25Otj"  // ← Confirma que esta es tu Public Key real del dashboard
     });
-  })();
+    console.log("EmailJS inicializado");  // ← Aparecerá esto en consola al cargar la página
 
-  document.getElementById('newsletterForm').addEventListener('submit', function(e) {
-    e.preventDefault();
-
-    const form = this;
-    const email = document.getElementById('newsletterEmail').value;
-    const consent = document.getElementById('consent').checked;
-    const success = document.getElementById('success');
-    const errorMsg = document.getElementById('errorMsg');
-    const submitButton = form.querySelector('button[type="submit"]');
-
-    if (!consent) {
-      alert("Debes aceptar recibir emails para continuar.");
+    const form = document.getElementById('newsletterForm');
+    if (!form) {
+      console.error("¡ERROR! No se encuentra el formulario con id='newsletterForm'");
       return;
     }
 
-    submitButton.disabled = true;
-    submitButton.textContent = "Enviando pecado...";
+    console.log("Formulario encontrado, añadiendo listener...");
 
-    const templateParams = {
-      email: email,
-      nombre: "pecador/a dulce",
-      discount_code: "PECADO10",
-      // Añade más si tu plantilla las usa, ej: to_name: "Tú", reply_to: email
-    };
+    form.addEventListener('submit', function(e) {
+      e.preventDefault();
+      console.log("Formulario submit detectado! Email:", document.getElementById('newsletterEmail').value);
 
-    // ← ¡REEMPLAZA ESTOS DOS VALORES CON LOS REALES DE TU DASHBOARD!
-    emailjs.send(
-      'service_a1r8kaa',       // Ej: 'service_abc123xyz' (de Email Services)
-      'template_bienvenida',     // Ej: 'bienvenida_maldita' (de Email Templates)
-      templateParams
-    )
-    .then((response) => {
-      console.log('EMAIL ENVIADO CON ÉXITO!', response.status, response.text);
-      form.classList.add('opacity-0', 'translate-y-4', 'transition-all', 'duration-500');
-      setTimeout(() => {
-        form.classList.add('hidden');
-        success.classList.remove('hidden');
-        success.classList.add('animate-fade-in');
-      }, 500);
-      form.reset();
-    })
-    .catch((err) => {
-      console.error('ERROR AL ENVIAR EMAIL:', err);
-      console.log('Status:', err.status);        // Ej: 400
-      console.log('Texto error:', err.text);     // Ej: "The service ID is invalid..."
-      errorMsg.classList.remove('hidden');
-      errorMsg.innerHTML = `Error: ${err.text || 'Inténtalo de nuevo más tarde'}`;
-    })
-    .finally(() => {
-      submitButton.disabled = false;
-      submitButton.textContent = "Quiero pecar →";
+      const email = document.getElementById('newsletterEmail').value;
+      const consent = document.getElementById('consent').checked;
+      const success = document.getElementById('success');
+      const errorMsg = document.getElementById('errorMsg');
+      const submitButton = form.querySelector('button[type="submit"]');
+
+      if (!consent) {
+        alert("Debes aceptar recibir emails para continuar.");
+        return;
+      }
+
+      submitButton.disabled = true;
+      submitButton.textContent = "Enviando pecado...";
+
+      const templateParams = {
+        email: email,
+        nombre: "pecador/a dulce",
+        discount_code: "PECADO10"
+      };
+
+      // ← ¡Reemplaza con tus IDs reales!
+      emailjs.send(
+        'service_a1r8kaa',        // Del dashboard > Email Services
+        'template_bienvenida',      // Del dashboard > Email Templates
+        templateParams
+      )
+      .then((response) => {
+        console.log('EMAIL ENVIADO OK!', response.status, response.text);
+        form.classList.add('opacity-0', 'translate-y-4', 'transition-all', 'duration-500');
+        setTimeout(() => {
+          form.classList.add('hidden');
+          success.classList.remove('hidden');
+          success.classList.add('animate-fade-in');
+        }, 500);
+        form.reset();
+      })
+      .catch((err) => {
+        console.error('ERROR EN EMAILJS:', err);
+        console.log('Status:', err.status);
+        console.log('Texto:', err.text);
+        errorMsg.classList.remove('hidden');
+        errorMsg.innerHTML = `Error: ${err.text || 'Inténtalo más tarde'}`;
+      })
+      .finally(() => {
+        submitButton.disabled = false;
+        submitButton.textContent = "Quiero pecar →";
+      });
     });
   });
 </script>
-
