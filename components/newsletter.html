@@ -76,7 +76,7 @@
   <script>
     (function() {
       // ← Reemplaza con TU User ID / Public Key real de EmailJS
-      emailjs.init("RU3xIhpZvPCm25Otj"); // Ejemplo: "user_xxxxxxxxxxxxxxxx"
+      emailjs.init({publickey:"RU3xIhpZvPCm25Otj"}); // Ejemplo: "user_xxxxxxxxxxxxxxxx"
     })();
 
     document.getElementById('newsletterForm').addEventListener('submit', function(e) {
@@ -130,5 +130,6 @@
     });
   </script>
 </section>
+
 
 
