@@ -115,11 +115,8 @@
       };
 
       // ← ¡Reemplaza con tus IDs reales!
-      emailjs.send(
-        'service_a1r8kaa',        // Del dashboard > Email Services
-        'template_bienvenida',      // Del dashboard > Email Templates
-        templateParams
-      )
+     emailjs.send("service_a1r8kaa","template_bienvenida");
+      
       .then((response) => {
         console.log('EMAIL ENVIADO OK!', response.status, response.text);
         form.classList.add('opacity-0', 'translate-y-4', 'transition-all', 'duration-500');
@@ -144,3 +141,4 @@
     });
   });
 </script>
+
