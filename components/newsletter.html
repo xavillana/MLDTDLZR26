@@ -76,7 +76,7 @@
   <script>
     (function() {
       // ← Reemplaza con TU User ID / Public Key real de EmailJS
-      emailjs.init("TU_USER_ID_AQUÍ"); // Ejemplo: "user_xxxxxxxxxxxxxxxx"
+      emailjs.init("RU3xIhpZvPCm25Otj"); // Ejemplo: "user_xxxxxxxxxxxxxxxx"
     })();
 
     document.getElementById('newsletterForm').addEventListener('submit', function(e) {
@@ -106,8 +106,8 @@
 
       // ← Reemplaza estos valores con los tuyos reales
       emailjs.send(
-        'TU_SERVICE_ID',              // Ej: 'service_xxxxxxxxxx'
-        'TU_TEMPLATE_BIENVENIDA_ID',  // Ej: 'template_bienvenida_maldita' o 'bienvenida_maldita_dulzura'
+        'service_a1r8kaa',              // Ej: 'service_xxxxxxxxxx'
+        'template_bienvenida',  // Ej: 'template_bienvenida_maldita' o 'bienvenida_maldita_dulzura'
         templateParams
       )
       .then(() => {
@@ -130,4 +130,5 @@
     });
   </script>
 </section>
+
 
