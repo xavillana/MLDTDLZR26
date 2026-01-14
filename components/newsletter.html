@@ -1,100 +1,133 @@
-<!-- Newsletter Form + EmailJS -->
-<form id="newsletterForm" class="max-w-2xl mx-auto flex flex-col sm:flex-row gap-6 shadow-2xl rounded-3xl overflow-hidden bg-white p-4">
-  <input
-    type="email"
-    id="newsletterEmail"
-    name="email"
-    placeholder="Tu email... (prometo no contarlo)"
-    required
-    aria-label="Dirección de email para suscribirse"
-    class="flex-1 px-8 py-5 text-lg text-gray-800 rounded-2xl focus:outline-none focus:ring-4 focus:ring-pink-400 transition-shadow shadow-inner"
-  />
-  <button
-    type="submit"
-    id="submitNewsletter"
-    class="bg-pink-600 text-white font-black px-10 py-5 rounded-2xl hover:bg-pink-700 transition transform hover:scale-105 shadow-xl"
-  >
-    Quiero pecar →
-  </button>
-</form>
+<!-- components/newsletter.html -->
+<section class="py-20 lg:py-28 bg-gradient-to-br from-pink-100 via-purple-50 to-yellow-50">
+  <div class="container mx-auto px-6 max-w-5xl">
+    <div class="text-center">
+      <!-- Título con personalidad -->
+      <h2 class="text-4xl md:text-5xl lg:text-6xl font-black text-pink-600 mb-6 leading-tight">
+        ÚNETE A NUESTRA<br>
+        <span class="text-yellow-500 drop-shadow-lg">DULCE</span> CONSPIRACIÓN
+      </h2>
 
-<!-- Mensaje de éxito -->
-<div id="newsletterSuccess" class="hidden text-center mt-10 animate-fade-in">
-  <div class="text-7xl mb-6">🎉🍰</div>
-  <h3 class="text-4xl font-black text-pink-600 mb-4">¡Ya eres parte de la conspiración!</h3>
-  <p class="text-xl text-gray-700 max-w-xl mx-auto">
-    Te hemos enviado un <strong>código de descuento del 10%</strong> a tu correo.<br>
-    <strong>Código: PECADO10</strong> – Úsalo en tu próximo pecado dulce.
-  </p>
-  <p class="text-lg text-gray-600 mt-4">Revisa tu bandeja (y spam 😈)</p>
-</div>
+      <!-- Texto provocador -->
+      <p class="text-xl lg:text-2xl text-gray-800 mb-10 max-w-3xl mx-auto leading-relaxed">
+        Recibirás <strong>novedades prohibidas</strong>, ofertas secretas y tentaciones exclusivas.<br>
+        <em>Una vez que entras… ya no hay vuelta atrás.</em>
+      </p>
 
-<!-- Mensaje de error -->
-<div id="newsletterError" class="hidden text-center mt-10 text-red-600">
-  <p class="text-xl">Algo salió mal... 😔</p>
-  <p>Por favor, inténtalo de nuevo o escríbenos a info@malditadulzura.com</p>
-</div>
+      <!-- Formulario -->
+      <form id="newsletterForm" class="max-w-2xl mx-auto flex flex-col sm:flex-row gap-4 shadow-2xl rounded-3xl overflow-hidden bg-white p-5">
+        <input
+          type="email"
+          id="newsletterEmail"
+          name="email"
+          placeholder="Tu email... (prometo no contarlo)"
+          required
+          aria-label="Dirección de email para suscribirse"
+          class="flex-1 px-6 py-4 text-lg text-gray-800 rounded-2xl focus:outline-none focus:ring-4 focus:ring-pink-400 transition-shadow shadow-inner"
+        />
 
-<!-- EmailJS SDK -->
-<script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+        <!-- Checkbox de consentimiento (muy recomendado para GDPR) -->
+        <div class="flex items-center justify-center sm:justify-start text-sm text-gray-700 mt-3 sm:mt-0">
+          <input type="checkbox" id="consent" name="consent" required class="mr-2 w-5 h-5 accent-pink-600">
+          <label for="consent">Acepto recibir emails con ofertas y pecados dulces</label>
+        </div>
 
-<script>
-  // Inicializa EmailJS con tu User ID (Public Key)
-  emailjs.init("RU3xIhpZvPCm25Otj");  // ← REEMPLAZA CON TU USER ID REAL
+        <button
+          type="submit"
+          class="bg-pink-600 text-white font-black text-lg px-10 py-4 rounded-2xl hover:bg-pink-700 transition transform hover:scale-105 shadow-xl mt-4 sm:mt-0"
+        >
+          Quiero pecar →
+        </button>
+      </form>
 
-  document.getElementById('newsletterForm').addEventListener('submit', function(e) {
-    e.preventDefault();
+      <!-- Mensaje de error -->
+      <div id="errorMsg" class="hidden text-red-600 mt-6 text-lg">
+        Algo salió mal... ¿puedes intentarlo de nuevo?
+      </div>
 
-    const email = document.getElementById('newsletterEmail').value.trim();
-    const submitButton = document.getElementById('submitNewsletter');
-    const successDiv = document.getElementById('newsletterSuccess');
-    const errorDiv = document.getElementById('newsletterError');
+      <!-- Mensaje de éxito -->
+      <div id="success" class="hidden text-center py-16 animate-fade-in">
+        <div class="text-8xl mb-8">🎉🍰😈</div>
+        <h3 class="text-4xl lg:text-5xl font-black text-pink-600 mb-6">
+          ¡Ya estás dentro de la conspiración!
+        </h3>
+        <p class="text-xl lg:text-2xl text-gray-800 max-w-3xl mx-auto leading-relaxed">
+          Te hemos enviado tu bienvenida + código de descuento al correo.<br>
+          Revisa tu bandeja (y la carpeta de spam) en unos minutos.<br>
+          ¡Prepárate para tentaciones malditamente deliciosas!
+        </p>
+      </div>
+    </div>
+  </div>
 
-    if (!email) return;
+  <!-- Estilos de animación -->
+  <style>
+    @keyframes fade-in {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .animate-fade-in {
+      animation: fade-in 1s ease-out;
+    }
+  </style>
 
-    submitButton.disabled = true;
-    submitButton.textContent = "Enviando pecado...";
+  <!-- EmailJS + Lógica del formulario -->
+  <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+  <script>
+    (function() {
+      // ← Reemplaza con TU User ID / Public Key real de EmailJS
+      emailjs.init("TU_USER_ID_AQUÍ"); // Ejemplo: "user_xxxxxxxxxxxxxxxx"
+    })();
 
-    // Datos que se envían a la plantilla de EmailJS
-    const templateParams = {
-      to_email: email,               // ← Destinatario
-      nombre: "Pecador/a dulce",     // Puedes pedir nombre si quieres
-      discount_code: "PECADO10",
-      reply_to: "info@malditadulzura.com"  // Para que puedan responderte
-    };
+    document.getElementById('newsletterForm').addEventListener('submit', function(e) {
+      e.preventDefault();
 
-    // Envía el correo usando EmailJS
-    emailjs.send(
-      'service_a1r8kaa',          // ← Reemplaza con tu Service ID
-      'template_bienvenida',  // ← Reemplaza con el ID de tu plantilla de bienvenida
-      templateParams
-    )
-    .then(() => {
-      // Éxito: muestra mensaje bonito
-      document.getElementById('newsletterForm').classList.add('hidden');
-      successDiv.classList.remove('hidden');
-      successDiv.classList.add('animate-fade-in');
-      errorDiv.classList.add('hidden');
-    })
-    .catch((err) => {
-      console.error('Error al enviar:', err);
-      errorDiv.classList.remove('hidden');
-      successDiv.classList.add('hidden');
-    })
-    .finally(() => {
-      submitButton.disabled = false;
-      submitButton.textContent = "Quiero pecar →";
+      const form = this;
+      const email = document.getElementById('newsletterEmail').value;
+      const consent = document.getElementById('consent').checked;
+      const success = document.getElementById('success');
+      const errorMsg = document.getElementById('errorMsg');
+      const submitButton = form.querySelector('button[type="submit"]');
+
+      if (!consent) {
+        alert("Debes aceptar recibir emails para continuar.");
+        return;
+      }
+
+      submitButton.disabled = true;
+      submitButton.textContent = "Enviando pecado...";
+
+      const templateParams = {
+        email: email,
+        nombre: "pecador/a dulce",
+        discount_code: "PECADO10"
+        // Puedes añadir más variables si tu plantilla las usa
+      };
+
+      // ← Reemplaza estos valores con los tuyos reales
+      emailjs.send(
+        'TU_SERVICE_ID',              // Ej: 'service_xxxxxxxxxx'
+        'TU_TEMPLATE_BIENVENIDA_ID',  // Ej: 'template_bienvenida_maldita' o 'bienvenida_maldita_dulzura'
+        templateParams
+      )
+      .then(() => {
+        form.classList.add('opacity-0', 'translate-y-4', 'transition-all', 'duration-500');
+        setTimeout(() => {
+          form.classList.add('hidden');
+          success.classList.remove('hidden');
+          success.classList.add('animate-fade-in');
+        }, 500);
+        form.reset();
+      })
+      .catch((err) => {
+        console.error('Error al enviar:', err);
+        errorMsg.classList.remove('hidden');
+      })
+      .finally(() => {
+        submitButton.disabled = false;
+        submitButton.textContent = "Quiero pecar →";
+      });
     });
-  });
-</script>
-
-<style>
-  @keyframes fade-in {
-    from { opacity: 0; transform: translateY(20px); }
-    to   { opacity: 1; transform: translateY(0); }
-  }
-  .animate-fade-in {
-    animation: fade-in 0.8s ease-out forwards;
-  }
-</style>
+  </script>
+</section>
 
