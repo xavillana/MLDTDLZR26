@@ -13,10 +13,14 @@
 <body class="bg-[#fffbf7] min-h-screen flex flex-col">
   <div id="globalModal"></div>
   <header id="navbar"></header>
-  <main class="flex-1">
-    <section id="pedido"></section>
+   <main class="flex-1 pt-20 lg:pt-24">  <!-- espacio para navbar fijo -->
+
+    <!-- Aquí se carga todo el wizard -->
+    <div id="pedido" class="min-h-screen"></div>
+
   </main>
   <footer id="footer"></footer>
   <script type="module" src="js/router.js"></script>
 </body>
 </html>
+
