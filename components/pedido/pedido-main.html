@@ -1,1 +1,56 @@
+<!-- Barra de progreso - ahora 5 pasos -->
+<div class="mb-12">
+  <div class="flex justify-between items-center max-w-5xl mx-auto relative">
+    <div class="absolute top-5 left-0 right-0 h-1 bg-gray-200"></div>
+    <div class="absolute top-5 left-0 right-0 h-1 bg-pink-600 transition-all duration-500" id="progress-line" style="width: 0%;"></div>
 
+    <div class="relative z-10 text-center">
+      <div id="step1-circle" class="w-12 h-12 mx-auto rounded-full bg-pink-600 text-white flex items-center justify-center font-bold text-xl shadow-lg">1</div>
+      <p class="mt-3 text-sm font-medium text-pink-600">Tipo</p>
+    </div>
+
+    <div class="relative z-10 text-center">
+      <div id="step2-circle" class="w-12 h-12 mx-auto rounded-full bg-gray-300 text-white flex items-center justify-center font-bold text-xl shadow-lg">2</div>
+      <p class="mt-3 text-sm font-medium text-gray-600">Detalles</p>
+    </div>
+
+    <div class="relative z-10 text-center">
+      <div id="step3-circle" class="w-12 h-12 mx-auto rounded-full bg-gray-300 text-white flex items-center justify-center font-bold text-xl shadow-lg">3</div>
+      <p class="mt-3 text-sm font-medium text-gray-600">Personaliza</p>
+    </div>
+
+    <div class="relative z-10 text-center">
+      <div id="step4-circle" class="w-12 h-12 mx-auto rounded-full bg-gray-300 text-white flex items-center justify-center font-bold text-xl shadow-lg">4</div>
+      <p class="mt-3 text-sm font-medium text-gray-600">Entrega</p>
+    </div>
+
+    <div class="relative z-10 text-center">
+      <div id="step5-circle" class="w-12 h-12 mx-auto rounded-full bg-gray-300 text-white flex items-center justify-center font-bold text-xl shadow-lg">5</div>
+      <p class="mt-3 text-sm font-medium text-gray-600">Resumen</p>
+    </div>
+  </div>
+</div>
+
+<!-- Formulario con 5 pasos -->
+<form id="orderForm" class="space-y-12">
+  <div id="pedido-paso-1" class="form-step"></div>
+  <div id="pedido-paso-2" class="form-step hidden"></div>
+  <div id="pedido-paso-3" class="form-step hidden"></div>
+  <div id="pedido-paso-4" class="form-step hidden"></div>
+  <div id="pedido-paso-5" class="form-step hidden"></div>
+
+  <!-- Botones -->
+  <div class="flex flex-col sm:flex-row justify-between gap-6 pt-8 max-w-3xl mx-auto">
+    <button type="button" id="prevStep" class="hidden px-10 py-4 bg-gray-300 text-gray-800 rounded-xl font-bold hover:bg-gray-400 transition">
+      ← Atrás
+    </button>
+
+    <button type="button" id="nextStep" class="px-12 py-5 bg-pink-600 text-white rounded-xl font-black text-lg hover:bg-pink-700 transition transform hover:scale-105 shadow-xl">
+      Siguiente →
+    </button>
+
+    <button type="submit" id="submitOrder" class="hidden px-12 py-5 bg-linear-to-r from-pink-600 to-purple-600 text-white rounded-xl font-black text-lg hover:from-pink-700 hover:to-purple-700 transition transform hover:scale-105 shadow-2xl">
+      ¡Enviar Pedido y Pecar! 😈
+    </button>
+  </div>
+</form>
