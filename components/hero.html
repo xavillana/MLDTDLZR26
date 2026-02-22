@@ -1,32 +1,131 @@
-<!-- components/hero.html -->
-<section class="min-h-screen items-center justify-center flex relative overflow-hidden">
-  <div class="absolute inset-0 opacity-70">
-    <img src="img/TARTA-MARCOS.JPG" alt="Fondo dulce" class="w-full h-full object-cover">
-  </div>
+<!-- HERO -->
+<section id="home" class="relative min-h-screen flex items-center justify-center text-center overflow-hidden gradient-bg">
+  <img src="img/notMAIN.JPG" alt="Fondo dulce" class=" absolute inset-0 w-full h-full object-cover opacity-50" loading="lazy">
 
-  <div class="relative z-10 text-center px-6 max-w-5xl mx-auto">
-    <h1 class="text-6xl sm:text-6xl md:text-8xl lg:text-10xl xl:text-9xl font-black text-pink-600 drop-shadow-2xl leading-tight">
-      Tartas y cupcakes<br>
-      <span class="text-white drop-shadow-lg font-black text-shadow-pink">MALDITAMENTE</span> deliciosos
-    </h1>
-
-    <p class="text-2xl md:text-2xl lg:text-3xl text-pink-600 font-bold mt-8 mb-12 max-w-3xl mx-auto drop-shadow-lg opacity-95">
-
-    </p>
-
-    <div class="flex flex-col sm:flex-row gap-6 justify-center items-center">
-      <a href="tienda.html" class="bg-pink-600 text-white font-black text-xl px-10 py-5 rounded-full hover:bg-pink-100 hover:text-pink-600 hover:scale-110 transition shadow-2xl">
-        Ver Menú
+  <div class="relative z-10 px-6 py-12 mx-auto max-w-5xl">
+    <div class="title font-extrabold text-2xl sm:text-3xl md:text-4xl lg:text-5xl tracking-tighter text-shadow-pink">Maldita Dulzura</div>
+    <div class="mt-4 mb-8 h-1 w-24 bg-pink-600 mx-auto rounded-full animate-pulse"></div> 
+    <h2 class="neon-blanco text-pink-600 text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-black leading-tight">
+    Tartas y cupcakes <br>
+    para pecar sin culpa
+    <div class="mt-10 flex flex-col sm:flex-row items-center justify-center gap-6">
+      <a href="tienda.html">
+         <button class="text-pink-600 text-xl sm:text-xl px-10 py-5 rounded-full 
+                neon-blanco bg-white hover:text-white  shadow-8xl w-full sm:w-auto text-center
+                group relative inline-flex items-center justify-center font-bold
+         overflow-hidden 
+     transition-colors duration-300"> 
+         <span
+    class="absolute inset-0 gradient-bg
+           -translate-x-80 -translate-y-80
+           group-hover:translate-x-0 group-hover:translate-y-0
+           transition-transform duration-300"
+  >     </span>
+        <span class="relative">Menu</span>
+         </button>
       </a>
-      <a href="pedido.html" class="bg-pink-600 text-white font-black text-xl px-10 py-5 rounded-full hover:bg-pink-100 hover:text-pink-600 hover:scale-110 transition shadow-2xl">
-        Hacer Pedido
+
+<a href="pedido.html">
+  <button
+    class="text-pink-600 text-xl sm:text-xl px-10 py-5 rounded-full 
+           neon-blanco bg-white  hover:text-white shadow-8xl w-full sm:w-auto text-center
+           group relative inline-flex items-center justify-center font-bold
+           overflow-hidden transition-colors duration-100">
+           
+    <!-- Capa diagonal -->
+    <span
+      class="absolute inset-0 bg-pink-600
+             -translate-x-full -translate-y-full
+             group-hover:translate-x-0 group-hover:translate-y-0
+             transition-transform duration-100">
+    </span>
+
+    <span class="relative">Pedido</span>
+  </button>
+</a>
+
+ 
+
+</section>
+<section class="py-16 lg:py-24 ">
+  <div class="container mx-auto px-4">
+    <!-- Título principal -->
+    <div class="text-center mb-16">
+      <h2 class="text-4xl md:text-5xl lg:text-6xl font-black text-pink-600 text-center mb-8 animate-bounce">
+        NUESTROS PRODUCTOS
+      </h2>
+      <p class="text-xl text-gray-700 max-w-2xl mx-auto uppercase tracking-wide">
+        Porque todos tenemos nuestros pequeños vicios... <br>
+        y el nuestro es hacer que los tuyos sean deliciosos.
+      </p>
+    </div>
+
+    <!-- Grid de tarjetas clicables -->
+    <div class="grid md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-3 gap-8 justify-center">
+      <!-- Tarjeta 1: Tartas -->
+      <a href="pedido.html" class="block group bg-white rounded-3xl overflow-hidden shadow-xl hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-4 border-2 border-pink-100 hover:border-pink-300">
+        <div class="h-fit overflow-hidden">
+          <img 
+            src="/img/REDVELVETCAKE.JPG" 
+            alt="Tartas y Cheesecakes personalizadas" 
+            class="h-full w-full object-cover group-hover:scale-110 transition-transform duration-500"
+          >
+        </div>
+        <div class="p-8">
+          <h3 class="text-2xl font-black text-pink-600 mb-3 text-center">Tartas & Cheesecakes</h3>
+          <p class="text-gray-600 mb-6">
+            Desde las clásicas hasta las más locas. Personalizadas para hacer pecar a quien quieras.
+          </p>
+          <div class="flex items-center justify-between text-lg font-bold text-gray-900">
+            Desde 35€
+            <span class="text-pink-600 group-hover:text-pink-700 transition">→</span>
+          </div>
+        </div>
+      </a>
+
+      <!-- Tarjeta 2: Cupcakes -->
+      <a href="pedido.html" class="block group bg-white rounded-3xl overflow-hidden shadow-xl hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-4 border-2 border-pink-100 hover:border-pink-300">
+        <div class="h-fit overflow-hidden">
+          <img 
+            src="/img/OREOCUPCAKES.JPG" 
+            alt="Cupcakes variados y deliciosos" 
+            class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+          >
+        </div>
+        <div class="p-8">
+          <h3 class="text-2xl font-black text-purple-600 mb-3 text-center">Cupcakes y Muffins</h3>
+          <p class="text-gray-600 mb-6">
+            Pequeños pero peligrosamente adictivos. Cajas de 6, 12 o 24 con los sabores más prohibidos.
+          </p>
+          <div class="flex items-center justify-between text-lg font-bold text-gray-900">
+            Desde 3,50€/ud
+            <span class="text-purple-600 group-hover:text-purple-700 transition">→</span>
+          </div>
+        </div>
+      </a>
+
+      <!-- Tarjeta 3: Personalizados -->
+      <a href="pedido.html" class="block group bg-white rounded-3xl overflow-hidden shadow-xl hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-4 border-2 border-pink-100 hover:border-pink-300">
+        <div class="h-fit overflow-hidden">
+          <img 
+            src="/img/Tarta1.png" 
+            alt="Tartas personalizadas únicas"
+            class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+          >
+        </div>
+        <div class="p-8">
+          <h3 class="text-2xl font-black text-red-600 mb-3 text-center">Pedidos Personalizados</h3>
+          <p class="text-gray-600 mb-6">
+            Tu idea más loca hecha realidad. Temáticas, formas, colores… nada es demasiado.
+          </p>
+          <div class="flex items-center justify-between text-lg font-bold text-gray-900">
+            Desde 45€
+            <span class="text-red-600 group-hover:text-red-700 transition">→</span>
+          </div>
+        </div>
       </a>
     </div>
   </div>
-</section>
-
-
-
 
 
 
