@@ -66,7 +66,7 @@ export const tartas = [
     price: 36,
     oldPrice: 42,
     badges: ["DESCUENTO"],
-    image: "img/FRESNATA.JPG",
+    image: "img/FRESNATA.jpg",
     sizes: [
       { size: "Pequeña", price: 26, servings: 6 },
       { size: "Mediana", price: 36, servings: 10 },
