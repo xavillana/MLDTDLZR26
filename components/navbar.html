@@ -1,55 +1,41 @@
-<!-- components/navbar.html -->
-<nav class="hero-gradient text-white fixed top-0 w-full z-50 shadow-2xl">
-  <div class="container mx-auto px-4 py-4">
-    <div class="flex items-center justify-between">
+<!-- NAVBAR -->
+<nav class="gradient-bg text-white fixed top-0 w-full z-50 shadow-2xl" role="navigation">
+  <div class="container mx-auto px-4 py-4 flex items-center justify-between">
 
-      <!-- Logo -->
-       <a href="index.html" class="flex items-center gap-3 hover:opacity-90 transition">
-        <img src="img/LOGO.JPG" alt="Maldita Dulzura" class="w-16 h-16 object-contain rounded-full shadow-lg md:w-20 md:h-20">
-                <div class="flex flex-col">
-                    <span class="title text-white font-black text-xl md:text-2xl tracking-tight">Maldita Dulzura</span>
-                </div>
-            </a>
+    <!-- Logo -->
+    <a href="index.html" class="flex items-center justify-center text-center gap-3 transition">
+      <img src="img/LOGO.JPG" alt="Logo de Maldita Dulzura" class="w-16 h-16 sm:h-18 sm:w-18 md:h-20 md:w-20 object-contain">
+      <span class="title font-bold text-4xl md:text-5xl sm:text-4xl tracking-tighter text-shadow-pink">MD</span>
+    </a>
 
-      <!-- Botón menú móvil -->
-      <button id="mobileMenuBtn" class="lg:hidden text-3xl focus:outline-none" aria-label="Abrir menú">
-        <i class="fas fa-bars"></i>
-      </button>
+    <!-- Mobile button -->
+    <button id="mobileMenuBtn" aria-label="Abrir menú" aria-expanded="false"
+            class="lg:hidden text-3xl focus:outline-none transition">
+      <i class="fas fa-bars"></i>
+    </button>
 
-      <!-- Menú desktop -->
-      <ul class="hidden lg:flex items-center gap-10 text-xl font-medium">
-        <li><a href="index.html" class="hover:text-pink-600 transition">Inicio</a></li>
-        <li><a href="tienda.html" class="hover:text-pink-600 transition">Tienda</a></li>
-        <li><a href="index.html#destacados" class="hover:text-pink-600 transition">Destacados</a></li>
-        <li><a href="pedido.html" class="hover:text-pink-600 transition">Pedido</a></li>
-      </ul>
-    </div>
+    <!-- Desktop menu -->
+    <ul class="hidden lg:flex items-center gap-10 text-xl font-medium tracking-wide">
+      <li><a href="index.html" class="hover:text-pink-600 transition hover:font-extrabold">Inicio</a></li>
+      <li><a href="tienda.html" class="hover:text-pink-600 transition hover:font-extrabold">Tienda</a></li>
+      <li><a href="#destacados" class="hover:text-pink-600 transition hover:font-extrabold">Destacados</a></li>
+      <li><a href="pedido.html" class="hover:text-pink-600 transition hover:font-extrabold">Pedido</a></li>
+    </ul>
+  </div>
 
-    <!-- Menú móvil -->
-    <div id="mobileMenu" class="lg:hidden hidden mt-6 pb-4">
-      <ul class="flex flex-col gap-6 text-xl font-medium text-center">
-        <li><a href="index.html" class="block hover:text-pink-600 transition">Inicio</a></li>
-        <li><a href="tienda.html" class="block hover:text-pink-600 transition">Tienda</a></li>
-        <li><a href="index.html#destacados" class="block hover:text-pink-600 transition">Destacados</a></li>
-        <li><a href="pedido.html" class="block hover:text-pink-600 transition">Pedido</a></li>
-      </ul>
-    </div>
+  <!-- Mobile menu -->
+  <div id="mobileMenu" class="lg:hidden hidden mt-4">
+    <ul class="flex flex-col items-center text-lg divide-y divide-white tracking-wide">
+      <li class="w-full"><a href="index.html" class="block px-6 py-4 text-center hover:bg-white/30 transition  hover:text-white hover:font-extrabold">Inicio</a></li>
+      <li class="w-full"><a href="tienda.html" class="block px-6 py-4 text-center hover:bg-white/30 transition  hover:text-white hover:font-extrabold">Tienda</a></li>
+      <li class="w-full"><a href="#destacados" class="block px-6 py-4 text-center hover:bg-white/30 transition  hover:text-white hover:font-extrabold">Destacados</a></li>
+      <li class="w-full"><a href="pedido.html" class="block px-6 py-4 text-center hover:bg-white/30 transition  hover:text-white hover:font-extrabold">Pedido</a></li>
+    </ul>
   </div>
 </nav>
 
-<!-- Espacio para navbar fijo -->
-<div class="h-2 lg:h-20"></div>
-
-
-
-
-
-
-
-
-
-
-
+<!-- Spacer -->
+<div class="md:h-24"></div>
 
 
 
