@@ -20,18 +20,22 @@ body {
 }
 
 .title {
-    font-family: 'Twinkle Star', cursive;
+    font-family: 'Charmonman', cursive;
     letter-spacing: 2px;
     font-size: 38px;
-    color: var(--pink-main);
+    color: white;
 }
 
-.hero-gradient,
+
 .footer-gradient {
-    background: linear-gradient(135deg, var(--pink-main) 10%, var(--teal-main) 30%, var(--yellow-main) 60%, var(--pink-main) 90%);
+    background:linear-gradient(200deg, #ef1783 05%, #85d2cd 20%, #ffd589 30%, #ef1783 40%)
 }
 
+.footer-gradient :hover {
+    background:linear-gradient(200deg, #ef1783 05%, #85d2cd 20%, #ffd589 30%, #ef1783 40%)
+}
 .hero-gradient {
+    background:linear-gradient(20deg, #ef1783 50%, #85d2cd 60%, #ffd589 70%, #ef1783 80%);
     position: fixed;
     top: 0;
     width: 100%;
@@ -111,12 +115,148 @@ body {
         margin-top: 80px;
     }
 }
+
 .text-shadow-pink {
-  text-shadow: 4px 4px 0 #ff2e9a;
+  text-shadow: 
+   0 0 10px #ff9acb,
+      0 0 20px #ff7ab8,
+      0 0 40px #ff4fa3;
+          animation: glow 2.5s ease-in-out infinite;
 }
 
 .text-shadow-white {
   text-shadow: 4px 4px 0 rgba(255, 255, 255, 0.9);
 }
 
+.backwhite{
+    background-color: #fff;
+     animation: glow 2.5s ease-in-out infinite;
+}
+
+
+@keyframes glow{
+0%, 100%{text-shadow:
+      0 0 5px  #ef1783,
+      0 0 10px #ef1783,
+      0 0 20px #ef1783;
+  }
+    80% {text-shadow: 
+    0 0 10px #fff,
+    0 0 10px #ef1783,
+    0 0 10px #ef1783;
+}
+}
+
+.neon-blanco {
+  color: #ffffff;
+  animation: neonGlow 1.5s ease-in-out infinite alternate;
+}
+
+
+@keyframes neonGlow {
+  0% {
+    text-shadow:
+      0 0 5px #fff,
+      0 0 10px #fff,
+      0 0 20px #fff;
+  }
+  100% {
+    text-shadow:
+      0 0 10px #fff,
+      0 0 20px #fff,
+      0 0 40px #fff,
+      0 0 80px #fff;
+  }
+}
+
+.scrollbar-none::-webkit-scrollbar {
+  display: none;
+}
+
+ body { 
+            font-family: 'Cherry Swash', cursive;
+            margin-top: 60px;
+        }
+        .gradient-bg:hover { 
+            background: linear-gradient(135deg, #ef1783 20%, #ffd501 50%, #85d2d0 80%); 
+        }
+        .gradient-bg { 
+            background: linear-gradient(135deg, #ef1783 20%, #ffd501 50%, #85d2d0 80%); 
+            opacity:80%;
+        }
+        .text-shadow { 
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3); 
+        }
+        .hover-scale { 
+            transition: transform 0.3s ease; 
+        }
+        .hover-scale:hover { 
+            transform: scale(1.05); 
+        }
+        .modal { 
+            display: none; 
+        }
+        .modal.active { 
+            display: flex; 
+        }
+        .animate-bounce-slow { 
+            animation: bounce 2s infinite; 
+        }
+        .sticky-nav { 
+            backdrop-filter: blur(10px); 
+            background: rgba(233, 30, 99, 0.9); 
+            position: fixed; 
+            top: 0; 
+            width: 100%; 
+            z-index: 1000;
+        }
+        .filter-btn.active { 
+            background-color: #ef1783; 
+            color: white; 
+        }
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-20px); }
+        }
+        /* Mejoras de responsividad */
+        .product-grid {
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+        }
+        .form-grid {
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        }
+        .mobile-menu-active {
+            max-height: 500px;
+            transition: max-height 0.5s ease-in-out;
+        }
+        @media (max-width: 768px) {
+            .hero-title {
+                font-size: 3rem;
+            }
+            .section-title {
+                font-size: 2.5rem;
+            }
+            .product-card {
+                margin: 0 auto;
+                max-width: 350px;
+            }
+        }
+        @media (max-width: 480px) {
+            .hero-title {
+                font-size: 2.5rem;
+            }
+            .section-title {
+                font-size: 2rem;
+            }
+            .filter-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+            .filter-btn {
+                width: 100%;
+                max-width: 200px;
+                margin-bottom: 0.5rem;
+            }
+        }
+ 
 
