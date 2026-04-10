@@ -25,7 +25,7 @@ export function productCard(product) {
           src="${image || 'img/placeholder.jpg'}" 
           alt="${name}"
           loading="lazy"
-          class="w-full h-64 object-cover group-hover:scale-110 transition-transform duration-500"
+          class="w-full h-full object-contain group-hover:scale-110 transition-transform duration-500"
         >
         ${renderBadges({ badges })}
       </div>
@@ -73,7 +73,6 @@ export function initProductCards() {
               document.getElementById('pm-badges').innerHTML = renderBadges(product);
               document.getElementById('pm-prices').innerHTML = renderPriceBlock(product);
 
-              document.getElementById('pm-order').href = `pedido.html?product=${encodeURIComponent(product.name)}`;
             }
           });
         })

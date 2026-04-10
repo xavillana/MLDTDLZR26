@@ -6,7 +6,11 @@ export const cupcakes = [
     emoji: "❤️",
     shortDescription: "¿Podrás resistir este pecado de pura perversión carmesí?",
     longDescription: "Aterciopelado como una caricia prohibida, este cupcake de Red Velvet con crema de chocolate blanco hipnotiza con su color y textura. Es un beso robado, un secreto entre amantes de lo dulce. La mezcla de cacao, vainilla y chocolate blanco ofrece un placer eterno, donde cada bocado susurra promesas y deseos. Es ese tipo de pecado que sabes que no deberías probar… y aun así repetirías una otra vez.",
-    ingredients: ["Harina", "Cacao", "Mantequilla", "Azúcar", "Huevos", "Colorante rojo", "Vinagre", "Queso crema", "Chocolate blanco", "Extracto de vainilla"],
+    ingredients: [
+            'Textura aterciopelada',
+            'Color seductor',
+            'Ideal para ocasiones románticas'
+],
     formats: [],
     price: 3.5,
     badges: ["BESTSELLER"],
@@ -52,7 +56,7 @@ export const cupcakes = [
   {
     id: "crimen-cuqui",
     name: "Cookie & Crim",
-    emoji: "🫦",
+    emoji: "🍪",
     shortDescription: "¿Estás preparado para saborear el crimen perfecto?",
     longDescription: "Pecado en blanco y negro.  La galleta Oreo, con su crujiente textura, se mezcla a la perfección con la suavidad de la crema, se convierte en un juego de seducción irresistible. Capas de intensidad oscura rindiéndose ante una crema adictiva. ¿Te atreves a descubrir lo que se oculta tras cada capa de este placer prohibido? ",
     ingredients: [ "Harina", "Mantequilla", "Azúcar", "Huevos", "Oreo", "Extracto de Vainilla"],

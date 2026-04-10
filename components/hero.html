@@ -1,57 +1,67 @@
-<!-- components/hero.html -->
-<section class="min-h-screen items-center justify-center flex relative overflow-hidden">
-  <div class="absolute inset-0 opacity-70">
-    <img src="img/TARTA-MARCOS.JPG" alt="Fondo dulce" class="w-full h-full object-cover">
+<!-- HERO -->
+<section id="hero" class="relative flex items-center justify-center min-h-[85vh] overflow-hidden">
+
+  <!-- Imagen de fondo -->
+  <div class="absolute inset-0">
+    <img src="img/notMAIN.JPG"
+         alt="Tartas artesanales"
+         class="w-full h-full object-cover brightness-75">
   </div>
 
-  <div class="relative z-10 text-center px-6 max-w-5xl mx-auto">
-    <h1 class="text-6xl sm:text-6xl md:text-8xl lg:text-10xl xl:text-9xl font-black text-pink-600 drop-shadow-2xl leading-tight">
-      Tartas y cupcakes<br>
-      <span class="text-white drop-shadow-lg font-black text-shadow-pink">MALDITAMENTE</span> deliciosos
-    </h1>
+  <!-- Capa de degradado -->
+  <div class="absolute inset-0 bg-linear-to-b from-black/40 to-black/20"></div>
 
-    <p class="text-2xl md:text-2xl lg:text-3xl text-pink-600 font-bold mt-8 mb-12 max-w-3xl mx-auto drop-shadow-lg opacity-95">
+  <!-- Contenido -->
+  <div class="relative z-10 text-center px-6 max-w-4xl mx-auto">
 
-    </p>
+    <!-- Título -->
+    <div class="px-6 py-12 mx-auto">
+      <h1 class="title font-regular text-6xl sm:text-7xl md:text-8xl lg:text-9xl tracking-tight text-shadow-pink">
+        Maldita Dulzura
+      </h1>
 
-    <div class="flex flex-col sm:flex-row gap-6 justify-center items-center">
-      <a href="tienda.html" class="bg-pink-600 text-white font-black text-xl px-10 py-5 rounded-full hover:bg-pink-100 hover:text-pink-600 hover:scale-110 transition shadow-2xl">
-        Ver Menú
-      </a>
-      <a href="pedido.html" class="bg-pink-600 text-white font-black text-xl px-10 py-5 rounded-full hover:bg-pink-100 hover:text-pink-600 hover:scale-110 transition shadow-2xl">
-        Hacer Pedido
-      </a>
+      <div class="mt-4 mb-8 h-1 w-24 bg-pink-600 mx-auto rounded-full animate-pulse"></div>
+
+      <h2 class="neon-blanco text-pink-600 text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-black leading-tight">
+        Tartas y cupcakes <br> para pecar sin culpa
+      </h2>
     </div>
+
+    <!-- BOTONES -->
+    <div class="mt-8 flex items-center gap-6 justify-center">
+
+      <!-- Botón Tienda -->
+      <a href="tienda.html">
+        <button
+          class="w-[250px] text-pink-600 text-xl px-10 py-5 rounded-full neon-blanco bg-white hover:text-white shadow-8xl 
+                 group relative inline-flex items-center justify-center font-bold overflow-hidden transition-colors duration-300">
+
+          <span
+            class="absolute inset-0 bg-pink-600 -translate-x-full -translate-y-full
+                   group-hover:translate-x-0 group-hover:translate-y-0 transition-transform duration-300">
+          </span>
+
+          <span class="relative">Tienda</span>
+        </button>
+      </a>
+
+      <!-- Botón Pedido -->
+      <a href="pedido.html">
+        <button
+          class="w-[250px] text-pink-600 text-xl px-10 py-5 rounded-full neon-blanco bg-white hover:text-white shadow-8xl 
+                 group relative inline-flex items-center justify-center font-bold overflow-hidden transition-colors duration-300">
+
+          <span
+            class="absolute inset-0 bg-pink-600 -translate-x-full -translate-y-full
+                   group-hover:translate-x-0 group-hover:translate-y-0 transition-transform duration-300">
+          </span>
+
+          <span class="relative">Pedido</span>
+        </button>
+      </a>
+
+    </div>
+
   </div>
+
 </section>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

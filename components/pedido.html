@@ -1,5 +1,43 @@
 <!-- components/pedido.html -->
-<section class="py-16 lg:py-28 bg-white">
+
+<nav class="gradient-bg text-white fixed top-0 w-full z-50 shadow-2xl" role="navigation">
+  <div class="container mx-auto px-4 py-4 flex items-center justify-between">
+
+    <!-- Logo -->
+    <a href="index.html" class="flex items-center justify-center text-center gap-3 transition">
+      <span class="title font-bold text-5xl tracking-tighter text-shadow-pink">MD</span>
+    </a>
+
+    <!-- Mobile button -->
+    <button id="mobileMenuBtn" aria-label="Abrir menú" aria-expanded="false"
+            class="lg:hidden text-3xl focus:outline-none transition">
+      <i class="fas fa-bars"></i>
+    </button>
+
+    <!-- Desktop menu -->
+    <ul class="hidden lg:flex items-center gap-10 text-xl font-medium tracking-wide">
+      <li><a href="index.html" class="hover:text-pink-600 transition hover:font-extrabold">Inicio</a></li>
+      <li><a href="tienda.html" class="hover:text-pink-600 transition hover:font-extrabold">Tienda</a></li>
+
+      <li><a href="pedido.html" class="hover:text-pink-600 transition hover:font-extrabold">Pedido</a></li>
+    </ul>
+  </div>
+
+  <!-- Mobile menu -->
+  <div id="mobileMenu" class="lg:hidden hidden mt-4">
+    <ul class="flex flex-col items-center text-lg divide-y divide-white tracking-wide">
+      <li class="w-full"><a href="index.html" class="block px-6 py-4 text-center hover:bg-white/30 transition  hover:text-white hover:font-extrabold">Inicio</a></li>
+      <li class="w-full"><a href="tienda.html" class="block px-6 py-4 text-center hover:bg-white/30 transition  hover:text-white hover:font-extrabold">Tienda</a></li>
+      <li class="w-full"><a href="#destacados" class="block px-6 py-4 text-center hover:bg-white/30 transition  hover:text-white hover:font-extrabold">Destacados</a></li>
+      <li class="w-full"><a href="pedido.html" class="block px-6 py-4 text-center hover:bg-white/30 transition  hover:text-white hover:font-extrabold">Pedido</a></li>
+    </ul>
+  </div>
+</nav>
+
+
+
+
+<section class="relative min-h-screen flex items-center justify-center text-center overflow-hidden">">
      <div class="container mx-auto px-4 sm:px-6 lg:px-8 max-w-6xl">
      <h2 class="text-4xl md:text-5xl font-bold text-center text-pink-600 mb-12">¿LISTO PARA PECAR</h2>
      <p class="text-xl text-gray-700 max-w-3xl mx-auto items-center text-center mb-12">
@@ -234,4 +272,6 @@
       <p class="text-base sm:text-lg">Hemos recibido tu pedido. Te contactaremos pronto para confirmar los detalles y el presupuesto.</p>
      </div>
     </div>
+
+
 
