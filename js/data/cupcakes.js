@@ -38,7 +38,7 @@ export const cupcakes = [
     formats: [],
     price: 3.5,
     badges: [""],
-    image: "img/CHOCOBAILES.JPG"
+    image: "img/chocolatecupcakes,jpg"
 
   },
   {

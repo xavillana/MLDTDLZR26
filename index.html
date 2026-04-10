@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -47,3 +48,54 @@
 </body>
 </html>
 
+=======
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Maldita Dulzura | Tartas y Cupcakes Rebeldes</title>
+  <meta name="description" content="Tartas artesanales, cupcakes y cheesecakes malditamente deliciosos. Creaciones rebeldes con sabores explosivos.">
+
+  <meta property="og:title" content="Maldita Dulzura | Tartas y Cupcakes Rebeldes">
+  <meta property="og:description" content="Creaciones artesanales con actitud. Dulces que no piden permiso.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://malditadulzura.com">
+  <meta property="og:image" content="https://malditadulzura.com/img/og-image.jpg">
+
+  <link rel="icon" href="img/favicon.png" type="image/png">
+  <link href="https://fonts.googleapis.com/css2?family=Englebert&family=Twinkle+Star&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="style/style.css">
+</head>
+<body class="bg-[#fffbf7] min-h-screen flex flex-col">
+  <div id="globalModal"></div>
+  <header id="navbar"></header>
+
+  <main class="flex-1">
+    <section id="hero"></section>
+    <section id="sobrenosotros"></section>
+    <section id="destacados"></section>
+    <section id="newsletter"></section>
+  </main>
+
+  <footer id="footer"></footer>
+
+  <!-- CDN de EmailJS (necesario para que newsletter.js funcione) -->
+  <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+  <script type="module" src="js/router.js"></script>
+  <script type="module">
+    document.body.classList.add('opacity-0');
+    document.addEventListener('DOMContentLoaded', () => {
+      setTimeout(() => {
+        document.body.classList.remove('opacity-0');
+        document.body.classList.add('opacity-100', 'transition-opacity', 'duration-700');
+      }, 100);
+    });
+  </script>
+</body>
+</html>
+
+
+>>>>>>> 388f77d368822908b43a0d28a3f4530162f74ace
