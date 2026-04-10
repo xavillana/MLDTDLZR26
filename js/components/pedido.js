@@ -1,11 +1,7 @@
-// js/pedido.js
-// Lógica completa para el formulario avanzado de pedido con EmailJS
-
+// 1. Importa los productos (suponiendo que usas módulos)
 import { allProducts } from '../data/allProducts.js';
 
-let selectedProduct = null; // Producto seleccionado actualmente
-
-export function initPedidoPage() {
+  export function initPedidoPage() {
   // Elementos principales
   const tipoProductoRadios = document.querySelectorAll('input[name="tipoProducto"]');
   const tartasSection = document.getElementById('tartasSection');
@@ -39,28 +35,45 @@ export function initPedidoPage() {
   };
 
   // Actualizar opciones de sabores para cupcakes
-  window.updateFlavorOptions = function() {
-    const cantidad = cantidadCupcakes.value === 'otro' ? parseInt(cantidadOtra.value) || 0 : parseInt(cantidadCupcakes.value) || 0;
-    flavorsContainer.innerHTML = '';
-    if (cantidad > 0) {
-      document.getElementById('flavorLabel').textContent = `Selecciona hasta ${Math.ceil(cantidad / 6)} sabores`;
-      for (let i = 1; i <= Math.ceil(cantidad / 6); i++) {
-        const select = document.createElement('select');
-        select.className = 'w-full px-3 py-2 border border-gray-300 rounded-md text-sm sm:text-base';
-        select.innerHTML = `
-          <option value="">Sabor ${i}</option>
-          <option value="vainilla">Vainilla</option>
-          <option value="chocolate">Chocolate</option>
-          <option value="fresa">Fresa</option>
-          <!-- Añade más sabores según tu lista -->
-        `;
-        flavorsContainer.appendChild(select);
-      }
-      if (cantidadCupcakes.value === 'otro') cantidadPersonalizada.classList.remove('hidden');
-      else cantidadPersonalizada.classList.add('hidden');
-    }
-    calculatePrice();
-  };
+
+window.updateFlavorOptions = function () {
+const isOtra = cantidadCupcakes.value === 'Otra cantidad';
+    ? parseInt(cantidadOtra.value) || 0 
+    : parseInt(cantidadCupcakes.value) || 0;
+
+  flavorsContainer.innerHTML = '';
+
+  if (cantidad <= 0) {
+    document.getElementById('flavorLabel').textContent = 'Selecciona la cantidad primero';
+    return;
+  }
+
+  const cupcakeProducts = allProducts.filter(p => p.category === 'cupcakes' && !p.hidden);
+
+  document.getElementById('flavorLabel').textContent = 
+    `Selecciona hasta ${Math.ceil(cantidad / 6)} sabores diferentes`;
+
+  for (let i = 1; i <= Math.ceil(cantidad / 6); i++) {
+    const select = document.createElement('select');
+    select.className = 'w-full px-3 py-2 border border-gray-300 rounded-md text-sm sm:text-base';
+    select.name = `sabor_${i}`; // útil para el envío del form
+    select.required = true;
+
+    let options = '<option value="">Sabor ' + i + ' *</option>';
+    
+    cupcakeProducts.forEach(product => {
+      options += `<option value="${product.id}">${product.name}${product.featured ? ' ★' : ''}</option>`;
+    });
+
+    select.innerHTML = options;
+    flavorsContainer.appendChild(select);
+  }
+
+  // Mostrar/ocultar campo "otra cantidad"
+  cantidadPersonalizada.classList.toggle('hidden', cantidadCupcakes.value !== 'Otra cantidad');
+
+  calculatePrice();
+};
 
   // Toggle sección de dirección
   window.toggleDireccionSection = function() {

@@ -1,0 +1,158 @@
+        /* Espaciado para el navbar fijo */
+        .content-wrapper {
+            padding-top: 80px;
+        }
+        
+        /* Secciones */
+        section {
+            min-height: 100vh;
+            padding: 4rem 1rem;
+        }
+        
+        .hero-section {
+            background: linear-gradient(135deg, #fdf2f8, #fce7f3, #f3e8ff);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .productos-section {
+            background: linear-gradient(135deg, #fff7ed, #ffedd5);
+        }
+        
+        .pedidos-section {
+            background: linear-gradient(135deg, #fdf2f8, #fce7f3, #f3e8ff);
+        }
+        
+        .contacto-section {
+            background: linear-gradient(135deg, #f0fdf4, #dcfce7);
+        }
+        
+        /* Estilos del formulario */
+        .form-section {
+            background: white;
+            border-radius: 1rem;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+        
+        .btn-primary {
+            background-color: #ef1783;
+            transition: all 0.3s ease;
+        }
+        
+        .btn-primary:hover {
+            background-color: #d01472;
+            transform: translateY(-2px);
+        }
+        
+        input:focus, select:focus, textarea:focus {
+            border-color: #ef1783;
+            box-shadow: 0 0 0 3px rgba(239, 23, 131, 0.2);
+            outline: none;
+        }
+        
+        .checkbox-custom {
+            display: inline-block;
+            position: relative;
+            padding-left: 30px;
+            cursor: pointer;
+        }
+        
+        .checkbox-custom input {
+            position: absolute;
+            opacity: 0;
+            cursor: pointer;
+        }
+        
+        .checkmark {
+            position: absolute;
+            top: 0;
+            left: 0;
+            height: 20px;
+            width: 20px;
+            background-color: #fff;
+            border: 2px solid #ef1783;
+            border-radius: 4px;
+        }
+        
+        .checkbox-custom:hover input ~ .checkmark {
+            background-color: #f9f9f9;
+        }
+        
+        .checkbox-custom input:checked ~ .checkmark {
+            background-color: #ef1783;
+        }
+        
+        .checkmark:after {
+            content: "";
+            position: absolute;
+            display: none;
+        }
+        
+        .checkbox-custom input:checked ~ .checkmark:after {
+            display: block;
+        }
+        
+        .checkbox-custom .checkmark:after {
+            left: 6px;
+            top: 2px;
+            width: 5px;
+            height: 10px;
+            border: solid white;
+            border-width: 0 2px 2px 0;
+            transform: rotate(45deg);
+        }
+        
+        .section-title {
+            color: #ef1783;
+        }
+        
+        .hidden {
+            display: none;
+        }
+        
+        .product-card {
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+        
+        .product-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+        
+        .product-card.selected {
+            border-color: #ef1783 !important;
+            background-color: #fdf2f8 !important;
+        }
+        
+        /* Tarjetas de productos en la galería */
+        .gallery-card {
+            background: white;
+            border-radius: 1rem;
+            overflow: hidden;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+        }
+        
+        .gallery-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 15px rgba(0,0,0,0.2);
+        }
+        
+        /* Menú móvil */
+        .mobile-menu {
+            display: none;
+        }
+        
+        .mobile-menu.active {
+            display: block;
+        }
+        
+        @media (max-width: 768px) {
+            .desktop-menu {
+                display: none;
+            }
+        }
+      @view-transition { navigation: auto;
+    }

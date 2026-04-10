@@ -119,4 +119,9 @@ body {
   text-shadow: 4px 4px 0 rgba(255, 255, 255, 0.9);
 }
 
-
+.checkbox-custom {
+  position: relative;
+  cursor: pointer;
+  font-size: 16px;
+  user-select: none;
+}
