@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 // js/components/productCard.js
 
 import { openModal } from '../core/ui.js';
