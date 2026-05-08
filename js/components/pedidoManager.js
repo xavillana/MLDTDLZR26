@@ -597,5 +597,4 @@ if (orderForm) {
       alert("Hubo un error al enviar el pedido. Inténtalo de nuevo o contáctanos por WhatsApp.");
     }
   });
->>>>>>> 388f77d368822908b43a0d28a3f4530162f74ace
 }
